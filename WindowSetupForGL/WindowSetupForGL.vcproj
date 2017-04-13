@@ -53,7 +53,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile=".\Debug/usingWin.pch"
+				PrecompiledHeaderFile=".\Debug/WindowSetupForGL.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -75,12 +75,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib winmm.lib lib/*.lib"
-				OutputFile=".\Debug/usingWin.exe"
+				OutputFile=".\Debug/WindowSetupForGL.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="libc.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/usingWin.pdb"
+				ProgramDatabaseFile=".\Debug/WindowSetupForGL.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -98,7 +98,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/usingWin.bsc"
+				OutputFile=".\Debug/WindowSetupForGL.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"

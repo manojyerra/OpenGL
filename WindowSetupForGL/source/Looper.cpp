@@ -1,4 +1,5 @@
 #include "Looper.h"
+#include "Input.h"
 #include <windows.h>
 #include <gl/gl.h>
 
@@ -10,6 +11,10 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 void Looper::Update(float deltaTime)
 {
+	if(Input::IsMouseClicked())
+	{
+		printf("mouse clicked.");
+	}
 }
 
 void Looper::Draw()
@@ -25,6 +30,8 @@ void Looper::Draw()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	//Drawing rectangle...
 
 	float x = 10;
 	float y = 10;
