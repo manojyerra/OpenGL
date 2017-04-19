@@ -29,7 +29,7 @@ float GLAndUtil::_clearG = 0;
 float GLAndUtil::_clearB = 0;
 float GLAndUtil::_clearA = 0;
 
-float GLAndUtil::_zNearPlaneW = 0;
+float GLAndUtil::_zNearPlaneHalfW = 0;
 
 float GLAndUtil::SW = 0;
 float GLAndUtil::SH = 0;
@@ -48,8 +48,6 @@ void GLAndUtil::Init(int screenW, int screenH)
 	glDisable	( GL_CULL_FACE		);
 	glEnable	( GL_BLEND			);
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable	( GL_LINE_SMOOTH	);
-	//glHint		( GL_LINE_SMOOTH_HINT, GL_DONT_CARE	);
 
 	_transZ = -158.0f;
 	_transY = -8.7f;
@@ -57,7 +55,10 @@ void GLAndUtil::Init(int screenW, int screenH)
 	_angleX = 20;
 	_angleY = 0;
 
-	_zNearPlaneW = 0.1f;
+	_zNear  = 1.0f;
+	_zFar = 10000.0f;
+
+	_zNearPlaneHalfW = 0.1f;
 
 	_viewX = 0.0f;
 	_viewY = 0.0f;
@@ -79,7 +80,18 @@ void GLAndUtil::Begin3DDraw()
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	SetFrustum(-_zNearPlaneW, _zNearPlaneW, -_zNearPlaneW*SH/SW, _zNearPlaneW*SH/SW, 1, 10000);
+
+	SetFrustum(-_zNearPlaneHalfW, _zNearPlaneHalfW, -_zNearPlaneHalfW*SH/SW, _zNearPlaneHalfW*SH/SW, _zNear, _zFar);
+
+
+	//for ortho projection...
+
+	//float _leftVal = -(-_transZ *_zNearPlaneHalfW) / _zNear;
+	//float _rightVal = (-_transZ *_zNearPlaneHalfW) / _zNear;
+	//float _bottomVal = -((-_transZ *_zNearPlaneHalfW) / _zNear) * (SH/SW);
+	//float _topVal = ((-_transZ *_zNearPlaneHalfW) / _zNear) * (SH/SW);
+
+	//glOrtho(_leftVal, _rightVal, _bottomVal, _topVal, _zNear, _zFar);
 }
 
 void GLAndUtil::SetModelViewMatrix()
@@ -122,11 +134,6 @@ void GLAndUtil::ClearColor(float clearR, float clearG, float clearB, float clear
 	_clearA = clearA;
 
 	glClearColor(clearR, clearG, clearB, clearA);
-}
-
-void GLAndUtil::SetZNearPlaneWidth(float width)
-{
-	_zNearPlaneW = width*0.5;
 }
 
 void GLAndUtil::SetViewport(float x, float y, float w, float h)
@@ -179,7 +186,7 @@ bool GLAndUtil::UpdateCamera()
 	}
 	if(Input::IsKeyPressed(VK_SHIFT) && Input::IsMouseDragged())
 	{
-		_transZ += (Input::PrevMY - Input::MY) * 0.4;
+		_transZ += (Input::PrevMY - Input::MY) * 2;
 		return true;
 	}
 	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMouseDragged())
@@ -206,120 +213,3 @@ bool GLAndUtil::UpdateCamera()
 
 	return false;
 }
-
-/*
-
-int GLAndUtil::GetTriNum(int x, int y)
-{
-	unsigned char data[4];
-	glReadPixels( x, SH-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-	if(data[0] == 255 && data[1] == 255 && data[2] == 255 && data[3] == 255)
-		return -1;
-
-	return (data[0] + data[1]*255 + data[2]*255*255);
-}
-
-Pos GLAndUtil::GetPosOnUVTriangle(Tri tri, float x, float y)
-{
-	Pos pos1 = GetPosOn2DScreen(tri.v1.x, tri.v1.y, tri.v1.z);
-	Pos pos2 = GetPosOn2DScreen(tri.v2.x, tri.v2.y, tri.v2.z);
-	Pos pos3 = GetPosOn2DScreen(tri.v3.x, tri.v3.y, tri.v3.z);
-
-	Pos t1( tri.t1.u, tri.t1.v);
-	Pos t2( tri.t2.u, tri.t2.v);
-	Pos t3( tri.t3.u, tri.t3.v);
-
-	Pos pos(x, y);
-	Pos percent = Triangle2D::FindPercentages(pos1, pos2, pos3, pos);
-
-	return Triangle2D::FindIntersectionByPercentages(t1, t2, t3, percent.x, percent.y);
-}
-
-Pos GLAndUtil::GetPosOn2DScreen(float x, float y, float z)
-{
-	Point p(x,y,z);
-
-	p.SetRotationY(_angleY);
-	p.SetRotationX(_angleX);
-
-	p.x += _transX;
-	p.y += _transY;
-	p.z += _transZ;
-
-	float frustumWidth = _right - _left;
-	float frustumHeight = _top - _bottom;
-
-	float dx = (p.x*-_zNear/p.z) - _left;
-	float dy = (p.y*-_zNear/p.z) - _bottom;
-
-	float xOnViewPort = _viewW * dx / frustumWidth;
-	float yOnViewPort = _viewH * dy / frustumHeight;
-
-	return Pos( _viewX + xOnViewPort, SH - (_viewY + yOnViewPort) );
-}
-*/
-
-//float GameLoop::DistLine3D(Point p1, Point p2)
-//{
-//	return DistLine3D(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
-//}
-//
-//float GameLoop::DistLine3D(float x1, float y1, float z1, float x2, float y2, float z2)
-//{
-//	return sqrt( (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1) + (z2-z1)*(z2-z1) );
-//}
-
-//void GameLoop::DrawRND()
-//{
-//	UpdateCamera();
-//
-//	glClearColor(0.3,0.3,0.3,1);
-//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//
-//	glMatrixMode(GL_PROJECTION);
-//	glLoadIdentity();
-//	SetFrustum(-0.2, 0.2, -0.2*_viewH/_viewW, 0.2*_viewH/_viewW, _zNear, 10000);
-//
-//	glMatrixMode(GL_MODELVIEW);
-//	glLoadIdentity();
-//	glTranslatef(_transX,_transY,_transZ);
-//	glRotatef(_angleX,1,0,0);
-//	glRotatef(_angleY,0,1,0);
-//
-//	ImageInfo* imgInfo = _objReader->GetSprite()->GetTexture();
-//
-//	glEnable(GL_TEXTURE_2D);
-//	glBindTexture(GL_TEXTURE_2D, imgInfo->textureID);
-//
-//	Point p1(0,0,-20);
-//	Point p2(20,0,-20);
-//	Point p3(0,40,-20);
-//
-//	float dist = DistLine3D(p1, p2);
-//
-//	float u1 = imgInfo->width/2.0f;
-//	float v1 = imgInfo->height/2.0f;
-//
-//	float u2 = u1+dist*3;
-//	float v2 = v1;
-//
-//	float distP1P3 = DistLine3D(p1, p3);
-//	float distP2P3 = DistLine3D(p2, p3);
-//
-//	TwoPos twoPos = Triangle2D::GetP3(Pos(u1,v1), distP1P3*3, Pos(u2,v2), distP2P3*3);
-//
-//	float u3 = twoPos.p1.x;
-//	float v3 = twoPos.p1.y;
-//
-//	glBegin(GL_TRIANGLES);
-//		glTexCoord2f(u1/imgInfo->width, v1/imgInfo->height); glVertex3f(0,0,-20);
-//		glTexCoord2f(u2/imgInfo->width, v2/imgInfo->height); glVertex3f(10,0,-20);
-//		glTexCoord2f(u3/imgInfo->width, v3/imgInfo->height); glVertex3f(0,10,-20);
-//		//glTexCoord2f(u1/imgInfo->width, v1/imgInfo->height); glVertex3f(0,0,-20);
-//		//glTexCoord2f(u2/imgInfo->width, v2/imgInfo->height); glVertex3f(-10,0,-20);
-//		//glTexCoord2f(u3/imgInfo->width, v3/imgInfo->height); glVertex3f(0,10,-20);
-//	glEnd();
-//
-//	glDisable(GL_TEXTURE_2D);
-//}
