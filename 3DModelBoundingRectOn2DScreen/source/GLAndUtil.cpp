@@ -39,14 +39,17 @@ void GLAndUtil::Init(int screenW, int screenH)
 	SW = screenW;
 	SH = screenH;
 
-	glShadeModel( GL_SMOOTH			);
-	glCullFace	( GL_BACK			);
-	glFrontFace	( GL_CCW			);
-	glEnable	( GL_DEPTH_TEST		);
-	glDisable	( GL_FOG			);
-	glDisable	( GL_LIGHTING		);
-	glDisable	( GL_CULL_FACE		);
-	glEnable	( GL_BLEND			);
+	glShadeModel( GL_SMOOTH		);
+	glCullFace	( GL_BACK		);
+	glFrontFace	( GL_CCW		);
+	
+	glEnable	( GL_DEPTH_TEST	);
+	glEnable	( GL_BLEND		);
+
+	glDisable	( GL_FOG		);
+	glDisable	( GL_LIGHTING	);
+	glDisable	( GL_CULL_FACE	);
+	
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	_transZ = -258.0f;
@@ -106,10 +109,6 @@ void GLAndUtil::SetModelViewMatrix()
 void GLAndUtil::Begin2DDraw()
 {
 	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glLineWidth(1.0f);
-
 	SetViewport(_viewX,_viewY,_viewW, _viewH);
 
 	glMatrixMode(GL_PROJECTION);
@@ -126,14 +125,14 @@ void GLAndUtil::Clear()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void GLAndUtil::ClearColor(float clearR, float clearG, float clearB, float clearA)
+void GLAndUtil::ClearColor(float r, float g, float b, float a)
 {
-	_clearR = clearR;
-	_clearG = clearG;
-	_clearB = clearB;
-	_clearA = clearA;
+	_clearR = r;
+	_clearG = g;
+	_clearB = b;
+	_clearA = a;
 
-	glClearColor(clearR, clearG, clearB, clearA);
+	glClearColor(_clearR, _clearG, _clearB, _clearA);
 }
 
 void GLAndUtil::SetViewport(float x, float y, float w, float h)
@@ -156,6 +155,18 @@ void GLAndUtil::SetFrustum(float left, float right, float bottom, float top, flo
 	_zFar = zFar;
 
 	glFrustum(_left, _right, _bottom, _top, _zNear, _zFar);
+}
+
+void GLAndUtil::Enable(unsigned int* arr, int size)
+{
+	for(int i=0; i<size; i++)
+		glEnable(arr[i]);
+}
+
+void GLAndUtil::Disable(unsigned int* arr, int size)
+{
+	for(int i=0; i<size; i++)
+		glDisable(arr[i]);
 }
 
 bool GLAndUtil::UpdateCamera()

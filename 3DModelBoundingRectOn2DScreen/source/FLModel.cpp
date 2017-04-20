@@ -146,7 +146,6 @@ void FLModel::DrawBounding2DRect()
 							{_maxX, _maxY, _maxZ},
 						};
 
-
 	for(int i=0; i<8; i++)
 	{
 		GLAndUtil::Get2DPosOnScreenFrom3DPos(pos3D[i], pos2D[i]);
@@ -240,3 +239,4 @@ void FLModel::DrawBoundingBox()
 
 	glEnd();
 }
+

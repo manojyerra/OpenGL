@@ -32,7 +32,7 @@ void Looper::Draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	GLfloat qaLightPos[]	= {0, 0, 0, 1.0};
+	GLfloat qaLightPos[] = {0, 0, 0, 1.0};
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glLightfv(GL_LIGHT0, GL_POSITION, qaLightPos);
@@ -50,15 +50,9 @@ void Looper::Draw()
 	GLfloat Kd[] = { 0.600000, 0.600000, 0.600000, 1.0};
 	GLfloat Ks[] = { 0.900000, 0.900000, 0.900000, 1.0};
 
-	glShadeModel( GL_SMOOTH );
-	//glMaterialfv(GL_FRONT, GL_AMBIENT, qaBlack);
-	//glMaterialfv(GL_FRONT, GL_DIFFUSE, qaGreen);
-	//glMaterialfv(GL_FRONT, GL_SPECULAR, qaWhite);
-
 	glMaterialfv(GL_FRONT, GL_AMBIENT, Ka);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, Kd);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, Ks);
-
 	glMaterialf(GL_FRONT, GL_SHININESS, 1.0);
 
 	_flModel->Draw();

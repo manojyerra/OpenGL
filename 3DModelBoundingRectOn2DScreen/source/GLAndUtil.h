@@ -42,16 +42,17 @@ private:
 public:
 	static void Init(int screenW, int screenH);
 
+	static void SetViewport(float x, float y, float w, float h);
 	static void Begin3DDraw();
 	static void SetModelViewMatrix();
 	static void Begin2DDraw();
 	static bool UpdateCamera();
 
-	static void SetViewport(float x, float y, float w, float h);
-
 	static void Clear();
-	static void ClearColor(float clearR, float clearG, float clearB, float clearA);
+	static void ClearColor(float r, float g, float b, float a);
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D);
+	static void Enable(unsigned int* arr, int size);
+	static void Disable(unsigned int* arr, int size);
 };
 
 #endif
