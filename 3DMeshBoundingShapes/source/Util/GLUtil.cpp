@@ -279,10 +279,10 @@ unsigned int GLUtil::GLColor(unsigned int color)
 	return (unsigned int)((r<<24) + (g<<16) + (b<<8) + a);
 }
 
-void GLUtil::_glColor(unsigned int color)
-{
-	glColor4ub((color >> 24) & 255, (color >> 16) & 255, (color >> 8) & 255, color & 255);
-}
+//void GLUtil::_glColor(unsigned int color)
+//{
+//	glColor4ub((color >> 24) & 255, (color >> 16) & 255, (color >> 8) & 255, color & 255);
+//}
 
 void GLUtil::GLClearColor(float r, float g, float b, float a, GLfloat* prevColor)
 {

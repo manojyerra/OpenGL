@@ -7,6 +7,7 @@
 #include "Math/GLMat.h"
 
 #define GLUtil glUtil
+#define glColor(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
 
 class GLUtil
 {
@@ -74,7 +75,7 @@ public:
 	static int GetWindowWidth();
 	static int GetWindowHeight();
 
-	static void _glColor(unsigned int color);
+	//static void _glColor(unsigned int color);
 };
 
 #endif

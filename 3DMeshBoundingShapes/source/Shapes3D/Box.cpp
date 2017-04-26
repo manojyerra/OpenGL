@@ -195,50 +195,50 @@ void Box::Draw()
 	_randomColor.Reset();
 
 	//Front face
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(-w, -h, +d);
 	glVertex3f(+w, -h, +d);
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(+w, +h, +d);
 	glVertex3f(-w, +h, +d);
 
 	//Back face
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(-w, -h, -d);
 	glVertex3f(-w, +h, -d);
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(+w, +h, -d);
 	glVertex3f(+w, -h, -d);
 
 	//Top face
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(-w, +h, -d);
 	glVertex3f(-w, +h, +d);
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(+w, +h, +d);
 	glVertex3f(+w, +h, -d);
 	
 	//Bottom face
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(-w, -h, -d);
 	glVertex3f(+w, -h, -d);
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(+w, -h, +d);
 	glVertex3f(-w, -h, +d);
 
 	//Right face
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(+w, -h, -d);
 	glVertex3f(+w, +h, -d);
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(+w, +h, +d);
 	glVertex3f(+w, -h, +d);
 
 	//Left face
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(-w, -h, -d);
 	glVertex3f(-w, -h, +d);
-	glUtil::_glColor(_randomColor.NextColor());
+	glColor(_randomColor.NextColor());
 	glVertex3f(-w, +h, +d);
 	glVertex3f(-w, +h, -d);
 	glEnd();

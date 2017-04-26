@@ -152,7 +152,7 @@ void Cone::Draw()
 		float theta = i*piVal/180.0f;
 		float nextTheta = (i+20)*piVal/180.0f;
 
-		glUtil::_glColor(_randomColor.NextColor());
+		glColor(_randomColor.NextColor());
 		glVertex3f(0, halfLength, 0);
 
 		glColor4ub(80, 80, 80, 255);
@@ -160,7 +160,7 @@ void Cone::Draw()
 		glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 		glVertex3f(0, -halfLength, 0);
 
-		glUtil::_glColor(_randomColor.NextColor());
+		glColor(_randomColor.NextColor());
 		glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 	}

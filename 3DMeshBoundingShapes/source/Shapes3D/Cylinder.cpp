@@ -186,7 +186,7 @@ void Cylinder::Draw()
 		float theta = (i-20)*piVal/180.0f;
 		float nextTheta = (i)*piVal/180.0f;
 
-		glUtil::_glColor( _randomColor.NextColor() );
+		glColor( _randomColor.NextColor() );
 		
 		glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
 		glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
@@ -198,16 +198,16 @@ void Cylinder::Draw()
 
 		glVertex3f(0, halfLength, 0);
 
-		glUtil::_glColor( _randomColor.NextColor() );
+		glColor( _randomColor.NextColor() );
 
 		glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
 
-		glUtil::_glColor( _randomColor.NextColor() );
+		glColor( _randomColor.NextColor() );
 
 		glVertex3f(0, -halfLength, 0);
 		
-		glUtil::_glColor( _randomColor.NextColor() );
+		glColor( _randomColor.NextColor() );
 
 		glVertex3f(radius*cos(theta),	-halfLength,		radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta),	-halfLength,		radius*sin(nextTheta));
