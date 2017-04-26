@@ -74,9 +74,9 @@ void Looper::Draw()
 	glMultMatrixf(flModel->GetMat().m);
 
 	//_box->Draw();
-	//_cone->Draw();
+	_cone->Draw();
 	//_sphere->Draw();
-	_cylinder->Draw();
+	//_cylinder->Draw();
 
 	glPopMatrix();
 }

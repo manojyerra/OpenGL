@@ -64,24 +64,40 @@ Cone Cone::CalcBoundingCone(float* vertexBuf, int arrSize)
 
 	TransformVertexBuf::MulBufWithMatrix(localVertexBuf, arrSize, cylMatInvert);
 
-	float height = cylinder.GetHeight() * 1.01;
+	float height = cylinder.GetHeight() * 1.05;
 	float radius = CalcRadius(localVertexBuf, arrSize, height);
 	float volume = (1.0f/3.0f) * PI_VAL * radius * radius * height;
 
 	float finalH = height;
 
-	for(float i=1.1; i<2; i+=0.1)
+	bool addX180Rot = false;
+
+	for(int loop=0; loop<2; loop++)
 	{
-		float currH = height * i;
-
-		float r = CalcRadius(localVertexBuf, arrSize, currH);
-		float v = (1.0f/3.0f) * PI_VAL * r * r * currH;
-
-		if(v < volume)
+		if(loop == 1)
 		{
-			volume = v;
-			radius = r;
-			finalH = currH;
+			float cylinderH = cylinder.GetHeight();
+			
+			for(int i=3; i<arrSize; i+=3)
+				localVertexBuf[i+1] = cylinderH - localVertexBuf[i+1];
+		}
+
+		for(float i=1.1; i<2; i+=0.1)
+		{
+			float currH = height * i;
+
+			float r = CalcRadius(localVertexBuf, arrSize, currH);
+			float v = (1.0f/3.0f) * PI_VAL * r * r * currH;
+
+			if(v < volume)
+			{
+				volume = v;
+				radius = r;
+				finalH = currH;
+
+				if(loop == 1)
+					addX180Rot = true;
+			}
 		}
 	}
 
@@ -92,6 +108,13 @@ Cone Cone::CalcBoundingCone(float* vertexBuf, int arrSize)
 
 	GLMat mat;
 	mat.glMultMatrixf(matInvert);
+
+	if(addX180Rot)
+	{
+		mat.glTranslatef(0,cylinder.GetHeight(),0);
+		mat.glRotatef(180, 1,0,0);
+	}
+
 	mat.glTranslatef(0,finalH/2,0);
 
 	Cone cone(mat.m, radius, finalH);
