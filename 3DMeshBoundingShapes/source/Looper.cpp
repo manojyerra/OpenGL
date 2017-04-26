@@ -21,31 +21,6 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_modelsMgr = new ModelsManager();
 
 	flModel = _modelsMgr->Add("data/barrel", CVector3(0,0,0), CVector3(0, 0, 0)); 
-
-	//_box = new Box(0,0,0, 2,1,2);
-	//_cone = new Cone(0,0,0, 3,2);
-	//_cylinder = new Cylinder(0,0,-20, 2, 4);
-	//_sphere = new Sphere(0,0,-30, 2);
-
-	//Box box = Box::CalcBoundingBox(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	//_box->SetGLMatrix(box.GetGLMatrix());
-	//_box->SetSize(box.GetSize().x, box.GetSize().y, box.GetSize().z);
-
-	//Sphere sphere = Sphere::CalcBoundingSphere(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	//_sphere->SetGLMatrix(sphere.GetGLMatrix());
-	//_sphere->SetRadius(sphere.GetRadius());
-
-	//Cone cone = Cone::CalcBoundingCone(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	//_cone->SetGLMatrix(cone.GetGLMatrix());
-	//_cone->SetRadius(cone.GetRadius());
-	//_cone->SetHeight(cone.GetHeight());
-
-	//Cylinder cylinder = Cylinder::CalcBoundingCylinder(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	//_cylinder->SetGLMatrix(cylinder.GetGLMatrix());
-	//_cylinder->SetRadius(cylinder.GetRadius());
-	//_cylinder->SetHeight(cylinder.GetHeight());
-
-	//shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
 }
 
 void Looper::Update(float deltaTime)
@@ -111,7 +86,6 @@ void Looper::UpdateDrawRect()
 {
 	if(Input::IsMouseClicked() || Input::IsRightMouseClicked())
 	{
-		//rect = Rect();
 		rx = ry = rw = rh = 0;
 	}
 	else if(Input::IsKeyPressed((int)'D') && Input::IsMousePressed())
@@ -133,7 +107,6 @@ void Looper::UpdateDrawRect()
 			y2 = Input::MouseClickY;
 		}
 
-		//rect = Rect(x1, y1, x2-x1, y2-y1);
 		rx = x1;
 		ry = y1;
 		rw = x2-x1;
@@ -147,11 +120,5 @@ Looper::~Looper()
 	{
 		delete _modelsMgr;
 		_modelsMgr = NULL;
-	}
-
-	if(shape)
-	{
-		delete shape;
-		shape = NULL;
 	}
 }

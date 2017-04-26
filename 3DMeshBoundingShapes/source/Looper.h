@@ -17,13 +17,6 @@ private:
 	ModelsManager* _modelsMgr;
 	FLModel* flModel;
 
-	Box* _box;
-	Cone* _cone;
-	Cylinder* _cylinder;
-	Sphere* _sphere;
-
-	Shape* shape;
-
 	float rx,ry,rw,rh;
 
 public:
