@@ -20,6 +20,15 @@ Cylinder::Cylinder(float* mat, float r, float h) : Shape(Shape::CYLINDER)
 }
 
 
+Cylinder::Cylinder(Cylinder* cylinder)
+{
+	memcpy(m, cylinder->m, 16*4);
+
+	_r = cylinder->GetRadius();
+	_h = cylinder->GetHeight();
+}
+
+
 Cylinder::Cylinder(float x, float y, float z, float r, float h) : Shape(Shape::CYLINDER)
 {
 	m[12] = x;

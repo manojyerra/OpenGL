@@ -13,6 +13,7 @@ private:
 
 public:
 	Sphere(float x, float y, float z, float r);
+	Sphere(Sphere* sphere);
 	Sphere(CVector3 pos, float r);
 	~Sphere();
 

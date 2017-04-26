@@ -14,6 +14,7 @@ private:
 
 public:
 	Cylinder();
+	Cylinder(Cylinder* cylinder);
 	Cylinder(float* mat, float r, float h);
 	Cylinder(float x, float y, float z, float r, float h);
 	~Cylinder();

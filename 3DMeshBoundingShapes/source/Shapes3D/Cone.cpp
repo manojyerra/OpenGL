@@ -31,6 +31,15 @@ Cone::Cone(float x, float y, float z, float r, float h) : Shape(Shape::CONE)
 }
 
 
+Cone::Cone(Cone* cone)
+{
+	memcpy(m, cone->m, 16*4);
+
+	_r = cone->GetRadius();
+	_h = cone->GetHeight();
+}
+
+
 CVector3 Cone::GetPos()
 {
 	return CVector3(m[12], m[13], m[14]);

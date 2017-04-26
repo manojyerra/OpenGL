@@ -22,6 +22,7 @@ private:
 	Cylinder* _cylinder;
 	Sphere* _sphere;
 
+	Shape* shape;
 
 public:
 	Looper(int windowWidth, int windowHeight);

@@ -15,6 +15,7 @@ public:
 	RandomColor();
 	unsigned int NextColor();
 	void Reset();
+	~RandomColor();
 };
 
 #endif

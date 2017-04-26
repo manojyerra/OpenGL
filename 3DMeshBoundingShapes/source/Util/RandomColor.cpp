@@ -117,3 +117,7 @@ void RandomColor::Reset()
 {
 	index = 0;
 }
+
+RandomColor::~RandomColor()
+{
+}

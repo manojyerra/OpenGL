@@ -14,6 +14,7 @@ private:
 
 public:
 	Cone();
+	Cone(Cone* cone);
 	Cone(float* mat, float r, float h);
 	Cone(float x, float y, float z, float r, float h);
 	~Cone();

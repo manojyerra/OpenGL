@@ -13,6 +13,17 @@ Sphere::Sphere(float x, float y, float z, float r) : Shape(Shape::SPHERE)
 	_quad = gluNewQuadric();
 }
 
+
+Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
+{
+	memcpy(m, sphere->m, 16*4);
+
+	_r = sphere->GetRadius();
+	
+	_quad = gluNewQuadric();
+}
+
+
 Sphere::Sphere(CVector3 pos, float r) : Shape(Shape::SPHERE)
 {
 	m[12] = pos.x;

@@ -539,6 +539,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\source\Shapes3D\Shape.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\source\Shapes3D\Shape.h"
 					>
 				</File>

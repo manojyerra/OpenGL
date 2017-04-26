@@ -20,28 +20,30 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	flModel = _modelsMgr->Add("data/cat", CVector3(0,2,1), CVector3(-45, 30, -15)); 
 
-	_box = new Box(0,0,0, 2,1,2);
-	_cone = new Cone(0,0,0, 3,2);
-	_cylinder = new Cylinder(0,0,-20, 2, 4);
-	_sphere = new Sphere(0,0,-30, 2);
+	//_box = new Box(0,0,0, 2,1,2);
+	//_cone = new Cone(0,0,0, 3,2);
+	//_cylinder = new Cylinder(0,0,-20, 2, 4);
+	//_sphere = new Sphere(0,0,-30, 2);
 
-	Box box = Box::CalcBoundingBox(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	_box->SetGLMatrix(box.GetGLMatrix());
-	_box->SetSize(box.GetSize().x, box.GetSize().y, box.GetSize().z);
+	//Box box = Box::CalcBoundingBox(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
+	//_box->SetGLMatrix(box.GetGLMatrix());
+	//_box->SetSize(box.GetSize().x, box.GetSize().y, box.GetSize().z);
 
-	Sphere sphere = Sphere::CalcBoundingSphere(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	_sphere->SetGLMatrix(sphere.GetGLMatrix());
-	_sphere->SetRadius(sphere.GetRadius());
+	//Sphere sphere = Sphere::CalcBoundingSphere(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
+	//_sphere->SetGLMatrix(sphere.GetGLMatrix());
+	//_sphere->SetRadius(sphere.GetRadius());
 
-	Cone cone = Cone::CalcBoundingCone(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	_cone->SetGLMatrix(cone.GetGLMatrix());
-	_cone->SetRadius(cone.GetRadius());
-	_cone->SetHeight(cone.GetHeight());
+	//Cone cone = Cone::CalcBoundingCone(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
+	//_cone->SetGLMatrix(cone.GetGLMatrix());
+	//_cone->SetRadius(cone.GetRadius());
+	//_cone->SetHeight(cone.GetHeight());
 
-	Cylinder cylinder = Cylinder::CalcBoundingCylinder(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	_cylinder->SetGLMatrix(cylinder.GetGLMatrix());
-	_cylinder->SetRadius(cylinder.GetRadius());
-	_cylinder->SetHeight(cylinder.GetHeight());
+	//Cylinder cylinder = Cylinder::CalcBoundingCylinder(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
+	//_cylinder->SetGLMatrix(cylinder.GetGLMatrix());
+	//_cylinder->SetRadius(cylinder.GetRadius());
+	//_cylinder->SetHeight(cylinder.GetHeight());
+
+	shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
 }
 
 void Looper::Update(float deltaTime)
@@ -73,8 +75,10 @@ void Looper::Draw()
 	glPushMatrix();
 	glMultMatrixf(flModel->GetMat().m);
 
+	shape->Draw();
+
 	//_box->Draw();
-	_cone->Draw();
+	//_cone->Draw();
 	//_sphere->Draw();
 	//_cylinder->Draw();
 
@@ -87,5 +91,11 @@ Looper::~Looper()
 	{
 		delete _modelsMgr;
 		_modelsMgr = NULL;
+	}
+
+	if(shape)
+	{
+		delete shape;
+		shape = NULL;
 	}
 }

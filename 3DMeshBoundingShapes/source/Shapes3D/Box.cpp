@@ -29,6 +29,24 @@ Box::Box(float* mat, CVector3 size) : Shape(Shape::BOX)
 	_d = size.z;
 }
 
+Box::Box(Box* box) : Shape(Shape::BOX)
+{
+	memcpy(m, box->m, 16*4);
+
+	_w = box->GetSize().x;
+	_h = box->GetSize().y;
+	_d = box->GetSize().z;
+}
+
+void Box::Set(Box* box)
+{
+	memcpy(m, box->m, 16*4);
+
+	_w = box->GetSize().x;
+	_h = box->GetSize().y;
+	_d = box->GetSize().z;
+}
+
 void Box::SetPos(float x, float y, float z)
 {
 	m[12] = x;
@@ -72,7 +90,7 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 	CVector3 end(360,360,360);
 
 	CVector3 rot(0,0,0);
-	Box prevBox;
+	Box* prevBox = new Box(0,0,0, 0,0,0);
 	bool once = true;
 
 	for(int loop=0; loop<5; loop++)
@@ -96,9 +114,9 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 				{
 					Box bBox = GetBoundingBoxAfterRotXYZ(localVertexBuf, arrSize, xAng, yAng, zAng);
 			
-					if(once || bBox.Volume() < prevBox.Volume())
+					if(once || bBox.Volume() < prevBox->Volume())
 					{
-						prevBox = bBox;
+						prevBox->Set( &bBox );
 						rot = CVector3(xAng, yAng, zAng);
 						once = false;
 					}
@@ -115,10 +133,15 @@ Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 	mat.glRotatef(-rot.y, 0,1,0);
 	mat.glRotatef(-rot.z, 0,0,1);
 
-	CVector3 trans = prevBox.GetPos();
+	CVector3 trans = prevBox->GetPos();
+	CVector3 size = prevBox->GetSize();
 	mat.glTranslatef(trans.x, trans.y, trans.z);
 	
-	return Box(mat.m, prevBox.GetSize());
+	delete prevBox;
+
+	Box returnBox(mat.m, size);
+
+	return returnBox;
 }
 
 
