@@ -24,11 +24,14 @@ private:
 
 	Shape* shape;
 
+	float rx,ry,rw,rh;
+
 public:
 	Looper(int windowWidth, int windowHeight);
 	~Looper();
 
 	void Update(float deltaTime);
+	void UpdateDrawRect();
 	void Draw();
 };
 

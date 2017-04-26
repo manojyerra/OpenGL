@@ -279,11 +279,6 @@ unsigned int GLUtil::GLColor(unsigned int color)
 	return (unsigned int)((r<<24) + (g<<16) + (b<<8) + a);
 }
 
-//void GLUtil::_glColor(unsigned int color)
-//{
-//	glColor4ub((color >> 24) & 255, (color >> 16) & 255, (color >> 8) & 255, color & 255);
-//}
-
 void GLUtil::GLClearColor(float r, float g, float b, float a, GLfloat* prevColor)
 {
 	glGetFloatv(GL_COLOR_CLEAR_VALUE, prevColor);
@@ -296,6 +291,11 @@ GLenum GLUtil::GLDepthFunc(GLenum val)
 	glGetIntegerv(GL_DEPTH_FUNC, &returnVal);
 	glDepthFunc(val);
 	return returnVal;
+}
+
+void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
+{
+	glReadPixels(x, y, width, GetWindowHeight() - height, format, type, pixels);
 }
 
 bool GLUtil::UpdateCamera()
@@ -354,17 +354,16 @@ bool GLUtil::UpdateCamera()
 	return false;
 }
 
-
-void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D)
+void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)
 {
-	GLfloat model[16]; 
-	glGetFloatv(GL_MODELVIEW_MATRIX, model);
+	//GLfloat modelMatrix[16]; 
+	//glGetFloatv(GL_MODELVIEW_MATRIX, modelMatrix);
 
 	float x = pos3D[0];
 	float y = pos3D[1];
 	float z = pos3D[2];
 
-	float* a = model;
+	float* a = modelMatrix;
 
 	float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
 	float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];

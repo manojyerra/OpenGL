@@ -3,6 +3,7 @@
 #include <gl/gl.h>
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
+#include "Shapes3D/Shape.h"
 
 #include <vector>
 #include <string>
@@ -154,13 +155,14 @@ private:
 
 	vector<float> _borderVec;
 	
-
 	GLfloat _ka[4];
 	GLfloat _kd[4];
 	GLfloat _ks[4];
 	GLfloat _shininess;
 
 	GLMat _mat;
+
+	vector<Shape*> _boundingShapes;
 
 	void DrawBoundingBox();
 	void DrawBounding2DRect();
@@ -213,6 +215,9 @@ public:
 
 	void AddTransInLocal(char axis, float move);
 	void AddRotateInLocal(char axis, float angle);
+
+	vector<float> GetVerticesOnRect(int x, int y, int w, int h);
+	Shape* AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h);
 
 	void Draw();
 

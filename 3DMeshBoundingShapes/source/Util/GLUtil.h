@@ -62,7 +62,8 @@ public:
 
 	static unsigned int GenerateGLTextureID(int width, int height, int bytesPP, void* buffer);
 
-	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D);
+	//static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D);
+	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
 
 	static void GLEnable(unsigned int* arr, int size, bool enable);
 	static bool GLEnable(unsigned int state, bool enable);
@@ -71,11 +72,10 @@ public:
 	static GLfloat GLPointSize(GLfloat val);
 	static void GLClearColor(float r, float g, float b, float a, GLfloat* prevColor);
 	static GLenum GLDepthFunc(GLenum val);
+	static void GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels);
 
 	static int GetWindowWidth();
 	static int GetWindowHeight();
-
-	//static void _glColor(unsigned int color);
 };
 
 #endif

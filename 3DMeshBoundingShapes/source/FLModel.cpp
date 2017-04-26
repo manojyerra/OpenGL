@@ -330,6 +330,48 @@ void FLModel::AddRotateInLocal(char axis, float angle)
 	_mat.glMultMatrixf(rotMat.Get());
 }
 
+vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
+{
+	float* verArr = (float*)_verticesPointer;
+
+	float xy[2];
+
+	vector<float> vec;
+
+	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
+	modelViewMatrix.glMultMatrixf(_mat.m);
+
+	for(int i=0; i<_numVertex*3; i+=3)
+	{
+		GLUtil::Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m);
+
+		if( xy[0] >= x && xy[0] <= x+w && xy[1] >= y && xy[1] <= y+h )
+		{
+			vec.push_back(verArr[i+0]);
+			vec.push_back(verArr[i+1]);
+			vec.push_back(verArr[i+2]);
+		}
+	}
+
+	return vec;
+}
+
+Shape* FLModel::AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
+{
+	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
+	
+	Shape* bShape = NULL;
+
+	if(verVec.size() > 0)
+	{
+		bShape = Shape::GetBestFitBoundingShape(&verVec[0], verVec.size());
+
+		_boundingShapes.push_back(bShape);
+	}
+
+	return bShape;
+}
+
 void FLModel::Draw()
 {
 	glPushMatrix();
@@ -403,6 +445,11 @@ void FLModel::Draw()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 
+	for(int i=0; i<_boundingShapes.size(); i++)
+	{
+		_boundingShapes[i]->Draw();
+	}
+
 	bool lighting1 = glUtil::GLEnable(GL_LIGHTING, false);
 	
 	if(_boundingBoxEnabled)
@@ -420,18 +467,21 @@ void FLModel::DrawBounding2DRect()
 {
 	float pos2D[8][2];
 
-	float pos3D[8][3] = {	{_bBox.minX, _bBox.minY, _bBox.minZ},
+	float pos3D[8][3] = {	
+							{_bBox.minX, _bBox.minY, _bBox.minZ},
 							{_bBox.minX, _bBox.maxY, _bBox.minZ},
 							{_bBox.maxX, _bBox.minY, _bBox.minZ},
 							{_bBox.maxX, _bBox.maxY, _bBox.minZ},
 							{_bBox.minX, _bBox.minY, _bBox.maxZ},
 							{_bBox.minX, _bBox.maxY, _bBox.maxZ},
 							{_bBox.maxX, _bBox.minY, _bBox.maxZ},
-							{_bBox.maxX, _bBox.maxY, _bBox.maxZ},
+							{_bBox.maxX, _bBox.maxY, _bBox.maxZ}
 						};
 
+	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
+
 	for(int i=0; i<8; i++)
-		GLUtil::Get2DPosOnScreenFrom3DPos(pos3D[i], pos2D[i]);
+		GLUtil::Get2DPosOnScreenFrom3DPos(pos3D[i], pos2D[i], modelViewMatrix.m);
 
 	float minX = pos2D[0][0];
 	float maxX = pos2D[0][0];
@@ -468,7 +518,6 @@ void FLModel::DrawBounding2DRect()
 	glVertex2f(minX, minY+rectH);
 	glEnd();
 
-
 	glUtil::GLLineWidth(prevLineWidth);
 	glUtil::GLColor(prevColor);
 	glUtil::GLEnable(GL_BLEND, blend);
@@ -498,7 +547,7 @@ void FLModel::CalcBorder()
 
 	Draw();
 
-    GLubyte* data = (GLubyte*)malloc(width*height*4);
+	GLubyte* data = (GLubyte*)malloc(width*height*4);
 	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 	glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);

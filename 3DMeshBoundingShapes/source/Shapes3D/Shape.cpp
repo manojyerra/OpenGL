@@ -67,10 +67,10 @@ Shape* Shape::GetBestFitBoundingShape(float* vertexBuf, int arrSize)
 	else if(volume3 <= volume1 && volume3 <= volume2 && volume3 <= volume4)		returnShape = shape3;
 	else																		returnShape = shape4;
 
-	if(returnShape != shape1) delete shape1;
-	if(returnShape != shape2) delete shape2;
-	if(returnShape != shape3) delete shape3;
-	if(returnShape != shape4) delete shape4;
+	if(returnShape != shape1) { delete shape1; shape1 = NULL; }
+	if(returnShape != shape2) { delete shape2; shape2 = NULL; }
+	if(returnShape != shape3) { delete shape3; shape3 = NULL; }
+	if(returnShape != shape4) { delete shape4; shape4 = NULL; }
 
 	return returnShape;
 }
