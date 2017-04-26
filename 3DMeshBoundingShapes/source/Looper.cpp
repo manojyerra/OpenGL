@@ -16,11 +16,13 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	GLUtil::Init(_windowW, _windowH);
 
-	rx = ry = rw = rh = 0;
+	//rx = ry = rw = rh = 0;
 
 	_modelsMgr = new ModelsManager();
 
-	flModel = _modelsMgr->Add("data/barrel", CVector3(0,0,0), CVector3(0, 0, 0)); 
+	flModel = _modelsMgr->Add("data/cat", CVector3(0,0,0), CVector3(0, 0, 0));
+	Shape* shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
+	flModel->AddBoundingShape( shape );
 }
 
 void Looper::Update(float deltaTime)
@@ -48,6 +50,7 @@ void Looper::Draw()
 
 	flModel->Draw();
 
+	/*
 	UpdateDrawRect();
 
 	if(Input::IsKeyReleased((int)'A'))
@@ -80,8 +83,10 @@ void Looper::Draw()
 	glUtil::SetProjectionMatrix(projMat);
 	glUtil::SetModelViewMatrix(modelMat);
 	glUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	*/
 }
 
+/*
 void Looper::UpdateDrawRect()
 {
 	if(Input::IsMouseClicked() || Input::IsRightMouseClicked())
@@ -113,6 +118,7 @@ void Looper::UpdateDrawRect()
 		rh = y2-y1;
 	}
 }
+*/
 
 Looper::~Looper()
 {

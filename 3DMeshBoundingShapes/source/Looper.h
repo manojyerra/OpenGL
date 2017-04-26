@@ -17,7 +17,7 @@ private:
 	ModelsManager* _modelsMgr;
 	FLModel* flModel;
 
-	float rx,ry,rw,rh;
+	//float rx,ry,rw,rh;
 
 public:
 	Looper(int windowWidth, int windowHeight);

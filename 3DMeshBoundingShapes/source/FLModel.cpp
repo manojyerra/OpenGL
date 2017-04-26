@@ -372,6 +372,11 @@ Shape* FLModel::AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
 	return bShape;
 }
 
+void FLModel::AddBoundingShape(Shape* shape)
+{
+	_boundingShapes.push_back(shape);
+}
+
 void FLModel::Draw()
 {
 	glPushMatrix();
@@ -641,4 +646,15 @@ FLModel::~FLModel()
 
 	if(_indicesPointer)
 		free(_indicesPointer);
+
+	for(int i=0; i<_boundingShapes.size(); i++)
+	{
+		if(_boundingShapes[i])
+		{
+			delete _boundingShapes[i];
+			_boundingShapes[i] = NULL;
+		}
+	}
+
+	_boundingShapes.clear();
 }

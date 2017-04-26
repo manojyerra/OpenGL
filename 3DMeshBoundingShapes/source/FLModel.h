@@ -218,6 +218,7 @@ public:
 
 	vector<float> GetVerticesOnRect(int x, int y, int w, int h);
 	Shape* AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h);
+	void AddBoundingShape(Shape* shape);
 
 	void Draw();
 
