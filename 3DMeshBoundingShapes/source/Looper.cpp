@@ -60,17 +60,17 @@ void Looper::Draw()
 	GLMat projMat = glUtil::GetProjectionMatrix();
 	bool depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
 	bool lighting = glUtil::GLEnable(GL_LIGHTING, false);
-	bool blend = glUtil::GLEnable(GL_BLEND, false);
-	unsigned int prevColor = glUtil::GLColor(0xff0000aa);
+	bool blend = glUtil::GLEnable(GL_BLEND, true);
+	unsigned int prevColor = glUtil::GLColor(0xff000055);
 	GLfloat prevLineWidth = glUtil::GLLineWidth(2);
 
 	GLUtil::Begin2DDraw();
 
-	glBegin(GL_LINE_LOOP);
+	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2f(rx, ry);
 	glVertex2f(rx+rw, ry);
-	glVertex2f(rx+rw, ry+rh);
 	glVertex2f(rx, ry+rh);
+	glVertex2f(rx+rw, ry+rh);
 	glEnd();
 
 	glUtil::GLLineWidth(prevLineWidth);

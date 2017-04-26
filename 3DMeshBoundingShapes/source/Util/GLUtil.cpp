@@ -51,8 +51,8 @@ void GLUtil::Init(int screenW, int screenH)
 	glEnable	( GL_BLEND		);
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	_transZ = -220.0f;
-	_transY = -9.0f;
+	_transZ = -150.0f;
+	_transY = -0.0f;
 
 	_angleX = 30;
 	_angleY = -10;
