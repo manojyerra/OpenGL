@@ -8,7 +8,6 @@
 #include "SuiCheckBox.h"
 #include "SuiRadioButton.h"
 #include "SuiSlider.h"
-#include "SuiCycle.h"
 
 #include <vector>
 using namespace std;
@@ -22,8 +21,6 @@ private:
 	static SuiManager* _ref;
 	vector<SuiFrame*> _framesVec;
 	SuiFrame* _activeFrame;
-	SuiCycle* _nextSuiCycle;
-	SuiCycle* _currSuiCycle;
 	SuiRect _statusBarRect;
 	SuiComponent* _dialogCom;
 	bool _newFrameAdded;
@@ -49,7 +46,6 @@ public:
 	unsigned int GetTimeInMilliSeconds();
 	bool Contains(float mx, float my);
 
-	void AttachSuiCycle(SuiCycle* suiCycle);
 	float GetWindowWidth();
 	float GetWindowHeight();
 	float GetWindowHeightWithoutStatusBar();
@@ -57,7 +53,6 @@ public:
 	void RemoveFrame(SuiFrame* frame);
 	void SetFocusOn(SuiFrame* frame);
 	void SetDialogCom(SuiComponent* dialogCom);
-	SuiCycle* GetSuiCycle();
 };
 
 #endif

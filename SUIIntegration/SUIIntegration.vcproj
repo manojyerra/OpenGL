@@ -576,7 +576,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Sui"
+				Name="SUI"
 				>
 				<File
 					RelativePath=".\source\Sui\Sui.cpp"
@@ -643,10 +643,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\source\Sui\SuiCycle.h"
-					>
-				</File>
-				<File
 					RelativePath=".\source\Sui\SuiEvents.h"
 					>
 				</File>
@@ -664,10 +660,6 @@
 				</File>
 				<File
 					RelativePath=".\source\Sui\SuiFrame.h"
-					>
-				</File>
-				<File
-					RelativePath=".\source\Sui\SuiIncludes.cpp"
 					>
 				</File>
 				<File

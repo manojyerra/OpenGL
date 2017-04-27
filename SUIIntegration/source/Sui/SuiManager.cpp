@@ -18,8 +18,8 @@ void SuiManager::Setup(int windowWidth, int windowHeight)
 
 SuiManager::SuiManager()
 {
-	_nextSuiCycle = NULL;
-	_currSuiCycle = NULL;
+	//_nextSuiCycle = NULL;
+	//_currSuiCycle = NULL;
 	_activeFrame = NULL;
 	_windowWidth = 0;
 	_windowHeight = 0;
@@ -396,25 +396,5 @@ void SuiManager::DeleteInstance()
 
 SuiManager::~SuiManager()
 {
-	if(_currSuiCycle)
-	{
-		delete _currSuiCycle;
-		_currSuiCycle = NULL;
-	}
-
 	SuiFont::DeleteInstance();
 }
-
-
-////// Set the minimum requirements for the OpenGL window
-//SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 5 );
-//SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 5 );
-//SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 5 );
-//SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
-//SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
-//Note the SDL_DOUBLEBUF flag is not required to enable double 
-//buffering when setting an OpenGL video mode. 
-//Double buffering is enabled or disabled using the 
-//SDL_GL_DOUBLEBUFFER attribute.
-

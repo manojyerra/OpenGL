@@ -31,12 +31,8 @@ Looper::Looper(int windowWidth, int windowHeight)
 }
 
 void Looper::Update(float deltaTime)
-{
-	SuiInput::WIN_MOVE_X = Input::WIN_MOVE_X;
-	SuiInput::WIN_MOVE_Y = Input::WIN_MOVE_Y;
-	SuiInput::LEFT_BUTTON_DOWN = Input::LEFT_BUTTON_DOWN;
-	
-	SuiInput::Update(deltaTime);
+{	
+	SuiInput::Update(Input::MX, Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
 }
 
 void Looper::Draw()
@@ -139,4 +135,8 @@ Looper::~Looper()
 		delete _modelsMgr;
 		_modelsMgr = NULL;
 	}
+
+	delete _suiFrame;
+
+	SuiQuit();
 }

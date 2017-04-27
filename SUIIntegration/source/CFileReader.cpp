@@ -71,7 +71,7 @@ char* CFileReader::ReadLine()
 	if(pos >= length)
 		return NULL;
 
-	int i = pos;
+	unsigned int i = pos;
 
 	for(; i<length && buf[i] != '\n' && buf[i] != '\0'; i++);
 

@@ -2,10 +2,8 @@
 #include "SuiIncludes.h"
 #include "math.h"
 
-int SuiInput::state = ALLOW_INPUT;
-
-int SuiInput::MX_ON_WIN = 0;
-int SuiInput::MY_ON_WIN = 0;
+bool SuiInput::PREV_LEFT_BUTTON_DOWN = false;
+bool SuiInput::LEFT_BUTTON_DOWN = false;
 
 int SuiInput::MX = 0;
 int SuiInput::MY = 0;
@@ -19,40 +17,13 @@ int SuiInput::MouseClickY = 0;
 int SuiInput::MouseReleaseX = 0;
 int SuiInput::MouseReleaseY = 0;
 
-bool SuiInput::MOUSE_MOVE = false;
-int SuiInput::WIN_MOVE_X = 0;
-int SuiInput::WIN_MOVE_Y = 0;
-
-bool SuiInput::PREV_LEFT_BUTTON_DOWN = false;
-bool SuiInput::LEFT_BUTTON_DOWN = false;
-
-bool SuiInput::PREV_RIGHT_BUTTON_DOWN = false;
-bool SuiInput::RIGHT_BUTTON_DOWN = false;
-
-bool SuiInput::PREV_MIDDLE_BUTTON_DOWN = false;
-bool SuiInput::MIDDLE_BUTTON_DOWN = false;
-
-int SuiInput::SCROLL_STATE = SuiInput::SCROLL_NONE; 
-
 bool SuiInput::isMouseClicked = false;
 bool SuiInput::isMousePressed = false;
 bool SuiInput::isMouseReleased = false;
 bool SuiInput::isMouseDoubleClicked = false;
 
-bool SuiInput::isRightMouseClicked = false;
-bool SuiInput::isRightMousePressed = false;
-bool SuiInput::isRightMouseReleased = false;
-bool SuiInput::isRightMouseDoubleClicked = false;
-
-bool SuiInput::isMiddleMouseClicked = false;
-bool SuiInput::isMiddleMousePressed = false;
-bool SuiInput::isMiddleMouseReleased = false;
-bool SuiInput::isMiddleMouseDoubleClicked = false;
-
 float SuiInput::clickTimeCount = 0;
-float SuiInput::rightClickTimeCount = 0;
-float SuiInput::middleClickTimeCount = 0;
-float SuiInput::DCTime = 0.2;
+float SuiInput::doubleClickTime = 0.2;
 
 int SuiInput::currKeyStates[] = {0};
 int SuiInput::prevKeyStates[] = {0};
@@ -64,12 +35,12 @@ void SuiInput::Init()
 	for(int i=0;i<256;i++) currKeyStates[i] = 0;
 	for(int i=0;i<256;i++) prevKeyStates[i] = 0;
 	for(int i=0;i<256;i++) timeCountForKeyPress[i] = 0;
-
-	state = ALLOW_INPUT;
 }
 
-void SuiInput::Update(float deltaTime)
+void SuiInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 {
+	LEFT_BUTTON_DOWN = down;
+
 	for(int i=0;i<256;i++)	prevKeyStates[i] = currKeyStates[i];
 	for(int i=0;i<256;i++)	currKeyStates[i] =  GetKeyState(i);
 
@@ -92,48 +63,21 @@ void SuiInput::Update(float deltaTime)
 
 	PREV_LEFT_BUTTON_DOWN = LEFT_BUTTON_DOWN;
 
-
-	isRightMouseClicked = false;
-	isRightMousePressed = false;
-	isRightMouseReleased = false;
-	isRightMouseDoubleClicked = false;
-
-	if(PREV_RIGHT_BUTTON_DOWN == false && RIGHT_BUTTON_DOWN == true)		isRightMouseClicked = true;
-	else if(PREV_RIGHT_BUTTON_DOWN == true && RIGHT_BUTTON_DOWN == true)	isRightMousePressed = true;
-	else if(PREV_RIGHT_BUTTON_DOWN == true && RIGHT_BUTTON_DOWN == false)	isRightMouseReleased = true;
-
-	PREV_RIGHT_BUTTON_DOWN = RIGHT_BUTTON_DOWN;
-
-
-	isMiddleMouseClicked = false;
-	isMiddleMousePressed = false;
-	isMiddleMouseReleased = false;
-	isMiddleMouseDoubleClicked = false;
-
-	if(PREV_MIDDLE_BUTTON_DOWN == false && MIDDLE_BUTTON_DOWN == true)		isMiddleMouseClicked = true;
-	else if(PREV_MIDDLE_BUTTON_DOWN == true && MIDDLE_BUTTON_DOWN == true)	isMiddleMousePressed = true;
-	else if(PREV_MIDDLE_BUTTON_DOWN == true && MIDDLE_BUTTON_DOWN == false)	isMiddleMouseReleased = true;
-
-	PREV_MIDDLE_BUTTON_DOWN = MIDDLE_BUTTON_DOWN;
-
-	POINT pos;
-	GetCursorPos(&pos);
+	//POINT pos;
+	//GetCursorPos(&pos);
 
 	PrevMX = MX;
 	PrevMY = MY;
 
-	MX = pos.x - WIN_MOVE_X;
-	MY = pos.y - WIN_MOVE_Y;
+	MX = mouseX;
+	MY = mouseY;
 
-	if(IsMouseClicked() || IsRightMouseClicked() || IsMiddleMouseClicked())
+	if(IsMouseClicked())
 	{
-		if(clickTimeCount < DCTime && isMouseClicked)				{ isMouseDoubleClicked = true;		}
-		if(rightClickTimeCount < DCTime && isRightMouseClicked)		{ isRightMouseDoubleClicked = true; }
-		if(middleClickTimeCount < DCTime && isMiddleMouseClicked)	{ isMiddleMouseDoubleClicked = true;}
+		if(clickTimeCount < doubleClickTime && isMouseClicked)
+			isMouseDoubleClicked = true;
 
 		clickTimeCount = 0;
-		rightClickTimeCount = 0;
-		middleClickTimeCount = 0;
 
 		MouseClickX = MX;
 	    MouseClickY = MY;
@@ -141,7 +85,7 @@ void SuiInput::Update(float deltaTime)
 		PrevMX = MX;
 		PrevMY = MY;
 	}
-	else if(IsMouseReleased() || IsRightMouseReleased() || IsMiddleMouseReleased())
+	else if(IsMouseReleased())
 	{
 		MouseReleaseX = MX;
 	    MouseReleaseY = MY;
@@ -151,13 +95,6 @@ void SuiInput::Update(float deltaTime)
 	}
 
 	clickTimeCount += deltaTime;
-	rightClickTimeCount += deltaTime;
-	middleClickTimeCount += deltaTime;
-}
-
-void SuiInput::SetInputState(int stateVal)
-{
-	state = stateVal;
 }
 
 bool SuiInput::IsAllEventsFired(vector<int> vec)
@@ -203,27 +140,6 @@ bool SuiInput::IsEventFired(int keyID, int eventID)
 				else if(eventID == MOUSE_DRAG)			return IsMouseDragged();
 				else if(eventID == MOUSE_DOUBLE_CLICK)	return IsMouseDoubleClicked();
 			}
-			else if(keyID == MOUSE_MIDDLE)
-			{
-				if(eventID == MOUSE_CLICK)				return IsMiddleMouseClicked();
-				else if(eventID == MOUSE_PRESS)			return IsMiddleMousePressed();
-				else if(eventID == MOUSE_RELEASE)		return IsMiddleMouseReleased();
-				else if(eventID == MOUSE_DRAG)			return IsMiddleMouseDragged();
-				else if(eventID == MOUSE_DOUBLE_CLICK)	return IsMouseDoubleClicked();
-			}
-			else if(keyID == MOUSE_RIGHT)
-			{
-				if(eventID == MOUSE_CLICK)				return IsRightMouseClicked();
-				else if(eventID == MOUSE_PRESS)			return IsRightMousePressed();
-				else if(eventID == MOUSE_RELEASE)		return IsRightMouseReleased();
-				else if(eventID == MOUSE_DRAG)			return IsRightMouseDragged();
-				else if(eventID == MOUSE_DOUBLE_CLICK)	return IsRightMouseDoubleClicked();
-			}
-			else if(keyID == MOUSE_WHEEL)
-			{
-				if(eventID == MOUSE_WHEEL_UP)			return IsScrollUp();
-				else if(eventID == MOUSE_WHEEL_DOWN)	return IsScrollDown();
-			}
 		}
 		else
 		{
@@ -236,63 +152,18 @@ bool SuiInput::IsEventFired(int keyID, int eventID)
 	return false;
 }
 
-bool SuiInput::IsKeyTyped(int key)		{ if(state == NO_INPUT) return false; return (bool)(!(prevKeyStates[key]&0x80)  && (currKeyStates[key]&0x80) ); }
-bool SuiInput::IsKeyReleased(int key)	{ if(state == NO_INPUT) return false; return (bool)((prevKeyStates[key]&0x80)  && !(currKeyStates[key]&0x80) );}
-bool SuiInput::IsKeyPressed(int key)	{ if(state == NO_INPUT) return false; return (bool)( (currKeyStates[key]&0x80) && true ); }
-bool SuiInput::IsKeyPressedStill(int key, float time) { if(state == NO_INPUT) return false;	return (IsKeyPressed(key) && timeCountForKeyPress[key] > time); }
+bool SuiInput::IsKeyTyped(int key)		{ return (bool)(!(prevKeyStates[key]&0x80)  && (currKeyStates[key]&0x80) ); }
+bool SuiInput::IsKeyReleased(int key)	{ return (bool)((prevKeyStates[key]&0x80)  && !(currKeyStates[key]&0x80) );}
+bool SuiInput::IsKeyPressed(int key)	{ return (bool)( (currKeyStates[key]&0x80) && true ); }
+bool SuiInput::IsKeyPressedStill(int key, float time) { return (IsKeyPressed(key) && timeCountForKeyPress[key] > time); }
 
-bool SuiInput::IsMousePressed()			{ if(state == NO_INPUT) return false; return isMousePressed;	}
-bool SuiInput::IsMouseReleased()		{ if(state == NO_INPUT) return false; return isMouseReleased;	}
-bool SuiInput::IsMouseClicked()			{ if(state == NO_INPUT) return false; return (isMouseClicked && !isMouseDoubleClicked); }
-bool SuiInput::IsMouseDragged()			{ if(state == NO_INPUT) return false; return (IsMouseMoved() && IsMousePressed()); }
-bool SuiInput::IsMouseDoubleClicked()	{ if(state == NO_INPUT) return false; return isMouseDoubleClicked;		}
-
-bool SuiInput::IsRightMousePressed()	{ if(state == NO_INPUT) return false; return isRightMousePressed; }
-bool SuiInput::IsRightMouseReleased()	{ if(state == NO_INPUT) return false; return isRightMouseReleased; }
-bool SuiInput::IsRightMouseClicked()	{ if(state == NO_INPUT) return false; return (isRightMouseClicked && !isRightMouseDoubleClicked); }
-bool SuiInput::IsRightMouseDragged()	{ if(state == NO_INPUT) return false; return (IsMouseMoved() && IsRightMousePressed()); }
-bool SuiInput::IsRightMouseDoubleClicked()	{ if(state == NO_INPUT) return false; return isRightMouseDoubleClicked;		}
-
-bool SuiInput::IsMiddleMousePressed()	{ if(state == NO_INPUT) return false; return isMiddleMousePressed; }
-bool SuiInput::IsMiddleMouseReleased()	{ if(state == NO_INPUT) return false; return isMiddleMouseReleased; }
-bool SuiInput::IsMiddleMouseClicked()	{ if(state == NO_INPUT) return false; return (isMiddleMouseClicked && !isMiddleMouseDoubleClicked); }
-bool SuiInput::IsMiddleMouseDragged()	{ if(state == NO_INPUT) return false; return (IsMouseMoved() && IsMiddleMousePressed()); }
-bool SuiInput::IsMiddleMouseDoubleClicked()	{ if(state == NO_INPUT) return false; return isMiddleMouseDoubleClicked;		}
-
-bool SuiInput::IsScrollUp()		{ if(state == NO_INPUT) return false; return (SCROLL_STATE == SCROLL_UP);	}
-bool SuiInput::IsScrollDown()	{ if(state == NO_INPUT) return false; return (SCROLL_STATE == SCROLL_DOWN);	}
+bool SuiInput::IsMousePressed()			{ return isMousePressed;	}
+bool SuiInput::IsMouseReleased()		{ return isMouseReleased;	}
+bool SuiInput::IsMouseClicked()			{ return (isMouseClicked && !isMouseDoubleClicked); }
+bool SuiInput::IsMouseDragged()			{ return (IsMouseMoved() && IsMousePressed()); }
+bool SuiInput::IsMouseDoubleClicked()	{ return isMouseDoubleClicked;		}
 
 bool SuiInput::IsMouseMoved()
 {
-	if(state == NO_INPUT) return false;
 	return (PrevMX != MX || PrevMY != MY);
-}
-
-float SuiInput::GetDragDist()
-{
-	if(state == NO_INPUT) return 0;
-
-	if(IsMouseDragged() || IsRightMouseDragged() || IsMiddleMouseDragged())
-	{
-		float dx = MX - MouseClickX;
-		float dy = MY - MouseClickY;
-
-		return sqrt( dx*dx + dy*dy );
-	}
-
-	return 0;
-}
-
-float SuiInput::GetAngle()
-{
-	float dx = SuiInput::MX - SuiInput::PrevMX;
-	float dy = SuiInput::MY - SuiInput::PrevMY;
-
-	float piVal = 3.14159265;
-	float moveAngle = atan2( dy, dx ) * 180.0f / piVal;
-	moveAngle = (int)moveAngle % 360 + (moveAngle-(int)moveAngle);
-	if(moveAngle < 0)
-		moveAngle = 360 + moveAngle;
-
-	return moveAngle;
 }
