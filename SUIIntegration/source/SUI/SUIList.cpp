@@ -323,15 +323,18 @@ void SUIList::Draw()
 
 	//glScissor(newScX, (GLint)(appInfo->currWindowH-newScY-newScH), newScW, newScH);
 
+	float windowW = SUIManager::GetInstance()->GetWindowWidth();
+	float windowH = SUIManager::GetInstance()->GetWindowHeight();
+
 	float viewX = 0;
 	float viewY = 0;
-	float viewW = 800;
-	float viewH = 600;
+	float viewW = windowW;
+	float viewH = windowH;
 
-	float baseWindowW = 800;
-	float baseWindowH = 600;
+	float baseWindowW = windowW;
+	float baseWindowH = windowH;
 
-	float currWindowH = 600;
+	float currWindowH = windowH;
 
 	int newScX = viewX + viewW * (_x-1) / baseWindowW;
 	int newScY = viewY + viewH * localY1 / baseWindowH;

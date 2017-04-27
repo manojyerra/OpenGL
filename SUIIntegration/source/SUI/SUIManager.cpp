@@ -20,8 +20,6 @@ void SUIManager::Setup(int windowWidth, int windowHeight)
 
 SUIManager::SUIManager()
 {
-	//_nextSUICycle = NULL;
-	//_currSUICycle = NULL;
 	_activeFrame = NULL;
 	_windowWidth = 0;
 	_windowHeight = 0;

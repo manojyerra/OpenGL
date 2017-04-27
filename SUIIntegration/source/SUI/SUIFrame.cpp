@@ -484,15 +484,18 @@ void SUIFrame::Draw()
 	//int newScW = appInfo->viewW * scW / appInfo->baseWindowW;
 	//int newScH = appInfo->viewH * scH / appInfo->baseWindowH;
 
+	float windowW = SUIManager::GetInstance()->GetWindowWidth();
+	float windowH = SUIManager::GetInstance()->GetWindowHeight();
+
 	float viewX = 0;
 	float viewY = 0;
-	float viewW = 800;
-	float viewH = 600;
+	float viewW = windowW;
+	float viewH = windowH;
 
-	float baseWindowW = 800;
-	float baseWindowH = 600;
+	float baseWindowW = windowW;
+	float baseWindowH = windowH;
 
-	float currWindowH = 600;
+	float currWindowH = windowH;
 
 	int newScX =viewX + viewW * scX / baseWindowW;
 	int newScY =viewY + viewH * scY / baseWindowH;
