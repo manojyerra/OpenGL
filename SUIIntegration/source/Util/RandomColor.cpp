@@ -107,7 +107,7 @@ unsigned int RandomColor::NextColor()
 {
 	index++;
 
-	if(index >= colorVec.size())
+	if(index >= (int)colorVec.size())
 		index = 0;
 
 	return colorVec[index];

@@ -9,11 +9,11 @@ SUIManager* SUIManager::_ref = 0;
 
 void SUIManager::Setup(int windowWidth, int windowHeight)
 {
-	_windowWidth = windowWidth;
-	_windowHeight = windowHeight;
+	_windowWidth = (float)windowWidth;
+	_windowHeight = (float)windowHeight;
 
 	_statusBarRect.SetColor(0,0,255,120);
-	_statusBarRect.SetBounds(0,_windowHeight*0.92,_windowWidth,_windowHeight*0.08);
+	_statusBarRect.SetBounds(0,_windowHeight*0.92f,_windowWidth,_windowHeight*0.08f);
 
 	SUIInput::Init();
 }

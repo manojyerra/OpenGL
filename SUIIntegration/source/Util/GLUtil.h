@@ -67,7 +67,7 @@ public:
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
 
 	static void GLEnable(unsigned int* arr, int size, bool enable);
-	static bool GLEnable(unsigned int state, bool enable);
+	static GLboolean GLEnable(unsigned int state, GLboolean enable);
 	static GLfloat GLLineWidth(GLfloat width);
 	static unsigned int GLColor(unsigned int color);
 	static GLfloat GLPointSize(GLfloat val);

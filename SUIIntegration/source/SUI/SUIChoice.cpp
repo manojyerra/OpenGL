@@ -108,7 +108,7 @@ SUIEvents SUIChoice::UpdateByInput()
 	{
 		if(!_isListActive)
 		{
-			if(Contains(SUIInput::MX, SUIInput::MY))
+			if(Contains((float)SUIInput::MX, (float)SUIInput::MY))
 			{
 				_isListActive = true;
 				SUIManager::GetInstance()->SetDialogCom(this);

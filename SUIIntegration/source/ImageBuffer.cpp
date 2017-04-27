@@ -7,7 +7,7 @@ ImageBuffer::ImageBuffer(string imagePath)
 {
 	_imagePath = imagePath;
 
-	for(int i=0;i<_imagePath.length();i++)
+	for(unsigned int i=0;i<_imagePath.length();i++)
 	{
 		if(_imagePath[i] == '\\')
 			_imagePath[i] = '/';
@@ -150,7 +150,7 @@ int ImageBuffer::GetG(int x, int y)
 	if( x < 0 || x >= _width || y < 0 || y >= _height)
 		return 0;
 
-	unsigned int pos = (_width*y + x) * (float)_bytesPerPixel;
+	unsigned int pos = (unsigned int)((_width*y + x) * _bytesPerPixel);
 	return _buf[ pos + 1];
 }
 
@@ -159,7 +159,7 @@ int ImageBuffer::GetB(int x, int y)
 	if( x < 0 || x >= _width || y < 0 || y >= _height)
 		return 0;
 
-	unsigned int pos = (_width*y + x) * (float)_bytesPerPixel;
+	unsigned int pos = (unsigned int)((_width*y + x) * (float)_bytesPerPixel);
 	return _buf[ pos + 2];
 }
 
@@ -168,7 +168,7 @@ void ImageBuffer::SetPixelColor(int x, int y, unsigned int pixelColor)
 	if( x < 0 || x >= _width || y < 0 || y >= _height)
 		return;
 
-	unsigned int pos = (_width*y + x) * (float)_bytesPerPixel;
+	unsigned int pos = (unsigned int)((_width*y + x) * (float)_bytesPerPixel);
 
 	_buf[ pos + 0]	= (pixelColor >> 24) & 255;
 	_buf[ pos + 1]	= (pixelColor >> 16) & 255;
@@ -186,11 +186,11 @@ void ImageBuffer::SetPixelColor(int x, int y, unsigned int pixelColor)
 
 bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 {
-	float oldW = _width;
-	float oldH = _height;
+	float oldW = (float)_width;
+	float oldH = (float)_height;
 
-	float newW = newWidth;
-	float newH = newHeight;
+	float newW = (float)newWidth;
+	float newH = (float)newHeight;
 
 	if(oldW == 0 || oldH == 0)
 		return false;
@@ -201,7 +201,7 @@ bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 	if(newW == 0) newW = 1;
 	if(newH == 0) newH = 1;
 
-	int numBytes = newW*newH*(_bytesPerPixel);
+	int numBytes = (int)(newW*newH*_bytesPerPixel);
 	unsigned char* newBuf = (unsigned char*)malloc(numBytes);
 	memset(newBuf, 0, numBytes);
 
@@ -212,14 +212,14 @@ bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 	{
 		for(int j=0;j<newH;j++)
 		{
-			int jj = oldH * (float)j / newH;
+			int jj = (int)(j * oldH / newH);
 
 			for(int i=0;i<newW;i++)
 			{
-				int ii = oldW * (float)i / newW;
+				int ii = (int)(i * oldW / newW);
 					
-				unsigned int destinPos = (newW*j + i) * (float)_bytesPerPixel;
-				unsigned int sourcePos = (oldW*jj + ii) * (float)_bytesPerPixel;
+				unsigned int destinPos = (unsigned int)((newW*j + i) * _bytesPerPixel);
+				unsigned int sourcePos = (unsigned int)((oldW*jj + ii) * _bytesPerPixel);
 
 				destinBuf[ destinPos + 0] = srcBuf[ sourcePos + 0];
 				destinBuf[ destinPos + 1] = srcBuf[ sourcePos + 1];
@@ -265,12 +265,12 @@ bool ImageBuffer::ScaleInPixels(int newWidth, int newHeight, int scaleType)
 				float fP3 = x3Percent * y3Percent / 10000.0f;
 				float fP4 = x4Percent * y4Percent / 10000.0f;
 
-				unsigned int p1 = (oldW*y1 + x1) * (float)_bytesPerPixel;
-				unsigned int p2 = (oldW*y2 + x2) * (float)_bytesPerPixel;
-				unsigned int p3 = (oldW*y3 + x3) * (float)_bytesPerPixel;
-				unsigned int p4 = (oldW*y4 + x4) * (float)_bytesPerPixel;
+				unsigned int p1 = (unsigned int)((oldW*y1 + x1) * _bytesPerPixel);
+				unsigned int p2 = (unsigned int)((oldW*y2 + x2) * _bytesPerPixel);
+				unsigned int p3 = (unsigned int)((oldW*y3 + x3) * _bytesPerPixel);
+				unsigned int p4 = (unsigned int)((oldW*y4 + x4) * _bytesPerPixel);
 					
-				unsigned int destinPos = (newW*j + i) * (float)_bytesPerPixel;
+				unsigned int destinPos = (unsigned int)((newW*j + i) * _bytesPerPixel);
 
 				destinBuf[ destinPos + 0] = srcBuf[p1+0]*fP1 + srcBuf[p2+0]*fP2 + srcBuf[p3+0]*fP3 + srcBuf[p4+0]*fP4;
 				destinBuf[ destinPos + 1] = srcBuf[p1+1]*fP1 + srcBuf[p2+1]*fP2 + srcBuf[p3+1]*fP3 + srcBuf[p4+1]*fP4;
@@ -474,8 +474,8 @@ bool ImageBuffer::SetCanvasSize(int newW, int newH)
 	{
 		for(int i=0; i<oldW && i<newW; i++)
 		{
-			unsigned int sourcePos = (oldW*j + i) * (float)_bytesPerPixel;
-			unsigned int destinPos = (newW*j + i) * (float)_bytesPerPixel;
+			unsigned int sourcePos = (unsigned int)((oldW*j + i) * _bytesPerPixel);
+			unsigned int destinPos = (unsigned int)((newW*j + i) * _bytesPerPixel);
 
 			newBuf[ destinPos + 0] = _buf[ sourcePos + 0];
 			newBuf[ destinPos + 1] = _buf[ sourcePos + 1];
@@ -515,8 +515,8 @@ bool ImageBuffer::AddCanvas(int left, int right , int top, int bottom)
 	{
 		for(int i=0;i<oldW;i++)
 		{
-			unsigned int sourcePos = (oldW*j + i) * (float)_bytesPerPixel;
-			unsigned int destinPos = (newW*(j+top) + (i+left)) * (float)_bytesPerPixel;
+			unsigned int sourcePos = (unsigned int)((oldW*j + i) * _bytesPerPixel);
+			unsigned int destinPos = (unsigned int)((newW*(j+top) + (i+left)) * _bytesPerPixel);
 
 			newBuf[ destinPos + 0] = _buf[ sourcePos + 0];
 			newBuf[ destinPos + 1] = _buf[ sourcePos + 1];
@@ -584,9 +584,9 @@ bool ImageBuffer::AddCanvas(int left, int right , int top, int bottom)
 
 void ImageBuffer::GrayScale()
 {
-	float r1 = 0.2126;
-	float g1 = 0.7152;
-	float b1 = 0.0722;
+	float r1 = 0.2126f;
+	float g1 = 0.7152f;
+	float b1 = 0.0722f;
 
 	//float r1 = 0.3;
 	//float g1 = 0.59;
@@ -691,17 +691,17 @@ void ImageBuffer::Sepia(int level)
 		effectLevel = (level-50) / 250.0f;
 	}
 
-	float r1 = 0.393 + effectLevel;
-	float g1 = 0.769 + effectLevel;
-	float b1 = 0.189 + effectLevel;
+	float r1 = 0.393f + effectLevel;
+	float g1 = 0.769f + effectLevel;
+	float b1 = 0.189f + effectLevel;
 
-	float r2 = 0.349 + effectLevel;
-	float g2 = 0.686 + effectLevel;
-	float b2 = 0.168 + effectLevel;
+	float r2 = 0.349f + effectLevel;
+	float g2 = 0.686f + effectLevel;
+	float b2 = 0.168f + effectLevel;
 
-	float r3 = 0.272 + effectLevel;
-	float g3 = 0.534 + effectLevel;
-	float b3 = 0.131 + effectLevel;
+	float r3 = 0.272f + effectLevel;
+	float g3 = 0.534f + effectLevel;
+	float b3 = 0.131f + effectLevel;
 
 	for(int y=0;y<_height;y++)
 	{

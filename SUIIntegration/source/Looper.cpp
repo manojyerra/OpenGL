@@ -11,10 +11,10 @@
 
 Looper::Looper(int windowWidth, int windowHeight)
 {
-	_windowW = windowWidth;
-	_windowH = windowHeight;
+	_windowW = (float)windowWidth;
+	_windowH = (float)windowHeight;
 
-	GLUtil::Init(_windowW, _windowH);
+	GLUtil::Init((int)_windowW, (int)_windowH);
 
 	_modelsMgr = new ModelsManager();
 
@@ -32,13 +32,13 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 void Looper::Update(float deltaTime)
 {	
-	bool consumed = SUIInput::Update(Input::MX, Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
+	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
 	Input::SetEnable( !consumed );
 }
 
 void Looper::Draw()
 {
-	glUtil::ClearColor(0.6, 0.6, 0.6, 1);
+	glUtil::ClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 	glUtil::Clear();
 	glUtil::Begin3DDraw();
 	

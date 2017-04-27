@@ -65,9 +65,9 @@ int ModelsManager::Size()
 
 void ModelsManager::DrawForSelection()
 {
-	bool light = glUtil::GLEnable(GL_LIGHTING, false);
-	bool blend = glUtil::GLEnable(GL_BLEND, false);
-	bool depthTest = glUtil::GLEnable(GL_DEPTH_TEST, true);
+	GLboolean light = glUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
+	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, true);
 	unsigned int prevColor = glUtil::GLColor(0x000000ff);
 
 	for(unsigned int i=0; i<_vec.size();i++)
@@ -100,7 +100,7 @@ void ModelsManager::DrawForSelection()
 
 void ModelsManager::SetBoundingBoxEnabled(bool enable)
 {
-	for(int i=0; i<_vec.size();i++)
+	for(unsigned int i=0; i<_vec.size();i++)
 	{
 		_vec[i]->SetBoundingBoxEnabled(enable);
 	}
@@ -108,7 +108,7 @@ void ModelsManager::SetBoundingBoxEnabled(bool enable)
 
 void ModelsManager::Draw()
 {
-	for(int i=0; i<_vec.size();i++)
+	for(unsigned int i=0; i<_vec.size();i++)
 	{
 		_vec[i]->Draw();
 	}
@@ -116,7 +116,7 @@ void ModelsManager::Draw()
 
 ModelsManager::~ModelsManager()
 {
-	for(int i=0; i<_vec.size();i++)
+	for(unsigned int i=0; i<_vec.size();i++)
 	{
 		if(_vec[i])
 		{

@@ -120,8 +120,8 @@ void SUISlider::SetValue(double value)
 
 void SUISlider::CalcPointerPos()
 {
-	float totDiff = _maxValue - _minValue;
-	float currDiff = _currValue - _minValue;
+	float totDiff = (float)(_maxValue - _minValue);
+	float currDiff = (float)(_currValue - _minValue);
 	float movedInPixels = currDiff * _sliderBgRect.w / totDiff;
 	_pointerX = _sliderBgRect.x + movedInPixels;
 	_pointerRect.SetBounds(_pointerX - _pointerRect.w/2.0f, _sliderBgRect.y, _pointerRect.w, _sliderBgRect.h);
@@ -129,9 +129,9 @@ void SUISlider::CalcPointerPos()
 
 void SUISlider::SetPointerAt(double posInPercent)
 {
-	float totVal = _maxValue - _minValue;
-	float currVal = _minValue + ( posInPercent * totVal / 100.0f);
-	SetValue(currVal);
+	float totVal = (float)(_maxValue - _minValue);
+	float currVal = (float)(_minValue + ( posInPercent * totVal / 100.0f));
+	SetValue((double)currVal);
 }
 
 double SUISlider::GetValue()
@@ -180,14 +180,14 @@ SUIEvents SUISlider::UpdateByInput()
 	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
 		return eventsVec;
 
-	if(SUIInput::IsMouseClicked() && Contains(SUIInput::MX, SUIInput::MY))
+	if(SUIInput::IsMouseClicked() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
 		_pointerActive = true;
 	else if(SUIInput::IsMouseReleased())
 		_pointerActive = false;
 
-	if(_pointerActive && SUIInput::IsMousePressed() && Contains(SUIInput::MX, SUIInput::MY))
+	if(_pointerActive && SUIInput::IsMousePressed() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
 	{
-		float prevCurrVal = _currValue;
+		float prevCurrVal = (float)_currValue;
 
 		_pointerRect.x = SUIInput::MX - _pointerRect.w/2.0f;
 

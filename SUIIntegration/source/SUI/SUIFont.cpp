@@ -255,21 +255,21 @@ void SUIFont::Draw(string text, float xPos, float yPos, float fontSize)
 
 				if(_enableBatch)
 				{
-					_data->glTexCoord2f(lf->u,			(lf->v));				_data->glVertex3f((int)(xx),	(int)(yy),		0);
-					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v));				_data->glVertex3f((int)(xx+ww),	(int)(yy),		0);
-					_data->glTexCoord2f(lf->u,			(lf->v+lf->ch));		_data->glVertex3f((int)(xx),	(int)(yy+hh),	0);
-					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v));				_data->glVertex3f((int)(xx+ww),	(int)(yy),		0);
-					_data->glTexCoord2f(lf->u,			(lf->v+lf->ch));		_data->glVertex3f((int)(xx),	(int)(yy+hh),	0);
-					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v+lf->ch));		_data->glVertex3f((int)(xx+ww),	(int)(yy+hh),	0);
+					_data->glTexCoord2f(lf->u,			(lf->v));				_data->glVertex3f((xx),		(yy),		0);
+					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v));				_data->glVertex3f((xx+ww),	(yy),		0);
+					_data->glTexCoord2f(lf->u,			(lf->v+lf->ch));		_data->glVertex3f((xx),		(yy+hh),	0);
+					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v));				_data->glVertex3f((xx+ww),	(yy),		0);
+					_data->glTexCoord2f(lf->u,			(lf->v+lf->ch));		_data->glVertex3f((xx),		(yy+hh),	0);
+					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v+lf->ch));		_data->glVertex3f((xx+ww),	(yy+hh),	0);
 				}
 				else
 				{
-					glTexCoord2f(lf->u,			(lf->v));			glVertex3f((int)(xx),		(int)(yy),		0);
-					glTexCoord2f(lf->u+lf->cw,	(lf->v));			glVertex3f((int)(xx+ww),	(int)(yy),		0);
-					glTexCoord2f(lf->u,			(lf->v+lf->ch));	glVertex3f((int)(xx),		(int)(yy+hh),	0);
-					glTexCoord2f(lf->u+lf->cw,	(lf->v));			glVertex3f((int)(xx+ww),	(int)(yy),		0);
-					glTexCoord2f(lf->u,			(lf->v+lf->ch));	glVertex3f((int)(xx),		(int)(yy+hh),	0);
-					glTexCoord2f(lf->u+lf->cw,	(lf->v+lf->ch));	glVertex3f((int)(xx+ww),	(int)(yy+hh),	0);
+					glTexCoord2f(lf->u,			(lf->v));			glVertex3f((xx),	(yy),		0);
+					glTexCoord2f(lf->u+lf->cw,	(lf->v));			glVertex3f((xx+ww),	(yy),		0);
+					glTexCoord2f(lf->u,			(lf->v+lf->ch));	glVertex3f((xx),	(yy+hh),	0);
+					glTexCoord2f(lf->u+lf->cw,	(lf->v));			glVertex3f((xx+ww),	(yy),		0);
+					glTexCoord2f(lf->u,			(lf->v+lf->ch));	glVertex3f((xx),	(yy+hh),	0);
+					glTexCoord2f(lf->u+lf->cw,	(lf->v+lf->ch));	glVertex3f((xx+ww),	(yy+hh),	0);
 				}
 			}
 

@@ -133,8 +133,8 @@ bool PNGReadWrite::Write(unsigned char* rawData, int width, int height, int bits
 	png_structp png_ptr = NULL;
 	png_infop info_ptr = NULL;
 	png_byte ** row_pointers = NULL;
-	unsigned int x=0;
-	unsigned int y=0;
+	int x=0;
+	int y=0;
 	int depth = 8;
 	int pixel_size = 3;
 	int colorType = PNG_COLOR_TYPE_RGB;
@@ -181,7 +181,8 @@ bool PNGReadWrite::Write(unsigned char* rawData, int width, int height, int bits
     row_pointers = (png_byte**) png_malloc (png_ptr, height * sizeof (png_byte *));
     
 	int index = 0;
-	for (y=0; y <height; ++y)
+
+	for( y = 0; y < height; ++y)
 	{
         png_byte* row = (png_byte*) png_malloc (png_ptr, sizeof(unsigned char)*width*pixel_size);
         row_pointers[y] = row;

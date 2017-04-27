@@ -58,7 +58,7 @@ void SUIButton::Draw()
 {
 	if(_isBgVisible)
 	{
-		if(SUIInput::IsMousePressed() && Contains(SUIInput::MX, SUIInput::MY))
+		if(SUIInput::IsMousePressed() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
 			DrawBackground(true);
 		else
 			DrawBackground(false);

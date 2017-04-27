@@ -35,8 +35,8 @@ float GLUtil::SH = 0;
 
 void GLUtil::Init(int screenW, int screenH)
 {
-	SW = screenW;
-	SH = screenH;
+	SW = (float)screenW;
+	SH = (float)screenH;
 
 	glShadeModel( GL_SMOOTH		);
 	glCullFace	( GL_BACK		);
@@ -76,13 +76,13 @@ void GLUtil::Init(int screenW, int screenH)
 
 int GLUtil::GetWindowWidth()
 {
-	return SW;
+	return (int)SW;
 }
 
 
 int GLUtil::GetWindowHeight()
 {
-	return SH;
+	return (int)SH;
 }
 
 
@@ -207,7 +207,7 @@ void GLUtil::SetViewport(float x, float y, float w, float h)
 	_viewW = w;
 	_viewH = h;
 
-	glViewport(x, y, w, h);
+	glViewport((int)x, (int)y, (int)w, (int)h);
 }
 
 void GLUtil::SetFrustum(float left, float right, float bottom, float top, float zNear, float zFar)
@@ -236,9 +236,9 @@ void GLUtil::GLEnable(unsigned int* arr, int size, bool enable)
 	}
 }
 
-bool GLUtil::GLEnable(unsigned int state, bool enable)
+GLboolean GLUtil::GLEnable(unsigned int state, GLboolean enable)
 {
-	bool isEnabled = glIsEnabled(state);
+	GLboolean isEnabled = glIsEnabled(state);
 
 	if(enable)
 		glEnable(state);
@@ -271,10 +271,10 @@ unsigned int GLUtil::GLColor(unsigned int color)
 
 	glColor4ub((color >> 24) & 255, (color >> 16) & 255, (color >> 8) & 255, color & 255);
 
-	int r = c[0]*255;
-	int g = c[1]*255;
-	int b = c[2]*255; 
-	int a = c[3]*255;
+	int r = (int)(c[0]*255);
+	int g = (int)(c[1]*255);
+	int b = (int)(c[2]*255); 
+	int a = (int)(c[3]*255);
 
 	return (unsigned int)((r<<24) + (g<<16) + (b<<8) + a);
 }
@@ -302,8 +302,8 @@ bool GLUtil::UpdateCamera()
 {
 	if(Input::IsRightMousePressed())
 	{
-		float dx = Input::MX - Input::PrevMX;
-		float dy = Input::MY - Input::PrevMY;
+		float dx = (float)(Input::MX - Input::PrevMX);
+		float dy = (float)(Input::MY - Input::PrevMY);
 
 		float z = _transZ;
 		if(z < 0)
@@ -317,37 +317,42 @@ bool GLUtil::UpdateCamera()
 	}
 	else if(Input::IsMiddleMousePressed())
 	{
-		float dx = Input::MX - Input::PrevMX;
-		float dy = Input::MY - Input::PrevMY;
+		float dx = (float)(Input::MX - Input::PrevMX);
+		float dy = (float)(Input::MY - Input::PrevMY);
 
-		_angleY += dx * 180.0f / (SW*0.5);
-		_angleX += dy * 180.0f / (SH*0.5);
+		_angleY += dx * 180.0f / (SW*0.5f);
+		_angleX += dy * 180.0f / (SH*0.5f);
+
 		return true;
 	}
 	if(Input::IsKeyPressed(VK_SHIFT) && Input::IsMouseDragged())
 	{
-		_transZ += (Input::PrevMY - Input::MY) * 2;
+		_transZ += (float)(Input::PrevMY - Input::MY) * 2.0f;
+
 		return true;
 	}
 	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMouseDragged())
 	{
-		float dx = Input::MX - Input::PrevMX;
-		float dy = Input::MY - Input::PrevMY;
+		float dx = (float)(Input::MX - Input::PrevMX);
+		float dy = (float)(Input::MY - Input::PrevMY);
 
-		_angleY += dx * 180.0f / (SW*0.5);
-		_angleX += dy * 180.0f / (SH*0.5);
+		_angleY += dx * 180.0f / (SW*0.5f);
+		_angleX += dy * 180.0f / (SH*0.5f);
+
 		return true;
 	}
 	else if(Input::IsScrollDown())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
 		_transZ -= 4.0f;
+
 		return true;
 	}
 	else if(Input::IsScrollUp())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
 		_transZ += 4.0f;
+
 		return true;
 	}
 
@@ -356,7 +361,7 @@ bool GLUtil::UpdateCamera()
 
 void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex)
 {
-	GLfloat qaLightPos[] = {x, y, z, 1.0};
+	GLfloat qaLightPos[] = {x, y, z, 1.0f};
 	glEnable(GL_LIGHTING);
 	glEnable(lightIndex);
 	glLightfv(lightIndex, GL_POSITION, qaLightPos);

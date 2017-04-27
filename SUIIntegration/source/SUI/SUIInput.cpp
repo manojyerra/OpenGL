@@ -24,7 +24,7 @@ bool SUIInput::isMouseReleased = false;
 bool SUIInput::isMouseDoubleClicked = false;
 
 float SUIInput::clickTimeCount = 0;
-float SUIInput::doubleClickTime = 0.2;
+float SUIInput::doubleClickTime = 0.2f;
 
 int SUIInput::currKeyStates[] = {0};
 int SUIInput::prevKeyStates[] = {0};
@@ -67,8 +67,8 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 	PrevMX = MX;
 	PrevMY = MY;
 
-	MX = mouseX;
-	MY = mouseY;
+	MX = (int)mouseX;
+	MY = (int)mouseY;
 
 	if(IsMouseClicked())
 	{
@@ -94,7 +94,7 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 
 	clickTimeCount += deltaTime;
 
-	return SUIManager::GetInstance()->Contains(MX, MY);
+	return SUIManager::GetInstance()->Contains((float)MX, (float)MY);
 }
 
 bool SUIInput::IsAllEventsFired(vector<int> vec)
@@ -103,7 +103,8 @@ bool SUIInput::IsAllEventsFired(vector<int> vec)
 		return false;
 
 	bool allFalse = true;
-	for(int i=0;i<vec.size();i+=2)
+
+	for(unsigned int i=0;i<vec.size();i+=2)
 	{
 		if(vec[i] != 0 && vec[i+1] != 0)
 		{
@@ -115,7 +116,7 @@ bool SUIInput::IsAllEventsFired(vector<int> vec)
 	if(allFalse)
 		return false;
 
-	for(int i=0;i<vec.size();i+=2)
+	for(unsigned int i=0;i<vec.size();i+=2)
 	{
 		if(vec[i] == 0 || vec[i+1] == 0)
 			continue;

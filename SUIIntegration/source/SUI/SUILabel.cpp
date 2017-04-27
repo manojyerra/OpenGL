@@ -10,9 +10,9 @@ SUILabel::SUILabel(string name, int nameAlignment) : SUIComponent(SUIComponent::
 	_nameAlignment = nameAlignment;
 	_h = 22;
 
-	_bgR = _bgR*0.8;
-	_bgG = _bgG*0.8;
-	_bgB = _bgB*0.8;
+	_bgR = (unsigned char)((float)_bgR*0.8f);
+	_bgG = (unsigned char)((float)_bgG*0.8f);
+	_bgB = (unsigned char)((float)_bgB*0.8f);
 
 	_mouseListener = NULL;
 	_isBgVisible = false;

@@ -14,7 +14,7 @@ private:
 	GLubyte* _colorArr;
 	GLfloat* _normalArr;
 
-	int _count;
+	unsigned int _count;
 	GLenum _mode;
 	
 	GLubyte _r;

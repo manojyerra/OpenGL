@@ -176,10 +176,10 @@ float SUIComponent::GetH()	{ return _h; }
 
 void SUIComponent::DrawBackground(bool onPress)
 {
-	int x = _x;
-	int y = _y;
-	int w = _w;
-	int h = _h;
+	GLfloat x = (GLfloat)((int)_x);
+	GLfloat y = (GLfloat)((int)_y);
+	GLfloat w = (GLfloat)((int)_w);
+	GLfloat h = (GLfloat)((int)_h);
 
 	if(!_isBgGradient)
 	{
@@ -195,10 +195,10 @@ void SUIComponent::DrawBackground(bool onPress)
 
 		glColor4ub(r, g, b, a);
 		glBegin(GL_TRIANGLE_STRIP);
-		glVertex2f(x, y);
-		glVertex2f(x+w, y);
-		glVertex2f(x, y+h);
-		glVertex2f(x+w, y+h);
+		glVertex2f(x,	y);
+		glVertex2f(x+w,	y);
+		glVertex2f(x,	y+h);
+		glVertex2f(x+w,	y+h);
 		glEnd();
 	}
 	else
@@ -241,10 +241,10 @@ void SUIComponent::DrawBackground(bool onPress)
 
 void SUIComponent::DrawBorder()
 {
-	int x = _x;
-	int y = _y;
-	int w = _w;
-	int h = _h;
+	GLfloat x = (GLfloat)((int)_x);
+	GLfloat y = (GLfloat)((int)_y);
+	GLfloat w = (GLfloat)((int)_w);
+	GLfloat h = (GLfloat)((int)_h);
 
 	glColor4ub(_borderR, _borderG, _borderB, _borderA);
 

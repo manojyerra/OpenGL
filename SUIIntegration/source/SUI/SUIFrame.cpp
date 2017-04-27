@@ -137,7 +137,7 @@ void SUIFrame::Add(SUIComponent* com)
 	_elementVec.push_back(com);
 }
 
-SUIComponent* SUIFrame::getComponent(int index)
+SUIComponent* SUIFrame::getComponent(unsigned int index)
 {
 	if(index >=0 && index < _elementVec.size())
 		return _elementVec[index];
@@ -471,10 +471,10 @@ void SUIFrame::Draw()
 	glGetBooleanv(GL_SCISSOR_TEST, &isScissorEnable);
 	glGetIntegerv(GL_SCISSOR_BOX, scissorBox);
 
-	int scX = _x-1;
-	int scY = _y;
-	int scW = _w+1;
-	int scH = _h+1;
+	int scX = (int)(_x-1);
+	int scY = (int)(_y);
+	int scW = (int)(_w+1);
+	int scH = (int)(_h+1);
 
 	glEnable(GL_SCISSOR_TEST);
 
@@ -497,10 +497,10 @@ void SUIFrame::Draw()
 
 	float currWindowH = windowH;
 
-	int newScX =viewX + viewW * scX / baseWindowW;
-	int newScY =viewY + viewH * scY / baseWindowH;
-	int newScW =viewW * scW / baseWindowW;
-	int newScH =viewH * scH / baseWindowH;
+	int newScX = (int)(viewX + viewW * scX / baseWindowW);
+	int newScY = (int)(viewY + viewH * scY / baseWindowH);
+	int newScW = (int)(viewW * scW / baseWindowW);
+	int newScH = (int)(viewH * scH / baseWindowH);
 
 	glScissor(newScX, (GLint)(currWindowH-newScY-newScH), newScW, newScH);
 

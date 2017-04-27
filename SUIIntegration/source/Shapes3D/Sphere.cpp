@@ -80,8 +80,8 @@ float Sphere::Volume()
 void Sphere::Draw()
 {
 	unsigned int prevColor = glUtil::GLColor(0xff000088);
-	bool colorMtlEnabled = glUtil::GLEnable(GL_COLOR_MATERIAL, true);
-	bool blend = glUtil::GLEnable(GL_BLEND, true);
+	GLboolean colorMtlEnabled = glUtil::GLEnable(GL_COLOR_MATERIAL, true);
+	GLboolean blend = glUtil::GLEnable(GL_BLEND, true);
 
 	glPushMatrix();
 	glMultMatrixf(m);

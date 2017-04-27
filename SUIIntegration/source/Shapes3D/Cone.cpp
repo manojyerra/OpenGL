@@ -73,7 +73,7 @@ Cone Cone::CalcBoundingCone(float* vertexBuf, int arrSize)
 
 	TransformVertexBuf::MulBufWithMatrix(localVertexBuf, arrSize, cylMatInvert);
 
-	float height = cylinder.GetHeight() * 1.05;
+	float height = cylinder.GetHeight() * 1.05f;
 	float radius = CalcRadius(localVertexBuf, arrSize, height);
 	float volume = (1.0f/3.0f) * PI_VAL * radius * radius * height;
 
@@ -91,7 +91,7 @@ Cone Cone::CalcBoundingCone(float* vertexBuf, int arrSize)
 				localVertexBuf[i+1] = cylinderH - localVertexBuf[i+1];
 		}
 
-		for(float i=1.1; i<2; i+=0.1)
+		for(float i=1.1f; i<2.0f; i+=0.1f)
 		{
 			float currH = height * i;
 
@@ -166,7 +166,7 @@ float Cone::CalcRadius(float* vertexBuf, int arrSize, float height)
 
 void Cone::Draw()
 {
-	bool isLightOn = glUtil::GLEnable( GL_LIGHTING, false );
+	GLboolean isLightOn = glUtil::GLEnable( GL_LIGHTING, false );
 
 	glPushMatrix();
 	glMultMatrixf(m);

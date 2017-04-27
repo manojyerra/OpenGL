@@ -62,7 +62,7 @@ void SUIList::SetSelectColor(unsigned char r, unsigned char g, unsigned char b, 
 	_selectedColor[2] = b;
 	_selectedColor[3] = a;
 
-	for(int i=0;i<_elementsVec.size();i++)
+	for(unsigned int i=0;i<_elementsVec.size();i++)
 		_elementsVec[i]->SetBgColor(_nonSelectedColor);
 
 	if(_selectedIndex >= 0 && _selectedIndex < (int)_elementsVec.size())
@@ -76,7 +76,7 @@ void SUIList::SetNonSelectColor(unsigned char r, unsigned char g, unsigned char 
 	_nonSelectedColor[2] = b;
 	_nonSelectedColor[3] = a;
 
-	for(int i=0;i<_elementsVec.size();i++)
+	for(unsigned int i=0;i<_elementsVec.size();i++)
 		_elementsVec[i]->SetBgColor(_nonSelectedColor);
 
 	if(_selectedIndex >= 0 && _selectedIndex < (int)_elementsVec.size())
@@ -335,10 +335,10 @@ void SUIList::Draw()
 
 	float currWindowH = windowH;
 
-	int newScX = viewX + viewW * (_x-1) / baseWindowW;
-	int newScY = viewY + viewH * localY1 / baseWindowH;
-	int newScW = viewW * (_w+2) / baseWindowW;
-	int newScH = viewH * (localY2-localY1) / baseWindowH;
+	int newScX = (int)(viewX + viewW * (_x-1) / baseWindowW);
+	int newScY = (int)(viewY + viewH * localY1 / baseWindowH);
+	int newScW = (int)(viewW * (_w+2) / baseWindowW);
+	int newScH = (int)(viewH * (localY2-localY1) / baseWindowH);
 
 	glScissor(newScX, (GLint)(currWindowH-newScY-newScH), newScW, newScH);
 	

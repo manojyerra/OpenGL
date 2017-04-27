@@ -1,6 +1,7 @@
 #include "Floor.h"
 #include <windows.h>
 #include <gl/gl.h>
+#include "Util/GLUtil.h"
 
 bool Floor::_visible = true;
 bool Floor::_axisVisible = true;
@@ -32,11 +33,8 @@ void Floor::Draw()
 	if(_visible == false)
 		return;
 
-	float lineWidth_bk = 1.0f;
-	glGetFloatv(GL_LINE_WIDTH, &lineWidth_bk);
-	bool glLighting = glIsEnabled(GL_LIGHTING);
-
-	glDisable(GL_LIGHTING);
+	float lineWidth_bk = glUtil::GLLineWidth(1.0f);
+	GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
 
 	float start = -16;
 	float end = 16;
@@ -48,16 +46,17 @@ void Floor::Draw()
 
 		glBegin(GL_LINES);
 		glColor4ub(255,255,255,60);
-		for(int i=start; i<=end; i+=gap)
+
+		for(int i=(int)start; i<=end; i+=(int)gap)
 		{
-			glVertex3f(start,0.01,i);
-			glVertex3f(end,0.01,i);
+			glVertex3f(start,	0.01f,	(float)i);
+			glVertex3f(end,		0.01f,	(float)i);
 		}
 
-		for(int i=start; i<=end; i+=gap)
+		for(int i=(int)start; i<=end; i+=(int)gap)
 		{
-			glVertex3f(i,0.01,start);
-			glVertex3f(i,0.01,end);
+			glVertex3f((float)i,	0.01f,	start);
+			glVertex3f((float)i,	0.01f,	end);
 		}
 		glEnd();
 	}
@@ -67,15 +66,15 @@ void Floor::Draw()
 		glLineWidth(3.0f);
 		glBegin(GL_LINES);
 			glColor4ub(255,0,0,255);
-			glVertex3f((start+end)/2.0f,0.01,0);
-			glVertex3f(end,0.01,0);
+			glVertex3f((start+end)/2.0f, 0.01f, 0.0f);
+			glVertex3f(end, 0.01f, 0.0f);
 
 			glColor4ub(0,0,255,255);
-			glVertex3f(0,0.01,(start+end)/2.0f);
-			glVertex3f(0,0.01,end);
+			glVertex3f(0,0.01f,(start+end)/2.0f);
+			glVertex3f(0,0.01f,end);
 
 			glColor4ub(0,255,0,255);
-			glVertex3f(0,0.01,(start+end)/2.0f);
+			glVertex3f(0,0.01f,(start+end)/2.0f);
 			glVertex3f(0,end,0);
 		glEnd();
 	}
@@ -86,22 +85,22 @@ void Floor::Draw()
 
 		int c1 = 255;
 		int c2 = 158;
-		for(int outer = start; outer < end; outer++)
+		for(int outer = (int)start; outer < end; outer++)
 		{
 			int temp = c1;
 			c1 = c2;
 			c2 = temp;
-			for(int i=start; i<end; i+=gap)
+			for(int i=(int)start; i<end; i+=(int)gap)
 			{
 				if(i%2 == 0)
 					glColor4ub(c1,c2,158,255);
 				else
 					glColor4ub(c2,c1,158,255);
 
-				glVertex3f(i, 0, outer*gap);
-				glVertex3f(i+gap, 0, outer*gap);
-				glVertex3f(i+gap, 0, (outer+1)*gap);
-				glVertex3f(i, 0, (outer+1)*gap);
+				glVertex3f((float)i,		0, outer*gap);
+				glVertex3f((float)i+gap,	0, outer*gap);
+				glVertex3f((float)i+gap,	0, (outer+1)*gap);
+				glVertex3f((float)i,		0, (outer+1)*gap);
 			}
 		}
 		glEnd();
@@ -119,8 +118,6 @@ void Floor::Draw()
 		*/
 	}
 
-	glLineWidth(lineWidth_bk);
-
-	if(glLighting)
-		glEnable(GL_LIGHTING);
+	glUtil::GLLineWidth(lineWidth_bk);
+	glUtil::GLEnable(GL_LIGHTING, glLighting);
 }

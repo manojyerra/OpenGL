@@ -183,6 +183,8 @@ bool SetupWindow(HINSTANCE hInstance)
 	SetForegroundWindow(hWnd);                      // Slightly Higher Priority
 	SetFocus(hWnd);                                 // Sets Keyboard Focus To The Window
 	UpdateWindow(hWnd);
+
+	return TRUE;
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

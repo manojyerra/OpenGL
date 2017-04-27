@@ -97,9 +97,9 @@ void FLModel::Reset(string folderPath, float* mat)
 	_bounding2DRectEnabled = false;
 	_mat.Copy(mat);
 
-	GLfloat ka[4] = { 0.600000, 0.600000, 0.600000, 1.0};
-	GLfloat kd[4] = { 0.600000, 0.600000, 0.600000, 1.0};
-	GLfloat ks[4] = { 0.900000, 0.900000, 0.900000, 1.0};
+	GLfloat ka[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
+	GLfloat kd[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
+	GLfloat ks[4] = { 0.9f, 0.9f, 0.9f, 1.0f};
 
 	for(int i=0; i<4; i++)
 	{
@@ -341,7 +341,7 @@ vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
 	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
 	modelViewMatrix.glMultMatrixf(_mat.m);
 
-	for(int i=0; i<_numVertex*3; i+=3)
+	for(unsigned int i=0; i<_numVertex*3; i+=3)
 	{
 		GLUtil::Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m);
 
@@ -427,9 +427,9 @@ void FLModel::Draw()
 
 	if(_wireFrameEnabled)
 	{
-		bool lighting = glUtil::GLEnable(GL_LIGHTING, false);
-		bool lineSmooth = glUtil::GLEnable(GL_LINE_SMOOTH, true);
-		bool blend = glUtil::GLEnable(GL_BLEND, false);
+		GLboolean lighting = glUtil::GLEnable(GL_LIGHTING, false);
+		GLboolean lineSmooth = glUtil::GLEnable(GL_LINE_SMOOTH, true);
+		GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
 		GLfloat lineWidth = glUtil::GLLineWidth(1);
 		unsigned int color = glUtil::GLColor(0x000000ff);
 		unsigned int depthFunc = glUtil::GLDepthFunc(GL_LEQUAL);
@@ -450,12 +450,12 @@ void FLModel::Draw()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 
-	for(int i=0; i<_boundingShapes.size(); i++)
+	for(unsigned int i=0; i<_boundingShapes.size(); i++)
 	{
 		_boundingShapes[i]->Draw();
 	}
 
-	bool lighting1 = glUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean lighting1 = glUtil::GLEnable(GL_LIGHTING, false);
 	
 	if(_boundingBoxEnabled)
 		_bBox.Draw();
@@ -508,9 +508,9 @@ void FLModel::DrawBounding2DRect()
 
 	GLMat modelMat = glUtil::GetModelViewMatrix();
 	GLMat projMat = glUtil::GetProjectionMatrix();
-	bool depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
-	bool lighting = glUtil::GLEnable(GL_LIGHTING, false);
-	bool blend = glUtil::GLEnable(GL_BLEND, false);
+	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
+	GLboolean lighting = glUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
 	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
 	GLfloat prevLineWidth = glUtil::GLLineWidth(2);
 
@@ -544,9 +544,9 @@ void FLModel::CalcBorder()
 	glUtil::GLClearColor(1,1,1,1, clearColor);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	bool glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
-	bool glLighting = glUtil::GLEnable(GL_LIGHTING, false);
-	bool glBlend = glUtil::GLEnable(GL_BLEND, false);
+	GLboolean glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
+	GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean glBlend = glUtil::GLEnable(GL_BLEND, false);
 	SetTextureEnabled(false);
 	unsigned int color = glUtil::GLColor(0x00000000);
 
@@ -573,8 +573,8 @@ void FLModel::CalcBorder()
 
 			if(i != 0 && data[pos] != prevVal)
 			{
-				_borderVec.push_back(i);
-				_borderVec.push_back(height-j);
+				_borderVec.push_back((float)i);
+				_borderVec.push_back((float)(height-j));
 			}
 			prevVal = data[pos];
 		}
@@ -590,8 +590,8 @@ void FLModel::CalcBorder()
 
 			if(j != 0 && data[pos] != prevVal)
 			{
-				_borderVec.push_back(i);
-				_borderVec.push_back(height-j);
+				_borderVec.push_back((float)i);
+				_borderVec.push_back((float)(height-j));
 			}
 			prevVal = data[pos];
 		}
@@ -604,19 +604,19 @@ void FLModel::DrawBorder()
 {
 	GLMat modelMat = glUtil::GetModelViewMatrix();
 	GLMat projMat = glUtil::GetProjectionMatrix();
-	bool depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
+	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
 
 	GLUtil::Begin2DDraw();
 	
-	bool glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
-	bool glLighting = glUtil::GLEnable(GL_LIGHTING, false);
-	bool glBlend = glUtil::GLEnable(GL_BLEND, false);
+	GLboolean glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
+	GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean glBlend = glUtil::GLEnable(GL_BLEND, false);
 	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
 	GLfloat pointSize = glUtil::GLPointSize(1.0f);
 
 	glBegin(GL_POINTS);
 
-	for(int i=0; i<_borderVec.size(); i+=2)
+	for(unsigned int i=0; i<_borderVec.size(); i+=2)
 		glVertex2f(_borderVec[i], _borderVec[i+1]);
 
 	glEnd();
@@ -647,7 +647,7 @@ FLModel::~FLModel()
 	if(_indicesPointer)
 		free(_indicesPointer);
 
-	for(int i=0; i<_boundingShapes.size(); i++)
+	for(unsigned int i=0; i<_boundingShapes.size(); i++)
 	{
 		if(_boundingShapes[i])
 		{

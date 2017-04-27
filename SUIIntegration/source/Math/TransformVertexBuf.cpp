@@ -22,7 +22,7 @@ CVector3 TransformVertexBuf::CalcCenter(float* vertexBuf, int arrSize)
 		if(vertexBuf[i+2] > maxZ)	maxZ = vertexBuf[i+2];
 	}
 
-	return CVector3((minX + maxX)/2.0, (minY + maxY)/2.0, (minZ + maxZ)/2.0);
+	return CVector3((minX + maxX)/2.0f, (minY + maxY)/2.0f, (minZ + maxZ)/2.0f);
 }
 
 

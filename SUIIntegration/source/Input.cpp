@@ -48,7 +48,7 @@ bool Input::isMiddleMouseDoubleClicked = false;
 float Input::clickTimeCount = 0;
 float Input::rightClickTimeCount = 0;
 float Input::middleClickTimeCount = 0;
-float Input::DCTime = 0.2;
+float Input::DCTime = 0.2f;
 
 int Input::currKeyStates[] = {0};
 int Input::prevKeyStates[] = {0};
@@ -191,8 +191,8 @@ float Input::GetDragDist()
 {
 	if(IsMouseDragged() || IsRightMouseDragged() || IsMiddleMouseDragged())
 	{
-		float dx = MX - MouseClickX;
-		float dy = MY - MouseClickY;
+		float dx = (float)(MX - MouseClickX);
+		float dy = (float)(MY - MouseClickY);
 
 		return sqrt( dx*dx + dy*dy );
 	}
@@ -202,10 +202,10 @@ float Input::GetDragDist()
 
 float Input::GetAngle()
 {
-	float dx = Input::MX - Input::PrevMX;
-	float dy = Input::MY - Input::PrevMY;
+	float dx = (float)(Input::MX - Input::PrevMX);
+	float dy = (float)(Input::MY - Input::PrevMY);
 
-	float piVal = 3.14159265;
+	float piVal = 3.14159265f;
 	float moveAngle = atan2( dy, dx ) * 180.0f / piVal;
 	moveAngle = (int)moveAngle % 360 + (moveAngle-(int)moveAngle);
 	if(moveAngle < 0)
