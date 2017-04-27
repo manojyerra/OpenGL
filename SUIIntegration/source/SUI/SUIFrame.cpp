@@ -492,7 +492,7 @@ void SUIFrame::Draw()
 	float baseWindowW = 800;
 	float baseWindowH = 600;
 
-	float currWindowH = 800;
+	float currWindowH = 600;
 
 	int newScX =viewX + viewW * scX / baseWindowW;
 	int newScY =viewY + viewH * scY / baseWindowH;

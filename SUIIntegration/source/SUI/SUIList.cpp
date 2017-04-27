@@ -331,7 +331,7 @@ void SUIList::Draw()
 	float baseWindowW = 800;
 	float baseWindowH = 600;
 
-	float currWindowH = 800;
+	float currWindowH = 600;
 
 	int newScX = viewX + viewW * (_x-1) / baseWindowW;
 	int newScY = viewY + viewH * localY1 / baseWindowH;

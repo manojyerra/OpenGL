@@ -22,15 +22,15 @@ Looper::Looper(int windowWidth, int windowHeight)
 	Shape* shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
 	flModel->AddBoundingShape( shape );
 
-	//SUISetup(glUtil::GetWindowWidth(), glUtil::GetWindowHeight());
+	SUISetup(glUtil::GetWindowWidth(), glUtil::GetWindowHeight());
 
-	//_suiFrame = new SuiFrame(100,100,300,500, SuiComponent::V_ALIGNMENT);
-	//_suiFrame->Add(new SuiButton("Button1"));
+	_suiFrame = new SUIFrame(0,0,300,300, SUIComponent::V_ALIGNMENT);
+	_suiFrame->Add(new SUIButton("Button1"));
 }
 
 void Looper::Update(float deltaTime)
 {	
-	//SuiInput::Update(Input::MX, Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
+	SUIInput::Update(Input::MX, Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
 }
 
 void Looper::Draw()
@@ -54,7 +54,7 @@ void Looper::Draw()
 
 	flModel->Draw();
 
-	//SUIRun();
+	SUIRun();
 }
 
 Looper::~Looper()
@@ -65,7 +65,7 @@ Looper::~Looper()
 		_modelsMgr = NULL;
 	}
 
-	//delete _suiFrame;
+	delete _suiFrame;
 
-	//SUIQuit();
+	SUIQuit();
 }
