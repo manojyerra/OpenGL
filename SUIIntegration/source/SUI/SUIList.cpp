@@ -278,8 +278,7 @@ string SUIList::GetItem(int index)
 	if(index >= 0 && index < (int)_elementsVec.size())
 		return _elementsVec[index]->GetName();
 
-	string emptyStr = "";
-	return emptyStr;
+	return "";
 }
 
 void SUIList::DisableScissor()

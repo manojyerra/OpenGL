@@ -354,6 +354,14 @@ bool GLUtil::UpdateCamera()
 	return false;
 }
 
+void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex)
+{
+	GLfloat qaLightPos[] = {x, y, z, 1.0};
+	glEnable(GL_LIGHTING);
+	glEnable(lightIndex);
+	glLightfv(lightIndex, GL_POSITION, qaLightPos);
+}
+
 void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)
 {
 	//GLfloat modelMatrix[16]; 

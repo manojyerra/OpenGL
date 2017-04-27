@@ -52,6 +52,7 @@ public:
 	static void SetModelViewMatrix();
 	static void Begin2DDraw();
 	static bool UpdateCamera();
+	static void SetLightPosition(float x, float y, float z, unsigned int lightIndex);
 
 	static void Clear();
 	static void ClearColor(float r, float g, float b, float a);

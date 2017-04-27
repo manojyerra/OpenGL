@@ -24,13 +24,16 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	SUISetup(glUtil::GetWindowWidth(), glUtil::GetWindowHeight());
 
+	_suiButton = new SUIButton("Button1", this);
+
 	_suiFrame = new SUIFrame(0,0,300,300, SUIComponent::V_ALIGNMENT);
-	_suiFrame->Add(new SUIButton("Button1"));
+	_suiFrame->Add(_suiButton);
 }
 
 void Looper::Update(float deltaTime)
 {	
-	SUIInput::Update(Input::MX, Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
+	bool consumed = SUIInput::Update(Input::MX, Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
+	Input::SetEnable( !consumed );
 }
 
 void Looper::Draw()
@@ -42,19 +45,20 @@ void Looper::Draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	GLfloat qaLightPos[] = {0, 0, 0, 1.0};
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glLightfv(GL_LIGHT0, GL_POSITION, qaLightPos);
+	glUtil::SetLightPosition(0, 0, 0, GL_LIGHT0);
 
 	glUtil::SetModelViewMatrix();
 	glUtil::UpdateCamera();
 
 	Floor::Draw();
-
 	flModel->Draw();
 
-	SUIRun();
+	SUIDraw();
+}
+
+void Looper::actionPerformed(SUIActionEvent SUIActionEvent)
+{
+	_suiButton->SetName("Button Clicked", SUIComponent::CENTER);
 }
 
 Looper::~Looper()

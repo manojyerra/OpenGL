@@ -35,6 +35,7 @@ private:
 	static float middleClickTimeCount;
 
 	static float DCTime;
+	static bool enable;
 
 public:
 
@@ -87,6 +88,7 @@ public:
 
 	static void Init();
 	static void Update(float deltaTime);
+	static void SetEnable(bool enableInput);
 
 	static bool IsKeyTyped(int key);
 	static bool IsKeyPressed(int key);

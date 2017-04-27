@@ -55,6 +55,8 @@ int Input::prevKeyStates[] = {0};
 
 float Input::timeCountForKeyPress[] = {0};
 
+bool Input::enable = true;
+
 void Input::Init()
 {
 	for(int i=0;i<256;i++) currKeyStates[i] = 0;
@@ -149,35 +151,40 @@ void Input::Update(float deltaTime)
 	middleClickTimeCount += deltaTime;
 }
 
-bool Input::IsKeyTyped(int key)		{ return (bool)(!(prevKeyStates[key]&0x80)  && (currKeyStates[key]&0x80) ); }
-bool Input::IsKeyReleased(int key)	{ return (bool)((prevKeyStates[key]&0x80)  && !(currKeyStates[key]&0x80) );}
-bool Input::IsKeyPressed(int key)	{ return (bool)( (currKeyStates[key]&0x80) && true ); }
-bool Input::IsKeyPressedStill(int key, float time) { return (IsKeyPressed(key) && timeCountForKeyPress[key] > time); }
+void Input::SetEnable(bool enableInput)
+{
+	enable = enableInput;
+}
 
-bool Input::IsMousePressed()			{ return isMousePressed;	}
-bool Input::IsMouseReleased()		{ return isMouseReleased;	}
-bool Input::IsMouseClicked()			{ return (isMouseClicked && !isMouseDoubleClicked); }
-bool Input::IsMouseDragged()			{ return (IsMouseMoved() && IsMousePressed()); }
-bool Input::IsMouseDoubleClicked()	{ return isMouseDoubleClicked;		}
+bool Input::IsKeyTyped(int key)		{ return enable && (bool)(!(prevKeyStates[key]&0x80)  && (currKeyStates[key]&0x80) );		}
+bool Input::IsKeyReleased(int key)	{ return enable && (bool)((prevKeyStates[key]&0x80)  && !(currKeyStates[key]&0x80) );		}
+bool Input::IsKeyPressed(int key)	{ return enable && (bool)( (currKeyStates[key]&0x80) && true );								}
+bool Input::IsKeyPressedStill(int key, float time) { return enable && (IsKeyPressed(key) && timeCountForKeyPress[key] > time);	}
 
-bool Input::IsRightMousePressed()	{ return isRightMousePressed; }
-bool Input::IsRightMouseReleased()	{ return isRightMouseReleased; }
-bool Input::IsRightMouseClicked()	{ return (isRightMouseClicked && !isRightMouseDoubleClicked); }
-bool Input::IsRightMouseDragged()	{ return (IsMouseMoved() && IsRightMousePressed()); }
-bool Input::IsRightMouseDoubleClicked()	{ return isRightMouseDoubleClicked;		}
+bool Input::IsMousePressed()		{ return enable && isMousePressed;								}
+bool Input::IsMouseReleased()		{ return enable && isMouseReleased;								}
+bool Input::IsMouseClicked()		{ return enable && (isMouseClicked && !isMouseDoubleClicked);	}
+bool Input::IsMouseDragged()		{ return enable && (IsMouseMoved() && IsMousePressed());		}
+bool Input::IsMouseDoubleClicked()	{ return enable && isMouseDoubleClicked;						}
 
-bool Input::IsMiddleMousePressed()	{ return isMiddleMousePressed; }
-bool Input::IsMiddleMouseReleased()	{ return isMiddleMouseReleased; }
-bool Input::IsMiddleMouseClicked()	{ return (isMiddleMouseClicked && !isMiddleMouseDoubleClicked); }
-bool Input::IsMiddleMouseDragged()	{ return (IsMouseMoved() && IsMiddleMousePressed()); }
-bool Input::IsMiddleMouseDoubleClicked()	{ return isMiddleMouseDoubleClicked;		}
+bool Input::IsRightMousePressed()		{ return enable && isRightMousePressed;									}
+bool Input::IsRightMouseReleased()		{ return enable && isRightMouseReleased;								}
+bool Input::IsRightMouseClicked()		{ return enable && (isRightMouseClicked && !isRightMouseDoubleClicked); }
+bool Input::IsRightMouseDragged()		{ return enable && (IsMouseMoved() && IsRightMousePressed());			}
+bool Input::IsRightMouseDoubleClicked()	{ return enable && isRightMouseDoubleClicked;							}
 
-bool Input::IsScrollUp()		{ return (SCROLL_STATE == SCROLL_UP);	}
-bool Input::IsScrollDown()	{ return (SCROLL_STATE == SCROLL_DOWN);	}
+bool Input::IsMiddleMousePressed()			{ return enable && isMiddleMousePressed;									}
+bool Input::IsMiddleMouseReleased()			{ return enable && isMiddleMouseReleased;									}
+bool Input::IsMiddleMouseClicked()			{ return enable && (isMiddleMouseClicked && !isMiddleMouseDoubleClicked);	}
+bool Input::IsMiddleMouseDragged()			{ return enable && (IsMouseMoved() && IsMiddleMousePressed());				}
+bool Input::IsMiddleMouseDoubleClicked()	{ return enable && isMiddleMouseDoubleClicked;								}
+
+bool Input::IsScrollUp()	{ return enable && (SCROLL_STATE == SCROLL_UP);	}
+bool Input::IsScrollDown()	{ return enable && (SCROLL_STATE == SCROLL_DOWN);	}
 
 bool Input::IsMouseMoved()
 {
-	return (PrevMX != MX || PrevMY != MY);
+	return enable && (PrevMX != MX || PrevMY != MY);
 }
 
 float Input::GetDragDist()

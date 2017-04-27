@@ -1,6 +1,7 @@
 #include "SUIInput.h"
 #include "SUIIncludes.h"
 #include "math.h"
+#include "SUIManager.h"
 
 bool SUIInput::PREV_LEFT_BUTTON_DOWN = false;
 bool SUIInput::LEFT_BUTTON_DOWN = false;
@@ -37,7 +38,7 @@ void SUIInput::Init()
 	for(int i=0;i<256;i++) timeCountForKeyPress[i] = 0;
 }
 
-void SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
+bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 {
 	LEFT_BUTTON_DOWN = down;
 
@@ -62,9 +63,6 @@ void SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == false)	isMouseReleased = true;
 
 	PREV_LEFT_BUTTON_DOWN = LEFT_BUTTON_DOWN;
-
-	//POINT pos;
-	//GetCursorPos(&pos);
 
 	PrevMX = MX;
 	PrevMY = MY;
@@ -95,6 +93,8 @@ void SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 	}
 
 	clickTimeCount += deltaTime;
+
+	return SUIManager::GetInstance()->Contains(MX, MY);
 }
 
 bool SUIInput::IsAllEventsFired(vector<int> vec)

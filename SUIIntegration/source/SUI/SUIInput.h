@@ -57,7 +57,7 @@ public:
 
 
 	static void Init();
-	static void Update(float mouseX, float mouseY, bool down, float deltaTime);
+	static bool Update(float mouseX, float mouseY, bool down, float deltaTime);
 
 	static bool IsEventFired(int keyID, int eventID);
 	static bool IsAllEventsFired(vector<int> vec);

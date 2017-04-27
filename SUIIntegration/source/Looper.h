@@ -10,8 +10,9 @@
 
 #include "SUI/SUI.h"
 #include "SUI/SUIInput.h"
+#include "SUI/SUIActionListener.h"
 
-class Looper
+class Looper : SUIActionListener
 {
 private:
 	float _windowW;
@@ -21,6 +22,7 @@ private:
 	FLModel* flModel;
 
 	SUIFrame* _suiFrame;
+	SUIButton* _suiButton;
 
 public:
 	Looper(int windowWidth, int windowHeight);
@@ -29,6 +31,8 @@ public:
 	void Update(float deltaTime);
 	void UpdateDrawRect();
 	void Draw();
+
+	void actionPerformed(SUIActionEvent SUIActionEvent);
 };
 
 #endif

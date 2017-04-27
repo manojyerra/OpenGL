@@ -120,8 +120,35 @@ void SUIManager::CheckForResetBounds()
 bool SUIManager::Contains(float mx, float my)
 {
 	for(int i=_framesVec.size()-1; i>=0; i--)
+	{
 		if(_framesVec[i]->IsVisible() && (_framesVec[i]->IsMinimized()==false) && _framesVec[i]->Contains(mx, my))
+		{
 			return true;
+		}
+	}
+
+	float iConY = _statusBarRect.y;
+	float iConH = _statusBarRect.h;
+	float iConW = iConH*1.2f;
+
+	float marginH = iConW*0.05f;
+	float marginV = iConW*0.05f;
+
+	int count = 0;
+
+	for(int i=0;i<(int)_framesVec.size();i++)
+	{
+		if(_framesVec[i]->IsMinimized())
+		{
+			float x = (count*iConW)+marginH;
+			float y = iConY+marginV;
+			float w = iConW-2*marginH;
+			float h = iConH-2*marginV;
+
+			if(mx >= x && mx <= x+w && my >= y && my <= y+h)
+				return true;
+		}
+	}
 
 	return false;
 }

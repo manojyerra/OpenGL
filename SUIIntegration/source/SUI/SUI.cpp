@@ -5,7 +5,7 @@ void SUISetup(int windowWidth, int windowHeight)
 	SUIManager::GetInstance()->Setup(windowWidth, windowHeight);
 }
 
-void SUIRun()
+void SUIDraw()
 {
 	SUIManager::GetInstance()->Run();
 }
