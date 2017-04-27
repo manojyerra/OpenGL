@@ -8,8 +8,8 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Sphere.h"
 
-#include "SUI/SUI.h"
-#include "Sui/SuiInput.h"
+//#include "SUI/SUI.h"
+//#include "Sui/SuiInput.h"
 
 class Looper
 {
@@ -20,7 +20,7 @@ private:
 	ModelsManager* _modelsMgr;
 	FLModel* flModel;
 
-	SuiFrame* _suiFrame;
+	//SuiFrame* _suiFrame;
 
 public:
 	Looper(int windowWidth, int windowHeight);
