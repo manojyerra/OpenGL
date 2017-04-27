@@ -3,8 +3,8 @@
 
 #include "SuiManager.h"
 
-void SuiSetup(int windowWidth, int windowHeight);
-void SuiRun();
-void SuiQuit();
+void SUISetup(int windowWidth, int windowHeight);
+void SUIRun();
+void SUIQuit();
 
 #endif

@@ -579,11 +579,11 @@
 				Name="SUI"
 				>
 				<File
-					RelativePath=".\source\Sui\Sui.cpp"
+					RelativePath=".\source\SUI\SUI.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\source\Sui\Sui.h"
+					RelativePath=".\source\SUI\SUI.h"
 					>
 				</File>
 				<File

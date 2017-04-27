@@ -1,16 +1,16 @@
-#include "Sui.h"
+#include "SUI.h"
 
-void SuiSetup(int windowWidth, int windowHeight)
+void SUISetup(int windowWidth, int windowHeight)
 {
 	SuiManager::GetInstance()->Setup(windowWidth, windowHeight);
 }
 
-void SuiRun()
+void SUIRun()
 {
 	SuiManager::GetInstance()->Run();
 }
 
-void SuiQuit()
+void SUIQuit()
 {
 	SuiManager::GetInstance()->DeleteInstance();
 }

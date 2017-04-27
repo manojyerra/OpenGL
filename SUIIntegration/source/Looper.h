@@ -8,7 +8,7 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Sphere.h"
 
-#include "Sui/Sui.h"
+#include "SUI/SUI.h"
 #include "Sui/SuiInput.h"
 
 class Looper
