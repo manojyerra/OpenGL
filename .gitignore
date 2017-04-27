@@ -2,7 +2,6 @@
 *.ncb
 *.user
 *.exe
-*.manifest
 *.res
 *.ilk
 *.pdb
