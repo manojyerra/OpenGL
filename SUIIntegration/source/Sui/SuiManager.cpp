@@ -14,6 +14,8 @@ void SuiManager::Setup(int windowWidth, int windowHeight)
 
 	_statusBarRect.SetColor(0,0,255,120);
 	_statusBarRect.SetBounds(0,_windowHeight*0.92,_windowWidth,_windowHeight*0.08);
+
+	SuiInput::Init();
 }
 
 SuiManager::SuiManager()
