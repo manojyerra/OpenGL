@@ -120,7 +120,6 @@ void GLUtil::SetModelViewMatrix()
 
 void GLUtil::Begin2DDraw()
 {
-	glDisable(GL_DEPTH_TEST);
 	SetViewport(_viewX,_viewY,_viewW, _viewH);
 
 	glMatrixMode(GL_PROJECTION);

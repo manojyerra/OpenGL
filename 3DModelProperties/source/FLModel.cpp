@@ -636,16 +636,16 @@ void FLModel::DrawBorder()
 {
 	GLMat modelMat = glUtil::GetModelViewMatrix();
 	GLMat projMat = glUtil::GetProjectionMatrix();
-	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
 
-	GLUtil::Begin2DDraw();
-	
 	GLboolean glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
 	GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
 	GLboolean glBlend = glUtil::GLEnable(GL_BLEND, false);
 	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
 	GLfloat pointSize = glUtil::GLPointSize(1.0f);
 
+	GLUtil::Begin2DDraw();
+
+	//This needs to optimized.
 	glBegin(GL_POINTS);
 
 	for(unsigned int i=0; i<_borderVec.size(); i+=2)
@@ -659,7 +659,6 @@ void FLModel::DrawBorder()
 	glUtil::GLColor(prevColor);
 	glUtil::GLPointSize(pointSize);
 
-	glUtil::GLEnable(GL_DEPTH_TEST, depthTest);
 	glUtil::SetProjectionMatrix(projMat);
 	glUtil::SetModelViewMatrix(modelMat);
 }
