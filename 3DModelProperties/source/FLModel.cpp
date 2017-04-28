@@ -96,6 +96,10 @@ void FLModel::Reset(string folderPath, float* mat)
 	_wireFramePointsEnabled = false;
 	_boundingBoxEnabled = false;
 	_bounding2DRectEnabled = false;
+	_lightingEnabled = true;
+	_showBoundingShapes = false;
+	_showModel = true;
+
 	_mat.Copy(mat);
 
 	GLfloat ka[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
@@ -254,6 +258,13 @@ void FLModel::SetBoundingBoxEnabled(bool enable)		{	_boundingBoxEnabled = enable
 bool FLModel::IsBoundingBoxEnabled()					{	return _boundingBoxEnabled;			}
 void FLModel::SetBounding2DRectEnabled(bool enable)		{	_bounding2DRectEnabled = enable;	}
 bool FLModel::IsBounding2DRectEnabled()					{	return _bounding2DRectEnabled;		}
+void FLModel::SetLightingEnabled(bool enable)			{	_lightingEnabled = enable;			}
+bool FLModel::IsLightingEnabled()						{	return _lightingEnabled;			}
+void FLModel::ShowBoundingShapes(bool show)				{	_showBoundingShapes = show;			}
+bool FLModel::IsShowingBoundingShapes()					{	return _showBoundingShapes;			}
+void FLModel::ShowModel(bool show)						{	_showModel = show;					}
+bool FLModel::IsShowingModel()							{	return _showModel;					}
+
 
 void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
 {
@@ -382,6 +393,8 @@ void FLModel::AddBoundingShape(Shape* shape)
 
 void FLModel::Draw()
 {
+	bool isLightOn = glUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
+
 	glPushMatrix();
 	glMultMatrixf(_mat.m);
 
@@ -413,7 +426,8 @@ void FLModel::Draw()
 		glVertexPointer( 3, GL_FLOAT, 0, _verticesPointer );
 	}
 
-	glDrawElements(GL_TRIANGLES, _numIndices, _indicesType, _indicesPointer);
+	if(_showModel)
+		glDrawElements(GL_TRIANGLES, _numIndices, _indicesType, _indicesPointer);
 
 	if(enableNormals)
 	{
@@ -427,6 +441,7 @@ void FLModel::Draw()
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 
+	glUtil::GLEnable(GL_LIGHTING, isLightOn);
 
 	if(_wireFrameLinesEnabled || _wireFramePointsEnabled)
 	{
@@ -438,7 +453,7 @@ void FLModel::Draw()
 		
 		if(_wireFrameLinesEnabled)
 		{
-			GLfloat lineWidth = glUtil::GLLineWidth(1);
+			GLfloat lineWidth = glUtil::GLLineWidth(0.75);
 			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );		
 			glDrawElements(GL_TRIANGLES, _numIndices, _indicesType, _indicesPointer);
 			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
@@ -464,9 +479,12 @@ void FLModel::Draw()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 
-	for(unsigned int i=0; i<_boundingShapes.size(); i++)
+	if(_showBoundingShapes)
 	{
-		_boundingShapes[i]->Draw();
+		for(unsigned int i=0; i<_boundingShapes.size(); i++)
+		{
+			_boundingShapes[i]->Draw();
+		}
 	}
 
 	GLboolean lighting1 = glUtil::GLEnable(GL_LIGHTING, false);

@@ -13,11 +13,14 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
 	box->SetMargin(0,0,10,10);
 
-	box->AddCheckBox(new SUICheckBox("WireFrame Lines", this));
-	box->AddCheckBox(new SUICheckBox("WireFrame Points", this));
 	box->AddCheckBox(new SUICheckBox("Texture", this));
+	box->AddCheckBox(new SUICheckBox("Lighting", this));
 	box->AddCheckBox(new SUICheckBox("Bounding Box", this));
 	box->AddCheckBox(new SUICheckBox("Bounding 2D Rect", this));
+	box->AddCheckBox(new SUICheckBox("Show Bounding Shapes", this));
+	box->AddCheckBox(new SUICheckBox("WireFrame Lines", this));
+	box->AddCheckBox(new SUICheckBox("WireFrame Points", this));
+	box->AddCheckBox(new SUICheckBox("Show Model", this));
 	
 	_frame->Add(box);
 }
@@ -28,41 +31,44 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 	SUIComponent* com = (SUIComponent*)e.GetComponent();
 	string name = com->GetName();
 
-	if(name == "WireFrame Lines")
-	{
-		FLModel* selModel = _modelsMgr->GetSelectedModel();
+	FLModel* selModel = _modelsMgr->GetSelectedModel();
 
-		if(selModel)
+	if(selModel)
+	{
+		if(name == "WireFrame Lines")
+		{
 			selModel->SetWireFrameLinesEnabled(((SUICheckBox*)com)->IsSelected());
-	}
-	else if(name == "WireFrame Points")
-	{
-		FLModel* selModel = _modelsMgr->GetSelectedModel();
-
-		if(selModel)
+		}
+		else if(name == "WireFrame Points")
+		{
 			selModel->SetWireFramePointsEnabled(((SUICheckBox*)com)->IsSelected());
-	}
-	else if(name == "Texture")
-	{
-		FLModel* selModel = _modelsMgr->GetSelectedModel();
-
-		if(selModel)
+		}
+		else if(name == "Texture")
+		{
 			selModel->SetTextureEnabled(((SUICheckBox*)com)->IsSelected());
-	}
-	else if(name == "Bounding Box")
-	{
-		FLModel* selModel = _modelsMgr->GetSelectedModel();
-
-		if(selModel)
+		}
+		else if(name == "Bounding Box")
+		{
 			selModel->SetBoundingBoxEnabled(((SUICheckBox*)com)->IsSelected());
-	}
-	else if(name == "Bounding 2D Rect")
-	{
-		FLModel* selModel = _modelsMgr->GetSelectedModel();
-
-		if(selModel)
+		}
+		else if(name == "Bounding 2D Rect")
+		{
 			selModel->SetBounding2DRectEnabled(((SUICheckBox*)com)->IsSelected());
+		}
+		else if(name == "Lighting")
+		{
+			selModel->SetLightingEnabled(((SUICheckBox*)com)->IsSelected());
+		}
+		else if(name == "Show Bounding Shapes")
+		{
+			selModel->ShowBoundingShapes(((SUICheckBox*)com)->IsSelected());
+		}
+		else if(name == "Show Model")
+		{
+			selModel->ShowModel(((SUICheckBox*)com)->IsSelected());
+		}
 	}
+
 }
 
 

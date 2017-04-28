@@ -153,6 +153,9 @@ private:
 	bool _wireFramePointsEnabled;
 	bool _boundingBoxEnabled;
 	bool _bounding2DRectEnabled;
+	bool _lightingEnabled;
+	bool _showBoundingShapes;
+	bool _showModel;
 
 	vector<float> _borderVec;
 	
@@ -205,6 +208,12 @@ public:
 	bool IsBoundingBoxEnabled();
 	void SetBounding2DRectEnabled(bool enable);
 	bool IsBounding2DRectEnabled();
+	void SetLightingEnabled(bool enable);
+	bool IsLightingEnabled();
+	void ShowBoundingShapes(bool show);
+	bool IsShowingBoundingShapes();
+	void ShowModel(bool show);
+	bool IsShowingModel();
 
 	void SetMeterial(int lightParam, float r, float g, float b, float a);
 	void SetShininess(float val);

@@ -19,6 +19,8 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_modelsMgr = new ModelsManager();
 
 	flModel = _modelsMgr->Add("data/cat", CVector3(0,0,0), CVector3(0, 0, 0));
+	Shape* shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
+	flModel->AddBoundingShape(shape);
 
 	SUISetup(glUtil::GetWindowWidth(), glUtil::GetWindowHeight());
 
