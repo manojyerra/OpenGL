@@ -35,6 +35,7 @@ void Floor::Draw()
 
 	float lineWidth_bk = glUtil::GLLineWidth(1.0f);
 	GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
+	unsigned int prevColor = glUtil::GLColor(0xffffffff);
 
 	float start = -16;
 	float end = 16;
@@ -118,6 +119,7 @@ void Floor::Draw()
 		*/
 	}
 
+	glUtil::GLColor(prevColor);
 	glUtil::GLLineWidth(lineWidth_bk);
 	glUtil::GLEnable(GL_LIGHTING, glLighting);
 }

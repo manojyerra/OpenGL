@@ -4,9 +4,19 @@
 #include "SUIEvents.h"
 #include "SUIInput.h"
 
+SUISlider::SUISlider(string name, float minValue, float maxValue, bool isIntegerValue, SUIActionListener* actionListener) : SUIComponent(SUIComponent::SLIDER)
+{
+	Init(name, minValue, maxValue, isIntegerValue, actionListener);
+}
+
 SUISlider::SUISlider(string name, float minValue, float maxValue, bool isIntegerValue) : SUIComponent(SUIComponent::SLIDER)
 {
-	_name = name+": ";
+	Init(name, minValue, maxValue, isIntegerValue, NULL);
+}
+
+void SUISlider::Init(string name, float minValue, float maxValue, bool isIntegerValue, SUIActionListener* actionListener)
+{
+	_name = name;
 	_minValue = minValue;
 	_maxValue = maxValue;
 	_valueBoxRect.SetBounds(0,0,0,0);
@@ -44,7 +54,7 @@ SUISlider::SUISlider(string name, float minValue, float maxValue, bool isInteger
 	_borderB = 64;
 	_borderA = 255;
 
-	_actionListener = NULL;
+	_actionListener = actionListener;
 	_mouseListener = NULL;
 	//_isBgGradient = true;
 }
@@ -93,7 +103,7 @@ void SUISlider::ResetBounds()
 		strLen = strlen(arr);
 	}
 
-	float valueBoxLen = strLen * fontSize;
+	float valueBoxLen = 0;//strLen * fontSize;
 	float sliderLen = _w - (nameLen + valueBoxLen);
 
 	_valueBoxRect.SetBounds(_x + nameLen+sliderLen, _y, valueBoxLen, _h);
@@ -114,7 +124,12 @@ void SUISlider::SetValue(double value)
 		_currValue = _maxValue;
 
 	char arr[512];
-	sprintf(arr, " %d", (int)_currValue);
+	
+	if(_isIntegerValue)
+		sprintf(arr, "%d", (int)_currValue);
+	else
+		sprintf(arr, "%.2f", (float)_currValue);
+
 	_valueAsString = string(arr);
 }
 
@@ -153,7 +168,7 @@ void SUISlider::Draw()
 	SUIFont::GetInstance()->HorBorder(_x, _x+_w);
 	float fontSize = SUIFont::GetInstance()->GetFontSize();
 
-	SUIRect::Draw(_x, _y, SUIFont::GetInstance()->GetLength(_name, fontSize), _h, 255,122,17,255, false);
+	SUIRect::Draw(_x, _y, SUIFont::GetInstance()->GetLength(_name, fontSize), _h, 128,122,128,255, false);
 
 	SUIFont::GetInstance()->Begin();
 	SUIFont::GetInstance()->DrawFromLeft(_name, _x+1, _y+_h/2, fontSize);
@@ -162,7 +177,7 @@ void SUISlider::Draw()
 	_valueBoxRect.DrawWithoutBorder();
 
 	SUIFont::GetInstance()->Begin();
-	SUIFont::GetInstance()->DrawFromLeft(_valueAsString, _valueBoxRect.x+1, _valueBoxRect.y+_h/2, fontSize);
+	SUIFont::GetInstance()->DrawFromRight(_valueAsString, _valueBoxRect.x-1, _valueBoxRect.y+_h/2, fontSize);
 	SUIFont::GetInstance()->End();
 
 	//_sliderBgRect.DrawWithoutBorder();
@@ -202,6 +217,12 @@ SUIEvents SUISlider::UpdateByInput()
 				if((int)prevCurrVal != (int)_currValue)
 					eventsVec.ACTION_PERFORMED = true;
 			}
+			else
+			{
+				if((float)prevCurrVal != (float)_currValue)
+					eventsVec.ACTION_PERFORMED = true;
+			}
+
 		}
 	}
 

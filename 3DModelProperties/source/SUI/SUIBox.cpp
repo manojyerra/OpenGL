@@ -27,6 +27,7 @@ void SUIBox::CommonInit(int alignment, float leftMargin, float rightMargin, floa
 	_elementVec.clear();
 	_isOn = true;
 	_isOnOffEnable = false;
+	_isBorderVisible = true;
 
 	_titleBgR = 180;
 	_titleBgG = 180;

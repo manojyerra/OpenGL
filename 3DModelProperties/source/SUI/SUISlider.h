@@ -26,10 +26,14 @@ private:
 	float _pointerX;
 	bool _pointerActive;
 	
+
 	void CalcPointerPos();
+	void Init(string name, float minValue, float maxValue, bool isIntegerValue, SUIActionListener* actionListener);
 
 public:
 	SUISlider(string name, float minValue, float maxValue, bool isIntegerValue);
+	SUISlider(string name, float minValue, float maxValue, bool isIntegerValue, SUIActionListener* actionListener);
+
 	~SUISlider();
 
 	void SetMinValue(float minValue);
