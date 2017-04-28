@@ -52,10 +52,10 @@ void GLUtil::Init(int screenW, int screenH)
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	_transZ = -350.0f;
-	_transY = -3.0f;
+	_transY = -8.0f;
 
-	_angleX = -0;
-	_angleY = -0;
+	_angleX = 15;
+	_angleY = -30;
 
 	_zNear  = 1.0f;
 	_zFar = 10000.0f;
@@ -260,7 +260,7 @@ GLfloat GLUtil::GLPointSize(GLfloat val)
 {
 	GLfloat pointSize = 1.0f;
 	glGetFloatv(GL_POINT_SIZE, &pointSize);
-	glLineWidth(val);
+	glPointSize(val);
 	return pointSize;
 }
 

@@ -23,6 +23,8 @@ public:
 	FLModel* Add(string folderPath, float* mat);
 
 	FLModel* Get(int index);
+	FLModel* GetSelectedModel();
+
 	int Size();
 	void SetBoundingBoxEnabled(bool enable);
 	void Draw();

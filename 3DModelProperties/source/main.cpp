@@ -17,7 +17,7 @@ HGLRC hRC = NULL;
 int colorBPP = 32;
 int depthBPP = 24;
 int hasAlphaBuffer = 0;
-int windowW = 800;
+int windowW = 1300;
 int windowH = 600;
 
 

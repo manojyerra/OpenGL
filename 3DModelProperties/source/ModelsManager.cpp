@@ -58,6 +58,12 @@ FLModel* ModelsManager::Get(int index)
 	return _vec[index];
 }
 
+FLModel* ModelsManager::GetSelectedModel()
+{
+	return _vec[0];
+}
+
+
 int ModelsManager::Size()
 {
 	return (int)_vec.size();
@@ -75,12 +81,14 @@ void ModelsManager::DrawForSelection()
 		bool bounding2DRect = _vec[i]->IsBounding2DRectEnabled();
 		bool boundingBox	= _vec[i]->IsBoundingBoxEnabled();
 		bool textureEnable = _vec[i]->IsTextureEnabled();
-		bool wireFrameEnable = _vec[i]->IsWireFrameEnabled();
+		bool wireFrameLinesEnable = _vec[i]->IsWireFrameLinesEnabled();
+		bool wireFramePointsEnable = _vec[i]->IsWireFramePointsEnabled();
 
 		_vec[i]->SetBounding2DRectEnabled(false);
 		_vec[i]->SetBoundingBoxEnabled(false);
 		_vec[i]->SetTextureEnabled(false);
-		_vec[i]->SetWireFrameEnabled(false);
+		_vec[i]->SetWireFrameLinesEnabled(false);
+		_vec[i]->SetWireFramePointsEnabled(false);
 
 		glUtil::GLColor(i);
 
@@ -89,7 +97,8 @@ void ModelsManager::DrawForSelection()
 		_vec[i]->SetBounding2DRectEnabled(bounding2DRect);
 		_vec[i]->SetBoundingBoxEnabled(boundingBox);
 		_vec[i]->SetTextureEnabled(textureEnable);
-		_vec[i]->SetWireFrameEnabled(wireFrameEnable);
+		_vec[i]->SetWireFrameLinesEnabled(wireFrameLinesEnable);
+		_vec[i]->SetWireFramePointsEnabled(wireFramePointsEnable);
 	}
 
 	glUtil::GLEnable(GL_LIGHTING, light);

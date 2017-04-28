@@ -4,7 +4,18 @@
 #include "SUIInput.h"
 #include <math.h>
 
+
+SUICheckBox::SUICheckBox(string name, SUIActionListener* actionListener) : SUIComponent(SUIComponent::CHECKBOX)
+{
+	Init(name, SUIComponent::LEFT, actionListener);
+}
+
 SUICheckBox::SUICheckBox(string name, int nameAlignment) : SUIComponent(SUIComponent::CHECKBOX)
+{
+	Init(name, nameAlignment, NULL);
+}
+
+void SUICheckBox::Init(string name, int nameAlignment, SUIActionListener* actionListener)
 {
 	_name = name;
 	_nameAlignment = nameAlignment;
@@ -27,7 +38,7 @@ SUICheckBox::SUICheckBox(string name, int nameAlignment) : SUIComponent(SUICompo
 	_borderB = 57;
 	_borderA = 255;
 
-	_actionListener = NULL;
+	_actionListener = actionListener;
 	_mouseListener = NULL;
 }
 

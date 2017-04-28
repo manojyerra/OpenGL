@@ -92,7 +92,8 @@ void FLModel::Reset(string folderPath, float* mat)
 	_numIndices = 0;
 	_numVertex = 0;
 	_isTextureEnabled = true;
-	_wireFrameEnabled = false;
+	_wireFrameLinesEnabled = false;
+	_wireFramePointsEnabled = false;
 	_boundingBoxEnabled = false;
 	_bounding2DRectEnabled = false;
 	_mat.Copy(mat);
@@ -243,14 +244,16 @@ string FLModel::GetBBoxFilePath(string folderPath)
 	return folderPath+"/bbox.txt";
 }
 
-void FLModel::SetTextureEnabled(bool enable)			{	_isTextureEnabled = enable;		}
-bool FLModel::IsTextureEnabled()						{	return _isTextureEnabled;		}
-void FLModel::SetWireFrameEnabled(bool enable)			{	_wireFrameEnabled = enable;		}
-bool FLModel::IsWireFrameEnabled()						{	return _wireFrameEnabled;		}
-void FLModel::SetBoundingBoxEnabled(bool enable)		{	_boundingBoxEnabled = enable;	}
-bool FLModel::IsBoundingBoxEnabled()					{	return _boundingBoxEnabled;		}
-void FLModel::SetBounding2DRectEnabled(bool enable)		{	_bounding2DRectEnabled = enable;}
-bool FLModel::IsBounding2DRectEnabled()					{	return _bounding2DRectEnabled;	}
+void FLModel::SetTextureEnabled(bool enable)			{	_isTextureEnabled = enable;			}
+bool FLModel::IsTextureEnabled()						{	return _isTextureEnabled;			}
+void FLModel::SetWireFrameLinesEnabled(bool enable)		{	_wireFrameLinesEnabled = enable;	}
+bool FLModel::IsWireFrameLinesEnabled()					{	return _wireFrameLinesEnabled;		}
+void FLModel::SetWireFramePointsEnabled(bool enable)	{	_wireFramePointsEnabled = enable;	}
+bool FLModel::IsWireFramePointsEnabled()				{	return _wireFramePointsEnabled;		}
+void FLModel::SetBoundingBoxEnabled(bool enable)		{	_boundingBoxEnabled = enable;		}
+bool FLModel::IsBoundingBoxEnabled()					{	return _boundingBoxEnabled;			}
+void FLModel::SetBounding2DRectEnabled(bool enable)		{	_bounding2DRectEnabled = enable;	}
+bool FLModel::IsBounding2DRectEnabled()					{	return _bounding2DRectEnabled;		}
 
 void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
 {
@@ -425,22 +428,33 @@ void FLModel::Draw()
 	}
 
 
-	if(_wireFrameEnabled)
+	if(_wireFrameLinesEnabled || _wireFramePointsEnabled)
 	{
 		GLboolean lighting = glUtil::GLEnable(GL_LIGHTING, false);
 		GLboolean lineSmooth = glUtil::GLEnable(GL_LINE_SMOOTH, true);
 		GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
-		GLfloat lineWidth = glUtil::GLLineWidth(1);
-		unsigned int color = glUtil::GLColor(0x000000ff);
+		unsigned int color = glUtil::GLColor(0x0000ffff);
 		unsigned int depthFunc = glUtil::GLDepthFunc(GL_LEQUAL);
-		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 		
-		glDrawElements(GL_TRIANGLES, _numIndices, _indicesType, _indicesPointer);
+		if(_wireFrameLinesEnabled)
+		{
+			GLfloat lineWidth = glUtil::GLLineWidth(1);
+			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );		
+			glDrawElements(GL_TRIANGLES, _numIndices, _indicesType, _indicesPointer);
+			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+			glUtil::GLLineWidth(lineWidth);
+		}
+		
+		if(_wireFramePointsEnabled)
+		{
+			glColor(0xff0000ff);
+			float prevPointSize = glUtil::GLPointSize(4.0f);
+			glDrawElements(GL_POINTS, _numIndices, _indicesType, _indicesPointer);
+			glUtil::GLPointSize(prevPointSize);
+		}
 
-		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 		glDepthFunc(depthFunc);
 		glUtil::GLColor(color);
-		glUtil::GLLineWidth(lineWidth);
 		glUtil::GLEnable(GL_BLEND, blend);
 		glUtil::GLEnable(GL_LINE_SMOOTH, lineSmooth);
 		glUtil::GLEnable(GL_LIGHTING, lighting);

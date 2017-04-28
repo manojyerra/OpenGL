@@ -19,13 +19,11 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_modelsMgr = new ModelsManager();
 
 	flModel = _modelsMgr->Add("data/cat", CVector3(0,0,0), CVector3(0, 0, 0));
-	Shape* shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	flModel->AddBoundingShape( shape );
 
 	SUISetup(glUtil::GetWindowWidth(), glUtil::GetWindowHeight());
 
-	_mainFrame = new MainFrame(0,0,300,500, this);
-	_modelPropsFrame = new ModelPropsFrame(800-300, 0, 300, 500, this);
+	_mainFrame = new MainFrame(0,0,200,500, this);
+	_modelPropsFrame = new ModelPropsFrame(_windowW-200, 0, 200, 500, _modelsMgr);
 }
 
 void Looper::Update(float deltaTime)

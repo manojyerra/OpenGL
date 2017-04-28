@@ -149,7 +149,8 @@ private:
 	unsigned int _textureID;
 
 	bool _isTextureEnabled;
-	bool _wireFrameEnabled;
+	bool _wireFrameLinesEnabled;
+	bool _wireFramePointsEnabled;
 	bool _boundingBoxEnabled;
 	bool _bounding2DRectEnabled;
 
@@ -196,8 +197,10 @@ public:
 	
 	void SetTextureEnabled(bool enable);
 	bool IsTextureEnabled();
-	void SetWireFrameEnabled(bool enable);
-	bool IsWireFrameEnabled();
+	void SetWireFrameLinesEnabled(bool enable);
+	bool IsWireFrameLinesEnabled();
+	void SetWireFramePointsEnabled(bool enable);
+	bool IsWireFramePointsEnabled();
 	void SetBoundingBoxEnabled(bool enable);
 	bool IsBoundingBoxEnabled();
 	void SetBounding2DRectEnabled(bool enable);
