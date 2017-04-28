@@ -32,25 +32,25 @@ SUIBox* ModelPropsFrame::CreateLightingUI()
 	boxAmbient->SetName("Ambient", SUIBox::LEFT);
 	boxAmbient->SetOn(false);
 	boxAmbient->SetOnOffEnable(true);
-	boxAmbient->AddSlider(new SUISlider("R", 0, 1.0f, false));
-	boxAmbient->AddSlider(new SUISlider("G", 0, 1.0f, false));
-	boxAmbient->AddSlider(new SUISlider("B", 0, 1.0f, false));
+	boxAmbient->AddSlider( _ambientR = new SUISlider("R", 0, 1.0f, false, this) );
+	boxAmbient->AddSlider( _ambientG = new SUISlider("G", 0, 1.0f, false, this) );
+	boxAmbient->AddSlider( _ambientB = new SUISlider("B", 0, 1.0f, false, this) );
 
 	SUIBox* boxDiffuse = new SUIBox(SUIBox::V_ALIGNMENT);
 	boxDiffuse->SetName("Diffuse", SUIBox::LEFT);
 	boxDiffuse->SetOn(false);
 	boxDiffuse->SetOnOffEnable(true);
-	boxDiffuse->AddSlider(new SUISlider("R", 0, 1.0f, false));
-	boxDiffuse->AddSlider(new SUISlider("G", 0, 1.0f, false));
-	boxDiffuse->AddSlider(new SUISlider("B", 0, 1.0f, false));
+	boxDiffuse->AddSlider( _diffuseR = new SUISlider("R", 0, 1.0f, false, this) );
+	boxDiffuse->AddSlider( _diffuseG = new SUISlider("G", 0, 1.0f, false, this) );
+	boxDiffuse->AddSlider( _diffuseB = new SUISlider("B", 0, 1.0f, false, this) );
 
 	SUIBox* boxSpecular = new SUIBox(SUIBox::V_ALIGNMENT);
 	boxSpecular->SetName("Specular", SUIBox::LEFT);
 	boxSpecular->SetOnOffEnable(true);
 	boxSpecular->SetOn(false);
-	boxSpecular->AddSlider(new SUISlider("R", 0, 1.0f, false));
-	boxSpecular->AddSlider(new SUISlider("G", 0, 1.0f, false));
-	boxSpecular->AddSlider(new SUISlider("B", 0, 1.0f, false));
+	boxSpecular->AddSlider( _specularR = new SUISlider("R", 0, 1.0f, false, this) );
+	boxSpecular->AddSlider( _specularG = new SUISlider("G", 0, 1.0f, false, this) );
+	boxSpecular->AddSlider( _specularB = new SUISlider("B", 0, 1.0f, false, this) );
 
 	SUIBox* boxLighting = new SUIBox(SUIBox::V_ALIGNMENT);
 	boxLighting->SetName("Lighting", SUIBox::LEFT);
@@ -109,12 +109,44 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		{
 			selModel->ShowModel(((SUICheckBox*)com)->IsSelected());
 		}
-		else if(name == "Shininess")
+		else if( CheckLightBoxUI(com, selModel) )
 		{
-			selModel->SetShininess( ((SUISlider*)com)->GetValue() );
+
 		}
 	}
 
+}
+
+
+bool ModelPropsFrame::CheckLightBoxUI(SUIComponent* com, FLModel* selModel)
+{
+	if(com == NULL)
+		return false;
+
+	string name = com->GetName();
+
+	if(name == "Shininess")
+	{
+		selModel->SetShininess( ((SUISlider*)com)->GetValue() );
+		return true;
+	}
+	else if(com == _ambientR || com == _ambientG || com == _ambientB)
+	{
+		selModel->SetMeterial(GL_AMBIENT, _ambientR->GetValue(), _ambientG->GetValue(), _ambientB->GetValue(), 1.0f);
+		return true;
+	}
+	else if(com == _diffuseR || com == _diffuseG || com == _diffuseB)
+	{
+		selModel->SetMeterial(GL_DIFFUSE, _diffuseR->GetValue(), _diffuseG->GetValue(), _diffuseB->GetValue(), 1.0f);
+		return true;
+	}
+	else if(com == _specularR || com == _specularG || com == _specularB)
+	{
+		selModel->SetMeterial(GL_SPECULAR, _specularR->GetValue(), _specularG->GetValue(), _specularB->GetValue(), 1.0f);
+		return true;
+	}
+
+	return false;
 }
 
 

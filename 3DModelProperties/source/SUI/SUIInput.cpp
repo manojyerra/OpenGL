@@ -40,7 +40,14 @@ void SUIInput::Init()
 
 bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 {
+	PREV_LEFT_BUTTON_DOWN = LEFT_BUTTON_DOWN;
 	LEFT_BUTTON_DOWN = down;
+
+	isMouseClicked = false;
+	isMousePressed = false;
+	isMouseReleased = false;
+	isMouseDoubleClicked = false;
+
 
 	for(int i=0;i<256;i++)	prevKeyStates[i] = currKeyStates[i];
 	for(int i=0;i<256;i++)	currKeyStates[i] =  GetKeyState(i);
@@ -53,16 +60,10 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 			timeCountForKeyPress[i] += deltaTime;
 	}
 
-	isMouseClicked = false;
-	isMousePressed = false;
-	isMouseReleased = false;
-	isMouseDoubleClicked = false;
-
 	if(PREV_LEFT_BUTTON_DOWN == false && LEFT_BUTTON_DOWN == true)		isMouseClicked = true;
-	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == true)	isMousePressed = true;
+	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == true)	
+		isMousePressed = true;
 	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == false)	isMouseReleased = true;
-
-	PREV_LEFT_BUTTON_DOWN = LEFT_BUTTON_DOWN;
 
 	PrevMX = MX;
 	PrevMY = MY;
@@ -94,7 +95,20 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 
 	clickTimeCount += deltaTime;
 
-	return SUIManager::GetInstance()->Contains((float)MX, (float)MY);
+	bool returnVal = SUIManager::GetInstance()->Contains((float)MX, (float)MY);
+
+	if(!returnVal)
+	{
+		PREV_LEFT_BUTTON_DOWN = false;
+		LEFT_BUTTON_DOWN = false;
+
+		isMouseClicked = false;
+		isMousePressed = false;
+		isMouseReleased = false;
+		isMouseDoubleClicked = false;
+	}
+
+	return returnVal;
 }
 
 bool SUIInput::IsAllEventsFired(vector<int> vec)

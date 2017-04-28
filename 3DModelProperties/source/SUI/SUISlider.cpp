@@ -200,7 +200,9 @@ SUIEvents SUISlider::UpdateByInput()
 	else if(SUIInput::IsMouseReleased())
 		_pointerActive = false;
 
-	if(_pointerActive && SUIInput::IsMousePressed() && Contains((float)SUIInput::MX, (float)SUIInput::MY))
+	bool mousePressed = SUIInput::IsMousePressed();
+
+	if(_pointerActive && mousePressed && Contains((float)SUIInput::MX, (float)SUIInput::MY))
 	{
 		float prevCurrVal = (float)_currValue;
 
