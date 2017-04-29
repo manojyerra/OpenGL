@@ -70,6 +70,7 @@ public:
 	static GLboolean GLEnable(unsigned int state, GLboolean enable);
 	static GLfloat GLLineWidth(GLfloat width);
 	static unsigned int GLColor(unsigned int color);
+	static unsigned int GetUInt(float r, float g, float b, float a);
 	static GLfloat GLPointSize(GLfloat val);
 	static void GLClearColor(float r, float g, float b, float a, GLfloat* prevColor);
 	static GLenum GLDepthFunc(GLenum val);

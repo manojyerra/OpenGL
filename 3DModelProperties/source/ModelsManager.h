@@ -10,6 +10,7 @@ class ModelsManager
 {
 private:
 	vector<FLModel*> _vec;
+	FLModel* _selModel;
 
 public:
 	ModelsManager();
@@ -22,8 +23,10 @@ public:
 	FLModel* Add(string folderPath, CVector3 pos, CVector3 rot, string rotOrder);
 	FLModel* Add(string folderPath, float* mat);
 
-	FLModel* Get(int index);
+	FLModel* Get(unsigned int index);
 	FLModel* GetSelectedModel();
+	int GetModelIndexByMousePos(float x, float y);
+	void SetSelectedModelIndex(int index);
 
 	int Size();
 	void SetBoundingBoxEnabled(bool enable);

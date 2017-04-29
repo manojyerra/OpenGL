@@ -3,6 +3,7 @@
 ModelsManager::ModelsManager()
 {
 	_vec.clear();
+	_selModel = NULL;
 }
 
 FLModel* ModelsManager::Add(string folderPath)
@@ -53,16 +54,35 @@ FLModel* ModelsManager::Add(string folderPath, float* mat)
 	return model;
 }
 
-FLModel* ModelsManager::Get(int index)
+FLModel* ModelsManager::Get(unsigned int index)
 {
 	return _vec[index];
 }
 
 FLModel* ModelsManager::GetSelectedModel()
 {
-	return _vec[0];
+	return _selModel;
 }
 
+void ModelsManager::SetSelectedModelIndex(int index)
+{
+	_selModel = _vec[index];
+}
+
+int ModelsManager::GetModelIndexByMousePos(float x, float y)
+{
+	DrawForSelection();
+		
+	GLubyte data[4];
+	glReadPixels(x, glUtil::GetWindowHeight()-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+	unsigned int colorVal = (unsigned int)((data[0]<<24) + (data[1]<<16) + (data[2]<<8) + data[3]);
+
+	if(colorVal < Size())
+		return colorVal;
+
+	return -1;
+}
 
 int ModelsManager::Size()
 {
@@ -78,17 +98,21 @@ void ModelsManager::DrawForSelection()
 
 	for(unsigned int i=0; i<_vec.size();i++)
 	{
-		bool bounding2DRect = _vec[i]->IsBounding2DRectEnabled();
-		bool boundingBox	= _vec[i]->IsBoundingBoxEnabled();
-		bool textureEnable = _vec[i]->IsTextureEnabled();
-		bool wireFrameLinesEnable = _vec[i]->IsWireFrameLinesEnabled();
-		bool wireFramePointsEnable = _vec[i]->IsWireFramePointsEnabled();
+		bool bounding2DRect			= _vec[i]->IsBounding2DRectEnabled();
+		bool boundingBox			= _vec[i]->IsBoundingBoxEnabled();
+		bool boundingShapes			= _vec[i]->IsShowingBoundingShapes();
+		bool textureEnable			= _vec[i]->IsTextureEnabled();
+		bool wireFrameLinesEnable	= _vec[i]->IsWireFrameLinesEnabled();
+		bool wireFramePointsEnable	= _vec[i]->IsWireFramePointsEnabled();
+		bool lightingOn				= _vec[i]->IsLightingEnabled();
 
 		_vec[i]->SetBounding2DRectEnabled(false);
 		_vec[i]->SetBoundingBoxEnabled(false);
 		_vec[i]->SetTextureEnabled(false);
 		_vec[i]->SetWireFrameLinesEnabled(false);
 		_vec[i]->SetWireFramePointsEnabled(false);
+		_vec[i]->ShowBoundingShapes(false);
+		_vec[i]->SetLightingEnabled(false);
 
 		glUtil::GLColor(i);
 
@@ -99,6 +123,8 @@ void ModelsManager::DrawForSelection()
 		_vec[i]->SetTextureEnabled(textureEnable);
 		_vec[i]->SetWireFrameLinesEnabled(wireFrameLinesEnable);
 		_vec[i]->SetWireFramePointsEnabled(wireFramePointsEnable);
+		_vec[i]->ShowBoundingShapes(boundingShapes);
+		_vec[i]->SetLightingEnabled(lightingOn);
 	}
 
 	glUtil::GLEnable(GL_LIGHTING, light);

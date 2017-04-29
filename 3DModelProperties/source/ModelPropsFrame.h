@@ -14,7 +14,17 @@ class ModelPropsFrame : SUIActionListener
 private:
 	SUIFrame* _frame;
 	ModelsManager* _modelsMgr;
-	
+		
+	SUICheckBox* _texureChkBox;
+	SUICheckBox* _boundingBoxChkBox;
+	SUICheckBox* _bounding2DRectChkBox;
+	SUICheckBox* _showBoundingShapesChkBox;
+	SUICheckBox* _wireFrameLinesChkBox;
+	SUICheckBox* _wireFramePointsChkBox;
+	SUICheckBox* _showModelChkBox;
+
+	//Begin : Light box related ui
+
 	SUISlider* _ambientR;
 	SUISlider* _ambientG;
 	SUISlider* _ambientB;
@@ -27,7 +37,10 @@ private:
 	SUISlider* _specularG;
 	SUISlider* _specularB;
 
-	SUISlider* shininessSlider;
+	SUICheckBox* _lightingChkBox;
+	SUISlider* _shininessSlider;
+
+	//End : Light box related ui
 	
 	SUIBox* CreateLightingUI();
 	bool CheckLightBoxUI(SUIComponent* com, FLModel* selModel);
@@ -37,6 +50,8 @@ public:
 	~ModelPropsFrame();
 
 	void actionPerformed(SUIActionEvent SUIActionEvent);
+
+	void SetUIValuesFromModel(FLModel* model);
 };
 
 #endif

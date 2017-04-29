@@ -273,9 +273,32 @@ void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
 	else if(lightParam == GL_SPECULAR)	{	_ks[0] =r; _ks[1] =g; _ks[2] =b; _ks[3] =a;	}
 }
 
+unsigned int FLModel::GetMeterial(int lightParam)
+{
+	if(lightParam == GL_AMBIENT)		
+	{	
+		return glUtil::GetUInt(_ka[0], _ka[1], _ka[2], _ka[3]);
+	}
+	else if(lightParam == GL_DIFFUSE)	
+	{	
+		return glUtil::GetUInt(_kd[0], _kd[1], _kd[2], _kd[3]);
+	}
+	else if(lightParam == GL_SPECULAR)	
+	{	
+		return glUtil::GetUInt(_ks[0], _ks[1], _ks[2], _ks[3]);
+	}
+
+	return 0;
+}
+
 void FLModel::SetShininess(float val)
 {
 	_shininess = val;
+}
+
+float FLModel::GetShininess()
+{
+	return _shininess;
 }
 
 void FLModel::SetPos(float x, float y, float z)
@@ -499,6 +522,7 @@ void FLModel::Draw()
 
 	glPopMatrix();
 }
+
 
 void FLModel::DrawBounding2DRect()
 {

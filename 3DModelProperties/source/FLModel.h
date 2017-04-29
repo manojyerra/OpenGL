@@ -218,6 +218,9 @@ public:
 	void SetMeterial(int lightParam, float r, float g, float b, float a);
 	void SetShininess(float val);
 
+	unsigned int GetMeterial(int lightParam);
+	float GetShininess();
+
 	void SetPos(float x, float y, float z);
 	void SetPos(CVector3 pos);
 	CVector3 GetPos();

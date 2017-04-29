@@ -268,14 +268,19 @@ unsigned int GLUtil::GLColor(unsigned int color)
 	float c[4];
 	glGetFloatv(GL_CURRENT_COLOR, c);
 
-	glColor4ub((color >> 24) & 255, (color >> 16) & 255, (color >> 8) & 255, color & 255);
+	glColor(color);
 
-	int r = (int)(c[0]*255);
-	int g = (int)(c[1]*255);
-	int b = (int)(c[2]*255); 
-	int a = (int)(c[3]*255);
+	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
+}
 
-	return (unsigned int)((r<<24) + (g<<16) + (b<<8) + a);
+unsigned int GLUtil::GetUInt(float r, float g, float b, float a)
+{
+	int rr = (int)(r*255);
+	int gg = (int)(g*255);
+	int bb = (int)(b*255); 
+	int aa = (int)(a*255);
+
+	return (unsigned int)((rr<<24) + (gg<<16) + (bb<<8) + aa);
 }
 
 void GLUtil::GLClearColor(float r, float g, float b, float a, GLfloat* prevColor)
