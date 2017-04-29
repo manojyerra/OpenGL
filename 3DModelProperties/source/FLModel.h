@@ -233,7 +233,10 @@ public:
 	void AddRotateInLocal(char axis, float angle);
 
 	vector<float> GetVerticesOnRect(int x, int y, int w, int h);
-	Shape* AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h);
+	
+	Shape* AddBestBoudingShapeByVerticesOnRect(int x, int y, int w, int h);
+	Shape* AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h, int boundingShapeID);
+
 	void AddBoundingShape(Shape* shape);
 
 	void Draw();

@@ -393,7 +393,7 @@ vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
 	return vec;
 }
 
-Shape* FLModel::AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
+Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
 {
 	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
 	
@@ -404,6 +404,23 @@ Shape* FLModel::AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
 		bShape = Shape::GetBestFitBoundingShape(&verVec[0], verVec.size());
 
 		_boundingShapes.push_back(bShape);
+	}
+
+	return bShape;
+}
+
+Shape* FLModel::AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h, int boundingShapeID)
+{
+	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
+	
+	Shape* bShape = NULL;
+
+	if(verVec.size() > 0)
+	{
+		bShape = Shape::GetBoundingShape(&verVec[0], verVec.size(), boundingShapeID);
+
+		if(bShape)
+			_boundingShapes.push_back(bShape);
 	}
 
 	return bShape;
@@ -560,6 +577,16 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 		if(pos2D[i][1] > maxY) maxY = pos2D[i][1];
 	}
 
+	if(minX < 0)	minX = 0;
+	if(minY < 0)	minY = 0;
+	if(maxX > glUtil::GetWindowWidth() ) maxX = glUtil::GetWindowWidth();
+	if(maxY > glUtil::GetWindowHeight() ) maxY = glUtil::GetWindowHeight();
+
+	if(maxX < 0)	maxX = 0;
+	if(maxY < 0)	maxY = 0;
+	if(minX > glUtil::GetWindowWidth() ) minX = glUtil::GetWindowWidth();
+	if(minY > glUtil::GetWindowHeight() ) minY = glUtil::GetWindowHeight();
+
 	float rectW = maxX - minX;
 	float rectH = maxY - minY;
 
@@ -694,30 +721,33 @@ void FLModel::CalcBorder()
 
 void FLModel::DrawBorder()
 {
-	GLMat modelMat = glUtil::GetModelViewMatrix();
-	GLMat projMat = glUtil::GetProjectionMatrix();
+	if(_borderVec.size() > 0)
+	{
+		GLMat modelMat = glUtil::GetModelViewMatrix();
+		GLMat projMat = glUtil::GetProjectionMatrix();
 
-	GLboolean glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
-	GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
-	GLboolean glBlend = glUtil::GLEnable(GL_BLEND, false);
-	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
-	GLfloat pointSize = glUtil::GLPointSize(1.0f);
+		GLboolean glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
+		GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
+		GLboolean glBlend = glUtil::GLEnable(GL_BLEND, false);
+		unsigned int prevColor = glUtil::GLColor(0xff0000ff);
+		GLfloat pointSize = glUtil::GLPointSize(1.0f);
 
-	GLUtil::Begin2DDraw();
+		GLUtil::Begin2DDraw();
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, &_borderVec[0]);
-    glDrawArrays(GL_POINTS, 0, _borderVec.size()/2);
-	glDisableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(2, GL_FLOAT, 0, &_borderVec[0]);
+		glDrawArrays(GL_POINTS, 0, _borderVec.size()/2);
+		glDisableClientState(GL_VERTEX_ARRAY);
 
-	glUtil::GLEnable(GL_DEPTH_TEST, glDepthTest);
-	glUtil::GLEnable(GL_LIGHTING, glLighting);
-	glUtil::GLEnable(GL_BLEND, glBlend);
-	glUtil::GLColor(prevColor);
-	glUtil::GLPointSize(pointSize);
+		glUtil::GLEnable(GL_DEPTH_TEST, glDepthTest);
+		glUtil::GLEnable(GL_LIGHTING, glLighting);
+		glUtil::GLEnable(GL_BLEND, glBlend);
+		glUtil::GLColor(prevColor);
+		glUtil::GLPointSize(pointSize);
 
-	glUtil::SetProjectionMatrix(projMat);
-	glUtil::SetModelViewMatrix(modelMat);
+		glUtil::SetProjectionMatrix(projMat);
+		glUtil::SetModelViewMatrix(modelMat);
+	}
 }
 
 

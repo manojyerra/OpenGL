@@ -79,7 +79,7 @@ float Sphere::Volume()
 
 void Sphere::Draw()
 {
-	unsigned int prevColor = glUtil::GLColor(0xff000088);
+	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
 	GLboolean colorMtlEnabled = glUtil::GLEnable(GL_COLOR_MATERIAL, true);
 	GLboolean blend = glUtil::GLEnable(GL_BLEND, true);
 

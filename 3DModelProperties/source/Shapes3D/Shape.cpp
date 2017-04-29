@@ -75,6 +75,18 @@ Shape* Shape::GetBestFitBoundingShape(float* vertexBuf, int arrSize)
 	return returnShape;
 }
 
+Shape* Shape::GetBoundingShape(float* vertexBuf, int arrSize, int boundingShapeID)
+{
+	Shape* shape = NULL;
+
+	if(boundingShapeID == BOX)		shape = new Box		( &(Box::CalcBoundingBox(vertexBuf, arrSize)) );
+	if(boundingShapeID == CONE)		shape = new Cone	( &(Cone::CalcBoundingCone(vertexBuf, arrSize)) );
+	if(boundingShapeID == CYLINDER)	shape = new Cylinder( &(Cylinder::CalcBoundingCylinder(vertexBuf, arrSize)) );
+	if(boundingShapeID == SPHERE)	shape = new Sphere	( &(Sphere::CalcBoundingSphere(vertexBuf, arrSize)) );
+
+	return shape;
+}
+
 Shape::~Shape()
 {
 }

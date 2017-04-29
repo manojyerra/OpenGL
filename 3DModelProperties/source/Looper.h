@@ -21,6 +21,11 @@ private:
 	float _windowW;
 	float _windowH;
 
+	float _rx;
+	float _ry;
+	float _rw;
+	float _rh;
+
 	ModelsManager* _modelsMgr;
 	FLModel* flModel;
 

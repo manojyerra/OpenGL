@@ -304,7 +304,7 @@ void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum
 
 bool GLUtil::UpdateCamera()
 {
-	if(Input::IsRightMousePressed())
+	if( Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMousePressed())
 	{
 		float dx = (float)(Input::MX - Input::PrevMX);
 		float dy = (float)(Input::MY - Input::PrevMY);
@@ -319,6 +319,12 @@ bool GLUtil::UpdateCamera()
 		_transY += -dy*z;
 		return true;
 	}
+	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMiddleMousePressed())
+	{
+		_transZ += (float)(Input::PrevMY - Input::MY) * 2.0f;
+
+		return true;
+	}
 	else if(Input::IsMiddleMousePressed())
 	{
 		float dx = (float)(Input::MX - Input::PrevMX);
@@ -329,33 +335,19 @@ bool GLUtil::UpdateCamera()
 
 		return true;
 	}
-	if(Input::IsKeyPressed(VK_SHIFT) && Input::IsMouseDragged())
-	{
-		_transZ += (float)(Input::PrevMY - Input::MY) * 2.0f;
 
-		return true;
-	}
-	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMouseDragged())
-	{
-		float dx = (float)(Input::MX - Input::PrevMX);
-		float dy = (float)(Input::MY - Input::PrevMY);
 
-		_angleY += dx * 180.0f / (SW*0.5f);
-		_angleX += dy * 180.0f / (SH*0.5f);
-
-		return true;
-	}
-	else if(Input::IsScrollDown())
+	if(Input::IsScrollDown())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ -= 4.0f;
+		_transZ -= 35.0f;
 
 		return true;
 	}
 	else if(Input::IsScrollUp())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ += 4.0f;
+		_transZ += 35.0f;
 
 		return true;
 	}

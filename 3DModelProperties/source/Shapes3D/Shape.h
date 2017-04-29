@@ -29,7 +29,10 @@ public:
 	void SetGLMatrix(float* mat);
 	float* GetGLMatrix();
 	void SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+	
 	static Shape* GetBestFitBoundingShape(float* vertexBuf, int arrSize);
+	static Shape* GetBoundingShape(float* vertexBuf, int arrSize, int boundingShapeID);
+
 	virtual float Volume() = 0;
 	virtual void Draw() = 0;
 	virtual ~Shape();
