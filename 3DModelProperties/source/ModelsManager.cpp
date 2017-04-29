@@ -66,7 +66,14 @@ FLModel* ModelsManager::GetSelectedModel()
 
 void ModelsManager::SetSelectedModelIndex(int index)
 {
-	_selModel = _vec[index];
+	if(index >= 0 && index < Size())
+	{
+		_selModel = _vec[index];
+	}
+	else
+	{
+		_selModel = NULL;
+	}
 }
 
 int ModelsManager::GetModelIndexByMousePos(float x, float y)
@@ -74,7 +81,7 @@ int ModelsManager::GetModelIndexByMousePos(float x, float y)
 	DrawForSelection();
 		
 	GLubyte data[4];
-	glReadPixels(x, glUtil::GetWindowHeight()-y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glReadPixels((GLint)x, glUtil::GetWindowHeight()-(GLint)y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 	unsigned int colorVal = (unsigned int)((data[0]<<24) + (data[1]<<16) + (data[2]<<8) + data[3]);
 
@@ -84,9 +91,9 @@ int ModelsManager::GetModelIndexByMousePos(float x, float y)
 	return -1;
 }
 
-int ModelsManager::Size()
+unsigned int ModelsManager::Size()
 {
-	return (int)_vec.size();
+	return _vec.size();
 }
 
 void ModelsManager::DrawForSelection()
@@ -147,6 +154,9 @@ void ModelsManager::Draw()
 	{
 		_vec[i]->Draw();
 	}
+
+	if(_selModel)
+		_selModel->DrawBorder();
 }
 
 ModelsManager::~ModelsManager()

@@ -181,6 +181,31 @@ void ModelPropsFrame::SetUIValuesFromModel(FLModel* model)
 		_specularG->SetValue( (float)((specular >> 16) & 255) / 255.0f );
 		_specularB->SetValue( (float)((specular >> 8) & 255) / 255.0f );
 	}
+	else
+	{
+		_texureChkBox->SetSelect( false );
+		_boundingBoxChkBox->SetSelect( false );
+		_bounding2DRectChkBox->SetSelect( false );
+		_showBoundingShapesChkBox->SetSelect( false );
+		_wireFrameLinesChkBox->SetSelect( false );
+		_wireFramePointsChkBox->SetSelect( false );
+		_showModelChkBox->SetSelect( false );
+		
+		_lightingChkBox->SetSelect( false );
+		_shininessSlider->SetValue( 0.0 );
+
+		_ambientR->SetValue( 0.0 );
+		_ambientG->SetValue( 0.0 );
+		_ambientB->SetValue( 0.0 );
+
+		_diffuseR->SetValue( 0.0 );
+		_diffuseG->SetValue( 0.0 );
+		_diffuseB->SetValue( 0.0 );
+
+		_specularR->SetValue( 0.0 );
+		_specularG->SetValue( 0.0 );
+		_specularB->SetValue( 0.0 );
+	}
 }
 
 

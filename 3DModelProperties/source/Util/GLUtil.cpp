@@ -299,7 +299,7 @@ GLenum GLUtil::GLDepthFunc(GLenum val)
 
 void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
 {
-	glReadPixels(x, y, width, GetWindowHeight() - height, format, type, pixels);
+	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
 }
 
 bool GLUtil::UpdateCamera()
@@ -373,9 +373,6 @@ void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex
 
 void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)
 {
-	//GLfloat modelMatrix[16]; 
-	//glGetFloatv(GL_MODELVIEW_MATRIX, modelMatrix);
-
 	float x = pos3D[0];
 	float y = pos3D[1];
 	float z = pos3D[2];

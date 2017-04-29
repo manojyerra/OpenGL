@@ -18,10 +18,6 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	_modelsMgr = new ModelsManager();
 
-	//flModel = _modelsMgr->Add("data/cat", CVector3(0,0,0), CVector3(0, 0, 0));
-	//Shape* shape = Shape::GetBestFitBoundingShape(flModel->GetVerticesPointer(), flModel->GetNumVertices()*3);
-	//flModel->AddBoundingShape(shape);
-
 	for(int j=0; j<50; j+=25)
 	{
 		for(int i=0; i<50; i+=25)
@@ -36,7 +32,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 	SUISetup(glUtil::GetWindowWidth(), glUtil::GetWindowHeight());
 
 	_mainFrame = NULL; //new MainFrame(0,0,200,500, this);
-	_modelPropsFrame = new ModelPropsFrame(_windowW-200, 0, 200, 500, _modelsMgr);
+	_modelPropsFrame = new ModelPropsFrame((int)_windowW-200, 0, 200, 500, _modelsMgr);
 }
 
 void Looper::Update(float deltaTime)
@@ -47,8 +43,6 @@ void Looper::Update(float deltaTime)
 
 void Looper::Draw()
 {
-	glUtil::ClearColor(0.6f, 0.6f, 0.6f, 1.0f);
-	glUtil::Clear();
 	glUtil::Begin3DDraw();
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -61,21 +55,18 @@ void Looper::Draw()
 
 	if(Input::IsRightMousePressed())
 	{
+		SelectModel(Input::MX, Input::MY);
+	}
+
+	if(_modelsMgr->GetSelectedModel())
+	{
 		glUtil::ClearColor(1, 1, 1, 1);
 		glUtil::Clear();
-
-		int index = _modelsMgr->GetModelIndexByMousePos(Input::MX, Input::MY);
-
-		if(index >= 0 && index < _modelsMgr->Size())
-		{
-			_modelsMgr->SetSelectedModelIndex(index);
-
-			_modelPropsFrame->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
-		}
-
-		glUtil::ClearColor(0.6f, 0.6f, 0.6f, 1.0f);
-		glUtil::Clear();
+		_modelsMgr->GetSelectedModel()->CalcBorder();
 	}
+
+	glUtil::ClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+	glUtil::Clear();
 
 	_modelsMgr->Draw();
 
@@ -84,8 +75,14 @@ void Looper::Draw()
 	SUIDraw();
 }
 
-void Looper::actionPerformed(SUIActionEvent SUIActionEvent)
+void Looper::SelectModel(int mx, int my)
 {
+	glUtil::ClearColor(1, 1, 1, 1);
+	glUtil::Clear();
+
+	_modelsMgr->SetSelectedModelIndex( _modelsMgr->GetModelIndexByMousePos(mx, my) );
+
+	_modelPropsFrame->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
 }
 
 Looper::~Looper()
@@ -104,3 +101,8 @@ Looper::~Looper()
 
 	SUIQuit();
 }
+
+
+//void Looper::actionPerformed(SUIActionEvent SUIActionEvent)
+//{
+//}

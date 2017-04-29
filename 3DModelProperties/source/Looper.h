@@ -15,7 +15,7 @@
 #include "MainFrame.h"
 #include "ModelPropsFrame.h"
 
-class Looper : SUIActionListener
+class Looper //: SUIActionListener
 {
 private:
 	float _windowW;
@@ -27,6 +27,8 @@ private:
 	MainFrame* _mainFrame;
 	ModelPropsFrame* _modelPropsFrame;
 
+	void SelectModel(int mx, int my);
+
 public:
 	Looper(int windowWidth, int windowHeight);
 	~Looper();
@@ -35,7 +37,7 @@ public:
 	void UpdateDrawRect();
 	void Draw();
 
-	void actionPerformed(SUIActionEvent SUIActionEvent);
+	//void actionPerformed(SUIActionEvent SUIActionEvent);
 };
 
 #endif

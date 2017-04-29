@@ -28,7 +28,7 @@ public:
 	int GetModelIndexByMousePos(float x, float y);
 	void SetSelectedModelIndex(int index);
 
-	int Size();
+	unsigned int Size();
 	void SetBoundingBoxEnabled(bool enable);
 	void Draw();
 

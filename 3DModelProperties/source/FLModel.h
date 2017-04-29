@@ -169,6 +169,7 @@ private:
 	vector<Shape*> _boundingShapes;
 
 	void DrawBoundingBox();
+	void GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLocalMat);
 	void DrawBounding2DRect();
 
 	string GetOrientationFilePath(string folderPath);

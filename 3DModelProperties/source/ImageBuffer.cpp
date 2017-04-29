@@ -717,9 +717,9 @@ void ImageBuffer::Sepia(int level)
 			float valueG = r2*(float)r + g2*(float)g + b2*(float)b;
 			float valueB = r3*(float)r + g3*(float)g + b3*(float)b;
 
-			_buf[ pos + 0] = (valueR > 255) ? 255 : valueR;
-			_buf[ pos + 1] = (valueG > 255) ? 255 : valueG;
-			_buf[ pos + 2] = (valueB > 255) ? 255 : valueB;
+			_buf[ pos + 0] = (valueR > 255.0f) ? 255 : (unsigned char)valueR;
+			_buf[ pos + 1] = (valueG > 255.0f) ? 255 : (unsigned char)valueG;
+			_buf[ pos + 2] = (valueB > 255.0f) ? 255 : (unsigned char)valueB;
 		}
 	}
 }
@@ -727,7 +727,7 @@ void ImageBuffer::Sepia(int level)
 
 void ImageBuffer::BlurImage(int blurLevel)
 {
-	int size = _width*_height*_bytesPerPixel;
+	unsigned int size = _width*_height*_bytesPerPixel;
 
 	unsigned char* newBuf = (unsigned char*) malloc(_width*_height*_bytesPerPixel);
 	memcpy(newBuf, _buf, _width*_height*_bytesPerPixel);
@@ -760,7 +760,7 @@ void ImageBuffer::BlurImage(int blurLevel)
 					{
 						unsigned int subPos = (_width*yy + xx) * _bytesPerPixel;
 
-						if(subPos >=0 && subPos+2 <size)
+						if(subPos >= 0 && subPos+2 < size)
 						{
 							sumR += _buf[ subPos + 0];
 							sumG += _buf[ subPos + 1];
@@ -1816,9 +1816,9 @@ void ImageBuffer::MotionBlur()
 	for(int x = 0; x < _width; x++) 
 	for(int y = 0; y < _height; y++) 
 	{ 
-		float sumR = 0.0f;
-		float sumG = 0.0f;
-		float sumB = 0.0f;
+		double sumR = 0.0f;
+		double sumG = 0.0f;
+		double sumB = 0.0f;
 		 
 		for(int filterX = 0; filterX < filterWidth; filterX++) 
 		for(int filterY = 0; filterY < filterHeight; filterY++) 
@@ -1884,7 +1884,7 @@ void ImageBuffer::PencilSketch()
 				val = 255;
 			else
 			{
-				val = 255.0f * ((float)L/((float)255-(float)U));
+				val = (int)(255.0f * ((float)L/((float)255-(float)U)));
 			}
 
 			uBuf[i+j] = min(255, val);
