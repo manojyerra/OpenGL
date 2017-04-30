@@ -5,6 +5,10 @@
 #include <windows.h>
 #include <gl/gl.h>
 #include "Math/GLMat.h"
+#include "Math/Vector3.h"
+
+#include <vector>
+using namespace std;
 
 #define GLUtil glUtil
 #define glColor(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
@@ -65,6 +69,7 @@ public:
 
 	//static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D);
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
+	static vector<CVector3> Get2DPosOnScreenFrom3DPos(vector<CVector3> pos3DVec, float* modelMatrix);
 
 	static void GLEnable(unsigned int* arr, int size, bool enable);
 	static GLboolean GLEnable(unsigned int state, GLboolean enable);

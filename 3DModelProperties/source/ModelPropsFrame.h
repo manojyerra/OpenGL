@@ -52,6 +52,7 @@ public:
 	void actionPerformed(SUIActionEvent SUIActionEvent);
 
 	void SetUIValuesFromModel(FLModel* model);
+	void ShowBoundingShapes(bool show);
 };
 
 #endif

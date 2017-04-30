@@ -104,9 +104,18 @@ CVector3& CVector3::operator/=( float scalar )
 }
 
 //Length
-const float CVector3::Length() //We also Call "Length or Magnitude" as "Norm" in Vectors
+float CVector3::Length() //We also Call "Length or Magnitude" as "Norm" in Vectors
 {
 	return (float)sqrt( x*x + y*y + z*z );
+}
+
+void CVector3::SetLength(float len)
+{
+	Normalize();
+
+	x *= len;
+	y *= len;
+	z *= len;
 }
 
 //Normalize

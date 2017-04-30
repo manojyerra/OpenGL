@@ -208,6 +208,10 @@ void ModelPropsFrame::SetUIValuesFromModel(FLModel* model)
 	}
 }
 
+void ModelPropsFrame::ShowBoundingShapes(bool show)
+{
+	_showBoundingShapesChkBox->SetSelect( true );
+}
 
 ModelPropsFrame::~ModelPropsFrame()
 {

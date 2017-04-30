@@ -51,6 +51,9 @@ void GLUtil::Init(int screenW, int screenH)
 	glEnable	( GL_BLEND		);
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	glEnable	(GL_LINE_SMOOTH);
+	glHint		(GL_LINE_SMOOTH_HINT, GL_NICEST);
+
 	_transZ = -350.0f;
 	_transY = -8.0f;
 
@@ -389,4 +392,41 @@ void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelM
 
 	pos2D[0] = (( xOnZNear - _left ) / zNearW) * SW;
 	pos2D[1] = SH - ((( yOnZNear - _bottom ) / zNearH) * SH);
+}
+
+vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3> pos3DVec, float* modelMatrix)
+{
+	vector<CVector3> vec2d;
+
+	for(int i=0; i<pos3DVec.size(); i++)
+	{
+		float x = pos3DVec[i].x;
+		float y = pos3DVec[i].y;
+		float z = pos3DVec[i].z;
+
+		float* a = modelMatrix;
+
+		float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
+		float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];
+		float zWPos = a[2]*x + a[6]*y + a[10]*z + a[14];
+
+		float xOnZNear = -_zNear * xWPos / zWPos;
+		float yOnZNear = -_zNear * yWPos / zWPos;
+
+		//if(_isOrtho)
+		//{
+		//	xOnZNear = xWPos;
+		//	yOnZNear = yWPos;
+		//}
+	
+		float zNearW = abs(_right-_left);
+		float zNearH = abs(_top-_bottom);
+
+		float x2D = (( xOnZNear - _left ) / zNearW) * SW;
+		float y2D = SH - ((( yOnZNear - _bottom ) / zNearH) * SH);
+
+		vec2d.push_back( CVector3(x2D, y2D, 0) );
+	}
+
+	return vec2d;
 }

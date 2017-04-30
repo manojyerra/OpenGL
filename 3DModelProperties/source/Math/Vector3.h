@@ -43,7 +43,9 @@ public:
 	CVector3& operator/=( float scalar );
 
 	////Length
-	const float Length();	//We also Call "Length or Magnitude" as "Norm" in Vectors
+	float Length();	//We also Call "Length or Magnitude" as "Norm" in Vectors
+
+	void SetLength(float len);
 
 	////Normalize
 	void Normalize();
