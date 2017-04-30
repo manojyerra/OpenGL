@@ -91,32 +91,38 @@ void Looper::Draw()
 			{
 				selModel->AddBestBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh);
 				selModel->ShowBoundingShapes(true);
+				_modelPropsFrame->ShowBoundingShapes(true);
 			}
 			else if(Input::IsKeyReleased((int)'2'))
 			{
 				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::BOX);
 				selModel->ShowBoundingShapes(true);
+				_modelPropsFrame->ShowBoundingShapes(true);
 			}
 			else if(Input::IsKeyReleased((int)'3'))
 			{
 				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::CONE);
 				selModel->ShowBoundingShapes(true);
+				_modelPropsFrame->ShowBoundingShapes(true);
 			}
 			else if(Input::IsKeyReleased((int)'4'))
 			{
 				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::CYLINDER);
 				selModel->ShowBoundingShapes(true);
+				_modelPropsFrame->ShowBoundingShapes(true);
 			}
 			else if(Input::IsKeyReleased((int)'5'))
 			{
 				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::SPHERE);
 				selModel->ShowBoundingShapes(true);
+				_modelPropsFrame->ShowBoundingShapes(true);
 			}
 		}
 	}
 
 	SUIDraw();
 }
+
 
 void Looper::UpdateDrawRect()
 {
@@ -208,8 +214,3 @@ Looper::~Looper()
 
 	SUIQuit();
 }
-
-
-//void Looper::actionPerformed(SUIActionEvent SUIActionEvent)
-//{
-//}

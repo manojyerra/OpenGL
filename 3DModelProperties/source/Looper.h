@@ -15,7 +15,7 @@
 #include "MainFrame.h"
 #include "ModelPropsFrame.h"
 
-class Looper //: SUIActionListener
+class Looper
 {
 private:
 	float _windowW;
@@ -41,8 +41,6 @@ public:
 	void Update(float deltaTime);
 	void UpdateDrawRect();
 	void Draw();
-
-	//void actionPerformed(SUIActionEvent SUIActionEvent);
 };
 
 #endif
