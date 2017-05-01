@@ -14,6 +14,7 @@
 
 #include "MainFrame.h"
 #include "ModelPropsFrame.h"
+#include "Pointer3D.h"
 
 class Looper
 {
@@ -26,11 +27,15 @@ private:
 	float _rw;
 	float _rh;
 
+	GL2DState state2D;
+
 	ModelsManager* _modelsMgr;
 	FLModel* flModel;
 
 	MainFrame* _mainFrame;
 	ModelPropsFrame* _modelPropsFrame;
+
+	Pointer3D _pointer3D;
 
 	void SelectModel(int mx, int my);
 
@@ -41,9 +46,6 @@ public:
 	void Update(float deltaTime);
 	void UpdateDrawRect();
 	void Draw();
-
-	void DrawPointer3D(FLModel* flModel);
-	void DrawPointerTri(CVector3 p1, CVector3 p2, unsigned int color);
 };
 
 #endif

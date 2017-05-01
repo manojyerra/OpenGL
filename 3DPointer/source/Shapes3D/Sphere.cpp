@@ -79,18 +79,18 @@ float Sphere::Volume()
 
 void Sphere::Draw()
 {
-	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
-	GLboolean colorMtlEnabled = glUtil::GLEnable(GL_COLOR_MATERIAL, true);
-	GLboolean blend = glUtil::GLEnable(GL_BLEND, true);
+	unsigned int prevColor = GLUtil::GLColor(0xff0000ff);
+	GLboolean colorMtlEnabled = GLUtil::GLEnable(GL_COLOR_MATERIAL, true);
+	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
 
 	glPushMatrix();
 	glMultMatrixf(m);
 	gluSphere(_quad,_r,20,20);
 	glPopMatrix();
 
-	glUtil::GLEnable(GL_COLOR_MATERIAL, colorMtlEnabled);
-	glUtil::GLEnable(GL_BLEND, blend);
-	glUtil::GLColor(0xff0000ff);
+	GLUtil::GLEnable(GL_COLOR_MATERIAL, colorMtlEnabled);
+	GLUtil::GLEnable(GL_BLEND, blend);
+	GLUtil::GLColor(0xff0000ff);
 }
 
 Sphere::~Sphere()

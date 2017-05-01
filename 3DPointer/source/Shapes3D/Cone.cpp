@@ -166,7 +166,7 @@ float Cone::CalcRadius(float* vertexBuf, int arrSize, float height)
 
 void Cone::Draw()
 {
-	GLboolean isLightOn = glUtil::GLEnable( GL_LIGHTING, false );
+	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
 
 	glPushMatrix();
 	glMultMatrixf(m);
@@ -201,7 +201,7 @@ void Cone::Draw()
 
 	glPopMatrix();
 
-	glUtil::GLEnable( GL_LIGHTING, isLightOn );
+	GLUtil::GLEnable( GL_LIGHTING, isLightOn );
 }
 
 Cone::~Cone()

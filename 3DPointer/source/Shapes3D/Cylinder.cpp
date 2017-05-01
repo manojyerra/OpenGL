@@ -177,7 +177,7 @@ Cylinder Cylinder::GetBoundingCylinderAfterRotXYZ(float* vertexBuf, int arrSize,
 
 void Cylinder::Draw()
 {
-	GLboolean isLightOn = glUtil::GLEnable( GL_LIGHTING, false );
+	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
 
 	glPushMatrix();
 	glMultMatrixf(m);
@@ -225,7 +225,7 @@ void Cylinder::Draw()
 
 	glPopMatrix();
 
-	glUtil::GLEnable( GL_LIGHTING, isLightOn );
+	GLUtil::GLEnable( GL_LIGHTING, isLightOn );
 }
 
 Cylinder::~Cylinder()

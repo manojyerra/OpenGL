@@ -204,7 +204,7 @@ Box Box::GetBoundingBoxAfterRotXYZ(float* vertexBuf, int arrSize, float xAng, fl
 
 void Box::Draw()
 {
-	GLboolean isLightOn = glUtil::GLEnable( GL_LIGHTING, false );
+	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
 
 	float w = _w/2.0f;
 	float h = _h/2.0f;
@@ -268,7 +268,7 @@ void Box::Draw()
 
 	glPopMatrix();
 
-	glUtil::GLEnable( GL_LIGHTING, isLightOn );
+	GLUtil::GLEnable( GL_LIGHTING, isLightOn );
 }
 
 Box::~Box()

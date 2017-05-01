@@ -81,7 +81,7 @@ int ModelsManager::GetModelIndexByMousePos(float x, float y)
 	DrawForSelection();
 		
 	GLubyte data[4];
-	glReadPixels((GLint)x, glUtil::GetWindowHeight()-(GLint)y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glReadPixels((GLint)x, GLUtil::GetWindowHeight()-(GLint)y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 	unsigned int colorVal = (unsigned int)((data[0]<<24) + (data[1]<<16) + (data[2]<<8) + data[3]);
 
@@ -98,10 +98,10 @@ unsigned int ModelsManager::Size()
 
 void ModelsManager::DrawForSelection()
 {
-	GLboolean light = glUtil::GLEnable(GL_LIGHTING, false);
-	GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
-	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, true);
-	unsigned int prevColor = glUtil::GLColor(0x000000ff);
+	GLboolean light = GLUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean blend = GLUtil::GLEnable(GL_BLEND, false);
+	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
+	unsigned int prevColor = GLUtil::GLColor(0x000000ff);
 
 	for(unsigned int i=0; i<_vec.size();i++)
 	{
@@ -121,7 +121,7 @@ void ModelsManager::DrawForSelection()
 		_vec[i]->ShowBoundingShapes(false);
 		_vec[i]->SetLightingEnabled(false);
 
-		glUtil::GLColor(i);
+		GLUtil::GLColor(i);
 
 		_vec[i]->Draw();
 
@@ -134,10 +134,10 @@ void ModelsManager::DrawForSelection()
 		_vec[i]->SetLightingEnabled(lightingOn);
 	}
 
-	glUtil::GLEnable(GL_LIGHTING, light);
-	glUtil::GLEnable(GL_BLEND, blend);
-	glUtil::GLEnable(GL_DEPTH_TEST, depthTest);
-	glUtil::GLColor(prevColor);
+	GLUtil::GLEnable(GL_LIGHTING, light);
+	GLUtil::GLEnable(GL_BLEND, blend);
+	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	GLUtil::GLColor(prevColor);
 }
 
 void ModelsManager::SetBoundingBoxEnabled(bool enable)

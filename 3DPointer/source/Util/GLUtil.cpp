@@ -23,11 +23,6 @@ float GLUtil::_transZ = 0;
 float GLUtil::_transX = 0;
 float GLUtil::_transY = 0;
 
-float GLUtil::_clearR = 0;
-float GLUtil::_clearG = 0;
-float GLUtil::_clearB = 0;
-float GLUtil::_clearA = 0;
-
 float GLUtil::_zNearPlaneHalfW = 0;
 
 float GLUtil::SW = 0;
@@ -51,7 +46,7 @@ void GLUtil::Init(int screenW, int screenH)
 	glEnable	( GL_BLEND		);
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glEnable	(GL_LINE_SMOOTH);
+	glDisable	(GL_LINE_SMOOTH);
 	glHint		(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
 	_transZ = -350.0f;
@@ -69,25 +64,27 @@ void GLUtil::Init(int screenW, int screenH)
 	_viewY = 0.0f;
 	_viewW = SW;
 	_viewH = SH;
-
-	_clearR = 1.0f;
-	_clearG = 1.0f;
-	_clearB = 1.0f;
-	_clearA = 1.0f;
 }
-
 
 int GLUtil::GetWindowWidth()
 {
 	return (int)SW;
 }
 
-
 int GLUtil::GetWindowHeight()
 {
 	return (int)SH;
 }
 
+void GLUtil::SetViewport(float x, float y, float w, float h)
+{
+	_viewX = x;
+	_viewY = y;
+	_viewW = w;
+	_viewH = h;
+
+	glViewport((int)x, (int)y, (int)w, (int)h);
+}
 
 void GLUtil::Begin3DDraw()
 {
@@ -100,7 +97,6 @@ void GLUtil::Begin3DDraw()
 	glLoadIdentity();
 
 	SetFrustum(-_zNearPlaneHalfW, _zNearPlaneHalfW, -_zNearPlaneHalfW*SH/SW, _zNearPlaneHalfW*SH/SW, _zNear, _zFar);
-
 
 	//for ortho projection...
 
@@ -119,190 +115,6 @@ void GLUtil::SetModelViewMatrix()
 	glTranslatef(_transX,_transY,_transZ);
 	glRotatef(_angleX,1,0,0);
 	glRotatef(_angleY,0,1,0);
-}
-
-void GLUtil::Begin2DDraw()
-{
-	SetViewport(_viewX,_viewY,_viewW, _viewH);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0, SW, SH, 0, -1, 1);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-
-void GLUtil::Clear()
-{
-	glClearColor(_clearR, _clearG, _clearB, _clearA);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
-void GLUtil::ClearColor(float r, float g, float b, float a)
-{
-	_clearR = r;
-	_clearG = g;
-	_clearB = b;
-	_clearA = a;
-
-	glClearColor(_clearR, _clearG, _clearB, _clearA);
-}
-
-GLMat GLUtil::GetModelViewMatrix()
-{
-	GLMat mat;
-	glGetFloatv(GL_MODELVIEW_MATRIX, mat.m);
-	return mat;
-}
-
-GLMat GLUtil::GetProjectionMatrix()
-{
-	GLMat mat;
-	glGetFloatv(GL_PROJECTION_MATRIX, mat.m);
-	return mat;
-}
-
-void GLUtil::SetModelViewMatrix(GLMat mat)
-{
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glMultMatrixf(mat.m);
-}
-
-void GLUtil::SetProjectionMatrix(GLMat mat)
-{
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glMultMatrixf(mat.m);
-}
-
-unsigned int GLUtil::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
-{
-	unsigned int textureID = 0;
-
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if(bytesPP == 4)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPP == 3)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	else if(bytesPP == 1)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
-	else
-		return 0;
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	return textureID;
-}
-
-void GLUtil::SetViewport(float x, float y, float w, float h)
-{
-	_viewX = x;
-	_viewY = y;
-	_viewW = w;
-	_viewH = h;
-
-	glViewport((int)x, (int)y, (int)w, (int)h);
-}
-
-void GLUtil::SetFrustum(float left, float right, float bottom, float top, float zNear, float zFar)
-{
-	_left = left;
-	_right = right;
-	_bottom = bottom;
-	_top = top;
-	_zNear = zNear;
-	_zFar = zFar;
-
-	glFrustum(_left, _right, _bottom, _top, _zNear, _zFar);
-}
-
-void GLUtil::GLEnable(unsigned int* arr, int size, bool enable)
-{
-	if(enable)
-	{
-		for(int i=0; i<size; i++)
-			glEnable(arr[i]);
-	}
-	else
-	{
-		for(int i=0; i<size; i++)
-			glDisable(arr[i]);
-	}
-}
-
-GLboolean GLUtil::GLEnable(unsigned int state, GLboolean enable)
-{
-	GLboolean isEnabled = glIsEnabled(state);
-
-	if(enable)
-		glEnable(state);
-	else
-		glDisable(state);
-
-	return isEnabled;
-}
-
-GLfloat GLUtil::GLLineWidth(GLfloat width)
-{
-	GLfloat lineWidth = 1;
-	glGetFloatv(GL_LINE_WIDTH, &lineWidth);
-	glLineWidth(width);
-	return lineWidth;
-}
-
-GLfloat GLUtil::GLPointSize(GLfloat val)
-{
-	GLfloat pointSize = 1.0f;
-	glGetFloatv(GL_POINT_SIZE, &pointSize);
-	glPointSize(val);
-	return pointSize;
-}
-
-unsigned int GLUtil::GLColor(unsigned int color)
-{
-	float c[4];
-	glGetFloatv(GL_CURRENT_COLOR, c);
-
-	glColor(color);
-
-	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
-}
-
-unsigned int GLUtil::GetUInt(float r, float g, float b, float a)
-{
-	int rr = (int)(r*255);
-	int gg = (int)(g*255);
-	int bb = (int)(b*255); 
-	int aa = (int)(a*255);
-
-	return (unsigned int)((rr<<24) + (gg<<16) + (bb<<8) + aa);
-}
-
-void GLUtil::GLClearColor(float r, float g, float b, float a, GLfloat* prevColor)
-{
-	glGetFloatv(GL_COLOR_CLEAR_VALUE, prevColor);
-	glClearColor(r, g, b, a);
-}
-
-GLenum GLUtil::GLDepthFunc(GLenum val)
-{	
-	int returnVal = 0;
-	glGetIntegerv(GL_DEPTH_FUNC, &returnVal);
-	glDepthFunc(val);
-	return returnVal;
-}
-
-void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
-{
-	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
 }
 
 bool GLUtil::UpdateCamera()
@@ -339,7 +151,6 @@ bool GLUtil::UpdateCamera()
 		return true;
 	}
 
-
 	if(Input::IsScrollDown())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
@@ -358,12 +169,21 @@ bool GLUtil::UpdateCamera()
 	return false;
 }
 
-void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex)
+void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
 {
-	GLfloat qaLightPos[] = {x, y, z, 1.0f};
-	glEnable(GL_LIGHTING);
-	glEnable(lightIndex);
-	glLightfv(lightIndex, GL_POSITION, qaLightPos);
+	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
+}
+
+void GLUtil::SetFrustum(float left, float right, float bottom, float top, float zNear, float zFar)
+{
+	_left = left;
+	_right = right;
+	_bottom = bottom;
+	_top = top;
+	_zNear = zNear;
+	_zFar = zFar;
+
+	glFrustum(_left, _right, _bottom, _top, _zNear, _zFar);
 }
 
 void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)
@@ -429,4 +249,147 @@ vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3> pos3DVec, fl
 	}
 
 	return vec2d;
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
+void GLUtil::GLClearColor(float r, float g, float b, float a, GLfloat* prevColor)
+{
+	glGetFloatv(GL_COLOR_CLEAR_VALUE, prevColor);
+	glClearColor(r, g, b, a);
+}
+
+GLboolean GLUtil::GLEnable(unsigned int state, GLboolean enable)
+{
+	GLboolean isEnabled = glIsEnabled(state);
+
+	if(enable)
+		glEnable(state);
+	else
+		glDisable(state);
+
+	return isEnabled;
+}
+
+void GLUtil::GLEnable(unsigned int* arr, int size, bool enable)
+{
+	if(enable)
+	{
+		for(int i=0; i<size; i++)
+			glEnable(arr[i]);
+	}
+	else
+	{
+		for(int i=0; i<size; i++)
+			glDisable(arr[i]);
+	}
+}
+
+GLfloat GLUtil::GLLineWidth(GLfloat width)
+{
+	GLfloat lineWidth = 1;
+	glGetFloatv(GL_LINE_WIDTH, &lineWidth);
+	glLineWidth(width);
+	return lineWidth;
+}
+
+unsigned int GLUtil::GLColor(unsigned int color)
+{
+	float c[4];
+	glGetFloatv(GL_CURRENT_COLOR, c);
+
+	glColor(color);
+
+	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
+}
+
+unsigned int GLUtil::GetUInt(float r, float g, float b, float a)
+{
+	int rr = (int)(r*255);
+	int gg = (int)(g*255);
+	int bb = (int)(b*255); 
+	int aa = (int)(a*255);
+
+	return (unsigned int)((rr<<24) + (gg<<16) + (bb<<8) + aa);
+}
+
+GLfloat GLUtil::GLPointSize(GLfloat val)
+{
+	GLfloat pointSize = 1.0f;
+	glGetFloatv(GL_POINT_SIZE, &pointSize);
+	glPointSize(val);
+	return pointSize;
+}
+
+GLenum GLUtil::GLDepthFunc(GLenum val)
+{	
+	int returnVal = 0;
+	glGetIntegerv(GL_DEPTH_FUNC, &returnVal);
+	glDepthFunc(val);
+	return returnVal;
+}
+
+GLMat GLUtil::GetModelViewMatrix()
+{
+	GLMat mat;
+	glGetFloatv(GL_MODELVIEW_MATRIX, mat.m);
+	return mat;
+}
+
+GLMat GLUtil::GetProjectionMatrix()
+{
+	GLMat mat;
+	glGetFloatv(GL_PROJECTION_MATRIX, mat.m);
+	return mat;
+}
+
+void GLUtil::SetModelViewMatrix(GLMat mat)
+{
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glMultMatrixf(mat.m);
+}
+
+void GLUtil::SetProjectionMatrix(GLMat mat)
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMultMatrixf(mat.m);
+}
+
+void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex)
+{
+	GLfloat qaLightPos[] = {x, y, z, 1.0f};
+	glEnable(GL_LIGHTING);
+	glEnable(lightIndex);
+	glLightfv(lightIndex, GL_POSITION, qaLightPos);
+}
+
+unsigned int GLUtil::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
+{
+	unsigned int textureID = 0;
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	if(bytesPP == 4)
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+	else if(bytesPP == 3)
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+	else if(bytesPP == 1)
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, width, height, 0, GL_RGB8, GL_UNSIGNED_BYTE, buffer);
+	else
+		return 0;
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	return textureID;
 }

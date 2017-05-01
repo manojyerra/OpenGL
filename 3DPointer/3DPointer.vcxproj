@@ -185,11 +185,13 @@
     <ClCompile Include="source\Math\GLMat.cpp" />
     <ClCompile Include="source\Math\TransformVertexBuf.cpp" />
     <ClCompile Include="source\Math\Vector3.cpp" />
+    <ClCompile Include="source\Pointer3D.cpp" />
     <ClCompile Include="source\Shapes3D\Box.cpp" />
     <ClCompile Include="source\Shapes3D\Cone.cpp" />
     <ClCompile Include="source\Shapes3D\Cylinder.cpp" />
     <ClCompile Include="source\Shapes3D\Shape.cpp" />
     <ClCompile Include="source\Shapes3D\Sphere.cpp" />
+    <ClCompile Include="source\Util\GL2DState.cpp" />
     <ClCompile Include="source\Util\GLUtil.cpp" />
     <ClCompile Include="source\Util\RandomColor.cpp" />
     <ClCompile Include="source\SUI\SUI.cpp" />
@@ -238,11 +240,13 @@
     <ClInclude Include="source\Math\GLMat.h" />
     <ClInclude Include="source\Math\TransformVertexBuf.h" />
     <ClInclude Include="source\Math\Vector3.h" />
+    <ClInclude Include="source\Pointer3D.h" />
     <ClInclude Include="source\Shapes3D\Box.h" />
     <ClInclude Include="source\Shapes3D\Cone.h" />
     <ClInclude Include="source\Shapes3D\Cylinder.h" />
     <ClInclude Include="source\Shapes3D\Shape.h" />
     <ClInclude Include="source\Shapes3D\Sphere.h" />
+    <ClInclude Include="source\Util\GL2DState.h" />
     <ClInclude Include="source\Util\GLUtil.h" />
     <ClInclude Include="source\Util\RandomColor.h" />
     <ClInclude Include="source\SUI\SUI.h" />

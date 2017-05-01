@@ -238,6 +238,12 @@
     <ClCompile Include="source\ModelPropsFrame.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\Util\GL2DState.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Pointer3D.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -409,6 +415,12 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\ModelPropsFrame.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\GL2DState.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Pointer3D.h">
       <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>

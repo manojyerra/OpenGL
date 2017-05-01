@@ -4,6 +4,7 @@
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
 #include "Shapes3D/Shape.h"
+#include "Util/GL2DState.h"
 
 #include <vector>
 #include <string>
@@ -80,7 +81,7 @@ public:
 		float h = ( maxY - minY ) / 2.0f;
 		float d = ( maxZ - minZ ) / 2.0f;
 
-		unsigned int prevColor = glUtil::GLColor(0xff0000ff);
+		unsigned int prevColor = GLUtil::GLColor(0xff0000ff);
 
 		glBegin(GL_QUADS);
 
@@ -128,7 +129,7 @@ public:
 
 		glEnd();
 
-		glUtil::GLColor(prevColor);
+		GLUtil::GLColor(prevColor);
 	}
 };
 
@@ -167,6 +168,8 @@ private:
 	GLMat _mat;
 
 	vector<Shape*> _boundingShapes;
+
+	GL2DState state2D;
 
 	void DrawBoundingBox();
 	void GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLocalMat);

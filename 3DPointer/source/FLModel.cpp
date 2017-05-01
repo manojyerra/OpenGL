@@ -159,7 +159,7 @@ void FLModel::Reset(string folderPath, float* mat)
 
 	ImageBuffer* imgBuf = new ImageBuffer(folderPath+"/texture.png");
 
-	_textureID = glUtil::GenerateGLTextureID(	imgBuf->GetWidth(), imgBuf->GetHeight(), 
+	_textureID = GLUtil::GenerateGLTextureID(	imgBuf->GetWidth(), imgBuf->GetHeight(), 
 											imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
 
 	delete imgBuf;
@@ -277,15 +277,15 @@ unsigned int FLModel::GetMeterial(int lightParam)
 {
 	if(lightParam == GL_AMBIENT)		
 	{	
-		return glUtil::GetUInt(_ka[0], _ka[1], _ka[2], _ka[3]);
+		return GLUtil::GetUInt(_ka[0], _ka[1], _ka[2], _ka[3]);
 	}
 	else if(lightParam == GL_DIFFUSE)	
 	{	
-		return glUtil::GetUInt(_kd[0], _kd[1], _kd[2], _kd[3]);
+		return GLUtil::GetUInt(_kd[0], _kd[1], _kd[2], _kd[3]);
 	}
 	else if(lightParam == GL_SPECULAR)	
 	{	
-		return glUtil::GetUInt(_ks[0], _ks[1], _ks[2], _ks[3]);
+		return GLUtil::GetUInt(_ks[0], _ks[1], _ks[2], _ks[3]);
 	}
 
 	return 0;
@@ -433,7 +433,7 @@ void FLModel::AddBoundingShape(Shape* shape)
 
 void FLModel::Draw()
 {
-	bool isLightOn = glUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
+	bool isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
 
 	glPushMatrix();
 	glMultMatrixf(_mat.m);
@@ -481,38 +481,38 @@ void FLModel::Draw()
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 
-	glUtil::GLEnable(GL_LIGHTING, isLightOn);
+	GLUtil::GLEnable(GL_LIGHTING, isLightOn);
 
 	if(_wireFrameLinesEnabled || _wireFramePointsEnabled)
 	{
-		GLboolean lighting = glUtil::GLEnable(GL_LIGHTING, false);
-		GLboolean lineSmooth = glUtil::GLEnable(GL_LINE_SMOOTH, true);
-		GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
-		unsigned int color = glUtil::GLColor(0x0000ffff);
-		unsigned int depthFunc = glUtil::GLDepthFunc(GL_LEQUAL);
+		GLboolean lighting = GLUtil::GLEnable(GL_LIGHTING, false);
+		GLboolean lineSmooth = GLUtil::GLEnable(GL_LINE_SMOOTH, true);
+		GLboolean blend = GLUtil::GLEnable(GL_BLEND, false);
+		unsigned int color = GLUtil::GLColor(0x0000ffff);
+		unsigned int depthFunc = GLUtil::GLDepthFunc(GL_LEQUAL);
 		
 		if(_wireFrameLinesEnabled)
 		{
-			GLfloat lineWidth = glUtil::GLLineWidth(0.75);
+			GLfloat lineWidth = GLUtil::GLLineWidth(0.75);
 			glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );		
 			glDrawElements(GL_TRIANGLES, _numIndices, _indicesType, _indicesPointer);
 			glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-			glUtil::GLLineWidth(lineWidth);
+			GLUtil::GLLineWidth(lineWidth);
 		}
 		
 		if(_wireFramePointsEnabled)
 		{
 			glColor(0xff0000ff);
-			float prevPointSize = glUtil::GLPointSize(4.0f);
+			float prevPointSize = GLUtil::GLPointSize(4.0f);
 			glDrawElements(GL_POINTS, _numIndices, _indicesType, _indicesPointer);
-			glUtil::GLPointSize(prevPointSize);
+			GLUtil::GLPointSize(prevPointSize);
 		}
 
 		glDepthFunc(depthFunc);
-		glUtil::GLColor(color);
-		glUtil::GLEnable(GL_BLEND, blend);
-		glUtil::GLEnable(GL_LINE_SMOOTH, lineSmooth);
-		glUtil::GLEnable(GL_LIGHTING, lighting);
+		GLUtil::GLColor(color);
+		GLUtil::GLEnable(GL_BLEND, blend);
+		GLUtil::GLEnable(GL_LINE_SMOOTH, lineSmooth);
+		GLUtil::GLEnable(GL_LIGHTING, lighting);
 	}
 
 	if(_verticesPointer)
@@ -527,7 +527,7 @@ void FLModel::Draw()
 		}
 	}
 
-	GLboolean lighting1 = glUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean lighting1 = GLUtil::GLEnable(GL_LIGHTING, false);
 	
 	if(_boundingBoxEnabled)
 		_bBox.Draw();
@@ -535,7 +535,7 @@ void FLModel::Draw()
 	if(_bounding2DRectEnabled)
 		DrawBounding2DRect();
 	
-	glUtil::GLEnable(GL_LIGHTING, lighting1);
+	GLUtil::GLEnable(GL_LIGHTING, lighting1);
 
 	glPopMatrix();
 }
@@ -579,13 +579,13 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 
 	if(minX < 0)	minX = 0;
 	if(minY < 0)	minY = 0;
-	if(maxX > glUtil::GetWindowWidth() ) maxX = glUtil::GetWindowWidth();
-	if(maxY > glUtil::GetWindowHeight() ) maxY = glUtil::GetWindowHeight();
+	if(maxX > GLUtil::GetWindowWidth() ) maxX = GLUtil::GetWindowWidth();
+	if(maxY > GLUtil::GetWindowHeight() ) maxY = GLUtil::GetWindowHeight();
 
 	if(maxX < 0)	maxX = 0;
 	if(maxY < 0)	maxY = 0;
-	if(minX > glUtil::GetWindowWidth() ) minX = glUtil::GetWindowWidth();
-	if(minY > glUtil::GetWindowHeight() ) minY = glUtil::GetWindowHeight();
+	if(minX > GLUtil::GetWindowWidth() ) minX = GLUtil::GetWindowWidth();
+	if(minY > GLUtil::GetWindowHeight() ) minY = GLUtil::GetWindowHeight();
 
 	float rectW = maxX - minX;
 	float rectH = maxY - minY;
@@ -598,18 +598,10 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 
 void FLModel::DrawBounding2DRect()
 {
-	GLMat modelMat = glUtil::GetModelViewMatrix();
-	GLMat projMat = glUtil::GetProjectionMatrix();
-	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
-	GLboolean lighting = glUtil::GLEnable(GL_LIGHTING, false);
-	GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
-	unsigned int prevColor = glUtil::GLColor(0xff0000ff);
-	GLfloat prevLineWidth = glUtil::GLLineWidth(2);
-
 	int x,y,w,h;
 	GetBounding2DRect(&x, &y, &w, &h, false);
 
-	GLUtil::Begin2DDraw();
+	state2D.Begin(0xff0000ff, 2.0f, 1.0f, false, false);
 
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(x+0, y+0);
@@ -619,13 +611,7 @@ void FLModel::DrawBounding2DRect()
 	
 	glEnd();
 
-	glUtil::GLLineWidth(prevLineWidth);
-	glUtil::GLColor(prevColor);
-	glUtil::GLEnable(GL_BLEND, blend);
-	glUtil::GLEnable(GL_LIGHTING, depthTest);
-	glUtil::SetProjectionMatrix(projMat);
-	glUtil::SetModelViewMatrix(modelMat);
-	glUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	state2D.End();
 }
 
 
@@ -634,13 +620,13 @@ void FLModel::CalcBorder()
 	_borderVec.clear();
 
 	GLfloat clearColor[4];
-	glUtil::GLClearColor(1,1,1,1, clearColor);
+	GLUtil::GLClearColor(1,1,1,1, clearColor);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	GLboolean light = glUtil::GLEnable(GL_LIGHTING, false);
-	GLboolean blend = glUtil::GLEnable(GL_BLEND, false);
-	GLboolean depthTest = glUtil::GLEnable(GL_DEPTH_TEST, true);
-	unsigned int prevColor = glUtil::GLColor(0x000000ff);
+	GLboolean light = GLUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean blend = GLUtil::GLEnable(GL_BLEND, false);
+	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
+	unsigned int prevColor = GLUtil::GLColor(0x000000ff);
 
 		bool bounding2DRect			= IsBounding2DRectEnabled();
 		bool boundingBox			= IsBoundingBoxEnabled();
@@ -666,7 +652,7 @@ void FLModel::CalcBorder()
 		GLubyte* data = (GLubyte*)malloc(w*h*4);
 		memset(data, 255, w*h*4);
 
-		glUtil::GLReadPixelsFromTopLeft(x, y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		GLUtil::GLReadPixelsFromTopLeft(x, y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 		SetBounding2DRectEnabled(bounding2DRect);
 		SetBoundingBoxEnabled(boundingBox);
@@ -676,10 +662,10 @@ void FLModel::CalcBorder()
 		ShowBoundingShapes(boundingShapes);
 		SetLightingEnabled(lightingOn);
 
-	glUtil::GLEnable(GL_LIGHTING, light);
-	glUtil::GLEnable(GL_BLEND, blend);
-	glUtil::GLEnable(GL_DEPTH_TEST, depthTest);
-	glUtil::GLColor(prevColor);
+	GLUtil::GLEnable(GL_LIGHTING, light);
+	GLUtil::GLEnable(GL_BLEND, blend);
+	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	GLUtil::GLColor(prevColor);
 
 
 	int prevVal = 0;
@@ -723,30 +709,14 @@ void FLModel::DrawBorder()
 {
 	if(_borderVec.size() > 0)
 	{
-		GLMat modelMat = glUtil::GetModelViewMatrix();
-		GLMat projMat = glUtil::GetProjectionMatrix();
-
-		GLboolean glDepthTest = glUtil::GLEnable(GL_DEPTH_TEST, false);
-		GLboolean glLighting = glUtil::GLEnable(GL_LIGHTING, false);
-		GLboolean glBlend = glUtil::GLEnable(GL_BLEND, false);
-		unsigned int prevColor = glUtil::GLColor(0xff0000ff);
-		GLfloat pointSize = glUtil::GLPointSize(1.0f);
-
-		GLUtil::Begin2DDraw();
+		state2D.Begin(0xff0000ff, 1.0f, 1.0f, false, false);
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(2, GL_FLOAT, 0, &_borderVec[0]);
 		glDrawArrays(GL_POINTS, 0, _borderVec.size()/2);
 		glDisableClientState(GL_VERTEX_ARRAY);
 
-		glUtil::GLEnable(GL_DEPTH_TEST, glDepthTest);
-		glUtil::GLEnable(GL_LIGHTING, glLighting);
-		glUtil::GLEnable(GL_BLEND, glBlend);
-		glUtil::GLColor(prevColor);
-		glUtil::GLPointSize(pointSize);
-
-		glUtil::SetProjectionMatrix(projMat);
-		glUtil::SetModelViewMatrix(modelMat);
+		state2D.End();
 	}
 }
 
