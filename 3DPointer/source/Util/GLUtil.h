@@ -53,7 +53,7 @@ public:
 	static bool UpdateCamera();
 	static void GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels);
 	static void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
-	static vector<CVector3> Get2DPosOnScreenFrom3DPos(vector<CVector3> pos3DVec, float* modelMatrix);
+	static vector<CVector3> Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix);
 
 
 	/////////////////////////////////////////////////////////////////////

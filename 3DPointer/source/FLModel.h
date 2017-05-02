@@ -235,6 +235,9 @@ public:
 	void AddTransInLocal(char axis, float move);
 	void AddRotateInLocal(char axis, float angle);
 
+	void AddScale(CVector3 scale);
+	void AddUniformScale(float scale);
+
 	vector<float> GetVerticesOnRect(int x, int y, int w, int h);
 	
 	Shape* AddBestBoudingShapeByVerticesOnRect(int x, int y, int w, int h);

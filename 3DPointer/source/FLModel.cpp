@@ -367,6 +367,20 @@ void FLModel::AddRotateInLocal(char axis, float angle)
 	_mat.glMultMatrixf(rotMat.Get());
 }
 
+void FLModel::AddScale(CVector3 scale)
+{
+	_mat.m[0] += scale.x;
+	_mat.m[5] += scale.y;
+	_mat.m[10] += scale.z;
+}
+
+void FLModel::AddUniformScale(float scale)
+{
+	_mat.m[0] *= scale;
+	_mat.m[5] *= scale;
+	_mat.m[10] *= scale;
+}
+
 vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
 {
 	float* verArr = (float*)_verticesPointer;

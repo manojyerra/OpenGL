@@ -49,7 +49,7 @@ void GLUtil::Init(int screenW, int screenH)
 	glDisable	(GL_LINE_SMOOTH);
 	glHint		(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-	_transZ = -850.0f;
+	_transZ = -250.0f;
 	_transY = -8.0f;
 
 	_angleX = 15;
@@ -214,15 +214,15 @@ void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelM
 	pos2D[1] = SH - ((( yOnZNear - _bottom ) / zNearH) * SH);
 }
 
-vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3> pos3DVec, float* modelMatrix)
+vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix)
 {
 	vector<CVector3> vec2d;
 
-	for(int i=0; i<pos3DVec.size(); i++)
+	for(int i=0; i<pos3DVec->size(); i++)
 	{
-		float x = pos3DVec[i].x;
-		float y = pos3DVec[i].y;
-		float z = pos3DVec[i].z;
+		float x = pos3DVec->at(i).x;
+		float y = pos3DVec->at(i).y;
+		float z = pos3DVec->at(i).z;
 
 		float* a = modelMatrix;
 

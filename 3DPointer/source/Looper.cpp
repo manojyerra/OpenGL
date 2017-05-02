@@ -128,7 +128,36 @@ void Looper::Draw()
 
 		if(_pointer3D.IsPointerDragged())
 		{
-			_modelsMgr->GetSelectedModel()->SetPos( _pointer3D._pos );
+			if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+			{
+				_modelsMgr->GetSelectedModel()->SetPos( _pointer3D.pos );
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
+			{
+				_modelsMgr->GetSelectedModel()->AddRotateInLocal('x', _pointer3D.rot.x);
+				_modelsMgr->GetSelectedModel()->AddRotateInLocal('y', _pointer3D.rot.y);
+				_modelsMgr->GetSelectedModel()->AddRotateInLocal('z', _pointer3D.rot.z);
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::SCALE)
+			{				
+				if(Input::IsKeyPressed((int)'U'))
+				{
+					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
+				
+					if(scaleSum > 0)
+					{
+						_modelsMgr->GetSelectedModel()->AddUniformScale(1.01);
+					}
+					else if(scaleSum < 0)
+					{
+						_modelsMgr->GetSelectedModel()->AddUniformScale(0.99);
+					}
+				}
+				else
+				{
+					_modelsMgr->GetSelectedModel()->AddScale(_pointer3D.scale);
+				}
+			}
 		}
 	}
 
