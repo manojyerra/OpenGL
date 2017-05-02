@@ -9,3 +9,8 @@
 *.dep
 *.htm
 *.suo
+*.tlog
+*.lastbuildstate
+*.sdf
+*.opensdf
+*.log
