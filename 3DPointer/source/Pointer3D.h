@@ -16,7 +16,7 @@ private:
 	int _triIndex;
 	vector<Triangle2D> _triVec;	
 	int _transformationType;
-	CVector3 offSetVec;
+	CVector3 _offSetVec;
 
 	void CheckTransformationType();
 	vector<CVector3> Get3DPointsFromMat( float* mat );

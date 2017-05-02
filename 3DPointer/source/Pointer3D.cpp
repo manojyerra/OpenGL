@@ -33,7 +33,7 @@ void Pointer3D::Draw(float* mat)
 		{
 			vector<CVector3> line3D = GetAxisLine3DPoints(mat, _triIndex);
 
-			pos = Get3DPos(&line3D, Input::MX, Input::MY) - offSetVec;
+			pos = Get3DPos(&line3D, Input::MX, Input::MY) - _offSetVec;
 
 			Draw3DAxisLine(_triIndex, &line3D);
 		}
@@ -88,7 +88,7 @@ void Pointer3D::Draw(float* mat)
 
 			CVector3 clickPos = Get3DPos(&line3D, Input::MX, Input::MY);
 
-			offSetVec = CVector3( clickPos.x - mat[12], clickPos.y - mat[13], clickPos.z - mat[14] );
+			_offSetVec = CVector3( clickPos.x - mat[12], clickPos.y - mat[13], clickPos.z - mat[14] );
 		}
 	}
 	else if(Input::IsMouseReleased())
