@@ -76,15 +76,15 @@ void Pointer3D::Draw(float* mat)
 
 		glBegin(GL_LINES);
 
-		glColor(0x00ff00ff);
+		glColor(0xff0000ff);
 		glVertex2f(vec2D[0].x, vec2D[0].y);
 		glVertex2f(vec2D[0].x + vec1.x, vec2D[0].y + vec1.y);
 
-		glColor(0x0000ffff);
+		glColor(0x00ff00ff);
 		glVertex2f(vec2D[0].x, vec2D[0].y);
 		glVertex2f(vec2D[0].x + vec2.x, vec2D[0].y + vec2.y);
 
-		glColor(0xff0000ff);
+		glColor(0x0000ffff);
 		glVertex2f(vec2D[0].x, vec2D[0].y);
 		glVertex2f(vec2D[0].x + vec3.x, vec2D[0].y + vec3.y);
 
@@ -93,9 +93,9 @@ void Pointer3D::Draw(float* mat)
 
 		glBegin(GL_TRIANGLES);
 
-		DrawPointerTri(vec2D[0], CVector3(vec2D[0].x + vec1.x, vec2D[0].y + vec1.y), 0x00ff00ff);
-		DrawPointerTri(vec2D[0], CVector3(vec2D[0].x + vec2.x, vec2D[0].y + vec2.y), 0x0000ffff);
-		DrawPointerTri(vec2D[0], CVector3(vec2D[0].x + vec3.x, vec2D[0].y + vec3.y), 0xff0000ff);
+		DrawPointerTri(vec2D[0], CVector3(vec2D[0].x + vec1.x, vec2D[0].y + vec1.y), 0xff0000ff);
+		DrawPointerTri(vec2D[0], CVector3(vec2D[0].x + vec2.x, vec2D[0].y + vec2.y), 0x00ff00ff);
+		DrawPointerTri(vec2D[0], CVector3(vec2D[0].x + vec3.x, vec2D[0].y + vec3.y), 0x0000ffff);
 
 		glEnd();
 
@@ -114,9 +114,9 @@ void Pointer3D::Draw(float* mat)
 
 		glBegin(GL_LINES);
 
-			if(_triIndex == 0)		glColor(0x00ff00ff);
-			else if(_triIndex == 1)	glColor(0x0000ffff);
-			else if(_triIndex == 2)	glColor(0xff0000ff);
+			if(_triIndex == 0)		glColor(0xff0000ff);
+			else if(_triIndex == 1)	glColor(0x00ff00ff);
+			else if(_triIndex == 2)	glColor(0x0000ffff);
 
 			glVertex3f(points3D[0].x, points3D[0].y, points3D[0].z);
 			glVertex3f(points3D[1].x, points3D[1].y, points3D[1].z);

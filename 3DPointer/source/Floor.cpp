@@ -41,6 +41,30 @@ void Floor::Draw()
 	float end = 16;
 	float gap = 1;
 
+	if(_axisVisible)
+	{
+		glLineWidth(1.0f);
+		glBegin(GL_LINES);
+
+			glColor4ub(255,	0,0,255);
+
+			glVertex3f(start,	0.0f,	0.0f);
+			glVertex3f(end,		0.0f,	0.0f);
+
+			glColor4ub(0,0,255,255);
+
+			glVertex3f(0.0f,	0.0f,	start);
+			glVertex3f(0.0f,	0.0f,	end);
+
+			glColor4ub(0,255,0,255);
+
+			glVertex3f(0.0f,	0.0f,	(start+end)/2.0f);
+			glVertex3f(0.0f,	end,	0);
+
+		glEnd();
+	}
+
+
 	if(_gridLinesVisible)
 	{
 		glLineWidth(1.0f);
@@ -50,35 +74,25 @@ void Floor::Draw()
 
 		for(int i=(int)start; i<=end; i+=(int)gap)
 		{
+			if(i == 0)
+				continue;
+
 			glVertex3f(start,	0.01f,	(float)i);
 			glVertex3f(end,		0.01f,	(float)i);
 		}
 
 		for(int i=(int)start; i<=end; i+=(int)gap)
 		{
+			if(i == 0)
+				continue;
+
 			glVertex3f((float)i,	0.01f,	start);
 			glVertex3f((float)i,	0.01f,	end);
 		}
 		glEnd();
 	}
 
-	if(_axisVisible)
-	{
-		glLineWidth(3.0f);
-		glBegin(GL_LINES);
-			glColor4ub(255,0,0,255);
-			glVertex3f((start+end)/2.0f, 0.01f, 0.0f);
-			glVertex3f(end, 0.01f, 0.0f);
 
-			glColor4ub(0,0,255,255);
-			glVertex3f(0,0.01f,(start+end)/2.0f);
-			glVertex3f(0,0.01f,end);
-
-			glColor4ub(0,255,0,255);
-			glVertex3f(0,0.01f,(start+end)/2.0f);
-			glVertex3f(0,end,0);
-		glEnd();
-	}
 
 	if(_gridVisible)
 	{
