@@ -310,9 +310,9 @@ void FLModel::SetPos(float x, float y, float z)
 
 void FLModel::SetPos(CVector3 pos)
 {
-	_mat.m[12] += pos.x;
-	_mat.m[13] += pos.y;
-	_mat.m[14] += pos.z;
+	_mat.m[12] = pos.x;
+	_mat.m[13] = pos.y;
+	_mat.m[14] = pos.z;
 }
 
 CVector3 FLModel::GetPos()

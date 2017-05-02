@@ -64,6 +64,8 @@ public:
     // CVector3 negation
     const CVector3 operator-();
 
+	static float projLenAonB(CVector3 a, CVector3 b);
+
 	const float Dist( float x, float y, float z );
 	const float Dist( CVector3& vec );
 

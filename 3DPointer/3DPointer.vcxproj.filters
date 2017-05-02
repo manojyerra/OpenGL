@@ -244,6 +244,12 @@
     <ClCompile Include="source\Pointer3D.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\Math\Triangle2D.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Line2D.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -422,6 +428,12 @@
     </ClInclude>
     <ClInclude Include="source\Pointer3D.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Triangle2D.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Line2D.h">
+      <Filter>source\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

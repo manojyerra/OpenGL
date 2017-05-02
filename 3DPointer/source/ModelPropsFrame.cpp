@@ -23,6 +23,7 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	
 	_frame->Add(box);
 	_frame->Add(CreateLightingUI());
+	_frame->SetMinimized(true);
 }
 
 

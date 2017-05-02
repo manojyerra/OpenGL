@@ -164,6 +164,13 @@ const CVector3 CVector3::operator-()
 	return CVector3(-x, -y, -z);
 }
 
+float CVector3::projLenAonB(CVector3 a, CVector3 b)
+{
+	float dotVal = a.Dot(b);
+
+	return dotVal / b.Length();
+}
+
 CVector3 CVector3::GetReturnVec( CVector3 N )
 {
 	CVector3 Ri = *this;

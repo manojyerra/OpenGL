@@ -20,15 +20,6 @@ private:
 	static float _viewW;
 	static float _viewH;
 
-	static float _left;
-	static float _right;
-	static float _bottom;
-	static float _top;
-	static float _zNear;
-	static float _zFar;
-
-	static float _zNearPlaneHalfW;
-
 	static float _angleX;
 	static float _angleY;
 	static float _angleZ;
@@ -43,6 +34,15 @@ private:
 	static void SetFrustum(float left, float right, float bottom, float top, float zNear, float zFar);
 
 public:
+	static float _left;
+	static float _right;
+	static float _bottom;
+	static float _top;
+	static float _zNear;
+	static float _zFar;
+
+	static float _zNearPlaneHalfW;
+
 	static void Init(int screenW, int screenH);
 	static int GetWindowWidth();
 	static int GetWindowHeight();

@@ -147,6 +147,8 @@
     <ClCompile Include="source\Looper.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MainFrame.cpp" />
+    <ClCompile Include="source\Math\Line2D.cpp" />
+    <ClCompile Include="source\Math\Triangle2D.cpp" />
     <ClCompile Include="source\ModelPropsFrame.cpp" />
     <ClCompile Include="source\ModelsManager.cpp" />
     <ClCompile Include="source\PNG\PNGReadWrite.cpp" />
@@ -220,6 +222,8 @@
     <ClInclude Include="source\Input.h" />
     <ClInclude Include="source\Looper.h" />
     <ClInclude Include="source\MainFrame.h" />
+    <ClInclude Include="source\Math\Line2D.h" />
+    <ClInclude Include="source\Math\Triangle2D.h" />
     <ClInclude Include="source\ModelPropsFrame.h" />
     <ClInclude Include="source\ModelsManager.h" />
     <ClInclude Include="source\PNG\PNGReadWrite.h" />

@@ -49,7 +49,7 @@ void GLUtil::Init(int screenW, int screenH)
 	glDisable	(GL_LINE_SMOOTH);
 	glHint		(GL_LINE_SMOOTH_HINT, GL_NICEST);
 
-	_transZ = -350.0f;
+	_transZ = -850.0f;
 	_transY = -8.0f;
 
 	_angleX = 15;
