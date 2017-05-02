@@ -16,8 +16,9 @@ private:
 	bool _heldPointer;
 	int _triIndex;
 	
-	vector<Triangle2D> triVec;
 	CVector3 offSetVec;
+	vector<Triangle2D> triVec;
+	vector<CVector3> points3D;
 
 
 	void DrawPointerTri(CVector3 p1, CVector3 p2, unsigned int color);

@@ -31,7 +31,7 @@ Pointer3D::Pointer3D()
 
 void Pointer3D::Draw(float* mat)
 {
-	if(mat) // && !_heldPointer)
+	if(mat) //&& !_heldPointer)
 	{
 		triVec.clear();
 
@@ -68,9 +68,9 @@ void Pointer3D::Draw(float* mat)
 		vec2.SetLength( vec2.Length() * maxLimit / maxLen );
 		vec3.SetLength( vec3.Length() * maxLimit / maxLen );
 
-		//if(vec1.Length() < 7)		vec1.SetLength(0);
-		//if(vec2.Length() < 7)		vec2.SetLength(0);
-		//if(vec3.Length() < 7)		vec3.SetLength(0);
+		if(vec1.Length() < 7)		vec1.SetLength(0);
+		if(vec2.Length() < 7)		vec2.SetLength(0);
+		if(vec3.Length() < 7)		vec3.SetLength(0);
 
 		state2D.Begin(0xff0000ff, 1.0f, 1.0f, true, false);
 
@@ -100,40 +100,30 @@ void Pointer3D::Draw(float* mat)
 		glEnd();
 
 		state2D.End();
+	}
 
-		if(Input::IsMousePressed() && _heldPointer && _triIndex >= 0)
-		{
-			_pos = Get3DPos(mat, _triIndex, Input::MX, Input::MY) - offSetVec;
 
-			//3D axis drawing...
-			GLfloat lineWidth = GLUtil::GLLineWidth(1.0f);
-			GLboolean lighting = GLUtil::GLEnable(GL_LIGHTING, false);
+	if(mat && Input::IsMousePressed() && _heldPointer && _triIndex >= 0)
+	{
+		_pos = Get3DPos(mat, _triIndex, Input::MX, Input::MY) - offSetVec;
 
-			//glBegin(GL_LINES);
-			//	glColor(0x00ff00ff);
-			//	glVertex3f(point3D[0].x, point3D[0].y, point3D[0].z);
-			//	glVertex3f(point3D[1].x, point3D[1].y, point3D[1].z);
-			//glEnd();
+		//3D axis drawing...
 
-			GLUtil::GLEnable(GL_LIGHTING, lighting);
-			GLUtil::GLLineWidth(lineWidth);
+		GLfloat lineWidth = GLUtil::GLLineWidth(1.0f);
+		GLboolean lighting = GLUtil::GLEnable(GL_LIGHTING, false);
 
-			////2D axis drawing...
-			//state2D.Begin(0xff0000ff, 1.0f, 1.0f, true, false);
-			//glLineWidth(1);
-			//glBegin(GL_LINES);
-			//	glColor(0x00ff00ff);
-			//	glVertex3f(point2D[0].x, point2D[0].y, point2D[0].z);
-			//	glVertex3f(point2D[1].x, point2D[1].y, point2D[1].z);
-			//glColor(0x00ff00ff);
-			//glEnd();
+		glBegin(GL_LINES);
 
-			//glPointSize(5);
-			//glBegin(GL_POINTS);
-			//	glColor(0x000000ff);
-			//	glVertex2f(b.x + point2D[0].x, b.y + point2D[0].y);
-			//glEnd();
-		}
+			if(_triIndex == 0)		glColor(0x00ff00ff);
+			else if(_triIndex == 1)	glColor(0x0000ffff);
+			else if(_triIndex == 2)	glColor(0xff0000ff);
+
+			glVertex3f(points3D[0].x, points3D[0].y, points3D[0].z);
+			glVertex3f(points3D[1].x, points3D[1].y, points3D[1].z);
+		glEnd();
+
+		GLUtil::GLEnable(GL_LIGHTING, lighting);
+		GLUtil::GLLineWidth(lineWidth);
 	}
 
 
@@ -159,10 +149,10 @@ void Pointer3D::Draw(float* mat)
 void Pointer3D::DrawPointerTri(CVector3 p1, CVector3 p2, unsigned int color)
 {
 	CVector3 vec = p2 - p1;
-	vec.SetLength(14);
+	vec.SetLength(22);
 
 	CVector3 n = CVector3(-vec.y, vec.x);
-	n.SetLength(7);
+	n.SetLength(10);
 
 	glColor(color);
 
@@ -213,9 +203,9 @@ CVector3 Pointer3D::Get3DPos(float* mat, int triIndex, float mouseX, float mouse
 	else if(triIndex == 2)	localAxisVec = forwardVec;
 
 
-	vector<CVector3> points3D;
-	points3D.push_back( CVector3(center.x + localAxisVec.x*50,	center.y + localAxisVec.y*50,	center.z + localAxisVec.z*50) );
-	points3D.push_back( CVector3(center.x - localAxisVec.x*50,	center.y - localAxisVec.y*50,	center.z - localAxisVec.z*50) );
+	points3D.clear();
+	points3D.push_back( CVector3(center.x + localAxisVec.x*550,	center.y + localAxisVec.y*550,	center.z + localAxisVec.z*550) );
+	points3D.push_back( CVector3(center.x - localAxisVec.x*550,	center.y - localAxisVec.y*550,	center.z - localAxisVec.z*550) );
 
 	float modelMat[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelMat);
@@ -245,3 +235,20 @@ CVector3 Pointer3D::Get3DPos(float* mat, int triIndex, float mouseX, float mouse
 Pointer3D::~Pointer3D()
 {
 }
+
+
+			////2D axis drawing...
+			//state2D.Begin(0xff0000ff, 1.0f, 1.0f, true, false);
+			//glLineWidth(1);
+			//glBegin(GL_LINES);
+			//	glColor(0x00ff00ff);
+			//	glVertex3f(point2D[0].x, point2D[0].y, point2D[0].z);
+			//	glVertex3f(point2D[1].x, point2D[1].y, point2D[1].z);
+			//glColor(0x00ff00ff);
+			//glEnd();
+
+			//glPointSize(5);
+			//glBegin(GL_POINTS);
+			//	glColor(0x000000ff);
+			//	glVertex2f(b.x + point2D[0].x, b.y + point2D[0].y);
+			//glEnd();

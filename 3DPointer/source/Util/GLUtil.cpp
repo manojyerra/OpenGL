@@ -154,14 +154,14 @@ bool GLUtil::UpdateCamera()
 	if(Input::IsScrollDown())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ -= 35.0f;
+		_transZ -= 55.0f;
 
 		return true;
 	}
 	else if(Input::IsScrollUp())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ += 35.0f;
+		_transZ += 55.0f;
 
 		return true;
 	}

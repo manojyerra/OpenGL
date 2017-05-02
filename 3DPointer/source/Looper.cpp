@@ -19,9 +19,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	_modelsMgr = new ModelsManager();
 
-	for(int j=0; j<50; j+=250)
+	for(int j=0; j<50; j+=25)
 	{
-		for(int i=0; i<50; i+=250)
+		for(int i=0; i<50; i+=25)
 		{
 			if(rand()%2 == 0)
 				_modelsMgr->Add("data/cat", -40+i, 0, -40+j);
@@ -125,17 +125,14 @@ void Looper::Draw()
 	if(_modelsMgr->GetSelectedModel())
 	{
 		_pointer3D.Draw(_modelsMgr->GetSelectedModel()->GetMat().m);
-	}
-	else
-	{
-		_pointer3D.Draw(NULL);
+
+		if(_pointer3D.IsPointerDragged())
+		{
+			_modelsMgr->GetSelectedModel()->SetPos( _pointer3D._pos );
+		}
 	}
 
-	if(_pointer3D.IsPointerDragged())
-	{
-		_modelsMgr->GetSelectedModel()->SetPos( _pointer3D._pos );
-	}
-
+	
 	SUIDraw();
 }
 
