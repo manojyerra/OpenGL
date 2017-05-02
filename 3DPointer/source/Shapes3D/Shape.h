@@ -28,6 +28,17 @@ public:
 	int GetID();
 	void SetGLMatrix(float* mat);
 	float* GetGLMatrix();
+	
+	CVector3 GetPos();
+	void SetPos(CVector3 pos);
+	void SetPos(float x, float y, float z);
+
+	void AddTransInWorld(float x, float y, float z);
+	void AddRotateInWorld(char axis, float angle);
+
+	void AddTransInLocal(char axis, float move);
+	void AddRotateInLocal(char axis, float angle);
+
 	void SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 	
 	static Shape* GetBestFitBoundingShape(float* vertexBuf, int arrSize);

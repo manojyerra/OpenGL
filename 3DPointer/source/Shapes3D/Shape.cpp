@@ -3,6 +3,7 @@
 #include "Cone.h"
 #include "Cylinder.h"
 #include "Sphere.h"
+#include "../Math/GLMat.h"
 
 Shape::Shape()
 {
@@ -34,6 +35,78 @@ float* Shape::GetGLMatrix()
 {
 	return m;
 }
+
+void Shape::SetPos(float x, float y, float z)
+{
+	m[12] = x;
+	m[13] = y;
+	m[14] = z;
+}
+
+void Shape::SetPos(CVector3 pos)
+{
+	m[12] = pos.x;
+	m[13] = pos.y;
+	m[14] = pos.z;
+}
+
+CVector3 Shape::GetPos()
+{
+	return CVector3(m[12], m[13], m[14]);
+}
+
+void Shape::AddTransInWorld(float x, float y, float z)
+{
+	m[12] += x;
+	m[13] += y;
+	m[14] += z;
+}
+
+void Shape::AddRotateInWorld(char axis, float angle)
+{
+	GLMat newRot;
+	
+	if(axis == 'x' || axis == 'X')	newRot.glRotatef(angle, 1,0,0);
+	if(axis == 'y' || axis == 'Y')	newRot.glRotatef(angle, 0,1,0);
+	if(axis == 'z' || axis == 'Z')	newRot.glRotatef(angle, 0,0,1);
+
+	newRot.glMultMatrixf( m );
+
+	memcpy(m, newRot.m, 16*sizeof(float));
+}
+
+void Shape::AddTransInLocal(char axis, float move)
+{
+	CVector3 vec;
+
+	if(axis == 'x')			vec = CVector3( m[0], m[1], m[2] );
+	else if(axis == 'y')	vec = CVector3( m[4], m[5], m[6] );
+	else if(axis == 'z')	vec = CVector3( m[8], m[9], m[10] );
+	
+	vec.Normalize();
+	vec *= move;
+
+	m[12] += vec.x;
+	m[13] += vec.y;
+	m[14] += vec.z;
+}
+
+void Shape::AddRotateInLocal(char axis, float angle)
+{
+	GLMat rotMat;
+	
+	if(axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1,0,0);
+	if(axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0,1,0);
+	if(axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0,0,1);
+
+	GLMat mat;
+	mat.Copy(m);
+
+	mat.glMultMatrixf(rotMat.Get());
+
+	memcpy(m, mat.m, 16*sizeof(float));
+}
+
 
 void Shape::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
