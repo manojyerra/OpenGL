@@ -7,6 +7,7 @@
 #include "Shapes3D/Cone.h"
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Sphere.h"
+#include "Shapes3D/Shape.h"
 
 #include "SUI/SUI.h"
 #include "SUI/SUIInput.h"
@@ -30,7 +31,8 @@ private:
 	GL2DState state2D;
 
 	ModelsManager* _modelsMgr;
-	FLModel* flModel;
+	//FLModel* flModel;
+	Shape* shape;
 
 	MainFrame* _mainFrame;
 	ModelPropsFrame* _modelPropsFrame;

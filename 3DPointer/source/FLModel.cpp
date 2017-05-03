@@ -2,6 +2,7 @@
 #include "CFileReader.h"
 #include "ImageBuffer.h"
 #include "Util/GLUtil.h"
+#include "Cam.h"
 
 FLModel::FLModel(string folderPath)
 {
@@ -392,9 +393,13 @@ vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
 	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
 	modelViewMatrix.glMultMatrixf(_mat.m);
 
+	GLMat projMatrix = GLUtil::GetProjectionMatrix();
+
 	for(unsigned int i=0; i<_numVertex*3; i+=3)
 	{
-		GLUtil::Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m);
+		//Cam::GetInstance()->Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m);
+
+		GLUtil::Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m, projMatrix.m);
 
 		if( xy[0] >= x && xy[0] <= x+w && xy[1] >= y && xy[1] <= y+h )
 		{
@@ -570,12 +575,13 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 						};
 
 	GLMat mat = GLUtil::GetModelViewMatrix();
-	
+	GLMat projMat = GLUtil::GetProjectionMatrix();
+
 	if(multWithLocalMat)
 		mat.glMultMatrixf(_mat.m);
 	
 	for(int i=0; i<8; i++)
-		GLUtil::Get2DPosOnScreenFrom3DPos(pos3D[i], pos2D[i], mat.m);
+		GLUtil::Get2DPosOnScreenFrom3DPos(pos3D[i], pos2D[i], mat.m, projMat.m);
 
 	float minX = pos2D[0][0];
 	float maxX = pos2D[0][0];
@@ -590,6 +596,11 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 		if(pos2D[i][1] < minY) minY = pos2D[i][1];
 		if(pos2D[i][1] > maxY) maxY = pos2D[i][1];
 	}
+
+	minX--;
+	minY--;
+	maxX++;
+	maxY++;
 
 	if(minX < 0)	minX = 0;
 	if(minY < 0)	minY = 0;

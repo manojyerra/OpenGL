@@ -26,6 +26,7 @@ Cylinder::Cylinder(Cylinder* cylinder)
 
 	_r = cylinder->GetRadius();
 	_h = cylinder->GetHeight();
+	_id = cylinder->GetID();
 }
 
 
@@ -49,8 +50,17 @@ CVector3 Cylinder::GetPos()
 float Cylinder::GetRadius()			{ return _r; }
 float Cylinder::GetHeight()			{ return _h; }
 
-void Cylinder::SetRadius(float r)	{ _r = r; }
-void Cylinder::SetHeight(float h)	{ _h = h; }
+void Cylinder::SetRadius(float r)
+{ 
+	if(r > 0)
+		_r = r; 
+}
+
+void Cylinder::SetHeight(float h)
+{
+	if(h > 0)
+		_h = h;
+}
 
 
 float Cylinder::Volume()

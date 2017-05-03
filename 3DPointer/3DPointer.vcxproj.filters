@@ -250,6 +250,9 @@
     <ClCompile Include="source\Math\Line2D.cpp">
       <Filter>source\Math</Filter>
     </ClCompile>
+    <ClCompile Include="source\Cam.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -434,6 +437,9 @@
     </ClInclude>
     <ClInclude Include="source\Math\Line2D.h">
       <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Cam.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

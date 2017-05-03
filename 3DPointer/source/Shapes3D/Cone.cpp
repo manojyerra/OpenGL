@@ -37,6 +37,7 @@ Cone::Cone(Cone* cone)
 
 	_r = cone->GetRadius();
 	_h = cone->GetHeight();
+	_id = cone->GetID();
 }
 
 
@@ -49,8 +50,16 @@ CVector3 Cone::GetPos()
 float Cone::GetRadius()			{ return _r; }
 float Cone::GetHeight()			{ return _h; }
 
-void Cone::SetRadius(float r)	{ _r = r; }
-void Cone::SetHeight(float h)	{ _h = h; }
+void Cone::SetRadius(float r)	
+{ 
+	if(r > 0)
+		_r = r; 
+}
+void Cone::SetHeight(float h)
+{ 
+	if(h > 0)
+		_h = h;
+}
 
 
 float Cone::Volume()

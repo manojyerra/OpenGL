@@ -2,29 +2,6 @@
 #include "Input.h"
 #include <math.h>
 
-
-float GLUtil::_viewX = 0;
-float GLUtil::_viewY = 0;
-float GLUtil::_viewW = 0;
-float GLUtil::_viewH = 0;
-
-float GLUtil::_left = 0;
-float GLUtil::_right = 0;
-float GLUtil::_bottom = 0;
-float GLUtil::_top = 0;
-float GLUtil::_zNear = 0;
-float GLUtil::_zFar = 0;
-
-float GLUtil::_angleX = 0;
-float GLUtil::_angleY = 0;
-float GLUtil::_angleZ = 0;
-
-float GLUtil::_transZ = 0;
-float GLUtil::_transX = 0;
-float GLUtil::_transY = 0;
-
-float GLUtil::_zNearPlaneHalfW = 0;
-
 float GLUtil::SW = 0;
 float GLUtil::SH = 0;
 
@@ -37,33 +14,17 @@ void GLUtil::Init(int screenW, int screenH)
 	glCullFace	( GL_BACK		);
 	glFrontFace	( GL_CCW		);
 	
-	glEnable	( GL_DEPTH_TEST	);
-
 	glDisable	( GL_FOG		);
 	glDisable	( GL_LIGHTING	);
 	glDisable	( GL_CULL_FACE	);
+	glDisable	( GL_LINE_SMOOTH);
+	glHint		( GL_LINE_SMOOTH_HINT, GL_NICEST);
 	
+	glEnable	( GL_DEPTH_TEST	);
 	glEnable	( GL_BLEND		);
 	glBlendFunc	( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glDisable	(GL_LINE_SMOOTH);
-	glHint		(GL_LINE_SMOOTH_HINT, GL_NICEST);
-
-	_transZ = -250.0f;
-	_transY = -8.0f;
-
-	_angleX = 15;
-	_angleY = -30;
-
-	_zNear  = 1.0f;
-	_zFar = 10000.0f;
-
-	_zNearPlaneHalfW = 0.1f;
-
-	_viewX = 0.0f;
-	_viewY = 0.0f;
-	_viewW = SW;
-	_viewH = SH;
+	glViewport(0, 0, GetWindowWidth(), GetWindowHeight());
 }
 
 int GLUtil::GetWindowWidth()
@@ -75,187 +36,6 @@ int GLUtil::GetWindowHeight()
 {
 	return (int)SH;
 }
-
-void GLUtil::SetViewport(float x, float y, float w, float h)
-{
-	_viewX = x;
-	_viewY = y;
-	_viewW = w;
-	_viewH = h;
-
-	glViewport((int)x, (int)y, (int)w, (int)h);
-}
-
-void GLUtil::Begin3DDraw()
-{
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-
-	SetViewport(_viewX,_viewY,_viewW, _viewH);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	SetFrustum(-_zNearPlaneHalfW, _zNearPlaneHalfW, -_zNearPlaneHalfW*SH/SW, _zNearPlaneHalfW*SH/SW, _zNear, _zFar);
-
-	//for ortho projection...
-
-	//float _leftVal = -(-_transZ *_zNearPlaneHalfW) / _zNear;
-	//float _rightVal = (-_transZ *_zNearPlaneHalfW) / _zNear;
-	//float _bottomVal = -((-_transZ *_zNearPlaneHalfW) / _zNear) * (SH/SW);
-	//float _topVal = ((-_transZ *_zNearPlaneHalfW) / _zNear) * (SH/SW);
-
-	//glOrtho(_leftVal, _rightVal, _bottomVal, _topVal, _zNear, _zFar);
-}
-
-void GLUtil::SetModelViewMatrix()
-{
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(_transX,_transY,_transZ);
-	glRotatef(_angleX,1,0,0);
-	glRotatef(_angleY,0,1,0);
-}
-
-bool GLUtil::UpdateCamera()
-{
-	if( Input::IsKeyPressed(VK_SHIFT) && Input::IsMiddleMousePressed())
-	{
-		float dx = (float)(Input::MX - Input::PrevMX);
-		float dy = (float)(Input::MY - Input::PrevMY);
-
-		float z = _transZ;
-		if(z < 0)
-			z = -z;
-
-		z /= 3000;
-
-		_transX += dx*z;
-		_transY += -dy*z;
-		return true;
-	}
-	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMiddleMousePressed())
-	{
-		_transZ += (float)(Input::PrevMY - Input::MY) * 2.0f;
-
-		return true;
-	}
-	else if(Input::IsMiddleMousePressed())
-	{
-		float dx = (float)(Input::MX - Input::PrevMX);
-		float dy = (float)(Input::MY - Input::PrevMY);
-
-		_angleY += dx * 180.0f / (SW*0.5f);
-		_angleX += dy * 180.0f / (SH*0.5f);
-
-		return true;
-	}
-
-	if(Input::IsScrollDown())
-	{
-		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ -= 55.0f;
-
-		return true;
-	}
-	else if(Input::IsScrollUp())
-	{
-		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ += 55.0f;
-
-		return true;
-	}
-
-	return false;
-}
-
-void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
-{
-	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
-}
-
-void GLUtil::SetFrustum(float left, float right, float bottom, float top, float zNear, float zFar)
-{
-	_left = left;
-	_right = right;
-	_bottom = bottom;
-	_top = top;
-	_zNear = zNear;
-	_zFar = zFar;
-
-	glFrustum(_left, _right, _bottom, _top, _zNear, _zFar);
-}
-
-void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)
-{
-	float x = pos3D[0];
-	float y = pos3D[1];
-	float z = pos3D[2];
-
-	float* a = modelMatrix;
-
-	float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
-	float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];
-	float zWPos = a[2]*x + a[6]*y + a[10]*z + a[14];
-
-	float xOnZNear = -_zNear * xWPos / zWPos;
-	float yOnZNear = -_zNear * yWPos / zWPos;
-
-	//if(_isOrtho)
-	//{
-	//	xOnZNear = xWPos;
-	//	yOnZNear = yWPos;
-	//}
-	
-	float zNearW = abs(_right-_left);
-	float zNearH = abs(_top-_bottom);
-
-	pos2D[0] = (( xOnZNear - _left ) / zNearW) * SW;
-	pos2D[1] = SH - ((( yOnZNear - _bottom ) / zNearH) * SH);
-}
-
-vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix)
-{
-	vector<CVector3> vec2d;
-
-	for(int i=0; i<pos3DVec->size(); i++)
-	{
-		float x = pos3DVec->at(i).x;
-		float y = pos3DVec->at(i).y;
-		float z = pos3DVec->at(i).z;
-
-		float* a = modelMatrix;
-
-		float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
-		float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];
-		float zWPos = a[2]*x + a[6]*y + a[10]*z + a[14];
-
-		float xOnZNear = -_zNear * xWPos / zWPos;
-		float yOnZNear = -_zNear * yWPos / zWPos;
-
-		//if(_isOrtho)
-		//{
-		//	xOnZNear = xWPos;
-		//	yOnZNear = yWPos;
-		//}
-	
-		float zNearW = abs(_right-_left);
-		float zNearH = abs(_top-_bottom);
-
-		float x2D = (( xOnZNear - _left ) / zNearW) * SW;
-		float y2D = SH - ((( yOnZNear - _bottom ) / zNearH) * SH);
-
-		vec2d.push_back( CVector3(x2D, y2D, 0) );
-	}
-
-	return vec2d;
-}
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-
-
 
 void GLUtil::GLClearColor(float r, float g, float b, float a, GLfloat* prevColor)
 {
@@ -347,6 +127,11 @@ GLMat GLUtil::GetProjectionMatrix()
 	return mat;
 }
 
+void GLUtil::GLReadPixelsFromTopLeft(int x, int y, int width, int height, GLenum format, GLenum type, GLvoid *pixels)
+{
+	glReadPixels(x, GetWindowHeight() - y - height, width, height, format, type, pixels);
+}
+
 void GLUtil::SetModelViewMatrix(GLMat mat)
 {
 	glMatrixMode(GL_MODELVIEW);
@@ -368,6 +153,127 @@ void GLUtil::SetLightPosition(float x, float y, float z, unsigned int lightIndex
 	glEnable(lightIndex);
 	glLightfv(lightIndex, GL_POSITION, qaLightPos);
 }
+
+void GLUtil::GetProjectionValues(float* ll, float* rr, float* bb, float* tt, float* nn, float* ff)
+{
+	float m[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, m);
+
+	GetProjectionValues(m, ll, rr, bb, tt, nn, ff);
+}
+
+void GLUtil::GetProjectionValues(float* projMat, float* ll, float* rr, float* bb, float* tt, float* nn, float* ff)
+{
+	float* m = projMat;
+
+	float C1 = (m[10] + 1.0f) / (m[10] - 1.0f);
+
+	float n = (m[14] * C1 - m[14]) / 2.0f;
+
+	float f = n * (m[10] - 1.0f) / (m[10] + 1.0f);
+
+	float C2 = 2 * n / m[0];
+
+	float l = ( m[8] * C2 - C2 ) / 2.0f;
+
+	float r = l * ( m[8] + 1 ) / ( m[8] - 1 );
+
+	float C3 = 2 * n / m[5];
+
+	float b = ( m[9] * C3 - C3 ) / 2.0f;
+
+	float t = b * ( m[9] + 1 ) / ( m[9] - 1 );
+
+	ll[0] = l;
+	rr[0] = r;
+	bb[0] = b;
+	tt[0] = t;
+	nn[0] = n;
+	ff[0] = f;
+}
+
+void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)
+{
+	float m[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, m);
+
+	Get2DPosOnScreenFrom3DPos(pos3D, pos2D, modelMatrix, m);
+}
+
+void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix, float* projMatrix)
+{
+	float x = pos3D[0];
+	float y = pos3D[1];
+	float z = pos3D[2];
+
+	float* a = modelMatrix;
+
+	float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
+	float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];
+	float zWPos = a[2]*x + a[6]*y + a[10]*z + a[14];
+
+	float l,r,b,t,n,f;
+
+	GetProjectionValues(projMatrix, &l, &r, &b, &t, &n, &f);
+
+	float xOnZNear = -n * xWPos / zWPos;
+	float yOnZNear = -n * yWPos / zWPos;
+
+	if(f < 0)
+	{
+		xOnZNear = xWPos;
+		yOnZNear = yWPos;
+	}
+	
+	float zNearW = abs(r-l);
+	float zNearH = abs(t-b);
+
+	pos2D[0] = (( xOnZNear - l ) / zNearW) * SW;
+	pos2D[1] = SH - ((( yOnZNear - b ) / zNearH) * SH);
+}
+
+
+vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix)
+{
+	vector<CVector3> vec2d;
+
+	float l,r,b,t,n,f;
+
+	GetProjectionValues(&l, &r, &b, &t, &n, &f);
+
+	for(int i=0; i<pos3DVec->size(); i++)
+	{
+		float x = pos3DVec->at(i).x;
+		float y = pos3DVec->at(i).y;
+		float z = pos3DVec->at(i).z;
+
+		float* a = modelMatrix;
+
+		float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
+		float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];
+		float zWPos = a[2]*x + a[6]*y + a[10]*z + a[14];
+
+		float xOnZNear = -n * xWPos / zWPos;
+		float yOnZNear = -n * yWPos / zWPos;
+
+		if(f < 0)
+		{
+			xOnZNear = xWPos;
+			yOnZNear = yWPos;
+		}
+	
+		float zNearW = abs(r-l);
+		float zNearH = abs(t-b);
+
+		float x2D = (( xOnZNear - l ) / zNearW) * SW;
+		float y2D = SH - ((( yOnZNear - b ) / zNearH) * SH);
+
+		vec2d.push_back( CVector3(x2D, y2D, 0) );
+	}
+
+	return vec2d;
+}
+
 
 unsigned int GLUtil::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
 {

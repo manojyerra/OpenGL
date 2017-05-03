@@ -108,6 +108,64 @@ void Shape::AddRotateInLocal(char axis, float angle)
 }
 
 
+void Shape::AddUniformScale(float scale)
+{
+	if(_id == CYLINDER)
+	{
+		Cylinder* cylinder = (Cylinder*)this;
+		cylinder->SetRadius( cylinder->GetRadius() * scale );
+		cylinder->SetHeight( cylinder->GetHeight() * scale );
+	}
+	else if(_id == SPHERE)
+	{
+		Sphere* sphere = (Sphere*)this;
+		sphere->SetRadius( sphere->GetRadius() * scale );
+	}
+	else if(_id == CONE)
+	{
+		Cone* cone = (Cone*)this;
+		cone->SetRadius( cone->GetRadius() * scale );
+		cone->SetHeight( cone->GetHeight() * scale );
+	}
+	else if(_id == BOX)
+	{
+		Box* box = (Box*)this;
+		
+		CVector3 size = box->GetSize();
+
+		box->SetSize( size.x * scale, size.y * scale, size.z * scale );
+	}
+}
+
+void Shape::AddScale(CVector3 scale)
+{
+	if(_id == CYLINDER)
+	{
+		Cylinder* cylinder = (Cylinder*)this;
+		cylinder->SetRadius( cylinder->GetRadius() + scale.x + scale.z );
+		cylinder->SetHeight( cylinder->GetHeight() + scale.y*2.0f );
+	}
+	else if(_id == SPHERE)
+	{
+		Sphere* sphere = (Sphere*)this;
+		sphere->SetRadius( sphere->GetRadius() + scale.x + scale.y + scale.z );
+	}
+	else if(_id == CONE)
+	{
+		Cone* cone = (Cone*)this;
+		cone->SetRadius( cone->GetRadius() + scale.x + scale.z );
+		cone->SetHeight( cone->GetHeight() + scale.y*2.0f );
+	}
+	else if(_id == BOX)
+	{
+		Box* box = (Box*)this;
+		
+		CVector3 size = box->GetSize();
+
+		box->SetSize( size.x + scale.x*2.0f, size.y + scale.y*2.0f, size.z + scale.z*2.0f );
+	}
+}
+
 void Shape::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
 	_color[0] = r;

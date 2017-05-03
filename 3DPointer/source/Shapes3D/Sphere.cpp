@@ -19,7 +19,8 @@ Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 	memcpy(m, sphere->m, 16*4);
 
 	_r = sphere->GetRadius();
-	
+	_id = sphere->GetID();
+
 	_quad = gluNewQuadric();
 }
 
@@ -69,7 +70,8 @@ float Sphere::GetRadius()
 
 void Sphere::SetRadius(float r)
 {
-	_r = r;
+	if(r > 0)
+		_r = r;
 }
 
 float Sphere::Volume()

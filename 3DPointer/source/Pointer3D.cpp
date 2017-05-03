@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Util/GLUtil.h"
 #include "Input.h"
+#include "Cam.h"
 
 Pointer3D::Pointer3D()
 {

@@ -38,14 +38,9 @@ void GL2DState::Begin(unsigned int color, GLfloat lineWidth, GLfloat pointSize, 
 
 void GL2DState::SetProjAndModelView()
 {
-	float windowW = GLUtil::GetWindowWidth();
-	float windowH = GLUtil::GetWindowHeight();
-
-	glViewport(0, 0, windowW, windowH);
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, windowW, windowH, 0, -1, 1);
+	glOrtho(0, (GLdouble)GLUtil::GetWindowWidth(), (GLdouble)GLUtil::GetWindowHeight(), 0, -1, 1);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

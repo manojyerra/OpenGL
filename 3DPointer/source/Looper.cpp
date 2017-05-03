@@ -5,6 +5,7 @@
 #include "Math/Vector3.h"
 #include "Math/TransformVertexBuf.h"
 #include "math.h"
+#include "Cam.h"
 
 #include <windows.h>
 #include <gl/gl.h>
@@ -15,7 +16,11 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_windowH = (float)windowHeight;
 	_rx = _ry = _rw = _rh = 0;
 
+	SUISetup((int)_windowW, (int)_windowH);
+
 	GLUtil::Init((int)_windowW, (int)_windowH);
+
+	Cam::GetInstance()->Init(_windowW, _windowH, 1.0f, 10000.0f, 0.2f);
 
 	_modelsMgr = new ModelsManager();
 
@@ -30,7 +35,13 @@ Looper::Looper(int windowWidth, int windowHeight)
 		}
 	}
 
-	SUISetup(GLUtil::GetWindowWidth(), GLUtil::GetWindowHeight());
+	FLModel* model = _modelsMgr->Add("data/barrel", 0, 0, 0);
+	
+	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
+
+	shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
+
+	model->AddBoundingShape(shape);
 
 	_mainFrame = NULL; //new MainFrame(0,0,200,500, this);
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-200, 0, 200, 500, _modelsMgr);
@@ -44,15 +55,22 @@ void Looper::Update(float deltaTime)
 
 void Looper::Draw()
 {
-	GLUtil::Begin3DDraw();
+	if(Input::IsKeyPressed((int)'A'))
+	{
+		Cam::GetInstance()->SetPerspectiveView();
+	}
+	else
+	{
+		Cam::GetInstance()->SetOrthoView();
+	}
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	GLUtil::SetLightPosition(0, 0, 0, GL_LIGHT0);
 
-	GLUtil::SetModelViewMatrix();
-	GLUtil::UpdateCamera();
+	Cam::GetInstance()->SetModelViewMatrix();
+	Cam::GetInstance()->UpdateCamera();
 
 	if(Input::IsRightMousePressed())
 	{
@@ -122,6 +140,40 @@ void Looper::Draw()
 		}
 	}
 
+	if(shape)
+	{
+		_pointer3D.Draw(shape->GetGLMatrix());
+
+		if(_pointer3D.IsPointerDragged())
+		{
+			if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+			{
+				shape->SetPos( _pointer3D.pos );
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
+			{
+				shape->AddRotateInLocal('x', _pointer3D.rot.x);
+				shape->AddRotateInLocal('y', _pointer3D.rot.y);
+				shape->AddRotateInLocal('z', _pointer3D.rot.z);
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::SCALE)
+			{				
+				if(Input::IsKeyPressed((int)'U'))
+				{
+					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
+				
+					if(scaleSum > 0)		shape->AddUniformScale(1.01);
+					else if(scaleSum < 0)	shape->AddUniformScale(0.99);
+				}
+				else
+				{
+					shape->AddScale(_pointer3D.scale);
+				}
+			}
+		}
+	}
+
+	/*
 	if(_modelsMgr->GetSelectedModel())
 	{
 		_pointer3D.Draw(_modelsMgr->GetSelectedModel()->GetMat().m);
@@ -160,7 +212,7 @@ void Looper::Draw()
 			}
 		}
 	}
-
+	*/
 	
 	SUIDraw();
 }

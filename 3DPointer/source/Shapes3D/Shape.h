@@ -39,6 +39,9 @@ public:
 	void AddTransInLocal(char axis, float move);
 	void AddRotateInLocal(char axis, float angle);
 
+	void AddUniformScale(float scale);
+	void AddScale(CVector3 scale);
+
 	void SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 	
 	static Shape* GetBestFitBoundingShape(float* vertexBuf, int arrSize);

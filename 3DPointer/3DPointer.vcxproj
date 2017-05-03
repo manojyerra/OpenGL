@@ -139,6 +139,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Cam.cpp" />
     <ClCompile Include="source\CFileReader.cpp" />
     <ClCompile Include="source\FLModel.cpp" />
     <ClCompile Include="source\Floor.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="source\SUI\SUISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Cam.h" />
     <ClInclude Include="source\CFileReader.h" />
     <ClInclude Include="source\FLModel.h" />
     <ClInclude Include="source\Floor.h" />

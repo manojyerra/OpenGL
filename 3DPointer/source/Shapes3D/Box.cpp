@@ -36,6 +36,8 @@ Box::Box(Box* box) : Shape(Shape::BOX)
 	_w = box->GetSize().x;
 	_h = box->GetSize().y;
 	_d = box->GetSize().z;
+
+	_id = box->GetID();
 }
 
 void Box::Set(Box* box)
@@ -66,9 +68,9 @@ CVector3 Box::GetSize()
 
 void Box::SetSize(float w, float h, float d)
 {
-	_w = w;
-	_h = h;
-	_d = d;
+	if(w > 0)	_w = w;
+	if(h > 0)	_h = h;
+	if(d > 0)	_d = d;
 }
 
 float Box::Volume()
