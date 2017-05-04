@@ -35,6 +35,8 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_angleY = -30;
 	_angleZ = 0;
 
+	_viewType = 5;
+
 	glViewport(0, 0, SW, SH);
 	SetPerspectiveView();
 }
@@ -67,6 +69,12 @@ void Cam::SetOrthoView()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(_left, _right, _bottom, _top, _zNear, _zFar);	
+}
+
+
+bool Cam::IsOrthoView()
+{
+	return _isOrtho;
 }
 
 
@@ -132,6 +140,70 @@ bool Cam::UpdateCamera()
 
 	return false;
 }
+
+void Cam::SetFrontView()
+{
+	_angleX = 0;
+	_angleY = 0;
+
+	_viewType = 0;
+}
+
+void Cam::SetBackView()
+{
+	_angleX = 0;
+	_angleY = 180;
+
+	_viewType = 1;
+}
+
+void Cam::SetLeftView()
+{
+	_angleX = 0;
+	_angleY = 90;
+
+	_viewType = 2;
+}
+
+void Cam::SetRightView()
+{
+	_angleX = 0;
+	_angleY = -90;
+
+	_viewType = 3;
+}
+
+void Cam::SetTopView()
+{
+	_angleX = 90;
+	_angleY = 0;
+
+	_viewType = 4;
+}
+
+void Cam::SetBottomView()
+{
+	_angleX = -90;
+	_angleY = 0;
+
+	_viewType = 5;
+}
+
+void Cam::ChangeView()
+{
+	_viewType++;
+
+	if(_viewType >= 6)
+		_viewType = 0;
+
+	if(_viewType == 0) SetFrontView();
+	else if(_viewType == 1) SetBackView();
+	else if(_viewType == 2) SetLeftView();
+	else if(_viewType == 3) SetRightView();
+	else if(_viewType == 4) SetTopView();
+	else if(_viewType == 5) SetBottomView();
+}
+
 
 /*
 void Cam::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix)

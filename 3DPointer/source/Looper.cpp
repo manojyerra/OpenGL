@@ -55,15 +55,29 @@ void Looper::Update(float deltaTime)
 
 void Looper::Draw()
 {
-	if(Input::IsKeyPressed((int)'A'))
+	if(Input::IsKeyReleased((int)'A'))
 	{
-		Cam::GetInstance()->SetPerspectiveView();
+		if(Cam::GetInstance()->IsOrthoView())
+			Cam::GetInstance()->SetPerspectiveView();
+		else
+			Cam::GetInstance()->SetOrthoView();
 	}
-	else
-	{
+
+	if(Cam::GetInstance()->IsOrthoView())
 		Cam::GetInstance()->SetOrthoView();
-	}
-	
+	else
+		Cam::GetInstance()->SetPerspectiveView();
+
+
+	if(Input::IsKeyReleased((int)'F'))		Cam::GetInstance()->SetFrontView();
+	else if(Input::IsKeyReleased((int)'G'))	Cam::GetInstance()->SetBackView();
+	else if(Input::IsKeyReleased((int)'L'))	Cam::GetInstance()->SetLeftView();
+	else if(Input::IsKeyReleased((int)'R'))	Cam::GetInstance()->SetRightView();
+	else if(Input::IsKeyReleased((int)'T'))	Cam::GetInstance()->SetTopView();
+	else if(Input::IsKeyReleased((int)'B'))	Cam::GetInstance()->SetBottomView();
+	else if(Input::IsKeyReleased((int)'V'))	Cam::GetInstance()->ChangeView();
+
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 

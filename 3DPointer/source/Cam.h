@@ -35,6 +35,8 @@ private:
 	float SW;
 	float SH;
 
+	int _viewType;
+
 	Cam();
 	static Cam* _ref;
 
@@ -43,8 +45,19 @@ public:
 	void Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW);
 	void SetPerspectiveView();
 	void SetOrthoView();
+	bool IsOrthoView();
+
 	void SetModelViewMatrix();
 	bool UpdateCamera();
+
+	void SetFrontView();
+	void SetBackView();
+	void SetLeftView();
+	void SetRightView();
+	void SetTopView();
+	void SetBottomView();
+
+	void ChangeView();
 
 	//void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
 	//vector<CVector3> Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix);
