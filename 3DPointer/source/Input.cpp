@@ -161,6 +161,17 @@ bool Input::IsKeyReleased(int key)	{ return enable && (bool)((prevKeyStates[key]
 bool Input::IsKeyPressed(int key)	{ return enable && (bool)( (currKeyStates[key]&0x80) && true );								}
 bool Input::IsKeyPressedStill(int key, float time) { return enable && (IsKeyPressed(key) && timeCountForKeyPress[key] > time);	}
 
+bool Input::IsAnyKeyReleased(int* keys, int size)
+{
+	for(int i=0; i<size; i++)
+	{
+		if(IsKeyReleased(keys[i]))
+			return true;
+	}
+
+	return false;
+}
+
 bool Input::IsMousePressed()		{ return enable && isMousePressed;								}
 bool Input::IsMouseReleased()		{ return enable && isMouseReleased;								}
 bool Input::IsMouseClicked()		{ return enable && (isMouseClicked && !isMouseDoubleClicked);	}

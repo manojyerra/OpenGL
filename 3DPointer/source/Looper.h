@@ -16,6 +16,7 @@
 #include "MainFrame.h"
 #include "ModelPropsFrame.h"
 #include "Pointer3D.h"
+#include "Floor.h"
 
 class Looper
 {
@@ -28,6 +29,8 @@ private:
 	float _rw;
 	float _rh;
 
+	Pointer3D _pointer3D;
+
 	GL2DState state2D;
 
 	ModelsManager* _modelsMgr;
@@ -37,9 +40,9 @@ private:
 	MainFrame* _mainFrame;
 	ModelPropsFrame* _modelPropsFrame;
 
-	Pointer3D _pointer3D;
+	Floor* _floor;
 
-	void SelectModel(int mx, int my);
+	bool SelectModel(int mx, int my);
 
 public:
 	Looper(int windowWidth, int windowHeight);

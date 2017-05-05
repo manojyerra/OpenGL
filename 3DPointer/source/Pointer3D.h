@@ -18,6 +18,12 @@ private:
 	int _transformationType;
 	CVector3 _offSetVec;
 
+	char _invisibleAxis;
+	char _topAxis;
+	char _sideAxis;
+	int _topAxisSign;
+	int _sideAxisSign;
+
 	void CheckTransformationType();
 	vector<CVector3> Get3DPointsFromMat( float* mat );
 	vector<CVector3> Get2DPointsFrom3DPoints(vector<CVector3>* vec3D);
@@ -43,6 +49,12 @@ public:
 
 	int GetTransformationType();
 	bool IsPointerDragged();
+	char GetInvisibleAxis();
+	char GetTopAxis();
+	char GetSideAxis();
+	int GetTopAxisSign();
+	int GetSideAxisSign();
+
 	void Draw(float* mat);
 };
 

@@ -20,10 +20,12 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	box->AddCheckBox( _wireFrameLinesChkBox = new SUICheckBox("WireFrame Lines", this) );
 	box->AddCheckBox( _wireFramePointsChkBox = new SUICheckBox("WireFrame Points", this) );
 	box->AddCheckBox( _showModelChkBox = new SUICheckBox("Show Model", this) );
-	
+	box->AddCheckBox( _showLocalAxis = new SUICheckBox("Show Local Axis", this) );
+	box->AddCheckBox( _markObject = new SUICheckBox("Mark Object", this) );
+
 	_frame->Add(box);
 	_frame->Add(CreateLightingUI());
-	_frame->SetMinimized(true);
+	//_frame->SetMinimized(true);
 }
 
 
@@ -110,9 +112,16 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		{
 			selModel->ShowModel(((SUICheckBox*)com)->IsSelected());
 		}
+		else if(com == _showLocalAxis)
+		{
+			selModel->ShowLocalAxis(((SUICheckBox*)com)->IsSelected());
+		}
+		else if(com == _markObject)
+		{
+			selModel->SetMarked(((SUICheckBox*)com)->IsSelected());
+		}
 		else if( CheckLightBoxUI(com, selModel) )
 		{
-
 		}
 	}
 
@@ -162,7 +171,9 @@ void ModelPropsFrame::SetUIValuesFromModel(FLModel* model)
 		_wireFrameLinesChkBox->SetSelect( model->IsWireFrameLinesEnabled() );
 		_wireFramePointsChkBox->SetSelect( model->IsWireFramePointsEnabled() );
 		_showModelChkBox->SetSelect( model->IsShowingModel() );
-		
+		_markObject->SetSelect( model->IsMarked() );
+		_showLocalAxis->SetSelect( model->IsShowingLocalAxis() );
+
 		_lightingChkBox->SetSelect( model->IsLightingEnabled() );
 		_shininessSlider->SetValue( model->GetShininess() );
 

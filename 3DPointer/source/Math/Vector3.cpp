@@ -32,6 +32,13 @@ CVector3::~CVector3()
 {
 }
 
+void CVector3::Set(float xx, float yy, float zz)
+{
+	x = xx;
+	y = yy;
+	z = zz;
+}
+
 CVector3& CVector3::operator=( const CVector3& vec )
 {
 	if( this == &vec )

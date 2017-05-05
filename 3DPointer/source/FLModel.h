@@ -157,6 +157,8 @@ private:
 	bool _lightingEnabled;
 	bool _showBoundingShapes;
 	bool _showModel;
+	bool _drawLocalAxis;
+	bool _isMarked;
 
 	vector<float> _borderVec;
 	
@@ -170,6 +172,7 @@ private:
 	vector<Shape*> _boundingShapes;
 
 	GL2DState state2D;
+	
 
 	void DrawBoundingBox();
 	void GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLocalMat);
@@ -249,4 +252,11 @@ public:
 
 	void CalcBorder();
 	void DrawBorder();
+
+	vector<CVector3> GetAxisLine3DPoints(float* mat, int triIndex);
+	void DrawLocalAxis();
+	void ShowLocalAxis(bool show);
+	bool IsShowingLocalAxis();
+	bool IsMarked();
+	void SetMarked(bool mark);
 };

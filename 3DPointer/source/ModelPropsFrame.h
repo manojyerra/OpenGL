@@ -22,6 +22,8 @@ private:
 	SUICheckBox* _wireFrameLinesChkBox;
 	SUICheckBox* _wireFramePointsChkBox;
 	SUICheckBox* _showModelChkBox;
+	SUICheckBox* _showLocalAxis;
+	SUICheckBox* _markObject;
 
 	//Begin : Light box related ui
 

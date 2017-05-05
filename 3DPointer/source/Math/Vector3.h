@@ -22,6 +22,8 @@ public:
 
 	~CVector3();
 
+	void Set(float x, float y, float z);
+
 	CVector3& operator=( const CVector3& vec );
 	
 	//CVector3 Addition

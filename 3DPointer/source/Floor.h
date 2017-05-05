@@ -4,18 +4,25 @@
 class Floor
 {
 private:
-	static bool _visible;
-	static bool _axisVisible;
-	static bool _gridVisible;
-	static bool _gridLinesVisible;
+	bool _visible;
+	bool _axisVisible;
+	bool _gridVisible;
+	bool _gridLinesVisible;
 
 public:
-	static void SetVisible(bool visible);
-	static void SetAxisVisible(bool axisVisible);
-	static void SetGridVisible(bool floorVisible);
-	static void SetGridLinesVisible(bool linesVisible);
+	Floor();
 
-	static void Draw();
+	bool IsVisible();
+	bool IsAxisVisible();
+	bool IsGridVisible();
+	bool IsGridLinesVisible();
+
+	void SetVisible(bool visible);
+	void SetAxisVisible(bool axisVisible);
+	void SetGridVisible(bool floorVisible);
+	void SetGridLinesVisible(bool linesVisible);
+
+	void Draw();
 };
 
 #endif

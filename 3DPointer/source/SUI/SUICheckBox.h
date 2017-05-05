@@ -24,6 +24,8 @@ public:
 
 	SUICheckBox(string name, int nameAlignment);
 	SUICheckBox(string name, SUIActionListener* actionListener);
+	SUICheckBox(string name, int nameAlignment, SUIActionListener* actionListener);
+
 	~SUICheckBox();
 
 	SUIEvents UpdateByInput();

@@ -3,10 +3,33 @@
 #include <gl/gl.h>
 #include "Util/GLUtil.h"
 
-bool Floor::_visible = true;
-bool Floor::_axisVisible = true;
-bool Floor::_gridVisible = false;
-bool Floor::_gridLinesVisible = true;
+Floor::Floor()
+{
+	_visible = true;
+	_axisVisible = true;
+	_gridVisible = false;
+	_gridLinesVisible = true;
+}
+
+bool Floor::IsVisible()
+{
+	return _visible;
+}
+
+bool Floor::IsAxisVisible()
+{
+	return _axisVisible;
+}
+
+bool Floor::IsGridVisible()
+{
+	return _gridVisible;
+}
+
+bool Floor::IsGridLinesVisible()
+{
+	return _gridLinesVisible;
+}
 
 void Floor::SetVisible(bool visible)
 {

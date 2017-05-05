@@ -27,18 +27,27 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zFar = zFar;
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
-	_transX = 0;
-	_transZ = -250.0f;
-	_transY = -8.0f;
-
-	_angleX = 15;
-	_angleY = -30;
-	_angleZ = 0;
+	_pivot = CVector3(0, 0, 0);
+	_trans = CVector3(0, -8.0f, -250.0f);
+	_angle = CVector3(15, -30, 0);
 
 	_viewType = 5;
 
 	glViewport(0, 0, SW, SH);
 	SetPerspectiveView();
+}
+
+
+void Cam::SetProjection()
+{
+	if(_isOrtho)
+	{
+		SetOrthoView();
+	}
+	else
+	{
+		SetPerspectiveView();
+	}
 }
 
 
@@ -61,10 +70,10 @@ void Cam::SetOrthoView()
 {
 	_isOrtho = true;
 
-	_left = -(-_transZ *_zNearPlaneHalfW) / _zNear;
-	_right = (-_transZ *_zNearPlaneHalfW) / _zNear;
-	_bottom = -((-_transZ *_zNearPlaneHalfW) / _zNear) * (SH/SW);
-	_top = ((-_transZ *_zNearPlaneHalfW) / _zNear) * (SH/SW);
+	_left = -(-_trans.z *_zNearPlaneHalfW) / _zNear;
+	_right = (-_trans.z *_zNearPlaneHalfW) / _zNear;
+	_bottom = -((-_trans.z *_zNearPlaneHalfW) / _zNear) * (SH/SW);
+	_top = ((-_trans.z *_zNearPlaneHalfW) / _zNear) * (SH/SW);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -82,9 +91,12 @@ void Cam::SetModelViewMatrix()
 {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(_transX,_transY,_transZ);
-	glRotatef(_angleX,1,0,0);
-	glRotatef(_angleY,0,1,0);
+	
+	glTranslatef(_trans.x, _trans.y, _trans.z);
+	glRotatef(_angle.x,1,0,0);
+	glRotatef(_angle.y,0,1,0);
+
+	glTranslatef(-_pivot.x, -_pivot.y, -_pivot.z);
 }
 
 
@@ -95,20 +107,20 @@ bool Cam::UpdateCamera()
 		float dx = (float)(Input::MX - Input::PrevMX);
 		float dy = (float)(Input::MY - Input::PrevMY);
 
-		float z = _transZ;
+		float z = _trans.z;
 		if(z < 0)
 			z = -z;
 
 		z /= 3000;
 
-		_transX += dx*z;
-		_transY += -dy*z;
+		_trans.x += dx*z;
+		_trans.y += -dy*z;
 
 		return true;
 	}
 	else if(Input::IsKeyPressed(VK_CONTROL) && Input::IsMiddleMousePressed())
 	{
-		_transZ += (float)(Input::PrevMY - Input::MY) * 2.0f;
+		_trans.z += (float)(Input::PrevMY - Input::MY) * 2.0f;
 
 		return true;
 	}
@@ -117,8 +129,8 @@ bool Cam::UpdateCamera()
 		float dx = (float)(Input::MX - Input::PrevMX);
 		float dy = (float)(Input::MY - Input::PrevMY);
 
-		_angleY += dx * 180.0f / (SW*0.5f);
-		_angleX += dy * 180.0f / (SH*0.5f);
+		_angle.y += dx * 180.0f / (SW*0.5f);
+		_angle.x += dy * 180.0f / (SH*0.5f);
 
 		return true;
 	}
@@ -126,14 +138,14 @@ bool Cam::UpdateCamera()
 	if(Input::IsScrollDown())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ -= 45.0f;
+		_trans.z -= 45.0f;
 
 		return true;
 	}
 	else if(Input::IsScrollUp())
 	{
 		Input::SCROLL_STATE = Input::SCROLL_NONE;
-		_transZ += 45.0f;
+		_trans.z += 45.0f;
 
 		return true;
 	}
@@ -141,51 +153,44 @@ bool Cam::UpdateCamera()
 	return false;
 }
 
+void Cam::SetPivot(CVector3 pivotPoint)
+{
+	_pivot = pivotPoint;
+}
+
 void Cam::SetFrontView()
 {
-	_angleX = 0;
-	_angleY = 0;
-
+	_angle.Set(0,0,0);
 	_viewType = 0;
 }
 
 void Cam::SetBackView()
 {
-	_angleX = 0;
-	_angleY = 180;
-
+	_angle.Set(0,180,0);
 	_viewType = 1;
 }
 
 void Cam::SetLeftView()
 {
-	_angleX = 0;
-	_angleY = 90;
-
+	_angle.Set(0,90,0);
 	_viewType = 2;
 }
 
 void Cam::SetRightView()
 {
-	_angleX = 0;
-	_angleY = -90;
-
+	_angle.Set(0,-90,0);
 	_viewType = 3;
 }
 
 void Cam::SetTopView()
 {
-	_angleX = 90;
-	_angleY = 0;
-
+	_angle.Set(90,0,0);
 	_viewType = 4;
 }
 
 void Cam::SetBottomView()
 {
-	_angleX = -90;
-	_angleY = 0;
-
+	_angle.Set(-90,0,0);
 	_viewType = 5;
 }
 

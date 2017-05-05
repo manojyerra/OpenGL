@@ -9,6 +9,11 @@ Pointer3D::Pointer3D()
 	_heldPointer = false;
 	_triIndex = -1;
 	_transformationType = TRANS;
+	_invisibleAxis = '\0';
+	_topAxis = '\0';
+	_sideAxis = '\0';
+	_topAxisSign = 1;
+	_sideAxisSign = 1;
 }
 
 
@@ -17,9 +22,13 @@ void Pointer3D::Draw(float* mat)
 	pos = CVector3(0,0,0);
 	rot = CVector3(0,0,0);
 	scale = CVector3(0,0,0);
-
 	_triVec.clear();
 
+	_invisibleAxis = '\0';
+	_topAxis = '\0';
+	_sideAxis = '\0';
+	_topAxisSign = 1;
+	_sideAxisSign = 1;
 
 	CheckTransformationType();
 
@@ -152,9 +161,69 @@ void Pointer3D::DrawPointer(vector<CVector3>* vec2D, float pointerMaxLenLimit)
 	vec2.SetLength( vec2.Length() * pointerMaxLenLimit / maxLen );
 	vec3.SetLength( vec3.Length() * pointerMaxLenLimit / maxLen );
 
-	if(vec1.Length() < 7)	vec1.SetLength(0);
-	if(vec2.Length() < 7)	vec2.SetLength(0);
-	if(vec3.Length() < 7)	vec3.SetLength(0);
+	if(vec1.Length() < 7)		{	vec1.SetLength(0);	_invisibleAxis = 'x'; }
+	else if(vec2.Length() < 7)	{	vec2.SetLength(0);	_invisibleAxis = 'y'; }
+	else if(vec3.Length() < 7)	{	vec3.SetLength(0);	_invisibleAxis = 'z'; }
+
+	/////
+
+	char axisCharArr[3] = {'x','y','z'};
+	int axisArr[3] = {1,1,1};
+	CVector3 axisVec[3] = {vec1, vec2, vec3};
+
+	int minAxisIndex = 0;
+	float minLen = vec1.Length();
+
+	if(vec2.Length() < minLen)
+	{
+		minLen = vec2.Length();
+		minAxisIndex = 1;
+	}
+	
+	if(vec3.Length() < minLen)
+	{
+		minAxisIndex = 2;
+	}
+
+	axisArr[minAxisIndex] = 0;
+
+
+	for(int i=0; i<3; i++)
+	{
+		if(axisArr[i] == 0)
+			continue;
+
+		float angle = atan2(axisVec[i].y, axisVec[i].x) * RAD_DEG;
+		angle = 360 - ((int)angle + 360) % 360;
+
+		if( (angle >= 45 && angle <= 45+90) || (angle >= 225 && angle <= 225+90) )
+		{
+			_topAxis = axisCharArr[i];
+
+			if(angle >= 225 && angle <= 225+90)
+				_topAxisSign = -1;
+
+			for(int j=0; j<3; j++)
+			{
+				if(j != i && axisArr[j] != 0)
+				{
+					_sideAxis = axisCharArr[j];
+
+					float angleSide = atan2(axisVec[j].y, axisVec[j].x) * RAD_DEG;
+					angleSide = 360 - ((int)angleSide + 360) % 360;
+
+					if(angleSide >= 135 && angleSide <= 135+90)
+						_sideAxisSign = -1;
+
+					break;
+				}
+			}
+
+			break;
+		}
+	}
+
+	/////
 
 	state2D.Begin(0xff0000ff, 1.0f, 1.0f, true, false);
 
@@ -249,6 +318,32 @@ bool Pointer3D::IsPointerDragged()
 	return (_heldPointer && Input::IsMouseDragged());
 }
 
+
+char Pointer3D::GetInvisibleAxis()
+{
+	return _invisibleAxis;
+}
+
+
+char Pointer3D::GetTopAxis()
+{
+	return _topAxis;
+}
+
+char Pointer3D::GetSideAxis()
+{
+	return _sideAxis;
+}
+
+int Pointer3D::GetTopAxisSign()
+{
+	return _topAxisSign;
+}
+
+int Pointer3D::GetSideAxisSign()
+{
+	return _sideAxisSign;
+}
 
 int Pointer3D::GetTransformationType()
 {

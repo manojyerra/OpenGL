@@ -23,16 +23,20 @@ public:
 	FLModel* Add(string folderPath, CVector3 pos, CVector3 rot, string rotOrder);
 	FLModel* Add(string folderPath, float* mat);
 
+	unsigned int Size();
 	FLModel* Get(unsigned int index);
 	FLModel* GetSelectedModel();
 	int GetModelIndexByMousePos(float x, float y);
 	void SetSelectedModelIndex(int index);
 
-	unsigned int Size();
+	void ShowMarkedObjects(bool show);
+	void ShowUnmarkedObjects(bool show);
+
+	void ShowBoundingShapes(bool show);
 	void SetBoundingBoxEnabled(bool enable);
-	void Draw();
 
 	void DrawForSelection();
+	void Draw();
 };
 
 #endif

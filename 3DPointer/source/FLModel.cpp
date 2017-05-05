@@ -100,6 +100,8 @@ void FLModel::Reset(string folderPath, float* mat)
 	_lightingEnabled = true;
 	_showBoundingShapes = false;
 	_showModel = true;
+	_drawLocalAxis = false;
+	_isMarked = false;
 
 	_mat.Copy(mat);
 
@@ -179,15 +181,6 @@ void FLModel::Reset(string folderPath, float* mat)
 		fflush(bBoxFile);
 		fclose(bBoxFile);
 	}
-
-	//float bBoxH = abs(_bBox.maxY - _bBox.minY);
-
-	//float* verArr = (float*)_verticesPointer;
-
-	//for(int i=0; i<_numVertex*3; i+=3)
-	//{
-	//	verArr[i+1] += bBoxH/2;
-	//}
 }
 
 void FLModel::Save()
@@ -265,6 +258,10 @@ void FLModel::ShowBoundingShapes(bool show)				{	_showBoundingShapes = show;			}
 bool FLModel::IsShowingBoundingShapes()					{	return _showBoundingShapes;			}
 void FLModel::ShowModel(bool show)						{	_showModel = show;					}
 bool FLModel::IsShowingModel()							{	return _showModel;					}
+void FLModel::ShowLocalAxis(bool show)					{	_drawLocalAxis = show;				}
+bool FLModel::IsShowingLocalAxis()						{	return _drawLocalAxis;				}
+void FLModel::SetMarked(bool mark)						{	_isMarked = mark;				}
+bool FLModel::IsMarked()								{	return _isMarked;				}
 
 
 void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
@@ -348,6 +345,10 @@ void FLModel::AddTransInLocal(char axis, float move)
 	if(axis == 'x')			vec = CVector3( _mat.m[0], _mat.m[1], _mat.m[2] );
 	else if(axis == 'y')	vec = CVector3( _mat.m[4], _mat.m[5], _mat.m[6] );
 	else if(axis == 'z')	vec = CVector3( _mat.m[8], _mat.m[9], _mat.m[10] );
+	else
+	{
+		return;
+	}
 	
 	vec.Normalize();
 	vec *= move;
@@ -537,7 +538,6 @@ void FLModel::Draw()
 	if(_verticesPointer)
 		glDisableClientState(GL_VERTEX_ARRAY);
 
-
 	if(_showBoundingShapes)
 	{
 		for(unsigned int i=0; i<_boundingShapes.size(); i++)
@@ -557,6 +557,67 @@ void FLModel::Draw()
 	GLUtil::GLEnable(GL_LIGHTING, lighting1);
 
 	glPopMatrix();
+
+	if(_drawLocalAxis)
+		DrawLocalAxis();
+}
+
+vector<CVector3> FLModel::GetAxisLine3DPoints(float* mat, int triIndex)
+{
+	CVector3 center		( mat[12],	mat[13],	mat[14]);
+	CVector3 sideVec	( mat[0],	mat[1],		mat[2] );
+	CVector3 upVec		( mat[4],	mat[5],		mat[6] );
+	CVector3 forwardVec	( mat[8],	mat[9],		mat[10]);
+
+	sideVec.Normalize();
+	upVec.Normalize();
+	forwardVec.Normalize();
+
+	CVector3 localAxisVec;
+
+	if(triIndex == 0)		localAxisVec = sideVec;
+	else if(triIndex == 1)	localAxisVec = upVec;
+	else if(triIndex == 2)	localAxisVec = forwardVec;
+
+	vector<CVector3> vec;
+	vec.push_back( CVector3(center.x + localAxisVec.x,	center.y + localAxisVec.y,	center.z + localAxisVec.z) );
+	vec.push_back( CVector3(center.x - localAxisVec.x,	center.y - localAxisVec.y,	center.z - localAxisVec.z) );
+
+	return vec;
+}
+
+void FLModel::DrawLocalAxis()
+{
+	GLfloat lineWidth = GLUtil::GLLineWidth(1.0f);
+	GLboolean lighting = GLUtil::GLEnable(GL_LIGHTING, false);
+
+	glBegin(GL_LINES);
+	
+	for(int i=0; i<3; i++)
+	{
+		vector<CVector3> line3D = GetAxisLine3DPoints(_mat.m, i);
+
+		if(i == 0)		glColor(0xff0000ff);
+		else if(i == 1)	glColor(0x00ff00ff);
+		else if(i == 2)	glColor(0x0000ffff);
+
+		CVector3 axisVec1 (line3D[1] - line3D[0]);
+		CVector3 axisVec2 = axisVec1;
+
+		axisVec1.SetLength(500);
+		axisVec2.SetLength(-500);
+
+		axisVec1 += line3D[0];
+		axisVec2 += line3D[0];
+
+		glVertex3f(axisVec1.x, axisVec1.y, axisVec1.z);
+		glVertex3f(axisVec2.x, axisVec2.y, axisVec2.z);
+	}
+
+	glEnd();
+
+	GLUtil::GLEnable(GL_LIGHTING, lighting);
+	GLUtil::GLLineWidth(lineWidth);
 }
 
 void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLocalMat)
@@ -660,6 +721,7 @@ void FLModel::CalcBorder()
 		bool wireFrameLinesEnable	= IsWireFrameLinesEnabled();
 		bool wireFramePointsEnable	= IsWireFramePointsEnabled();
 		bool lightingOn				= IsLightingEnabled();
+		bool localAxis				= IsShowingLocalAxis();
 
 		SetBounding2DRectEnabled(false);
 		SetBoundingBoxEnabled(false);
@@ -668,6 +730,7 @@ void FLModel::CalcBorder()
 		SetWireFramePointsEnabled(false);
 		ShowBoundingShapes(false);
 		SetLightingEnabled(false);
+		ShowLocalAxis(false);
 
 		Draw();
 
@@ -686,6 +749,7 @@ void FLModel::CalcBorder()
 		SetWireFramePointsEnabled(wireFramePointsEnable);
 		ShowBoundingShapes(boundingShapes);
 		SetLightingEnabled(lightingOn);
+		ShowLocalAxis(localAxis);
 
 	GLUtil::GLEnable(GL_LIGHTING, light);
 	GLUtil::GLEnable(GL_BLEND, blend);
@@ -743,6 +807,8 @@ void FLModel::DrawBorder()
 
 		state2D.End();
 	}
+
+	_borderVec.clear();
 }
 
 

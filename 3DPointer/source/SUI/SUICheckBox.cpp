@@ -15,6 +15,11 @@ SUICheckBox::SUICheckBox(string name, int nameAlignment) : SUIComponent(SUICompo
 	Init(name, nameAlignment, NULL);
 }
 
+SUICheckBox::SUICheckBox(string name, int nameAlignment, SUIActionListener* actionListener) : SUIComponent(SUIComponent::CHECKBOX)
+{
+	Init(name, nameAlignment, actionListener);
+}
+
 void SUICheckBox::Init(string name, int nameAlignment, SUIActionListener* actionListener)
 {
 	_name = name;

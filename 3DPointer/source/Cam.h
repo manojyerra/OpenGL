@@ -22,13 +22,9 @@ private:
 	float _zFar;
 	float _zNearPlaneHalfW;
 
-	float _angleX;
-	float _angleY;
-	float _angleZ;
-
-	float _transZ;
-	float _transX;
-	float _transY;
+	CVector3 _pivot;
+	CVector3 _angle;
+	CVector3 _trans;
 
 	bool _isOrtho;
 
@@ -43,6 +39,8 @@ private:
 public:
 	static Cam* GetInstance();
 	void Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW);
+
+	void SetProjection();
 	void SetPerspectiveView();
 	void SetOrthoView();
 	bool IsOrthoView();
@@ -50,6 +48,7 @@ public:
 	void SetModelViewMatrix();
 	bool UpdateCamera();
 
+	void SetPivot(CVector3 pivotPoint);
 	void SetFrontView();
 	void SetBackView();
 	void SetLeftView();

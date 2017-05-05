@@ -22,6 +22,8 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	Cam::GetInstance()->Init(_windowW, _windowH, 1.0f, 10000.0f, 0.2f);
 
+	_floor = new Floor();
+
 	_modelsMgr = new ModelsManager();
 
 	for(int j=0; j<50; j+=25)
@@ -43,8 +45,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	model->AddBoundingShape(shape);
 
-	_mainFrame = NULL; //new MainFrame(0,0,200,500, this);
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-200, 0, 200, 500, _modelsMgr);
+
+	_mainFrame = new MainFrame(0,0,200,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
 }
 
 void Looper::Update(float deltaTime)
@@ -55,33 +58,15 @@ void Looper::Update(float deltaTime)
 
 void Looper::Draw()
 {
-	if(Input::IsKeyReleased((int)'A'))
-	{
-		if(Cam::GetInstance()->IsOrthoView())
-			Cam::GetInstance()->SetPerspectiveView();
-		else
-			Cam::GetInstance()->SetOrthoView();
-	}
-
-	if(Cam::GetInstance()->IsOrthoView())
-		Cam::GetInstance()->SetOrthoView();
-	else
-		Cam::GetInstance()->SetPerspectiveView();
-
-
-	if(Input::IsKeyReleased((int)'F'))		Cam::GetInstance()->SetFrontView();
-	else if(Input::IsKeyReleased((int)'G'))	Cam::GetInstance()->SetBackView();
-	else if(Input::IsKeyReleased((int)'L'))	Cam::GetInstance()->SetLeftView();
-	else if(Input::IsKeyReleased((int)'R'))	Cam::GetInstance()->SetRightView();
-	else if(Input::IsKeyReleased((int)'T'))	Cam::GetInstance()->SetTopView();
-	else if(Input::IsKeyReleased((int)'B'))	Cam::GetInstance()->SetBottomView();
-	else if(Input::IsKeyReleased((int)'V'))	Cam::GetInstance()->ChangeView();
-
+	Cam::GetInstance()->SetProjection();
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	GLUtil::SetLightPosition(0, 0, 0, GL_LIGHT0);
+
+	if(Input::IsKeyReleased((int)'V'))
+		Cam::GetInstance()->ChangeView();
 
 	Cam::GetInstance()->SetModelViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
@@ -92,9 +77,15 @@ void Looper::Draw()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		SelectModel(Input::MX, Input::MY);
+
+		if(_mainFrame->IsSelectedObjectAsPivot())
+			Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
 	}
 
-	if(_modelsMgr->GetSelectedModel())
+	if(_mainFrame->IsSelectedObjectAsPivot() && Input::IsMouseReleased())
+		Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
+
+	if(_modelsMgr->GetSelectedModel() && _mainFrame->IsShowingBorder())
 	{
 		glClearColor(1.0f,1.0f,1.0f,1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -105,55 +96,34 @@ void Looper::Draw()
 	glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	_modelsMgr->Draw();
 
-	Floor::Draw();
+	_modelsMgr->Draw();
+	_floor->Draw();
+	
 	
 	UpdateDrawRect();
 
-	if(	Input::IsKeyReleased((int)'1') || 
-		Input::IsKeyReleased((int)'2') ||
-		Input::IsKeyReleased((int)'3') ||
-		Input::IsKeyReleased((int)'4') ||
-		Input::IsKeyReleased((int)'5'))
+
+	int keys[5] = {'1','2','3','4','5'};
+
+	if(Input::IsAnyKeyReleased(keys, 5))
 	{
 		FLModel* selModel = _modelsMgr->GetSelectedModel();
 
 		if( selModel && _rw > 0 && _rh > 0)
 		{
-			if(Input::IsKeyReleased((int)'1'))
-			{
-				selModel->AddBestBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh);
-				selModel->ShowBoundingShapes(true);
-				_modelPropsFrame->ShowBoundingShapes(true);
-			}
-			else if(Input::IsKeyReleased((int)'2'))
-			{
-				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::BOX);
-				selModel->ShowBoundingShapes(true);
-				_modelPropsFrame->ShowBoundingShapes(true);
-			}
-			else if(Input::IsKeyReleased((int)'3'))
-			{
-				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::CONE);
-				selModel->ShowBoundingShapes(true);
-				_modelPropsFrame->ShowBoundingShapes(true);
-			}
-			else if(Input::IsKeyReleased((int)'4'))
-			{
-				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::CYLINDER);
-				selModel->ShowBoundingShapes(true);
-				_modelPropsFrame->ShowBoundingShapes(true);
-			}
-			else if(Input::IsKeyReleased((int)'5'))
-			{
-				selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::SPHERE);
-				selModel->ShowBoundingShapes(true);
-				_modelPropsFrame->ShowBoundingShapes(true);
-			}
+			if(Input::IsKeyReleased((int)'1'))		selModel->AddBestBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh);
+			else if(Input::IsKeyReleased((int)'2'))	selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::BOX);
+			else if(Input::IsKeyReleased((int)'3'))	selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::CONE);
+			else if(Input::IsKeyReleased((int)'4'))	selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::CYLINDER);
+			else if(Input::IsKeyReleased((int)'5'))	selModel->AddBoudingShapeByVerticesOnRect(_rx, _ry, _rw, _rh, Shape::SPHERE);
+
+			selModel->ShowBoundingShapes(true);
+			_modelPropsFrame->ShowBoundingShapes(true);
 		}
 	}
 
+	/*
 	if(shape)
 	{
 		_pointer3D.Draw(shape->GetGLMatrix());
@@ -186,11 +156,61 @@ void Looper::Draw()
 			}
 		}
 	}
+	*/
 
-	/*
 	if(_modelsMgr->GetSelectedModel())
 	{
 		_pointer3D.Draw(_modelsMgr->GetSelectedModel()->GetMat().m);
+
+		if(Input::IsKeyPressed(VK_CONTROL))
+		{
+			if(Input::IsKeyPressedStill(VK_LEFT) || Input::IsKeyTyped(VK_LEFT))
+			{
+				if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
+				{
+					float rotAmount = Input::IsKeyPressedStill(VK_LEFT) ? 5 : 1;
+					_modelsMgr->GetSelectedModel()->AddRotateInLocal(_pointer3D.GetInvisibleAxis(), rotAmount);
+				}
+				else if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+				{
+					float transAmount = Input::IsKeyPressedStill(VK_LEFT) ? -0.1 : -0.01;
+					transAmount = transAmount * _pointer3D.GetSideAxisSign();
+					_modelsMgr->GetSelectedModel()->AddTransInLocal(_pointer3D.GetSideAxis(), transAmount);
+				}
+			}
+			else if(Input::IsKeyPressedStill(VK_RIGHT) || Input::IsKeyTyped(VK_RIGHT))
+			{
+				if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
+				{
+					float rotAmount = Input::IsKeyPressedStill(VK_RIGHT) ? -5 : -1;
+					_modelsMgr->GetSelectedModel()->AddRotateInLocal(_pointer3D.GetInvisibleAxis(), rotAmount);
+				}
+				else if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+				{
+					float transAmount = Input::IsKeyPressedStill(VK_RIGHT) ? 0.1 : 0.01;
+					transAmount = transAmount * _pointer3D.GetSideAxisSign();
+					_modelsMgr->GetSelectedModel()->AddTransInLocal(_pointer3D.GetSideAxis(), transAmount);
+				}
+			}
+			else if(Input::IsKeyPressedStill(VK_UP) || Input::IsKeyTyped(VK_UP))
+			{
+				if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+				{
+					float transAmount = Input::IsKeyPressedStill(VK_UP) ? 0.1 : 0.01;
+					transAmount = transAmount * _pointer3D.GetTopAxisSign();
+					_modelsMgr->GetSelectedModel()->AddTransInLocal( _pointer3D.GetTopAxis(), transAmount );
+				}
+			}
+			else if(Input::IsKeyPressedStill(VK_DOWN) || Input::IsKeyTyped(VK_DOWN))
+			{
+				if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+				{
+					float transAmount = Input::IsKeyPressedStill(VK_DOWN) ? -0.1 : -0.01;
+					transAmount = transAmount * _pointer3D.GetTopAxisSign();
+					_modelsMgr->GetSelectedModel()->AddTransInLocal( _pointer3D.GetTopAxis(), transAmount );
+				}
+			}
+		}
 
 		if(_pointer3D.IsPointerDragged())
 		{
@@ -226,7 +246,6 @@ void Looper::Draw()
 			}
 		}
 	}
-	*/
 	
 	SUIDraw();
 }
@@ -277,7 +296,7 @@ void Looper::UpdateDrawRect()
 	}
 }
 
-void Looper::SelectModel(int mx, int my)
+bool Looper::SelectModel(int mx, int my)
 {
 	unsigned int index = _modelsMgr->GetModelIndexByMousePos(mx, my);
 
@@ -285,7 +304,10 @@ void Looper::SelectModel(int mx, int my)
 	{
 		_modelsMgr->SetSelectedModelIndex( index );
 		_modelPropsFrame->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
+		return true;
 	}
+
+	return false;
 }
 
 Looper::~Looper()
@@ -302,5 +324,21 @@ Looper::~Looper()
 		_mainFrame = NULL;
 	}
 
+	if(_floor)
+	{
+		delete _floor;
+		_floor = NULL;
+	}
+
 	SUIQuit();
 }
+
+
+
+	//if(Input::IsKeyReleased((int)'F'))		Cam::GetInstance()->SetFrontView();
+	//else if(Input::IsKeyReleased((int)'G'))	Cam::GetInstance()->SetBackView();
+	//else if(Input::IsKeyReleased((int)'L'))	Cam::GetInstance()->SetLeftView();
+	//else if(Input::IsKeyReleased((int)'R'))	Cam::GetInstance()->SetRightView();
+	//else if(Input::IsKeyReleased((int)'T'))	Cam::GetInstance()->SetTopView();
+	//else if(Input::IsKeyReleased((int)'B'))	Cam::GetInstance()->SetBottomView();
+	//else 

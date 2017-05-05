@@ -54,6 +54,36 @@ FLModel* ModelsManager::Add(string folderPath, float* mat)
 	return model;
 }
 
+void ModelsManager::ShowMarkedObjects(bool show)
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+	{
+		if(_vec[i]->IsMarked())
+			_vec[i]->ShowModel(show);
+	}
+}
+
+void ModelsManager::ShowUnmarkedObjects(bool show)
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+	{
+		if(!_vec[i]->IsMarked())
+			_vec[i]->ShowModel(show);
+	}
+}
+
+void ModelsManager::ShowBoundingShapes(bool show)
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+		_vec[i]->ShowBoundingShapes(show);
+}
+
+void ModelsManager::SetBoundingBoxEnabled(bool enable)
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+		_vec[i]->SetBoundingBoxEnabled(enable);
+}
+
 FLModel* ModelsManager::Get(unsigned int index)
 {
 	return _vec[index];
@@ -140,20 +170,10 @@ void ModelsManager::DrawForSelection()
 	GLUtil::GLColor(prevColor);
 }
 
-void ModelsManager::SetBoundingBoxEnabled(bool enable)
-{
-	for(unsigned int i=0; i<_vec.size();i++)
-	{
-		_vec[i]->SetBoundingBoxEnabled(enable);
-	}
-}
-
 void ModelsManager::Draw()
 {
 	for(unsigned int i=0; i<_vec.size();i++)
-	{
 		_vec[i]->Draw();
-	}
 
 	if(_selModel)
 		_selModel->DrawBorder();

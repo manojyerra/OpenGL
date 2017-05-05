@@ -93,6 +93,7 @@ public:
 	static bool IsKeyTyped(int key);
 	static bool IsKeyPressed(int key);
 	static bool IsKeyReleased(int key);
+	static bool IsAnyKeyReleased(int* keys, int size);
 
 	static bool IsKeyPressedStill(int key, float time=0.15f);
 	
