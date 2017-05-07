@@ -50,6 +50,11 @@ void SUIComponent::SetName(string name, int nameAlignment)
 	_nameAlignment = nameAlignment;
 }
 
+void SUIComponent::SetName(string name)
+{
+	_name = name;
+}
+
 string SUIComponent::GetName()
 {
 	return _name;

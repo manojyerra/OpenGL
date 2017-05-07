@@ -123,9 +123,12 @@ void SUIBox::ResetBounds()
 {
 	_h = 0;
 
+	float titleH = 0;
+
 	if(_isOnOffEnable || _name.length() > 0)
 	{
 		_h += TITLE_H;
+		titleH = TITLE_H;
 		if(!_isOn)
 			return;
 	}
@@ -140,14 +143,14 @@ void SUIBox::ResetBounds()
 				continue;
 
 			float xx = _x+i*eachBoxW + _elementVec[i]->LeftMargin();
-			float yy = _y			 + _elementVec[i]->TopMargin();
+			float yy = _y			 + _elementVec[i]->TopMargin() + titleH;
 			float ww = eachBoxW		 - (_elementVec[i]->LeftMargin() + _elementVec[i]->RightMargin());
 
 			_elementVec[i]->SetPos(xx, yy);
 			_elementVec[i]->SetWidth(ww);
 			_elementVec[i]->ResetBounds();
 
-			float endY = _elementVec[i]->GetH()+_elementVec[i]->TopMargin()+_elementVec[i]->BottomMargin();
+			float endY = _elementVec[i]->GetH()+_elementVec[i]->TopMargin()+_elementVec[i]->BottomMargin()+titleH;
 
 			if(endY > _h)
 				_h = endY;

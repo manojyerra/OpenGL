@@ -45,7 +45,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	model->AddBoundingShape(shape);
 
-	_modelPropsFrame = new ModelPropsFrame((int)_windowW-200, 0, 200, 500, _modelsMgr);
+	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);
 
 	_mainFrame = new MainFrame(0,0,200,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
 }
@@ -229,14 +229,14 @@ void Looper::Draw()
 				if(Input::IsKeyPressed((int)'U'))
 				{
 					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
-				
-					if(scaleSum > 0)
+
+					if(scaleSum < 3)
 					{
-						_modelsMgr->GetSelectedModel()->AddUniformScale(1.01);
+						_modelsMgr->GetSelectedModel()->AddUniformScale(0.99f);
 					}
-					else if(scaleSum < 0)
+					else
 					{
-						_modelsMgr->GetSelectedModel()->AddUniformScale(0.99);
+						_modelsMgr->GetSelectedModel()->AddUniformScale(1.01f);
 					}
 				}
 				else
@@ -247,6 +247,10 @@ void Looper::Draw()
 		}
 	}
 	
+	_modelPropsFrame->UpdateTransInfo( _modelsMgr->GetSelectedModel() );
+	_modelPropsFrame->UpdateRotationInfo( _modelsMgr->GetSelectedModel() );
+
+
 	SUIDraw();
 }
 

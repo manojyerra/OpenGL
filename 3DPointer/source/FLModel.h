@@ -238,6 +238,9 @@ public:
 	void AddTransInLocal(char axis, float move);
 	void AddRotateInLocal(char axis, float angle);
 
+	CVector3 GetRotation();
+	void SetRotation(CVector3 rot);
+
 	void AddScale(CVector3 scale);
 	void AddUniformScale(float scale);
 

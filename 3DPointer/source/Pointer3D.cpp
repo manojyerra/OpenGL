@@ -21,7 +21,7 @@ void Pointer3D::Draw(float* mat)
 {
 	pos = CVector3(0,0,0);
 	rot = CVector3(0,0,0);
-	scale = CVector3(0,0,0);
+	scale = CVector3(1,1,1);
 	_triVec.clear();
 
 	_invisibleAxis = '\0';
@@ -79,9 +79,16 @@ void Pointer3D::Draw(float* mat)
 				if(Input::IsKeyPressed((int)'U'))
 					dragVecLen = 1.0f;
 
-				if(_triIndex == 0)			scale = CVector3( dragVecLen * aOnB/abs(aOnB), 0, 0);
-				else if(_triIndex == 1)		scale = CVector3( 0, dragVecLen * aOnB/abs(aOnB), 0);
-				else if(_triIndex == 2)		scale = CVector3( 0, 0, dragVecLen * aOnB/abs(aOnB));
+				float scaleAmount = 1.0f;
+
+				if( dragVecLen * aOnB/abs(aOnB) < 0)
+					scaleAmount = 0.99;
+				else
+					scaleAmount = 1.01;
+
+				if(_triIndex == 0)			scale = CVector3( scaleAmount, 1, 1);
+				else if(_triIndex == 1)		scale = CVector3( 1, scaleAmount, 1);
+				else if(_triIndex == 2)		scale = CVector3( 1, 1, scaleAmount);
 			}
 		}
 	}
@@ -161,9 +168,9 @@ void Pointer3D::DrawPointer(vector<CVector3>* vec2D, float pointerMaxLenLimit)
 	vec2.SetLength( vec2.Length() * pointerMaxLenLimit / maxLen );
 	vec3.SetLength( vec3.Length() * pointerMaxLenLimit / maxLen );
 
-	if(vec1.Length() < 7)		{	vec1.SetLength(0);	_invisibleAxis = 'x'; }
-	else if(vec2.Length() < 7)	{	vec2.SetLength(0);	_invisibleAxis = 'y'; }
-	else if(vec3.Length() < 7)	{	vec3.SetLength(0);	_invisibleAxis = 'z'; }
+	if(vec1.Length() < 7)		{	vec1.SetLength(0);	 }
+	else if(vec2.Length() < 7)	{	vec2.SetLength(0);	 }
+	else if(vec3.Length() < 7)	{	vec3.SetLength(0);	 }
 
 	/////
 
@@ -171,6 +178,7 @@ void Pointer3D::DrawPointer(vector<CVector3>* vec2D, float pointerMaxLenLimit)
 	int axisArr[3] = {1,1,1};
 	CVector3 axisVec[3] = {vec1, vec2, vec3};
 
+	_invisibleAxis = 'x';
 	int minAxisIndex = 0;
 	float minLen = vec1.Length();
 
@@ -178,12 +186,18 @@ void Pointer3D::DrawPointer(vector<CVector3>* vec2D, float pointerMaxLenLimit)
 	{
 		minLen = vec2.Length();
 		minAxisIndex = 1;
+		_invisibleAxis = 'y';
 	}
 	
 	if(vec3.Length() < minLen)
 	{
+		minLen = vec3.Length();
 		minAxisIndex = 2;
+		_invisibleAxis = 'z';	
 	}
+
+	if(minLen > 17)
+		_invisibleAxis = '\0';
 
 	axisArr[minAxisIndex] = 0;
 

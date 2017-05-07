@@ -360,6 +360,10 @@ void FLModel::AddTransInLocal(char axis, float move)
 
 void FLModel::AddRotateInLocal(char axis, float angle)
 {
+	CVector3 scale = _mat.GetScale();
+
+	_mat.RemoveScale();
+
 	GLMat rotMat;
 	
 	if(axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1,0,0);
@@ -367,20 +371,43 @@ void FLModel::AddRotateInLocal(char axis, float angle)
 	if(axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0,0,1);
 
 	_mat.glMultMatrixf(rotMat.Get());
+
+	_mat.SetScale( scale );
+}
+
+CVector3 FLModel::GetRotation()
+{
+	GLMat newMat;
+	newMat.Copy(_mat.m);
+	newMat.RemoveScale();
+
+	return newMat.GetEulerXYZRot_In_Degrees();
+}
+
+void FLModel::SetRotation(CVector3 rot)
+{
+	CVector3 scale = _mat.GetScale();
+	_mat.RemoveScale();
+
+	GLMat newMat;
+	
+	newMat.glTranslatef( _mat.m[12], _mat.m[13], _mat.m[14] );
+	newMat.glRotatef(rot.z, 0,0,1);
+	newMat.glRotatef(rot.y, 0,1,0);
+	newMat.glRotatef(rot.x, 1,0,0);
+	newMat.glScalef(scale.x, scale.y, scale.z);
+
+	_mat.Copy(newMat.m);
 }
 
 void FLModel::AddScale(CVector3 scale)
 {
-	_mat.m[0] += scale.x;
-	_mat.m[5] += scale.y;
-	_mat.m[10] += scale.z;
+	_mat.glScalef(scale.x, scale.y, scale.z);
 }
 
 void FLModel::AddUniformScale(float scale)
 {
-	_mat.m[0] *= scale;
-	_mat.m[5] *= scale;
-	_mat.m[10] *= scale;
+	_mat.glScalef(scale, scale, scale);
 }
 
 vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)

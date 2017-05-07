@@ -31,6 +31,8 @@ private:
 	SUICheckBox* enablePhysics;
 	SUICheckBox* showMarkedObjs;
 	SUICheckBox* showUnmarkedObjs;
+	SUIButton* markAllObjs;
+	SUIButton* unmarkAllObjs;
 	SUICheckBox* showBoundShapes;
 	SUICheckBox* showBoundBox;
 	SUICheckBox* onBorder;

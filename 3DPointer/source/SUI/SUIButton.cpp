@@ -4,29 +4,31 @@
 
 SUIButton::SUIButton(string name) : SUIComponent(SUIComponent::BUTTON)
 {
-	_name = name;
-	_nameAlignment = SUIComponent::CENTER;
-	InitGlobas();
+	Init(name, SUIComponent::CENTER, NULL);
 }
 
 SUIButton::SUIButton(string name, int nameAlignment) : SUIComponent(SUIComponent::BUTTON)
 {
-	_name = name;
-	_nameAlignment = nameAlignment;
-	InitGlobas();
+	Init(name, nameAlignment, NULL);
 }
 
 SUIButton::SUIButton(string name, SUIActionListener* actionListener) : SUIComponent(SUIComponent::BUTTON)
 {
-	_name = name;
-	_nameAlignment = SUIComponent::CENTER;
-	InitGlobas();
-	AddActionListener(actionListener);
+	Init(name, SUIComponent::CENTER, actionListener);
 }
 
-void SUIButton::InitGlobas()
+SUIButton::SUIButton(string name, int nameAlignment, SUIActionListener* actionListener) : SUIComponent(SUIComponent::BUTTON)
 {
-	_h = 19;
+	Init(name, nameAlignment, actionListener);
+}
+
+void SUIButton::Init(string name, int nameAlignment, SUIActionListener* actionListener)
+{
+	_name = name;
+	_nameAlignment = nameAlignment;
+	_actionListener = actionListener;
+
+	_h = 22;
 
 	_isBgVisible = true;
 	_isBorderVisible = true;
@@ -36,7 +38,6 @@ void SUIButton::InitGlobas()
 	_bgG = 170;
 	_bgB = 170;
 
-	_actionListener = NULL;
 	_mouseListener = NULL;
 }
 

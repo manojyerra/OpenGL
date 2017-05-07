@@ -72,6 +72,19 @@ void ModelsManager::ShowUnmarkedObjects(bool show)
 	}
 }
 
+void ModelsManager::MarkAllObjects()
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+		_vec[i]->SetMarked(true);
+}
+
+void ModelsManager::UnmarkAllObjects()
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+		_vec[i]->SetMarked(false);
+}
+
+
 void ModelsManager::ShowBoundingShapes(bool show)
 {
 	for(unsigned int i=0; i<_vec.size();i++)

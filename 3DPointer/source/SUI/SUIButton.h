@@ -11,14 +11,15 @@ private:
 	SUIActionListener* _actionListener;
 	SUIMouseListener* _mouseListener;
 
+	void Init(string name, int nameAlignment, SUIActionListener* actionListener);
 public:
 	SUIButton(string name);
 	SUIButton(string name, int nameAlignment);
 	SUIButton(string name, SUIActionListener* actionListener);
+	SUIButton(string name, int nameAlignment, SUIActionListener* actionListener);
 
 	~SUIButton();
 
-	void InitGlobas();
 	SUIEvents UpdateByInput();
 	void Move(float dx, float dy);
 	void ResetBounds();

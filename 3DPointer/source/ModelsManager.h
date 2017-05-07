@@ -31,6 +31,8 @@ public:
 
 	void ShowMarkedObjects(bool show);
 	void ShowUnmarkedObjects(bool show);
+	void MarkAllObjects();
+	void UnmarkAllObjects();
 
 	void ShowBoundingShapes(bool show);
 	void SetBoundingBoxEnabled(bool enable);

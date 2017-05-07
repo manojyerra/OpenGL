@@ -18,6 +18,9 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_frame->Add( enablePhysics = new SUICheckBox("Enable Physics", SUICheckBox::CENTER, this));
 	_frame->Add( showMarkedObjs = new SUICheckBox("Show Marked Objects", SUICheckBox::CENTER, this));
 	_frame->Add( showUnmarkedObjs = new SUICheckBox("Show Unmarked Objects", SUICheckBox::CENTER, this));
+	_frame->Add( markAllObjs = new SUIButton("Mark all objects", SUIButton::CENTER, this));
+	_frame->Add( unmarkAllObjs = new SUIButton("Unmark all objects", SUIButton::CENTER, this));
+
 	_frame->Add( showBoundShapes = new SUICheckBox("Show Bounding Shapes", SUICheckBox::CENTER, this) );
 	_frame->Add( showBoundBox = new SUICheckBox("Show Bounding Box", SUICheckBox::CENTER, this) );
 	_frame->Add( onBorder = new SUICheckBox("Selected Object Border", SUICheckBox::CENTER, this) );
@@ -93,6 +96,17 @@ void MainFrame::actionPerformed(SUIActionEvent e)
 		_modelsMgr->SetBoundingBoxEnabled(showBoundBox->IsSelected());
 		_modelProps->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
 	}
+	else if(com == markAllObjs)
+	{
+		_modelsMgr->MarkAllObjects();
+		_modelProps->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
+	}
+	else if(com == unmarkAllObjs)
+	{
+		_modelsMgr->UnmarkAllObjects();
+		_modelProps->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
+	}
+
 }
 
 void MainFrame::SetAsOrtho(bool ortho)		{	projRadio->SetSelect( ortho ? 1 : 0);		}

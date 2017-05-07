@@ -72,6 +72,7 @@ public:
 	int GetComponentID();
 	
 	void SetName(string name, int nameAlignment);
+	void SetName(string name);
 	string GetName();
 
 	void SetData(string data);

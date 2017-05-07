@@ -56,6 +56,26 @@ void GLMat::glRotatef(float angleInDegrees, int isX, int isY, int isZ, bool reve
 	memcpy(m, result, 16*sizeof(float));
 }
 
+void GLMat::glScalef(float x, float y, float z, bool reverseOrder)
+{
+	float scaleMat[16];
+	memset(scaleMat, 0, 16*sizeof(float));
+
+	scaleMat[0] = x;
+	scaleMat[5] = y;
+	scaleMat[10] = z;
+	scaleMat[15] = 1.0f;
+
+	float result[16];
+
+	if(reverseOrder == false)
+		MultMat(m, scaleMat, result);
+	else
+		MultMat(scaleMat, m, result);
+
+	memcpy(m, result, 16*sizeof(float));
+}
+
 void GLMat::glMultMatrixf(float* mat)
 {
 	float result[16];
@@ -73,6 +93,20 @@ void GLMat::Copy(float* mat)
 	memcpy(m, mat, 16*sizeof(float));
 }
 
+void GLMat::CopyRotation(float* mat)
+{
+	m[0] = mat[0];
+	m[1] = mat[1];
+	m[2] = mat[2];
+
+	m[4] = mat[4];
+	m[5] = mat[5];
+	m[6] = mat[6];
+
+	m[8] = mat[8];
+	m[9] = mat[9];
+	m[10] = mat[10];
+}
 
 void GLMat::SetIdentityMatrix(float* m)
 {
@@ -179,6 +213,115 @@ int GLMat::InvertMatrix(const float src[16], float inverse[16])
     return 1;
 }
 
+CVector3 GLMat::GetScale()
+{
+	float scaleX = sqrt( m[0]*m[0] + m[1]*m[1] + m[2]*m[2] );
+	float scaleY = sqrt( m[4]*m[4] + m[5]*m[5] + m[6]*m[6] );
+	float scaleZ = sqrt( m[8]*m[8] + m[9]*m[9] + m[10]*m[10] );
+
+	return CVector3( scaleX, scaleY, scaleZ );
+}
+
+void GLMat::RemoveScale()
+{
+	CVector3 xVec(m[0], m[1], m[2]);
+	CVector3 yVec(m[4], m[5], m[6]);
+	CVector3 zVec(m[8], m[9], m[10]);
+
+	xVec.Normalize();
+	yVec.Normalize();
+	zVec.Normalize();
+
+	m[0] = xVec.x;
+	m[1] = xVec.y;
+	m[2] = xVec.z;
+
+	m[4] = yVec.x;
+	m[5] = yVec.y;
+	m[6] = yVec.z;
+
+	m[8] = zVec.x;
+	m[9] = zVec.y;
+	m[10] = zVec.z;
+}
+
+void GLMat::SetScale(CVector3 scale)
+{
+	CVector3 xVec(m[0], m[1], m[2]);
+	CVector3 yVec(m[4], m[5], m[6]);
+	CVector3 zVec(m[8], m[9], m[10]);
+
+	xVec.SetLength( scale.x );
+	yVec.SetLength( scale.y );
+	zVec.SetLength( scale.z );
+
+	m[0] = xVec.x;
+	m[1] = xVec.y;
+	m[2] = xVec.z;
+
+	m[4] = yVec.x;
+	m[5] = yVec.y;
+	m[6] = yVec.z;
+
+	m[8] = zVec.x;
+	m[9] = zVec.y;
+	m[10] = zVec.z;
+
+}
+
+CVector3 GLMat::GetEulerXYZRot_In_Degrees()
+{
+	CVector3 xyzRot = GetEulerXYZRot_In_Radians();
+	xyzRot.x *= RAD_DEG;
+	xyzRot.y *= RAD_DEG;
+	xyzRot.z *= RAD_DEG;
+
+	float decimX = xyzRot.x - (int)xyzRot.x;
+	float decimY = xyzRot.y - (int)xyzRot.y;
+	float decimZ = xyzRot.z - (int)xyzRot.z;
+
+	xyzRot.x = ( (int)xyzRot.x + 360 ) % 360  + decimX;
+	xyzRot.y = ( (int)xyzRot.y + 360 ) % 360  + decimY;
+	xyzRot.z = ( (int)xyzRot.z + 360 ) % 360  + decimZ;
+
+	return xyzRot;
+}
+
+CVector3 GLMat::GetEulerXYZRot_In_Radians()
+{
+	GLMat newMat;
+
+	newMat.Copy(m);
+
+	CVector3 xVec(m[0], m[1], m[2]);
+	CVector3 yVec(m[4], m[5], m[6]);
+	CVector3 zVec(m[8], m[9], m[10]);
+
+	xVec.Normalize();
+	yVec.Normalize();
+	zVec.Normalize();
+
+	newMat.m[0] = xVec.x;
+	newMat.m[1] = xVec.y;
+	newMat.m[2] = xVec.z;
+
+	newMat.m[4] = yVec.x;
+	newMat.m[5] = yVec.y;
+	newMat.m[6] = yVec.z;
+
+	newMat.m[8] = zVec.x;
+	newMat.m[9] = zVec.y;
+	newMat.m[10] = zVec.z;
+
+	float* a = newMat.m;
+
+	CVector3 xyzRot;
+	xyzRot.x = atan2( a[6], a[10] );
+	xyzRot.y = atan2( -a[2], sqrt(a[6]*a[6] + a[10]*a[10]) );
+	xyzRot.z = atan2( a[1], a[0] );
+
+	return xyzRot;
+}
 
 
 
