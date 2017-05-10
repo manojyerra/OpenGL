@@ -109,7 +109,7 @@ FLModel* ModelsManager::GetSelectedModel()
 
 void ModelsManager::SetSelectedModelIndex(int index)
 {
-	if(index >= 0 && index < Size())
+	if(index >= 0 && index < (int)Size())
 	{
 		_selModel = _vec[index];
 	}

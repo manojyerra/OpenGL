@@ -244,10 +244,10 @@ public:
 	void AddScale(CVector3 scale);
 	void AddUniformScale(float scale);
 
-	vector<float> GetVerticesOnRect(int x, int y, int w, int h);
+	vector<float> GetVerticesOnRect(float x, float y, float w, float h);
 	
-	Shape* AddBestBoudingShapeByVerticesOnRect(int x, int y, int w, int h);
-	Shape* AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h, int boundingShapeID);
+	Shape* AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, float h);
+	Shape* AddBoudingShapeByVerticesOnRect(float x, float y, float w, float h, int boundingShapeID);
 
 	void AddBoundingShape(Shape* shape);
 

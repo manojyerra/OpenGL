@@ -410,7 +410,7 @@ void FLModel::AddUniformScale(float scale)
 	_mat.glScalef(scale, scale, scale);
 }
 
-vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
+vector<float> FLModel::GetVerticesOnRect(float x, float y, float w, float h)
 {
 	float* verArr = (float*)_verticesPointer;
 
@@ -440,7 +440,7 @@ vector<float> FLModel::GetVerticesOnRect(int x, int y, int w, int h)
 	return vec;
 }
 
-Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
+Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, float h)
 {
 	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
 	
@@ -456,7 +456,7 @@ Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(int x, int y, int w, int h)
 	return bShape;
 }
 
-Shape* FLModel::AddBoudingShapeByVerticesOnRect(int x, int y, int w, int h, int boundingShapeID)
+Shape* FLModel::AddBoudingShapeByVerticesOnRect(float x, float y, float w, float h, int boundingShapeID)
 {
 	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
 	
@@ -480,7 +480,7 @@ void FLModel::AddBoundingShape(Shape* shape)
 
 void FLModel::Draw()
 {
-	bool isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
+	GLboolean isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
 
 	glPushMatrix();
 	glMultMatrixf(_mat.m);
@@ -690,15 +690,18 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 	maxX++;
 	maxY++;
 
+	float SW = (float)GLUtil::GetWindowWidth();
+	float SH = (float)GLUtil::GetWindowHeight();
+
 	if(minX < 0)	minX = 0;
 	if(minY < 0)	minY = 0;
-	if(maxX > GLUtil::GetWindowWidth() ) maxX = GLUtil::GetWindowWidth();
-	if(maxY > GLUtil::GetWindowHeight() ) maxY = GLUtil::GetWindowHeight();
+	if(maxX > SW)	maxX = SW;
+	if(maxY > SH)	maxY = SH;
 
 	if(maxX < 0)	maxX = 0;
 	if(maxY < 0)	maxY = 0;
-	if(minX > GLUtil::GetWindowWidth() ) minX = GLUtil::GetWindowWidth();
-	if(minY > GLUtil::GetWindowHeight() ) minY = GLUtil::GetWindowHeight();
+	if(minX > SW)	minX = SW;
+	if(minY > SH)	minY = SH;
 
 	float rectW = maxX - minX;
 	float rectH = maxY - minY;
@@ -717,10 +720,10 @@ void FLModel::DrawBounding2DRect()
 	state2D.Begin(0xff0000ff, 2.0f, 1.0f, false, false);
 
 	glBegin(GL_LINE_LOOP);
-	glVertex2f(x+0, y+0);
-	glVertex2f(x+w, y+0);
-	glVertex2f(x+w, y+h);
-	glVertex2f(x+0, y+h);
+	glVertex2f((float)(x+0), (float)(y+0));
+	glVertex2f((float)(x+w), (float)(y+0));
+	glVertex2f((float)(x+w), (float)(y+h));
+	glVertex2f((float)(x+0), (float)(y+h));
 	
 	glEnd();
 

@@ -33,7 +33,7 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 
 	_viewType = 5;
 
-	glViewport(0, 0, SW, SH);
+	glViewport(0, 0, (int)SW, (int)SH);
 	SetPerspectiveView();
 }
 

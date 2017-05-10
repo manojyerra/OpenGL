@@ -8,7 +8,7 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	_modelsMgr = modelsMgr;
 	_copyType = NONE;
 
-	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
+	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Properties", SUIFrame::LEFT);
 
 	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
@@ -269,22 +269,22 @@ bool ModelPropsFrame::CheckLightBoxUI(SUIComponent* com, FLModel* selModel)
 
 	if(name == "Shininess")
 	{
-		selModel->SetShininess( ((SUISlider*)com)->GetValue() );
+		selModel->SetShininess( (float)((SUISlider*)com)->GetValue() );
 		return true;
 	}
 	else if(com == _ambientR || com == _ambientG || com == _ambientB)
 	{
-		selModel->SetMeterial(GL_AMBIENT, _ambientR->GetValue(), _ambientG->GetValue(), _ambientB->GetValue(), 1.0f);
+		selModel->SetMeterial(GL_AMBIENT, (float)_ambientR->GetValue(), (float)_ambientG->GetValue(), (float)_ambientB->GetValue(), 1.0f);
 		return true;
 	}
 	else if(com == _diffuseR || com == _diffuseG || com == _diffuseB)
 	{
-		selModel->SetMeterial(GL_DIFFUSE, _diffuseR->GetValue(), _diffuseG->GetValue(), _diffuseB->GetValue(), 1.0f);
+		selModel->SetMeterial(GL_DIFFUSE, (float)_diffuseR->GetValue(), (float)_diffuseG->GetValue(), (float)_diffuseB->GetValue(), 1.0f);
 		return true;
 	}
 	else if(com == _specularR || com == _specularG || com == _specularB)
 	{
-		selModel->SetMeterial(GL_SPECULAR, _specularR->GetValue(), _specularG->GetValue(), _specularB->GetValue(), 1.0f);
+		selModel->SetMeterial(GL_SPECULAR, (float)_specularR->GetValue(), (float)_specularG->GetValue(), (float)_specularB->GetValue(), 1.0f);
 		return true;
 	}
 

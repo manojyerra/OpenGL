@@ -9,7 +9,7 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_modelsMgr = modelsMgr;
 	_modelProps = modelProps;
 
-	_frame = new SUIFrame(x, y, w, h, SUIFrame::V_ALIGNMENT);
+	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Main Frame", SUIFrame::CENTER);
 
 	_frame->Add(new SUIButton("Load Models", this));

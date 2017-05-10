@@ -20,7 +20,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	GLUtil::Init((int)_windowW, (int)_windowH);
 
-	Cam::GetInstance()->Init(_windowW, _windowH, 1.0f, 10000.0f, 0.2f);
+	Cam::GetInstance()->Init((int)_windowW, (int)_windowH, 1.0f, 10000.0f, 0.2f);
 
 	_floor = new Floor();
 
@@ -31,13 +31,13 @@ Looper::Looper(int windowWidth, int windowHeight)
 		for(int i=0; i<50; i+=25)
 		{
 			if(rand()%2 == 0)
-				_modelsMgr->Add("data/cat", -40+i, 0, -40+j);
+				_modelsMgr->Add("data/cat", -40.0f+i, 0.0f, -40.0f+j);
 			else
-				_modelsMgr->Add("data/barrel", -40+i, 0, -40+j);
+				_modelsMgr->Add("data/barrel", -40.0f+i, 0.0f, -40.0f+j);
 		}
 	}
 
-	FLModel* model = _modelsMgr->Add("data/barrel", 0, 0, 0);
+	FLModel* model = _modelsMgr->Add("data/barrel", 0.0f, 0.0f, 0.0f);
 	
 	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
 
@@ -168,12 +168,12 @@ void Looper::Draw()
 			{
 				if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
 				{
-					float rotAmount = Input::IsKeyPressedStill(VK_LEFT) ? 5 : 1;
+					float rotAmount = Input::IsKeyPressedStill(VK_LEFT) ? 5.0f : 1.0f;
 					_modelsMgr->GetSelectedModel()->AddRotateInLocal(_pointer3D.GetInvisibleAxis(), rotAmount);
 				}
 				else if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 				{
-					float transAmount = Input::IsKeyPressedStill(VK_LEFT) ? -0.1 : -0.01;
+					float transAmount = Input::IsKeyPressedStill(VK_LEFT) ? -0.1f : -0.01f;
 					transAmount = transAmount * _pointer3D.GetSideAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal(_pointer3D.GetSideAxis(), transAmount);
 				}
@@ -182,12 +182,12 @@ void Looper::Draw()
 			{
 				if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
 				{
-					float rotAmount = Input::IsKeyPressedStill(VK_RIGHT) ? -5 : -1;
+					float rotAmount = Input::IsKeyPressedStill(VK_RIGHT) ? -5.0f : -1.0f;
 					_modelsMgr->GetSelectedModel()->AddRotateInLocal(_pointer3D.GetInvisibleAxis(), rotAmount);
 				}
 				else if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 				{
-					float transAmount = Input::IsKeyPressedStill(VK_RIGHT) ? 0.1 : 0.01;
+					float transAmount = Input::IsKeyPressedStill(VK_RIGHT) ? 0.1f : 0.01f;
 					transAmount = transAmount * _pointer3D.GetSideAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal(_pointer3D.GetSideAxis(), transAmount);
 				}
@@ -196,7 +196,7 @@ void Looper::Draw()
 			{
 				if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 				{
-					float transAmount = Input::IsKeyPressedStill(VK_UP) ? 0.1 : 0.01;
+					float transAmount = Input::IsKeyPressedStill(VK_UP) ? 0.1f : 0.01f;
 					transAmount = transAmount * _pointer3D.GetTopAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal( _pointer3D.GetTopAxis(), transAmount );
 				}
@@ -205,7 +205,7 @@ void Looper::Draw()
 			{
 				if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 				{
-					float transAmount = Input::IsKeyPressedStill(VK_DOWN) ? -0.1 : -0.01;
+					float transAmount = Input::IsKeyPressedStill(VK_DOWN) ? -0.1f : -0.01f;
 					transAmount = transAmount * _pointer3D.GetTopAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal( _pointer3D.GetTopAxis(), transAmount );
 				}
@@ -262,21 +262,21 @@ void Looper::UpdateDrawRect()
 	}
 	else if(Input::IsMousePressed() && Input::IsKeyPressed(VK_CONTROL))
 	{
-		float x1 = Input::MouseClickX;
-		float y1 = Input::MouseClickY;
-		float x2 = Input::MX;
-		float y2 = Input::MY;
+		float x1 = (float)Input::MouseClickX;
+		float y1 = (float)Input::MouseClickY;
+		float x2 = (float)Input::MX;
+		float y2 = (float)Input::MY;
 
 		if(x1 > x2)
 		{
-			x1 = Input::MX;
-			x2 = Input::MouseClickX;
+			x1 = (float)Input::MX;
+			x2 = (float)Input::MouseClickX;
 		}
 
 		if(y1 > y2)
 		{
-			y1 = Input::MY;
-			y2 = Input::MouseClickY;
+			y1 = (float)Input::MY;
+			y2 = (float)Input::MouseClickY;
 		}
 
 		_rx = x1;
@@ -302,7 +302,7 @@ void Looper::UpdateDrawRect()
 
 bool Looper::SelectModel(int mx, int my)
 {
-	unsigned int index = _modelsMgr->GetModelIndexByMousePos(mx, my);
+	unsigned int index = _modelsMgr->GetModelIndexByMousePos((float)mx, (float)my);
 
 	if(index >= 0 && index < _modelsMgr->Size())
 	{

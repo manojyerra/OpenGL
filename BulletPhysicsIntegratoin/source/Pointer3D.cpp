@@ -43,7 +43,7 @@ void Pointer3D::Draw(float* mat)
 		{
 			vector<CVector3> line3D = GetAxisLine3DPoints(mat, _triIndex);
 
-			pos = Get3DPos(&line3D, Input::MX, Input::MY) - _offSetVec;
+			pos = Get3DPos(&line3D, (float)Input::MX, (float)Input::MY) - _offSetVec;
 
 			Draw3DAxisLine(_triIndex, &line3D);
 		}
@@ -56,7 +56,7 @@ void Pointer3D::Draw(float* mat)
 			CVector3 yAxis2DVec = (points2D[2] - points2D[0]);
 			CVector3 zAxis2DVec = (points2D[3] - points2D[0]);
 
-			CVector3 dragVec(Input::MX - Input::PrevMX, Input::MY - Input::PrevMY);
+			CVector3 dragVec((float)(Input::MX - Input::PrevMX), (float)(Input::MY - Input::PrevMY));
 
 			float aOnB = 0;
 			
@@ -74,7 +74,7 @@ void Pointer3D::Draw(float* mat)
 			}
 			else if(_transformationType == SCALE)
 			{
-				float dragVecLen = abs(dragVec.Length()) * 0.005;
+				float dragVecLen = abs(dragVec.Length()) * 0.005f;
 
 				if(Input::IsKeyPressed((int)'U'))
 					dragVecLen = 1.0f;
@@ -82,9 +82,9 @@ void Pointer3D::Draw(float* mat)
 				float scaleAmount = 1.0f;
 
 				if( dragVecLen * aOnB/abs(aOnB) < 0)
-					scaleAmount = 0.99;
+					scaleAmount = 0.99f;
 				else
-					scaleAmount = 1.01;
+					scaleAmount = 1.01f;
 
 				if(_triIndex == 0)			scale = CVector3( scaleAmount, 1, 1);
 				else if(_triIndex == 1)		scale = CVector3( 1, scaleAmount, 1);
@@ -95,7 +95,7 @@ void Pointer3D::Draw(float* mat)
 
 	if(Input::IsMouseClicked())
 	{
-		_triIndex = GetTri(Input::MX, Input::MY);
+		_triIndex = GetTri((float)Input::MX, (float)Input::MY);
 
 		if(_triIndex >= 0)
 		{
@@ -103,7 +103,7 @@ void Pointer3D::Draw(float* mat)
 
 			vector<CVector3> line3D = GetAxisLine3DPoints(mat, _triIndex);
 
-			CVector3 clickPos = Get3DPos(&line3D, Input::MX, Input::MY);
+			CVector3 clickPos = Get3DPos(&line3D, (float)Input::MX, (float)Input::MY);
 
 			_offSetVec = CVector3( clickPos.x - mat[12], clickPos.y - mat[13], clickPos.z - mat[14] );
 		}
@@ -208,7 +208,7 @@ void Pointer3D::DrawPointer(vector<CVector3>* vec2D, float pointerMaxLenLimit)
 			continue;
 
 		float angle = atan2(axisVec[i].y, axisVec[i].x) * RAD_DEG;
-		angle = 360 - ((int)angle + 360) % 360;
+		angle = 360.0f - ((int)angle + 360) % 360;
 
 		if( (angle >= 45 && angle <= 45+90) || (angle >= 225 && angle <= 225+90) )
 		{
@@ -224,7 +224,7 @@ void Pointer3D::DrawPointer(vector<CVector3>* vec2D, float pointerMaxLenLimit)
 					_sideAxis = axisCharArr[j];
 
 					float angleSide = atan2(axisVec[j].y, axisVec[j].x) * RAD_DEG;
-					angleSide = 360 - ((int)angleSide + 360) % 360;
+					angleSide = 360.0f - ((int)angleSide + 360) % 360;
 
 					if(angleSide >= 135 && angleSide <= 135+90)
 						_sideAxisSign = -1;

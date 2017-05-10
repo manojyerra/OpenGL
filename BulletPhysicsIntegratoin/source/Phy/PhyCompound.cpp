@@ -189,7 +189,7 @@ void PhyCompound::Draw()
 	glPushMatrix();
 	glMultMatrixf(mat);
 
-	for(int i=0;i<_primVec.size();i++)
+	for(unsigned int i=0;i<_primVec.size();i++)
 		_primVec[i]->Draw();
 
 	glPopMatrix();
@@ -257,7 +257,7 @@ PhyCompound::~PhyCompound()
 		delete obj;
 	}
 
-	for(int i=0;i<_primVec.size();i++)
+	for(unsigned int i=0;i<_primVec.size();i++)
 	{
 		if(_primVec[i])
 		{

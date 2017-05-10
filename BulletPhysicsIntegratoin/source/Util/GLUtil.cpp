@@ -241,7 +241,7 @@ vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, f
 
 	GetProjectionValues(&l, &r, &b, &t, &n, &f);
 
-	for(int i=0; i<pos3DVec->size(); i++)
+	for(unsigned int i=0; i<pos3DVec->size(); i++)
 	{
 		float x = pos3DVec->at(i).x;
 		float y = pos3DVec->at(i).y;

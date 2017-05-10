@@ -1514,8 +1514,8 @@ void ImageBuffer::Rotate90Degrees()
 	{
 		for(int j=oldH-1;j>=0;j--)
 		{
-			unsigned int sourcePos = (oldW*j + i) * (float)_bytesPerPixel;
-			unsigned int destinPos = (newW*i + oldH-1-j) * (float)_bytesPerPixel;
+			int sourcePos = (oldW*j + i) * _bytesPerPixel;
+			int destinPos = (newW*i + oldH-1-j) * _bytesPerPixel;
 
 			newBuf[ destinPos + 0] = _buf[ sourcePos + 0];
 			newBuf[ destinPos + 1] = _buf[ sourcePos + 1];
@@ -1552,8 +1552,8 @@ void ImageBuffer::Rotate270Degrees()
 	{
 		for(int j=0;j<oldH;j++)
 		{
-			unsigned int sourcePos = (oldW*j + i) * (float)_bytesPerPixel;
-			unsigned int destinPos = (newW*(oldW-1-i) + j) * (float)_bytesPerPixel;
+			int sourcePos = (oldW*j + i) * _bytesPerPixel;
+			int destinPos = (newW*(oldW-1-i) + j) * _bytesPerPixel;
 
 			newBuf[ destinPos + 0] = _buf[ sourcePos + 0];
 			newBuf[ destinPos + 1] = _buf[ sourcePos + 1];

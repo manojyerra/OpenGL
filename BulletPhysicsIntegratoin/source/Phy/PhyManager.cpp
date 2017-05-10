@@ -40,8 +40,8 @@ void PhyManager::Draw()
 
 btVector3 PhyManager::getRayTo(int x,int y)
 {
-	float SW = GLUtil::GetWindowWidth();
-	float SH = GLUtil::GetWindowHeight();
+	float SW = (float)GLUtil::GetWindowWidth();
+	float SH = (float)GLUtil::GetWindowHeight();
 
 	float top = 0;			
 	float bottom = 0;		
@@ -63,7 +63,7 @@ btVector3 PhyManager::getRayTo(int x,int y)
 	btVector3 upVector(params[6], params[7], params[8]);
 
 	float tanFov = (top-bottom)*0.5f / nearPlane;
-	float fov = 2.0 * atanf (tanFov);
+	float fov = 2.0f * atanf (tanFov);
 
 	btVector3 rayFrom = camPos;
 	btVector3 forwardVector = camTarget - camPos;
@@ -97,8 +97,8 @@ btVector3 PhyManager::getRayTo(int x,int y)
 	btVector3 dVert = upVector * 1.f/SH;
 
 	btVector3 rayTo = rayToCenter - 0.5f * sideVector + 0.5f * upVector;
-	rayTo += x * dHor;
-	rayTo -= y * dVert;
+	rayTo += (float)x * dHor;
+	rayTo -= (float)y * dVert;
 
 	return rayTo;
 }
