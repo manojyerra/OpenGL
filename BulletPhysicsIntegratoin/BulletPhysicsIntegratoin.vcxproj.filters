@@ -74,12 +74,15 @@
     <Filter Include="source\Phy">
       <UniqueIdentifier>{26eef8a9-e639-4fb8-a5c6-e39dbfb54996}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Shape2D">
+      <UniqueIdentifier>{dae9f8e6-a792-4307-8715-fa8735c0b512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Model3D">
+      <UniqueIdentifier>{59d4ecb6-9b9b-4b03-956e-879b29837094}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CFileReader.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FLModel.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Floor.cpp">
@@ -739,12 +742,18 @@
     <ClCompile Include="source\Phy\PhySphere.cpp">
       <Filter>source\Phy</Filter>
     </ClCompile>
+    <ClCompile Include="source\Shape2D\Rect.cpp">
+      <Filter>source\Shape2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\FLModel.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\FLModelReaderWriter.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\FLModel.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\Floor.h">
@@ -1601,6 +1610,15 @@
     </ClInclude>
     <ClInclude Include="source\Phy\PhySphere.h">
       <Filter>source\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shape2D\Rect.h">
+      <Filter>source\Shape2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\FLModel.h">
+      <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\FLModelReaderWriter.h">
+      <Filter>source\Model3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

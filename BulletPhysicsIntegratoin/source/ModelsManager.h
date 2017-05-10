@@ -1,7 +1,7 @@
 #ifndef ModelsManager_H
 #define ModelsManager_H
 
-#include "FLModel.h"
+#include "Model3D/FLModel.h"
 #include <vector>
 #include <string>
 using namespace std;

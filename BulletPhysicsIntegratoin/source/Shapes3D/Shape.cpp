@@ -11,6 +11,7 @@ Shape::Shape()
 	memset(m, 0, 16*4);
 	m[0] = m[5] = m[10] = m[15] = 1;
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
+	_randomColorAlpha = 255;
 }
 
 Shape::Shape(int id)
@@ -19,11 +20,17 @@ Shape::Shape(int id)
 	memset(m, 0, 16*4);
 	m[0] = m[5] = m[10] = m[15] = 1;
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
+	_randomColorAlpha = 255;
 }
 
 int Shape::GetID()
 {
 	return _id;
+}
+
+void Shape::SetRandomColorAlpha(unsigned char alpha)
+{
+	_randomColorAlpha = alpha;
 }
 
 void Shape::SetGLMatrix(float* mat)

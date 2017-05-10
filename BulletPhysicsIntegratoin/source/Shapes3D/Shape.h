@@ -12,6 +12,7 @@ class Shape
 protected:
 	int _id;
 	unsigned char _color[4];
+	unsigned char _randomColorAlpha;
 
 public:
 	float m[16];
@@ -26,6 +27,8 @@ public:
 	Shape();
 	Shape(int id);
 	int GetID();
+	void SetRandomColorAlpha(unsigned char alpha);
+
 	void SetGLMatrix(float* mat);
 	float* GetGLMatrix();
 	

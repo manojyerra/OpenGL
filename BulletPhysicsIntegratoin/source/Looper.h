@@ -18,23 +18,23 @@
 #include "Pointer3D.h"
 #include "Floor.h"
 
+#include "Phy/PhyBox.h"
+#include "Phy/PhyManager.h"
+#include "Shape2D/Rect.h"
+
 class Looper
 {
 private:
 	float _windowW;
 	float _windowH;
 
-	float _rx;
-	float _ry;
-	float _rw;
-	float _rh;
+	Rect _rect;
 
 	Pointer3D _pointer3D;
 
 	GL2DState state2D;
 
 	ModelsManager* _modelsMgr;
-	//FLModel* flModel;
 	Shape* shape;
 
 	MainFrame* _mainFrame;
@@ -42,15 +42,18 @@ private:
 
 	Floor* _floor;
 
+	PhyBox* _floorBox;
+	PhyBox* _phyBox;
+
 	bool SelectModel(int mx, int my);
+	void UpdateDrawRect();
+	void UpdatePhysics(float deltaTime);
 
 public:
 	Looper(int windowWidth, int windowHeight);
 	~Looper();
 
-	void Update(float deltaTime);
-	void UpdateDrawRect();
-	void Draw();
+	void Draw(float deltaTime);
 };
 
 #endif

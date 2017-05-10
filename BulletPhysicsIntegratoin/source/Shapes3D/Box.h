@@ -23,6 +23,7 @@ public:
 
 	void Set(Box* box);
 
+	static Box CalcAABB(float* vertexBuf, int arrSize);
 	static Box CalcBoundingBox(float* vertexBuf, int arrSize);
 	static Box GetBoundingBoxAfterRotXYZ(float* vertexBuf, int arrSize, float xAng, float yAng, float zAng);
 	

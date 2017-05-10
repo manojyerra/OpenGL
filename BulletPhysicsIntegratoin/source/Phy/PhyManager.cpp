@@ -157,7 +157,7 @@ void PhyManager::OnClick(int x, int y)
 					gOldPickingDist  = (pickPos-eyePos).length();
 
 					//very weak constraint for picking
-					p2p->m_setting.m_tau = 1.1f;
+					p2p->m_setting.m_tau = 0.1f;
 				}
 			}
 		}

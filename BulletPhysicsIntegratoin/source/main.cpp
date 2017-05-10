@@ -219,8 +219,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		Input::Update(deltaTime);
 
-		looper->Update(deltaTime);
-		looper->Draw();
+		looper->Draw(deltaTime);
 
 		int errorID = glGetError();
 		if(errorID != GL_NO_ERROR)

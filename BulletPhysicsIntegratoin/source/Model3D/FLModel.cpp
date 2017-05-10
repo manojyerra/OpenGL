@@ -118,80 +118,26 @@ void FLModel::Reset(string folderPath, float* mat)
 
 	_shininess= 1.0f;
 
-	if(CFileReader::IsFileExists(folderPath+"/vertex.buf"))
-	{
-		CFileReader* fileReader = new CFileReader(folderPath+"/vertex.buf", "rb");
-		_verticesPointer = (unsigned char*)malloc(fileReader->GetLength());
-		memcpy(_verticesPointer, fileReader->GetData(), fileReader->GetLength());
-		_numVertex = fileReader->GetLength() / 12;
-		delete fileReader;
-	}
+	_flmReaderWriter = new FLModelReaderWriter();
+	_flmReaderWriter->Load(_folderPath);
 
-	if(CFileReader::IsFileExists(folderPath+"/uv.buf"))
-	{
-		CFileReader* fileReader = new CFileReader(folderPath+"/uv.buf", "rb");
-		_uvsPointer = (unsigned char*)malloc(fileReader->GetLength());
-		memcpy(_uvsPointer, fileReader->GetData(), fileReader->GetLength());
-		delete fileReader;
-	}
+	_verticesPointer	= _flmReaderWriter->GetVerticesPointer();
+	_uvsPointer			= _flmReaderWriter->GetTexCoordsPointer();
+	_normalsPointer		= _flmReaderWriter->GetNormalsPointer();
+	_indicesPointer		= _flmReaderWriter->GetIndicesPointer();
+	_indicesType		= _flmReaderWriter->GetIndicesType();
 
-	if(CFileReader::IsFileExists(folderPath+"/normal.buf"))
-	{
-		CFileReader* fileReader = new CFileReader(folderPath+"/normal.buf", "rb");
-		_normalsPointer = (unsigned char*)malloc(fileReader->GetLength());
-		memcpy(_normalsPointer, fileReader->GetData(), fileReader->GetLength());
-		delete fileReader;
-	}
+	_numVertex			= _flmReaderWriter->GetNumVertex();
+	_numIndices			= _flmReaderWriter->GetNumIndices();
 
-	if(CFileReader::IsFileExists(folderPath+"/index.buf"))
-	{
-		CFileReader* fileReader = new CFileReader(folderPath+"/index.buf", "rb");
-		int fileLen = fileReader->GetLength();
-		_indicesPointer = (unsigned char*)malloc(fileLen);
-		memcpy(_indicesPointer, fileReader->GetData(), fileLen);
-		delete fileReader;
+	_textureID			= _flmReaderWriter->GetTextureID();
 
-		int val = _indicesPointer[fileLen-4];
-
-		if(val == 1)		_indicesType = GL_UNSIGNED_BYTE;
-		else if(val == 2)	_indicesType = GL_UNSIGNED_SHORT;
-		else if(val == 4)	_indicesType = GL_UNSIGNED_INT;
-
-		_numIndices = (fileLen-4)/val;
-	}
-
-	ImageBuffer* imgBuf = new ImageBuffer(folderPath+"/texture.png");
-
-	_textureID = GLUtil::GenerateGLTextureID(	imgBuf->GetWidth(), imgBuf->GetHeight(), 
-											imgBuf->GetBytesPerPixel(), imgBuf->GetBuffer());
-
-	delete imgBuf;
-
-
-	FILE* bBoxFile = fopen( GetBBoxFilePath(_folderPath).c_str(), "r" );
-
-	if(bBoxFile == NULL)
-	{
-		_bBox.CalcBBox((float*)_verticesPointer, _numVertex);
-	}
-	else
-	{
-		fscanf(bBoxFile, "%f %f %f %f %f %f",&_bBox.minX, &_bBox.minY, &_bBox.minZ, 
-												&_bBox.maxX, &_bBox.maxY, &_bBox.maxZ);
-		fflush(bBoxFile);
-		fclose(bBoxFile);
-	}
+	_aabb				= _flmReaderWriter->GetAABB();
 }
 
-void FLModel::Save()
+string FLModel::GetOrientationFilePath(string folderPath)
 {
-	Save(_folderPath);
-}
-
-void FLModel::Save(string folderPath)
-{
-	SaveOrientation(folderPath);
-	SaveBBoxInfo(folderPath);
+	return folderPath+"/transformation.txt";
 }
 
 float* FLModel::GetVerticesPointer()
@@ -207,39 +153,6 @@ unsigned int FLModel::GetNumVertices()
 GLMat FLModel::GetMat()
 {
 	return _mat;
-}
-
-void FLModel::SaveOrientation(string folderPath)
-{
-	FILE* matFile = fopen(GetOrientationFilePath(folderPath).c_str(), "w");
-	
-	fprintf(matFile, "%f %f %f %f\n",_mat.m[0], _mat.m[1], _mat.m[2], _mat.m[3]);
-	fprintf(matFile, "%f %f %f %f\n",_mat.m[4], _mat.m[5], _mat.m[6], _mat.m[7]);
-	fprintf(matFile, "%f %f %f %f\n",_mat.m[8], _mat.m[9], _mat.m[10], _mat.m[11]);
-	fprintf(matFile, "%f %f %f %f",	_mat.m[12], _mat.m[13], _mat.m[14], _mat.m[15]);
-
-	fflush(matFile);
-	fclose(matFile);
-}
-
-void FLModel::SaveBBoxInfo(string folderPath)
-{
-	FILE* bBoxFile = fopen( GetBBoxFilePath(folderPath).c_str(), "w" );
-	
-	fprintf(bBoxFile, "%f %f %f %f %f %f", _bBox.minX,_bBox.minY,_bBox.minZ,_bBox.maxX,_bBox.maxY,_bBox.maxZ);
-
-	fflush(bBoxFile);
-	fclose(bBoxFile);
-}
-
-string FLModel::GetOrientationFilePath(string folderPath)
-{
-	return folderPath+"/transformation.txt";
-}
-
-string FLModel::GetBBoxFilePath(string folderPath)
-{
-	return folderPath+"/bbox.txt";
 }
 
 void FLModel::SetTextureEnabled(bool enable)			{	_isTextureEnabled = enable;			}
@@ -273,18 +186,9 @@ void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
 
 unsigned int FLModel::GetMeterial(int lightParam)
 {
-	if(lightParam == GL_AMBIENT)		
-	{	
-		return GLUtil::GetUInt(_ka[0], _ka[1], _ka[2], _ka[3]);
-	}
-	else if(lightParam == GL_DIFFUSE)	
-	{	
-		return GLUtil::GetUInt(_kd[0], _kd[1], _kd[2], _kd[3]);
-	}
-	else if(lightParam == GL_SPECULAR)	
-	{	
-		return GLUtil::GetUInt(_ks[0], _ks[1], _ks[2], _ks[3]);
-	}
+	if(lightParam == GL_AMBIENT)		return GLUtil::GetUInt(_ka[0], _ka[1], _ka[2], _ka[3]);
+	else if(lightParam == GL_DIFFUSE)	return GLUtil::GetUInt(_kd[0], _kd[1], _kd[2], _kd[3]);
+	else if(lightParam == GL_SPECULAR)	return GLUtil::GetUInt(_ks[0], _ks[1], _ks[2], _ks[3]);
 
 	return 0;
 }
@@ -408,6 +312,16 @@ void FLModel::AddScale(CVector3 scale)
 void FLModel::AddUniformScale(float scale)
 {
 	_mat.glScalef(scale, scale, scale);
+}
+
+Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(Rect* rect)
+{
+	return AddBestBoudingShapeByVerticesOnRect(rect->x, rect->y, rect->w, rect->h);
+}
+
+Shape* FLModel::AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID)
+{
+	return AddBoudingShapeByVerticesOnRect(rect->x, rect->y, rect->w, rect->h, boundingShapeID);
 }
 
 vector<float> FLModel::GetVerticesOnRect(float x, float y, float w, float h)
@@ -576,7 +490,7 @@ void FLModel::Draw()
 	GLboolean lighting1 = GLUtil::GLEnable(GL_LIGHTING, false);
 	
 	if(_boundingBoxEnabled)
-		_bBox.Draw();
+		_aabb.Draw();
 
 	if(_bounding2DRectEnabled)
 		DrawBounding2DRect();
@@ -651,15 +565,21 @@ void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLoc
 {
 	float pos2D[8][2];
 
+	CVector3 pos = _aabb.GetPos();
+	CVector3 size = _aabb.GetSize();
+
+	CVector3 minPos( pos.x - size.x, pos.y - size.y, pos.z - size.z);
+	CVector3 maxPos( pos.x + size.x, pos.y + size.y, pos.z + size.z);
+
 	float pos3D[8][3] = {	
-							{_bBox.minX, _bBox.minY, _bBox.minZ},
-							{_bBox.minX, _bBox.maxY, _bBox.minZ},
-							{_bBox.maxX, _bBox.minY, _bBox.minZ},
-							{_bBox.maxX, _bBox.maxY, _bBox.minZ},
-							{_bBox.minX, _bBox.minY, _bBox.maxZ},
-							{_bBox.minX, _bBox.maxY, _bBox.maxZ},
-							{_bBox.maxX, _bBox.minY, _bBox.maxZ},
-							{_bBox.maxX, _bBox.maxY, _bBox.maxZ}
+							{minPos.x, minPos.y, minPos.z},
+							{minPos.x, maxPos.y, minPos.z},
+							{maxPos.x, minPos.y, minPos.z},
+							{maxPos.x, maxPos.y, minPos.z},
+							{minPos.x, minPos.y, maxPos.z},
+							{minPos.x, maxPos.y, maxPos.z},
+							{maxPos.x, minPos.y, maxPos.z},
+							{maxPos.x, maxPos.y, maxPos.z}
 						};
 
 	GLMat mat = GLUtil::GetModelViewMatrix();

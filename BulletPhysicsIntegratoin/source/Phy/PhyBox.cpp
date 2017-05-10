@@ -40,7 +40,7 @@ PhyBox::PhyBox(float x, float y, float z, float w, float h, float d, float massV
 	_shape = new Box(x,y,z, _w,_h,_d);
 	_shape->SetColor(rand()%255,rand()%255,rand()%255,255);
 
-	colliShape = new btBoxShape(btVector3(btScalar(_w),btScalar(_h),btScalar(_d)));
+	colliShape = new btBoxShape(btVector3(btScalar(_w/2.0f),btScalar(_h/2.0f),btScalar(_d/2.0f)));
 
 	btTransform trans;
 	trans.setIdentity();
