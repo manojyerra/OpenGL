@@ -71,6 +71,9 @@
     <Filter Include="source\BulletPhysics\BulletCollision\NarrowPhaseCollision">
       <UniqueIdentifier>{73db4161-d0dc-4b6a-ade3-69eeef1a40c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Phy">
+      <UniqueIdentifier>{26eef8a9-e639-4fb8-a5c6-e39dbfb54996}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CFileReader.cpp">
@@ -717,6 +720,24 @@
     </ClCompile>
     <ClCompile Include="source\BulletPhysics\BulletCollision\NarrowPhaseCollision\btVoronoiSimplexSolver.cpp">
       <Filter>source\BulletPhysics\BulletCollision\NarrowPhaseCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyBox.cpp">
+      <Filter>source\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyCompound.cpp">
+      <Filter>source\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyCone.cpp">
+      <Filter>source\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyCylinder.cpp">
+      <Filter>source\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyManager.cpp">
+      <Filter>source\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhySphere.cpp">
+      <Filter>source\Phy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1562,6 +1583,24 @@
     </ClInclude>
     <ClInclude Include="source\BulletPhysics\BulletCollision\NarrowPhaseCollision\btVoronoiSimplexSolver.h">
       <Filter>source\BulletPhysics\BulletCollision\NarrowPhaseCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyBox.h">
+      <Filter>source\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyCompound.h">
+      <Filter>source\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyCone.h">
+      <Filter>source\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyCylinder.h">
+      <Filter>source\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyManager.h">
+      <Filter>source\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhySphere.h">
+      <Filter>source\Phy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

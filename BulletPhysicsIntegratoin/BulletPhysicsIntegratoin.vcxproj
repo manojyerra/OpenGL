@@ -292,6 +292,12 @@
     <ClCompile Include="source\Math\Triangle2D.cpp" />
     <ClCompile Include="source\ModelPropsFrame.cpp" />
     <ClCompile Include="source\ModelsManager.cpp" />
+    <ClCompile Include="source\Phy\PhyBox.cpp" />
+    <ClCompile Include="source\Phy\PhyCompound.cpp" />
+    <ClCompile Include="source\Phy\PhyCone.cpp" />
+    <ClCompile Include="source\Phy\PhyCylinder.cpp" />
+    <ClCompile Include="source\Phy\PhyManager.cpp" />
+    <ClCompile Include="source\Phy\PhySphere.cpp" />
     <ClCompile Include="source\PNG\PNGReadWrite.cpp" />
     <ClCompile Include="source\PNG\libpng\png.c" />
     <ClCompile Include="source\PNG\libpng\pngerror.c" />
@@ -587,6 +593,12 @@
     <ClInclude Include="source\Math\Triangle2D.h" />
     <ClInclude Include="source\ModelPropsFrame.h" />
     <ClInclude Include="source\ModelsManager.h" />
+    <ClInclude Include="source\Phy\PhyBox.h" />
+    <ClInclude Include="source\Phy\PhyCompound.h" />
+    <ClInclude Include="source\Phy\PhyCone.h" />
+    <ClInclude Include="source\Phy\PhyCylinder.h" />
+    <ClInclude Include="source\Phy\PhyManager.h" />
+    <ClInclude Include="source\Phy\PhySphere.h" />
     <ClInclude Include="source\PNG\PNGReadWrite.h" />
     <ClInclude Include="source\PNG\libpng\png.h" />
     <ClInclude Include="source\PNG\libpng\pngconf.h" />

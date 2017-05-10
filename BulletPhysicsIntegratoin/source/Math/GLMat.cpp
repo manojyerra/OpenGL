@@ -213,6 +213,41 @@ int GLMat::InvertMatrix(const float src[16], float inverse[16])
     return 1;
 }
 
+void GLMat::GetGluLookAtParameters(float* m, float* gluLookAtParams)
+{
+	CVector3 sideVector(m[0], m[4], m[8]);
+	CVector3 upVector(m[1], m[5], m[9]);
+	CVector3 forwardVector(-m[2], -m[6], -m[10]);
+
+	sideVector.Normalize();
+	upVector.Normalize();
+	forwardVector.Normalize();
+	
+	float rotMat[16];
+	memcpy(rotMat, m, 16*sizeof(float));
+	rotMat[12] = rotMat[13] = rotMat[14] = rotMat[3] = rotMat[7] = rotMat[11] = 0.0f;
+	rotMat[15] = 1.0f;
+	float rotInvert[16];
+	InvertMatrix(rotMat, rotInvert);
+
+	float transMat[16];
+	memset(transMat, 0, 16*sizeof(float));
+	transMat[0] = transMat[5] = transMat[10] = transMat[15] = 1.0f;
+	MultMat(rotInvert, m, transMat);
+
+	gluLookAtParams[0] = -transMat[12];
+	gluLookAtParams[1] = -transMat[13];
+	gluLookAtParams[2] = -transMat[14];
+
+	gluLookAtParams[3] = -transMat[12] + forwardVector.x;
+	gluLookAtParams[4] = -transMat[13] + forwardVector.y;
+	gluLookAtParams[5] = -transMat[14] + forwardVector.z;
+	
+	gluLookAtParams[6] = upVector.x;
+	gluLookAtParams[7] = upVector.y;
+	gluLookAtParams[8] = upVector.z;
+}
+
 CVector3 GLMat::GetScale()
 {
 	float scaleX = sqrt( m[0]*m[0] + m[1]*m[1] + m[2]*m[2] );
