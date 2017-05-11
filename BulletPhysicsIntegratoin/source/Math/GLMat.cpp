@@ -301,7 +301,107 @@ void GLMat::SetScale(CVector3 scale)
 	m[8] = zVec.x;
 	m[9] = zVec.y;
 	m[10] = zVec.z;
+}
 
+void GLMat::SetPos(float x, float y, float z)
+{
+	m[12] = x;
+	m[13] = y;
+	m[14] = z;
+}
+
+void GLMat::SetPos(CVector3 pos)
+{
+	m[12] = pos.x;
+	m[13] = pos.y;
+	m[14] = pos.z;
+}
+
+CVector3 GLMat::GetPos()
+{
+	return CVector3(m[12], m[13], m[14]);
+}
+
+CVector3 GLMat::GetRotation()
+{
+	GLMat newMat;
+	newMat.Copy(m);
+	newMat.RemoveScale();
+
+	return newMat.GetEulerXYZRot_In_Degrees();
+}
+
+void GLMat::SetRotation(CVector3 rot)
+{
+	CVector3 scale = GetScale();
+	RemoveScale();
+
+	GLMat newMat;
+	
+	newMat.glTranslatef( m[12], m[13], m[14] );
+	newMat.glRotatef(rot.z, 0,0,1);
+	newMat.glRotatef(rot.y, 0,1,0);
+	newMat.glRotatef(rot.x, 1,0,0);
+	newMat.glScalef(scale.x, scale.y, scale.z);
+
+	Copy(newMat.m);
+}
+
+void GLMat::AddTransInWorld(float x, float y, float z)
+{
+	m[12] += x;
+	m[13] += y;
+	m[14] += z;
+}
+
+void GLMat::AddRotateInWorld(char axis, float angle)
+{
+	GLMat newRot;
+	
+	if(axis == 'x' || axis == 'X')	newRot.glRotatef(angle, 1,0,0);
+	if(axis == 'y' || axis == 'Y')	newRot.glRotatef(angle, 0,1,0);
+	if(axis == 'z' || axis == 'Z')	newRot.glRotatef(angle, 0,0,1);
+
+	newRot.glMultMatrixf( m );
+
+	Copy(newRot.m);
+}
+
+void GLMat::AddTransInLocal(char axis, float move)
+{
+	CVector3 vec;
+
+	if(axis == 'x')			vec = CVector3( m[0], m[1], m[2] );
+	else if(axis == 'y')	vec = CVector3( m[4], m[5], m[6] );
+	else if(axis == 'z')	vec = CVector3( m[8], m[9], m[10] );
+	else
+	{
+		return;
+	}
+	
+	vec.Normalize();
+	vec *= move;
+
+	m[12] += vec.x;
+	m[13] += vec.y;
+	m[14] += vec.z;
+}
+
+void GLMat::AddRotateInLocal(char axis, float angle)
+{
+	CVector3 scale = GetScale();
+
+	RemoveScale();
+
+	GLMat rotMat;
+	
+	if(axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1,0,0);
+	if(axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0,1,0);
+	if(axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0,0,1);
+
+	glMultMatrixf(rotMat.Get());
+
+	SetScale( scale );
 }
 
 CVector3 GLMat::GetEulerXYZRot_In_Degrees()

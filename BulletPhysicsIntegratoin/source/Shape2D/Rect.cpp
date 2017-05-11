@@ -61,6 +61,29 @@ void Rect::SetBoundsByPoints(float x1, float y1, float x2, float y2)
 	h = y2-y1;		
 }
 
+void Rect::FitIntoBoundry(float bx, float by, float bw, float bh)
+{
+	float minX = x;
+	float minY = y;
+	float maxX = x+w;
+	float maxY = y+h;
+
+	if(minX < bx)		minX = bx;
+	if(minY < by)		minY = by;
+	if(maxX > bx+bw)	maxX = bx+bw;
+	if(maxY > by+bh)	maxY = by+bh;
+
+	if(maxX < bx)		maxX = bx;
+	if(maxY < by)		maxY = by;
+	if(minX > bx+bw)	minX = bx+bw;
+	if(minY > by+bh)	minY = by+bh;
+
+	x = minX;
+	y = minY;
+	w = maxX - minX;
+	h = maxY - minY;
+}
+
 unsigned int Rect::GetColor()
 {
 	return color;
@@ -86,4 +109,17 @@ void Rect::Draw()
 	glVertex2f(x+0,	y+h);
 	glVertex2f(x+w, y+h);
 	glEnd();
+}
+
+void Rect::DrawWithLines()
+{
+	if(w > 0 && h > 0)
+	{
+		glBegin(GL_LINE_LOOP);
+		glVertex2f((float)(x+0), (float)(y+0));
+		glVertex2f((float)(x+w), (float)(y+0));
+		glVertex2f((float)(x+w), (float)(y+h));
+		glVertex2f((float)(x+0), (float)(y+h));	
+		glEnd();
+	}
 }

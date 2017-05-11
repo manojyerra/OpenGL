@@ -32,6 +32,7 @@ public:
 	CVector3 GetPos();
 	CVector3 GetSize();
 	float Volume();
+	vector<CVector3> GetAABBVertices();
 
 	void Draw();
 };

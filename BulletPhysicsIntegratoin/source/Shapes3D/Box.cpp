@@ -114,6 +114,28 @@ Box Box::CalcAABB(float* vertexBuf, int arrSize)
 	return Box(x, y, z, w, h, d);
 }
 
+vector<CVector3> Box::GetAABBVertices()
+{
+	CVector3 pos = GetPos();
+	CVector3 size = GetSize() * 0.5f;
+
+	CVector3 minPos( pos.x - size.x, pos.y - size.y, pos.z - size.z);
+	CVector3 maxPos( pos.x + size.x, pos.y + size.y, pos.z + size.z);
+
+	vector<CVector3> pos3D;
+	
+	pos3D.push_back( CVector3(minPos.x, minPos.y, minPos.z));
+	pos3D.push_back( CVector3(minPos.x, maxPos.y, minPos.z));
+	pos3D.push_back( CVector3(maxPos.x, minPos.y, minPos.z));
+	pos3D.push_back( CVector3(maxPos.x, maxPos.y, minPos.z));
+	pos3D.push_back( CVector3(minPos.x, minPos.y, maxPos.z));
+	pos3D.push_back( CVector3(minPos.x, maxPos.y, maxPos.z));
+	pos3D.push_back( CVector3(maxPos.x, minPos.y, maxPos.z));
+	pos3D.push_back( CVector3(maxPos.x, maxPos.y, maxPos.z));
+
+	return pos3D;
+}
+
 Box Box::CalcBoundingBox(float* vertexBuf, int arrSize)
 {
 	float* localVertexBuf = new float[arrSize];

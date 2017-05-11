@@ -6,22 +6,7 @@
 
 FLModel::FLModel(string folderPath)
 {
-	FILE* matFile = fopen( GetOrientationFilePath(folderPath).c_str(), "r" );
-
-	GLMat mat;
-	float* m = mat.m;
-
-	if(matFile)
-	{
-		fscanf(matFile, "%f %f %f %f\n",&m[0] ,&m[1] ,&m[2] ,&m[3]);
-		fscanf(matFile, "%f %f %f %f\n",&m[4] ,&m[5] ,&m[6] ,&m[7]);
-		fscanf(matFile, "%f %f %f %f\n",&m[8] ,&m[9] ,&m[10] ,&m[11]);
-		fscanf(matFile, "%f %f %f %f",&m[12] ,&m[13] ,&m[14] ,&m[15]);
-
-		fclose(matFile);
-	}
-
-	Reset(folderPath, mat.m);
+	Reset(folderPath, NULL);
 }
 
 FLModel::FLModel(string folderPath, float xPos, float yPos, float zPos)
@@ -103,8 +88,6 @@ void FLModel::Reset(string folderPath, float* mat)
 	_drawLocalAxis = false;
 	_isMarked = false;
 
-	_mat.Copy(mat);
-
 	GLfloat ka[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
 	GLfloat kd[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
 	GLfloat ks[4] = { 0.9f, 0.9f, 0.9f, 1.0f};
@@ -117,6 +100,8 @@ void FLModel::Reset(string folderPath, float* mat)
 	}
 
 	_shininess= 1.0f;
+
+	_border = new FLModelBorder();
 
 	_flmReaderWriter = new FLModelReaderWriter();
 	_flmReaderWriter->Load(_folderPath);
@@ -133,11 +118,11 @@ void FLModel::Reset(string folderPath, float* mat)
 	_textureID			= _flmReaderWriter->GetTextureID();
 
 	_aabb				= _flmReaderWriter->GetAABB();
-}
 
-string FLModel::GetOrientationFilePath(string folderPath)
-{
-	return folderPath+"/transformation.txt";
+	if(mat == NULL)
+		_mat = _flmReaderWriter->GetMat();
+	else
+		_mat.Copy(mat);
 }
 
 float* FLModel::GetVerticesPointer()
@@ -155,27 +140,43 @@ GLMat FLModel::GetMat()
 	return _mat;
 }
 
-void FLModel::SetTextureEnabled(bool enable)			{	_isTextureEnabled = enable;			}
-bool FLModel::IsTextureEnabled()						{	return _isTextureEnabled;			}
-void FLModel::SetWireFrameLinesEnabled(bool enable)		{	_wireFrameLinesEnabled = enable;	}
-bool FLModel::IsWireFrameLinesEnabled()					{	return _wireFrameLinesEnabled;		}
-void FLModel::SetWireFramePointsEnabled(bool enable)	{	_wireFramePointsEnabled = enable;	}
-bool FLModel::IsWireFramePointsEnabled()				{	return _wireFramePointsEnabled;		}
-void FLModel::SetBoundingBoxEnabled(bool enable)		{	_boundingBoxEnabled = enable;		}
-bool FLModel::IsBoundingBoxEnabled()					{	return _boundingBoxEnabled;			}
-void FLModel::SetBounding2DRectEnabled(bool enable)		{	_bounding2DRectEnabled = enable;	}
-bool FLModel::IsBounding2DRectEnabled()					{	return _bounding2DRectEnabled;		}
-void FLModel::SetLightingEnabled(bool enable)			{	_lightingEnabled = enable;			}
-bool FLModel::IsLightingEnabled()						{	return _lightingEnabled;			}
-void FLModel::ShowBoundingShapes(bool show)				{	_showBoundingShapes = show;			}
-bool FLModel::IsShowingBoundingShapes()					{	return _showBoundingShapes;			}
-void FLModel::ShowModel(bool show)						{	_showModel = show;					}
-bool FLModel::IsShowingModel()							{	return _showModel;					}
-void FLModel::ShowLocalAxis(bool show)					{	_drawLocalAxis = show;				}
-bool FLModel::IsShowingLocalAxis()						{	return _drawLocalAxis;				}
-void FLModel::SetMarked(bool mark)						{	_isMarked = mark;				}
-bool FLModel::IsMarked()								{	return _isMarked;				}
+void FLModel::SetPos(float x, float y, float z)				{ _mat.SetPos(x, y, z);						}
+void FLModel::SetPos(CVector3 pos)							{ _mat.SetPos(pos);							}
+CVector3 FLModel::GetPos()									{ return _mat.GetPos();						}
+void FLModel::AddTransInWorld(float x, float y, float z)	{ _mat.AddTransInWorld(x, y, z);			}
+void FLModel::AddTransInLocal(char axis, float move)		{ _mat.AddTransInLocal( axis, move );		}
+void FLModel::AddRotateInWorld(char axis, float angle)		{ _mat.AddRotateInWorld(axis, angle);		}
+void FLModel::AddRotateInLocal(char axis, float angle)		{ _mat.AddRotateInLocal(axis, angle);		}
+CVector3 FLModel::GetRotation()								{ return _mat.GetRotation();				}
+void FLModel::SetRotation(CVector3 rot)						{ _mat.SetRotation(rot);					}
+void FLModel::AddScale(CVector3 scale)						{ _mat.glScalef(scale.x, scale.y, scale.z);	}
+void FLModel::AddUniformScale(float scale)					{ _mat.glScalef(scale, scale, scale);		}
 
+
+void FLModel::SetTextureEnabled(bool enable)				{	_isTextureEnabled = enable;			}
+bool FLModel::IsTextureEnabled()							{	return _isTextureEnabled;			}
+void FLModel::SetWireFrameLinesEnabled(bool enable)			{	_wireFrameLinesEnabled = enable;	}
+bool FLModel::IsWireFrameLinesEnabled()						{	return _wireFrameLinesEnabled;		}
+void FLModel::SetWireFramePointsEnabled(bool enable)		{	_wireFramePointsEnabled = enable;	}
+bool FLModel::IsWireFramePointsEnabled()					{	return _wireFramePointsEnabled;		}
+void FLModel::SetBoundingBoxEnabled(bool enable)			{	_boundingBoxEnabled = enable;		}
+bool FLModel::IsBoundingBoxEnabled()						{	return _boundingBoxEnabled;			}
+void FLModel::SetBounding2DRectEnabled(bool enable)			{	_bounding2DRectEnabled = enable;	}
+bool FLModel::IsBounding2DRectEnabled()						{	return _bounding2DRectEnabled;		}
+void FLModel::SetLightingEnabled(bool enable)				{	_lightingEnabled = enable;			}
+bool FLModel::IsLightingEnabled()							{	return _lightingEnabled;			}
+void FLModel::ShowBoundingShapes(bool show)					{	_showBoundingShapes = show;			}
+bool FLModel::IsShowingBoundingShapes()						{	return _showBoundingShapes;			}
+void FLModel::ShowModel(bool show)							{	_showModel = show;					}
+bool FLModel::IsShowingModel()								{	return _showModel;					}
+void FLModel::ShowLocalAxis(bool show)						{	_drawLocalAxis = show;				}
+bool FLModel::IsShowingLocalAxis()							{	return _drawLocalAxis;				}
+void FLModel::SetMarked(bool mark)							{	_isMarked = mark;					}
+bool FLModel::IsMarked()									{	return _isMarked;					}
+
+
+void FLModel::SetShininess(float val)						{	_shininess = val;					}
+float FLModel::GetShininess()								{	return _shininess;					}
 
 void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
 {
@@ -193,125 +194,9 @@ unsigned int FLModel::GetMeterial(int lightParam)
 	return 0;
 }
 
-void FLModel::SetShininess(float val)
+void FLModel::AddBoundingShape(Shape* shape)
 {
-	_shininess = val;
-}
-
-float FLModel::GetShininess()
-{
-	return _shininess;
-}
-
-void FLModel::SetPos(float x, float y, float z)
-{
-	_mat.m[12] = x;
-	_mat.m[13] = y;
-	_mat.m[14] = z;
-}
-
-void FLModel::SetPos(CVector3 pos)
-{
-	_mat.m[12] = pos.x;
-	_mat.m[13] = pos.y;
-	_mat.m[14] = pos.z;
-}
-
-CVector3 FLModel::GetPos()
-{
-	return CVector3(_mat.m[12], _mat.m[13], _mat.m[14]);
-}
-
-void FLModel::AddTransInWorld(float x, float y, float z)
-{
-	_mat.m[12] += x;
-	_mat.m[13] += y;
-	_mat.m[14] += z;
-}
-
-void FLModel::AddRotateInWorld(char axis, float angle)
-{
-	GLMat newRot;
-	
-	if(axis == 'x' || axis == 'X')	newRot.glRotatef(angle, 1,0,0);
-	if(axis == 'y' || axis == 'Y')	newRot.glRotatef(angle, 0,1,0);
-	if(axis == 'z' || axis == 'Z')	newRot.glRotatef(angle, 0,0,1);
-
-	newRot.glMultMatrixf( _mat.m );
-
-	_mat.Copy(newRot.m);
-}
-
-void FLModel::AddTransInLocal(char axis, float move)
-{
-	CVector3 vec;
-
-	if(axis == 'x')			vec = CVector3( _mat.m[0], _mat.m[1], _mat.m[2] );
-	else if(axis == 'y')	vec = CVector3( _mat.m[4], _mat.m[5], _mat.m[6] );
-	else if(axis == 'z')	vec = CVector3( _mat.m[8], _mat.m[9], _mat.m[10] );
-	else
-	{
-		return;
-	}
-	
-	vec.Normalize();
-	vec *= move;
-
-	_mat.m[12] += vec.x;
-	_mat.m[13] += vec.y;
-	_mat.m[14] += vec.z;
-}
-
-void FLModel::AddRotateInLocal(char axis, float angle)
-{
-	CVector3 scale = _mat.GetScale();
-
-	_mat.RemoveScale();
-
-	GLMat rotMat;
-	
-	if(axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1,0,0);
-	if(axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0,1,0);
-	if(axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0,0,1);
-
-	_mat.glMultMatrixf(rotMat.Get());
-
-	_mat.SetScale( scale );
-}
-
-CVector3 FLModel::GetRotation()
-{
-	GLMat newMat;
-	newMat.Copy(_mat.m);
-	newMat.RemoveScale();
-
-	return newMat.GetEulerXYZRot_In_Degrees();
-}
-
-void FLModel::SetRotation(CVector3 rot)
-{
-	CVector3 scale = _mat.GetScale();
-	_mat.RemoveScale();
-
-	GLMat newMat;
-	
-	newMat.glTranslatef( _mat.m[12], _mat.m[13], _mat.m[14] );
-	newMat.glRotatef(rot.z, 0,0,1);
-	newMat.glRotatef(rot.y, 0,1,0);
-	newMat.glRotatef(rot.x, 1,0,0);
-	newMat.glScalef(scale.x, scale.y, scale.z);
-
-	_mat.Copy(newMat.m);
-}
-
-void FLModel::AddScale(CVector3 scale)
-{
-	_mat.glScalef(scale.x, scale.y, scale.z);
-}
-
-void FLModel::AddUniformScale(float scale)
-{
-	_mat.glScalef(scale, scale, scale);
+	_boundingShapes.push_back(shape);
 }
 
 Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(Rect* rect)
@@ -324,39 +209,9 @@ Shape* FLModel::AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID)
 	return AddBoudingShapeByVerticesOnRect(rect->x, rect->y, rect->w, rect->h, boundingShapeID);
 }
 
-vector<float> FLModel::GetVerticesOnRect(float x, float y, float w, float h)
-{
-	float* verArr = (float*)_verticesPointer;
-
-	float xy[2];
-
-	vector<float> vec;
-
-	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
-	modelViewMatrix.glMultMatrixf(_mat.m);
-
-	GLMat projMatrix = GLUtil::GetProjectionMatrix();
-
-	for(unsigned int i=0; i<_numVertex*3; i+=3)
-	{
-		//Cam::GetInstance()->Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m);
-
-		GLUtil::Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m, projMatrix.m);
-
-		if( xy[0] >= x && xy[0] <= x+w && xy[1] >= y && xy[1] <= y+h )
-		{
-			vec.push_back(verArr[i+0]);
-			vec.push_back(verArr[i+1]);
-			vec.push_back(verArr[i+2]);
-		}
-	}
-
-	return vec;
-}
-
 Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, float h)
 {
-	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
+	vector<float> verVec = GLUtil::GetVerticesOnRect((float*)_verticesPointer, _numVertex, _mat.m, x, y, w, h);
 	
 	Shape* bShape = NULL;
 
@@ -372,7 +227,7 @@ Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, f
 
 Shape* FLModel::AddBoudingShapeByVerticesOnRect(float x, float y, float w, float h, int boundingShapeID)
 {
-	vector<float> verVec = GetVerticesOnRect(x, y, w, h);
+	vector<float> verVec = GLUtil::GetVerticesOnRect((float*)_verticesPointer, _numVertex, _mat.m, x, y, w, h);
 	
 	Shape* bShape = NULL;
 
@@ -387,17 +242,12 @@ Shape* FLModel::AddBoudingShapeByVerticesOnRect(float x, float y, float w, float
 	return bShape;
 }
 
-void FLModel::AddBoundingShape(Shape* shape)
-{
-	_boundingShapes.push_back(shape);
-}
-
 void FLModel::Draw()
 {
-	GLboolean isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
-
 	glPushMatrix();
 	glMultMatrixf(_mat.m);
+
+	GLboolean isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
 
 	bool enableNormals = glIsEnabled(GL_LIGHTING) && _normalsPointer;
 	bool enableTexture = _textureID > 0 && _uvsPointer && _isTextureEnabled;
@@ -561,221 +411,54 @@ void FLModel::DrawLocalAxis()
 	GLUtil::GLLineWidth(lineWidth);
 }
 
-void FLModel::GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLocalMat)
+Rect FLModel::GetBounding2DRect(bool multWithLocalMat)
 {
-	float pos2D[8][2];
-
-	CVector3 pos = _aabb.GetPos();
-	CVector3 size = _aabb.GetSize();
-
-	CVector3 minPos( pos.x - size.x, pos.y - size.y, pos.z - size.z);
-	CVector3 maxPos( pos.x + size.x, pos.y + size.y, pos.z + size.z);
-
-	float pos3D[8][3] = {	
-							{minPos.x, minPos.y, minPos.z},
-							{minPos.x, maxPos.y, minPos.z},
-							{maxPos.x, minPos.y, minPos.z},
-							{maxPos.x, maxPos.y, minPos.z},
-							{minPos.x, minPos.y, maxPos.z},
-							{minPos.x, maxPos.y, maxPos.z},
-							{maxPos.x, minPos.y, maxPos.z},
-							{maxPos.x, maxPos.y, maxPos.z}
-						};
-
+	vector<CVector3> pos3D = _aabb.GetAABBVertices();
+	
 	GLMat mat = GLUtil::GetModelViewMatrix();
-	GLMat projMat = GLUtil::GetProjectionMatrix();
 
 	if(multWithLocalMat)
 		mat.glMultMatrixf(_mat.m);
 	
-	for(int i=0; i<8; i++)
-		GLUtil::Get2DPosOnScreenFrom3DPos(pos3D[i], pos2D[i], mat.m, projMat.m);
+	vector<CVector3> pos2D = GLUtil::Get2DPosOnScreenFrom3DPos(&pos3D, mat.m);
 
-	float minX = pos2D[0][0];
-	float maxX = pos2D[0][0];
+	CVector3 min;
+	CVector3 max;
 
-	float minY = pos2D[0][1];
-	float maxY = pos2D[0][1];
+	GLUtil::GetMinMaxPoints(&pos2D, &min, &max);
 
-	for(int i=1; i<8; i++)
-	{
-		if(pos2D[i][0] < minX) minX = pos2D[i][0];
-		if(pos2D[i][0] > maxX) maxX = pos2D[i][0];
-		if(pos2D[i][1] < minY) minY = pos2D[i][1];
-		if(pos2D[i][1] > maxY) maxY = pos2D[i][1];
-	}
+	Rect rect;
+	rect.SetBoundsByPoints(--min.x, --min.y, ++max.x, ++max.y);
+	rect.FitIntoBoundry(0, 0, GLUtil::GetWindowWidth(), GLUtil::GetWindowHeight());
 
-	minX--;
-	minY--;
-	maxX++;
-	maxY++;
-
-	float SW = (float)GLUtil::GetWindowWidth();
-	float SH = (float)GLUtil::GetWindowHeight();
-
-	if(minX < 0)	minX = 0;
-	if(minY < 0)	minY = 0;
-	if(maxX > SW)	maxX = SW;
-	if(maxY > SH)	maxY = SH;
-
-	if(maxX < 0)	maxX = 0;
-	if(maxY < 0)	maxY = 0;
-	if(minX > SW)	minX = SW;
-	if(minY > SH)	minY = SH;
-
-	float rectW = maxX - minX;
-	float rectH = maxY - minY;
-
-	x[0] = (int)minX;
-	y[0] = (int)minY;
-	w[0] = (int)rectW;
-	h[0] = (int)rectH;
+	return rect;
 }
 
 void FLModel::DrawBounding2DRect()
 {
-	int x,y,w,h;
-	GetBounding2DRect(&x, &y, &w, &h, false);
+	Rect rect = GetBounding2DRect(false);
 
 	state2D.Begin(0xff0000ff, 2.0f, 1.0f, false, false);
-
-	glBegin(GL_LINE_LOOP);
-	glVertex2f((float)(x+0), (float)(y+0));
-	glVertex2f((float)(x+w), (float)(y+0));
-	glVertex2f((float)(x+w), (float)(y+h));
-	glVertex2f((float)(x+0), (float)(y+h));
 	
-	glEnd();
+	rect.DrawWithLines();
 
 	state2D.End();
 }
 
-
 void FLModel::CalcBorder()
 {
-	_borderVec.clear();
+	Rect rect = GetBounding2DRect(true);
 
-	GLfloat clearColor[4];
-	GLUtil::GLClearColor(1,1,1,1, clearColor);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	GLboolean light = GLUtil::GLEnable(GL_LIGHTING, false);
-	GLboolean blend = GLUtil::GLEnable(GL_BLEND, false);
-	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
-	unsigned int prevColor = GLUtil::GLColor(0x000000ff);
-
-		bool bounding2DRect			= IsBounding2DRectEnabled();
-		bool boundingBox			= IsBoundingBoxEnabled();
-		bool boundingShapes			= IsShowingBoundingShapes();
-		bool textureEnable			= IsTextureEnabled();
-		bool wireFrameLinesEnable	= IsWireFrameLinesEnabled();
-		bool wireFramePointsEnable	= IsWireFramePointsEnabled();
-		bool lightingOn				= IsLightingEnabled();
-		bool localAxis				= IsShowingLocalAxis();
-
-		SetBounding2DRectEnabled(false);
-		SetBoundingBoxEnabled(false);
-		SetTextureEnabled(false);
-		SetWireFrameLinesEnabled(false);
-		SetWireFramePointsEnabled(false);
-		ShowBoundingShapes(false);
-		SetLightingEnabled(false);
-		ShowLocalAxis(false);
-
-		Draw();
-
-		int x,y,w,h;
-		GetBounding2DRect(&x, &y, &w, &h, true);
-
-		GLubyte* data = (GLubyte*)malloc(w*h*4);
-		memset(data, 255, w*h*4);
-
-		GLUtil::GLReadPixelsFromTopLeft(x, y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-		SetBounding2DRectEnabled(bounding2DRect);
-		SetBoundingBoxEnabled(boundingBox);
-		SetTextureEnabled(textureEnable);
-		SetWireFrameLinesEnabled(wireFrameLinesEnable);
-		SetWireFramePointsEnabled(wireFramePointsEnable);
-		ShowBoundingShapes(boundingShapes);
-		SetLightingEnabled(lightingOn);
-		ShowLocalAxis(localAxis);
-
-	GLUtil::GLEnable(GL_LIGHTING, light);
-	GLUtil::GLEnable(GL_BLEND, blend);
-	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
-	GLUtil::GLColor(prevColor);
-
-
-	int prevVal = 0;
-
-	for(int j=0;j<h;j++)
-	{
-		for(int i=0;i<w;i++)
-		{
-			int pos = ((j*w) + i) * 4;
-
-			if(i != 0 && data[pos] != prevVal)
-			{
-				_borderVec.push_back((float)(i + x));
-				_borderVec.push_back((float)(h - j + y));
-			}
-			prevVal = data[pos];
-		}
-	}
-
-	prevVal = 0;
-
-	for(int i=0;i<w;i++)
-	{
-		for(int j=0;j<h;j++)
-		{
-			int pos = ((j*w) + i) * 4;
-
-			if(j != 0 && data[pos] != prevVal)
-			{
-				_borderVec.push_back((float)(i + x));
-				_borderVec.push_back((float)(h - j + y));
-			}
-			prevVal = data[pos];
-		}
-	}
-
-	free(data);
+	_border->CalcBorder((float*)_verticesPointer, _numIndices, _indicesType, _indicesPointer, _mat.m, &rect);
 }
 
 void FLModel::DrawBorder()
 {
-	if(_borderVec.size() > 0)
-	{
-		state2D.Begin(0xff0000ff, 1.0f, 1.0f, false, false);
-
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(2, GL_FLOAT, 0, &_borderVec[0]);
-		glDrawArrays(GL_POINTS, 0, _borderVec.size()/2);
-		glDisableClientState(GL_VERTEX_ARRAY);
-
-		state2D.End();
-	}
-
-	_borderVec.clear();
+	_border->DrawBorder();
 }
-
 
 FLModel::~FLModel()
 {
-	if(_verticesPointer)
-		free(_verticesPointer);
-	
-	if(_uvsPointer)
-		free(_uvsPointer);
-
-	if(_normalsPointer)
-		free(_normalsPointer);
-
-	if(_indicesPointer)
-		free(_indicesPointer);
-
 	for(unsigned int i=0; i<_boundingShapes.size(); i++)
 	{
 		if(_boundingShapes[i])
@@ -786,4 +469,16 @@ FLModel::~FLModel()
 	}
 
 	_boundingShapes.clear();
+
+	if(_flmReaderWriter)
+	{
+		delete _flmReaderWriter;
+		_flmReaderWriter = NULL;
+	}
+
+	if(_border)
+	{
+		delete _border;
+		_border = NULL;
+	}
 }

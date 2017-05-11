@@ -32,6 +32,17 @@ public:
 	void RemoveScale();
 	void SetScale(CVector3 scale);
 
+	void SetPos(float x, float y, float z);
+	void SetPos(CVector3 pos);
+	CVector3 GetPos();
+	CVector3 GetRotation();
+	void SetRotation(CVector3 rot);
+
+	void AddTransInWorld(float x, float y, float z);
+	void AddTransInLocal(char axis, float move);
+	void AddRotateInWorld(char axis, float angle);
+	void AddRotateInLocal(char axis, float angle);
+
 	static void MultMat(float* a, float* b, float* result);
 	static int InvertMatrix(const float src[16], float inverse[16]);
 	static void GetGluLookAtParameters(float* m, float* gluLookAtParams);

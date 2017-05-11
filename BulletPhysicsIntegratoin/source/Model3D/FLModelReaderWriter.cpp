@@ -68,7 +68,7 @@ void FLModelReaderWriter::Load(string folderPath)
 	delete imgBuf;
 
 
-	FILE* aabbFile = fopen( GetBBoxFilePath(_folderPath).c_str(), "r" );
+	FILE* aabbFile = fopen( GetBBoxFilePath(folderPath).c_str(), "r" );
 
 	if(aabbFile == NULL)
 	{
@@ -87,6 +87,21 @@ void FLModelReaderWriter::Load(string folderPath)
 		_aabb.SetPos(pos.x, pos.y, pos.z);
 		_aabb.SetSize(size.x, size.y, size.z);
 	}
+
+
+	FILE* matFile = fopen( GetOrientationFilePath(folderPath).c_str(), "r" );
+
+	float* m = _mat.m;
+
+	if(matFile)
+	{
+		fscanf(matFile, "%f %f %f %f\n",&m[0] ,&m[1] ,&m[2] ,&m[3]);
+		fscanf(matFile, "%f %f %f %f\n",&m[4] ,&m[5] ,&m[6] ,&m[7]);
+		fscanf(matFile, "%f %f %f %f\n",&m[8] ,&m[9] ,&m[10] ,&m[11]);
+		fscanf(matFile, "%f %f %f %f",&m[12] ,&m[13] ,&m[14] ,&m[15]);
+
+		fclose(matFile);
+	}
 }
 
 string FLModelReaderWriter::GetBBoxFilePath(string folderPath)
@@ -94,18 +109,10 @@ string FLModelReaderWriter::GetBBoxFilePath(string folderPath)
 	return folderPath+"/bbox.txt";
 }
 
-//void FLModelReaderWriter::SaveOrientation(string folderPath, float* mat)
-//{
-//	FILE* matFile = fopen(GetOrientationFilePath(folderPath).c_str(), "w");
-//	
-//	fprintf(matFile, "%f %f %f %f\n",mat[0], mat[1], mat[2], mat[3]);
-//	fprintf(matFile, "%f %f %f %f\n",mat[4], mat[5], mat[6], mat[7]);
-//	fprintf(matFile, "%f %f %f %f\n",mat[8], mat[9], mat[10], mat[11]);
-//	fprintf(matFile, "%f %f %f %f",	mat[12], mat[13], mat[14], mat[15]);
-//
-//	fflush(matFile);
-//	fclose(matFile);
-//}
+string FLModelReaderWriter::GetOrientationFilePath(string folderPath)
+{
+	return folderPath+"/transformation.txt";
+}
 
 unsigned char* FLModelReaderWriter::GetVerticesPointer()	{ return _verticesPointer;	}
 unsigned char* FLModelReaderWriter::GetTexCoordsPointer()	{ return _uvsPointer;		}
@@ -117,7 +124,9 @@ unsigned int FLModelReaderWriter::GetNumVertex()			{ return _numVertex;		}
 unsigned int FLModelReaderWriter::GetNumIndices()			{ return _numIndices;		}
 
 unsigned int FLModelReaderWriter::GetTextureID()			{ return _textureID;		}
+GLMat FLModelReaderWriter::GetMat()							{ return _mat;				}
 Box FLModelReaderWriter::GetAABB()							{ return _aabb;				}
+
 
 void FLModelReaderWriter::Save()
 {
@@ -126,8 +135,21 @@ void FLModelReaderWriter::Save()
 
 void FLModelReaderWriter::Save(string folderPath)
 {
-	//SaveOrientation(folderPath);
-	//SaveBBoxInfo(folderPath);
+	SaveOrientation(folderPath, _mat.m);
+	SaveBBoxInfo(folderPath, _aabb);
+}
+
+void FLModelReaderWriter::SaveOrientation(string folderPath, float* mat)
+{
+	FILE* matFile = fopen(GetOrientationFilePath(folderPath).c_str(), "w");
+	
+	fprintf(matFile, "%f %f %f %f\n",mat[0], mat[1], mat[2], mat[3]);
+	fprintf(matFile, "%f %f %f %f\n",mat[4], mat[5], mat[6], mat[7]);
+	fprintf(matFile, "%f %f %f %f\n",mat[8], mat[9], mat[10], mat[11]);
+	fprintf(matFile, "%f %f %f %f",	mat[12], mat[13], mat[14], mat[15]);
+
+	fflush(matFile);
+	fclose(matFile);
 }
 
 void FLModelReaderWriter::SaveBBoxInfo(string folderPath, Box aabb)

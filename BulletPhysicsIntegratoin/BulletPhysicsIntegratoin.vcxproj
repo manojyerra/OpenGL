@@ -290,6 +290,7 @@
     <ClCompile Include="source\Math\Line2D.cpp" />
     <ClCompile Include="source\Math\Triangle2D.cpp" />
     <ClCompile Include="source\Model3D\FLModel.cpp" />
+    <ClCompile Include="source\Model3D\FLModelBorder.cpp" />
     <ClCompile Include="source\Model3D\FLModelReaderWriter.cpp" />
     <ClCompile Include="source\ModelPropsFrame.cpp" />
     <ClCompile Include="source\ModelsManager.cpp" />
@@ -593,6 +594,7 @@
     <ClInclude Include="source\Math\Line2D.h" />
     <ClInclude Include="source\Math\Triangle2D.h" />
     <ClInclude Include="source\Model3D\FLModel.h" />
+    <ClInclude Include="source\Model3D\FLModelBorder.h" />
     <ClInclude Include="source\Model3D\FLModelReaderWriter.h" />
     <ClInclude Include="source\ModelPropsFrame.h" />
     <ClInclude Include="source\ModelsManager.h" />

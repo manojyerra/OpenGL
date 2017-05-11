@@ -275,6 +275,66 @@ vector<CVector3> GLUtil::Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, f
 }
 
 
+vector<float> GLUtil::GetVerticesOnRect(float* verArr, int numVertex, float* objMat, float x, float y, float w, float h)
+{
+	float xy[2];
+
+	vector<float> vec;
+
+	GLMat modelViewMatrix = GLUtil::GetModelViewMatrix();
+	
+	if(objMat)
+		modelViewMatrix.glMultMatrixf(objMat);
+
+	GLMat projMatrix = GLUtil::GetProjectionMatrix();
+
+	for(unsigned int i=0; i<numVertex*3; i+=3)
+	{
+		GLUtil::Get2DPosOnScreenFrom3DPos(&verArr[i], xy, modelViewMatrix.m, projMatrix.m);
+
+		if( xy[0] >= x && xy[0] <= x+w && xy[1] >= y && xy[1] <= y+h )
+		{
+			vec.push_back(verArr[i+0]);
+			vec.push_back(verArr[i+1]);
+			vec.push_back(verArr[i+2]);
+		}
+	}
+
+	return vec;
+}
+
+void GLUtil::GetMinMaxPoints(vector<CVector3>* points3D, CVector3* min, CVector3* max)
+{
+	float minX = points3D->at(0).x;
+	float minY = points3D->at(0).y;
+	float minZ = points3D->at(0).z;
+
+	float maxX = points3D->at(0).x;
+	float maxY = points3D->at(0).y;
+	float maxZ = points3D->at(0).z;
+
+	unsigned int size = points3D->size();
+
+	for(int i=1; i<size; i++)
+	{
+		if(points3D->at(i).x < minX) minX = points3D->at(i).x;
+		if(points3D->at(i).y < minY) minY = points3D->at(i).y;
+		if(points3D->at(i).z < minZ) minZ = points3D->at(i).z;
+
+		if(points3D->at(i).x > maxX) maxX = points3D->at(i).x;
+		if(points3D->at(i).y > maxY) maxY = points3D->at(i).y;
+		if(points3D->at(i).z > maxZ) maxZ = points3D->at(i).z;
+	}
+
+	min->x = minX;
+	min->y = minY;
+	min->z = minZ;
+
+	max->x = maxX;
+	max->y = maxY;
+	max->z = maxZ;
+}
+
 unsigned int GLUtil::GenerateGLTextureID(int width, int height, int bytesPP, void* buffer)
 {
 	unsigned int textureID = 0;

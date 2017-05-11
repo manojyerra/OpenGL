@@ -1,3 +1,6 @@
+#ifndef FLModel_H
+#define FLModel_H
+
 #include "Util/GLUtil.h"
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
@@ -6,6 +9,7 @@
 #include "Shape2D/Rect.h"
 #include "Shapes3D/Box.h"
 #include "FLModelReaderWriter.h"
+#include "FLModelBorder.h"
 
 #include <windows.h>
 #include <gl/gl.h>
@@ -17,8 +21,6 @@ using namespace std;
 class FLModel
 {
 private:
-	FLModelReaderWriter* _flmReaderWriter;
-
 	string _folderPath;
 
 	unsigned char* _verticesPointer;
@@ -44,8 +46,6 @@ private:
 	bool _showModel;
 	bool _drawLocalAxis;
 	bool _isMarked;
-
-	vector<float> _borderVec;
 	
 	GLfloat _ka[4];
 	GLfloat _kd[4];
@@ -53,20 +53,15 @@ private:
 	GLfloat _shininess;
 
 	GLMat _mat;
-
+	GL2DState state2D;	
 	vector<Shape*> _boundingShapes;
+	FLModelReaderWriter* _flmReaderWriter;
+	FLModelBorder* _border;
 
-	GL2DState state2D;
-	
-
+	void Reset(string folderPath, float* mat);
 	void DrawBoundingBox();
-	void GetBounding2DRect(int* x, int* y, int* w, int* h, bool multWithLocalMat);
 	void DrawBounding2DRect();
-
-	string GetOrientationFilePath(string folderPath);
-
-	//void SaveOrientation(string folderPath);
-	//void SaveBBoxInfo(string folderPath);
+	Rect GetBounding2DRect(bool multWithLocalMat);
 
 public:
 	FLModel(string folderPath);
@@ -76,8 +71,6 @@ public:
 	FLModel(string folderPath, CVector3 pos, CVector3 rot, string rotOrder);
 	FLModel(string folderPath, float* mat);
 	~FLModel();
-
-	void Reset(string folderPath, float* mat);
 
 	void Save();
 	void Save(string folderPath);
@@ -103,47 +96,40 @@ public:
 	bool IsShowingBoundingShapes();
 	void ShowModel(bool show);
 	bool IsShowingModel();
+	void ShowLocalAxis(bool show);
+	bool IsShowingLocalAxis();
+	void SetMarked(bool mark);
+	bool IsMarked();
 
 	void SetMeterial(int lightParam, float r, float g, float b, float a);
 	void SetShininess(float val);
-
 	unsigned int GetMeterial(int lightParam);
 	float GetShininess();
 
 	void SetPos(float x, float y, float z);
 	void SetPos(CVector3 pos);
 	CVector3 GetPos();
-
-	void AddTransInWorld(float x, float y, float z);
-	void AddRotateInWorld(char axis, float angle);
-
-	void AddTransInLocal(char axis, float move);
-	void AddRotateInLocal(char axis, float angle);
-
 	CVector3 GetRotation();
 	void SetRotation(CVector3 rot);
-
+	void AddTransInWorld(float x, float y, float z);
+	void AddTransInLocal(char axis, float move);
+	void AddRotateInWorld(char axis, float angle);
+	void AddRotateInLocal(char axis, float angle);
 	void AddScale(CVector3 scale);
 	void AddUniformScale(float scale);
 
 	Shape* AddBestBoudingShapeByVerticesOnRect(Rect* rect);
 	Shape* AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID);
-
-	vector<float> GetVerticesOnRect(float x, float y, float w, float h);
 	Shape* AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, float h);
 	Shape* AddBoudingShapeByVerticesOnRect(float x, float y, float w, float h, int boundingShapeID);
-
 	void AddBoundingShape(Shape* shape);
 
 	void Draw();
+	void DrawBorder();
+	void DrawLocalAxis();
 
 	void CalcBorder();
-	void DrawBorder();
-
 	vector<CVector3> GetAxisLine3DPoints(float* mat, int triIndex);
-	void DrawLocalAxis();
-	void ShowLocalAxis(bool show);
-	bool IsShowingLocalAxis();
-	bool IsMarked();
-	void SetMarked(bool mark);
 };
+
+#endif

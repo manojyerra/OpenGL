@@ -26,9 +26,12 @@ private:
 
 	unsigned int _textureID;
 
+	GLMat _mat;
+
 	Box _aabb;
 
 	string GetBBoxFilePath(string folderPath);
+	string GetOrientationFilePath(string folderPath);
 
 public:
 	FLModelReaderWriter();
@@ -45,12 +48,12 @@ public:
 	unsigned int GetNumIndices();
 
 	unsigned int GetTextureID();
-	Box GetAABB();
 
-	//void SaveOrientation(string folderPath, float* mat);
-	void SaveBBoxInfo(string folderPath, Box aabb);
+	GLMat GetMat();
+	Box GetAABB();
 
 	void Save();
 	void Save(string folderPath);
-
+	void SaveOrientation(string folderPath, float* mat);
+	void SaveBBoxInfo(string folderPath, Box aabb);
 };
