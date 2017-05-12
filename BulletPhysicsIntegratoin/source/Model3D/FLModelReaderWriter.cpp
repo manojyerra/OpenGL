@@ -2,8 +2,10 @@
 #include "ImageBuffer.h"
 #include "CFileReader.h"
 
-FLModelReaderWriter::FLModelReaderWriter()
+FLModelReaderWriter::FLModelReaderWriter(FLModelBoundingShapes* boundingShapes)
 {
+	_boundingShapes = boundingShapes;
+
 	_verticesPointer = NULL;
 	_uvsPointer = NULL;
 	_normalsPointer = NULL;
@@ -95,24 +97,16 @@ void FLModelReaderWriter::Load(string folderPath)
 
 	if(matFile)
 	{
-		fscanf(matFile, "%f %f %f %f\n",&m[0] ,&m[1] ,&m[2] ,&m[3]);
-		fscanf(matFile, "%f %f %f %f\n",&m[4] ,&m[5] ,&m[6] ,&m[7]);
-		fscanf(matFile, "%f %f %f %f\n",&m[8] ,&m[9] ,&m[10] ,&m[11]);
-		fscanf(matFile, "%f %f %f %f",&m[12] ,&m[13] ,&m[14] ,&m[15]);
-
+		ReadMatrixFromFile(matFile, m);
 		fclose(matFile);
 	}
 }
 
-string FLModelReaderWriter::GetBBoxFilePath(string folderPath)
-{
-	return folderPath+"/bbox.txt";
-}
 
-string FLModelReaderWriter::GetOrientationFilePath(string folderPath)
-{
-	return folderPath+"/transformation.txt";
-}
+string FLModelReaderWriter::GetBBoxFilePath(string folderPath)				{ return folderPath+"/bbox.txt";			}
+string FLModelReaderWriter::GetBoundingShapesFilePath(string folderPath)	{ return folderPath+"/boundingShapes.txt";	}
+string FLModelReaderWriter::GetOrientationFilePath(string folderPath)		{ return folderPath+"/transformation.txt";	}
+
 
 unsigned char* FLModelReaderWriter::GetVerticesPointer()	{ return _verticesPointer;	}
 unsigned char* FLModelReaderWriter::GetTexCoordsPointer()	{ return _uvsPointer;		}
@@ -137,16 +131,14 @@ void FLModelReaderWriter::Save(string folderPath)
 {
 	SaveOrientation(folderPath, _mat.m);
 	SaveBBoxInfo(folderPath, _aabb);
+	SaveBoundingShapesInfo(folderPath, _boundingShapes);
 }
 
 void FLModelReaderWriter::SaveOrientation(string folderPath, float* mat)
 {
 	FILE* matFile = fopen(GetOrientationFilePath(folderPath).c_str(), "w");
 	
-	fprintf(matFile, "%f %f %f %f\n",mat[0], mat[1], mat[2], mat[3]);
-	fprintf(matFile, "%f %f %f %f\n",mat[4], mat[5], mat[6], mat[7]);
-	fprintf(matFile, "%f %f %f %f\n",mat[8], mat[9], mat[10], mat[11]);
-	fprintf(matFile, "%f %f %f %f",	mat[12], mat[13], mat[14], mat[15]);
+	WriteMatrixToFile(matFile, mat);
 
 	fflush(matFile);
 	fclose(matFile);
@@ -163,6 +155,91 @@ void FLModelReaderWriter::SaveBBoxInfo(string folderPath, Box aabb)
 
 	fflush(bBoxFile);
 	fclose(bBoxFile);
+}
+
+void FLModelReaderWriter::SaveBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes)
+{
+	FILE* bShapesFile = fopen( GetBoundingShapesFilePath(folderPath).c_str(), "w" );
+
+	for(int i=0; i<boundingShapes->Size(); i++)
+	{
+		Shape* shape = boundingShapes->Get(i);
+
+		float* mat = shape->GetGLMatrix();
+		
+		if(shape->GetID() == Shape::BOX)
+		{
+			Box* box = (Box*)shape;
+
+			CVector3 pos = box->GetPos();
+			CVector3 size = box->GetSize();
+
+			fprintf(bShapesFile, "Box %f %f %f %f %f %f\n", pos.x, pos.y, pos.z, size.x, size.y, size.z);
+			WriteMatrixToFile(bShapesFile, mat);
+		}
+		else if(shape->GetID() == Shape::CYLINDER)
+		{
+			Cylinder* cylinder = (Cylinder*)shape;
+
+			CVector3 pos = cylinder->GetPos();
+			float r = cylinder->GetRadius();
+			float h = cylinder->GetHeight();
+
+			fprintf(bShapesFile, "Cylinder %f %f %f %f %f\n", pos.x, pos.y, pos.z, r, h);
+			WriteMatrixToFile(bShapesFile, mat);
+		}
+		else if(shape->GetID() == Shape::CONE)
+		{
+			Cone* cone = (Cone*)shape;
+
+			CVector3 pos = cone->GetPos();
+			float r = cone->GetRadius();
+			float h = cone->GetHeight();
+
+			fprintf(bShapesFile, "Cone %f %f %f %f %f\n", pos.x, pos.y, pos.z, r, h);
+			WriteMatrixToFile(bShapesFile, mat);
+		}
+		else if(shape->GetID() == Shape::SPHERE)
+		{
+			Sphere* sphere = (Sphere*)shape;
+
+			CVector3 pos = sphere->GetPos();
+			float r = sphere->GetRadius();
+			
+			fprintf(bShapesFile, "Sphere %f %f %f %f\n", pos.x, pos.y, pos.z, r);
+			WriteMatrixToFile(bShapesFile, mat);
+		}
+	}
+}
+
+void FLModelReaderWriter::LoadBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes)
+{
+	string boundingFilePath = GetBoundingShapesFilePath(folderPath);
+
+	if(CFileReader::IsFileExists(boundingFilePath))
+	{
+		CFileReader* fileReader = new CFileReader(boundingFilePath, "r");
+
+
+
+		delete fileReader;
+	}
+}
+
+void FLModelReaderWriter::WriteMatrixToFile(FILE* matFile, float* mat)
+{
+	fprintf(matFile, "%f %f %f %f\n",mat[0], mat[1], mat[2], mat[3]);
+	fprintf(matFile, "%f %f %f %f\n",mat[4], mat[5], mat[6], mat[7]);
+	fprintf(matFile, "%f %f %f %f\n",mat[8], mat[9], mat[10], mat[11]);
+	fprintf(matFile, "%f %f %f %f\n",mat[12], mat[13], mat[14], mat[15]);
+}
+
+void FLModelReaderWriter::ReadMatrixFromFile(FILE* matFile, float* m)
+{
+	fscanf(matFile, "%f %f %f %f\n",&m[0], &m[1], &m[2], &m[3]);
+	fscanf(matFile, "%f %f %f %f\n",&m[4], &m[5], &m[6], &m[7]);
+	fscanf(matFile, "%f %f %f %f\n",&m[8], &m[9], &m[10],&m[11]);
+	fscanf(matFile, "%f %f %f %f\n",&m[12],&m[13],&m[14],&m[15]);
 }
 
 FLModelReaderWriter::~FLModelReaderWriter()

@@ -103,6 +103,8 @@ void FLModel::Reset(string folderPath, float* mat)
 
 	_border = new FLModelBorder();
 
+	_boundingShapes = new FLModelBoundingShapes();
+
 	_flmReaderWriter = new FLModelReaderWriter();
 	_flmReaderWriter->Load(_folderPath);
 
@@ -153,30 +155,30 @@ void FLModel::AddScale(CVector3 scale)						{ _mat.glScalef(scale.x, scale.y, sc
 void FLModel::AddUniformScale(float scale)					{ _mat.glScalef(scale, scale, scale);		}
 
 
-void FLModel::SetTextureEnabled(bool enable)				{	_isTextureEnabled = enable;			}
-bool FLModel::IsTextureEnabled()							{	return _isTextureEnabled;			}
-void FLModel::SetWireFrameLinesEnabled(bool enable)			{	_wireFrameLinesEnabled = enable;	}
-bool FLModel::IsWireFrameLinesEnabled()						{	return _wireFrameLinesEnabled;		}
-void FLModel::SetWireFramePointsEnabled(bool enable)		{	_wireFramePointsEnabled = enable;	}
-bool FLModel::IsWireFramePointsEnabled()					{	return _wireFramePointsEnabled;		}
-void FLModel::SetBoundingBoxEnabled(bool enable)			{	_boundingBoxEnabled = enable;		}
-bool FLModel::IsBoundingBoxEnabled()						{	return _boundingBoxEnabled;			}
-void FLModel::SetBounding2DRectEnabled(bool enable)			{	_bounding2DRectEnabled = enable;	}
-bool FLModel::IsBounding2DRectEnabled()						{	return _bounding2DRectEnabled;		}
-void FLModel::SetLightingEnabled(bool enable)				{	_lightingEnabled = enable;			}
-bool FLModel::IsLightingEnabled()							{	return _lightingEnabled;			}
-void FLModel::ShowBoundingShapes(bool show)					{	_showBoundingShapes = show;			}
-bool FLModel::IsShowingBoundingShapes()						{	return _showBoundingShapes;			}
-void FLModel::ShowModel(bool show)							{	_showModel = show;					}
-bool FLModel::IsShowingModel()								{	return _showModel;					}
-void FLModel::ShowLocalAxis(bool show)						{	_drawLocalAxis = show;				}
-bool FLModel::IsShowingLocalAxis()							{	return _drawLocalAxis;				}
-void FLModel::SetMarked(bool mark)							{	_isMarked = mark;					}
-bool FLModel::IsMarked()									{	return _isMarked;					}
+void FLModel::SetTextureEnabled(bool enable)				{	_isTextureEnabled = enable;				}
+bool FLModel::IsTextureEnabled()							{	return _isTextureEnabled;				}
+void FLModel::SetWireFrameLinesEnabled(bool enable)			{	_wireFrameLinesEnabled = enable;		}
+bool FLModel::IsWireFrameLinesEnabled()						{	return _wireFrameLinesEnabled;			}
+void FLModel::SetWireFramePointsEnabled(bool enable)		{	_wireFramePointsEnabled = enable;		}
+bool FLModel::IsWireFramePointsEnabled()					{	return _wireFramePointsEnabled;			}
+void FLModel::SetBoundingBoxEnabled(bool enable)			{	_boundingBoxEnabled = enable;			}
+bool FLModel::IsBoundingBoxEnabled()						{	return _boundingBoxEnabled;				}
+void FLModel::SetBounding2DRectEnabled(bool enable)			{	_bounding2DRectEnabled = enable;		}
+bool FLModel::IsBounding2DRectEnabled()						{	return _bounding2DRectEnabled;			}
+void FLModel::SetLightingEnabled(bool enable)				{	_lightingEnabled = enable;				}
+bool FLModel::IsLightingEnabled()							{	return _lightingEnabled;				}
+void FLModel::ShowBoundingShapes(bool show)					{	_showBoundingShapes = show;				}
+bool FLModel::IsShowingBoundingShapes()						{	return _showBoundingShapes;				}
+void FLModel::ShowModel(bool show)							{	_showModel = show;						}
+bool FLModel::IsShowingModel()								{	return _showModel;						}
+void FLModel::ShowLocalAxis(bool show)						{	_drawLocalAxis = show;					}
+bool FLModel::IsShowingLocalAxis()							{	return _drawLocalAxis;					}
+void FLModel::SetMarked(bool mark)							{	_isMarked = mark;						}
+bool FLModel::IsMarked()									{	return _isMarked;						}
 
 
-void FLModel::SetShininess(float val)						{	_shininess = val;					}
-float FLModel::GetShininess()								{	return _shininess;					}
+void FLModel::SetShininess(float val)						{	_shininess = val;						}
+float FLModel::GetShininess()								{	return _shininess;						}
 
 void FLModel::SetMeterial(int lightParam, float r, float g, float b, float a)
 {
@@ -196,58 +198,25 @@ unsigned int FLModel::GetMeterial(int lightParam)
 
 void FLModel::AddBoundingShape(Shape* shape)
 {
-	_boundingShapes.push_back(shape);
+	_boundingShapes->AddBoundingShape(shape);
 }
 
 Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(Rect* rect)
 {
-	return AddBestBoudingShapeByVerticesOnRect(rect->x, rect->y, rect->w, rect->h);
+	return _boundingShapes->AddBestBoudingShapeByVerticesOnRect(rect, (float*)_verticesPointer, _numVertex, _mat.m);
 }
 
 Shape* FLModel::AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID)
 {
-	return AddBoudingShapeByVerticesOnRect(rect->x, rect->y, rect->w, rect->h, boundingShapeID);
-}
-
-Shape* FLModel::AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, float h)
-{
-	vector<float> verVec = GLUtil::GetVerticesOnRect((float*)_verticesPointer, _numVertex, _mat.m, x, y, w, h);
-	
-	Shape* bShape = NULL;
-
-	if(verVec.size() > 0)
-	{
-		bShape = Shape::GetBestFitBoundingShape(&verVec[0], verVec.size());
-
-		_boundingShapes.push_back(bShape);
-	}
-
-	return bShape;
-}
-
-Shape* FLModel::AddBoudingShapeByVerticesOnRect(float x, float y, float w, float h, int boundingShapeID)
-{
-	vector<float> verVec = GLUtil::GetVerticesOnRect((float*)_verticesPointer, _numVertex, _mat.m, x, y, w, h);
-	
-	Shape* bShape = NULL;
-
-	if(verVec.size() > 0)
-	{
-		bShape = Shape::GetBoundingShape(&verVec[0], verVec.size(), boundingShapeID);
-
-		if(bShape)
-			_boundingShapes.push_back(bShape);
-	}
-
-	return bShape;
+	return _boundingShapes->AddBoudingShapeByVerticesOnRect(rect, boundingShapeID, (float*)_verticesPointer, _numVertex, _mat.m);
 }
 
 void FLModel::Draw()
 {
+	GLboolean isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
+
 	glPushMatrix();
 	glMultMatrixf(_mat.m);
-
-	GLboolean isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
 
 	bool enableNormals = glIsEnabled(GL_LIGHTING) && _normalsPointer;
 	bool enableTexture = _textureID > 0 && _uvsPointer && _isTextureEnabled;
@@ -330,12 +299,7 @@ void FLModel::Draw()
 		glDisableClientState(GL_VERTEX_ARRAY);
 
 	if(_showBoundingShapes)
-	{
-		for(unsigned int i=0; i<_boundingShapes.size(); i++)
-		{
-			_boundingShapes[i]->Draw();
-		}
-	}
+		_boundingShapes->Draw();
 
 	GLboolean lighting1 = GLUtil::GLEnable(GL_LIGHTING, false);
 	
@@ -344,10 +308,10 @@ void FLModel::Draw()
 
 	if(_bounding2DRectEnabled)
 		DrawBounding2DRect();
-	
-	GLUtil::GLEnable(GL_LIGHTING, lighting1);
 
 	glPopMatrix();
+
+	GLUtil::GLEnable(GL_LIGHTING, lighting1);
 
 	if(_drawLocalAxis)
 		DrawLocalAxis();
@@ -459,16 +423,11 @@ void FLModel::DrawBorder()
 
 FLModel::~FLModel()
 {
-	for(unsigned int i=0; i<_boundingShapes.size(); i++)
+	if(_boundingShapes)
 	{
-		if(_boundingShapes[i])
-		{
-			delete _boundingShapes[i];
-			_boundingShapes[i] = NULL;
-		}
+		delete _boundingShapes;
+		_boundingShapes = NULL;
 	}
-
-	_boundingShapes.clear();
 
 	if(_flmReaderWriter)
 	{

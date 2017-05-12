@@ -8,8 +8,10 @@
 #include "Util/GL2DState.h"
 #include "Shape2D/Rect.h"
 #include "Shapes3D/Box.h"
+
 #include "FLModelReaderWriter.h"
 #include "FLModelBorder.h"
+#include "FLModelBoundingShapes.h"
 
 #include <windows.h>
 #include <gl/gl.h>
@@ -54,9 +56,10 @@ private:
 
 	GLMat _mat;
 	GL2DState state2D;	
-	vector<Shape*> _boundingShapes;
+	
 	FLModelReaderWriter* _flmReaderWriter;
 	FLModelBorder* _border;
+	FLModelBoundingShapes* _boundingShapes;
 
 	void Reset(string folderPath, float* mat);
 	void DrawBoundingBox();
@@ -120,8 +123,6 @@ public:
 
 	Shape* AddBestBoudingShapeByVerticesOnRect(Rect* rect);
 	Shape* AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID);
-	Shape* AddBestBoudingShapeByVerticesOnRect(float x, float y, float w, float h);
-	Shape* AddBoudingShapeByVerticesOnRect(float x, float y, float w, float h, int boundingShapeID);
 	void AddBoundingShape(Shape* shape);
 
 	void Draw();

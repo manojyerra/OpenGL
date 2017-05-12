@@ -754,6 +754,9 @@
     <ClCompile Include="source\Model3D\FLModelBorder.cpp">
       <Filter>source\Model3D</Filter>
     </ClCompile>
+    <ClCompile Include="source\Model3D\FLModelBoundingShapes.cpp">
+      <Filter>source\Model3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -1624,6 +1627,9 @@
       <Filter>source\Model3D</Filter>
     </ClInclude>
     <ClInclude Include="source\Model3D\FLModelBorder.h">
+      <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\FLModelBoundingShapes.h">
       <Filter>source\Model3D</Filter>
     </ClInclude>
   </ItemGroup>
