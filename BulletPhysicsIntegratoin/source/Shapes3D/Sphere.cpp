@@ -19,7 +19,16 @@ Sphere::Sphere(Sphere* sphere) : Shape(Shape::SPHERE)
 	memcpy(m, sphere->m, 16*4);
 
 	_r = sphere->GetRadius();
-	_id = sphere->GetID();
+
+	_quad = gluNewQuadric();
+}
+
+
+Sphere::Sphere(float* mat, float r) : Shape(Shape::SPHERE)
+{
+	memcpy(m, mat, 16*4);
+	
+	_r = r;
 
 	_quad = gluNewQuadric();
 }

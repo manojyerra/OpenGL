@@ -1,7 +1,9 @@
+#ifndef CFileReader_H
+#define CFileReader_H
+
 #include <stdio.h>
 #include <string>
 using namespace std;
-
 
 class CFileReader
 {
@@ -24,3 +26,5 @@ public:
 	char* ReadLine();
 	void Reset();
 };
+
+#endif

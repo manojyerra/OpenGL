@@ -105,7 +105,7 @@ void FLModel::Reset(string folderPath, float* mat)
 
 	_boundingShapes = new FLModelBoundingShapes();
 
-	_flmReaderWriter = new FLModelReaderWriter();
+	_flmReaderWriter = new FLModelReaderWriter(_boundingShapes);
 	_flmReaderWriter->Load(_folderPath);
 
 	_verticesPointer	= _flmReaderWriter->GetVerticesPointer();
@@ -125,6 +125,16 @@ void FLModel::Reset(string folderPath, float* mat)
 		_mat = _flmReaderWriter->GetMat();
 	else
 		_mat.Copy(mat);
+}
+
+void FLModel::Write()
+{
+	_flmReaderWriter->Write();
+}
+
+void FLModel::Write(string folderPath)
+{
+	_flmReaderWriter->Write(folderPath);
 }
 
 float* FLModel::GetVerticesPointer()
@@ -429,15 +439,41 @@ FLModel::~FLModel()
 		_boundingShapes = NULL;
 	}
 
-	if(_flmReaderWriter)
-	{
-		delete _flmReaderWriter;
-		_flmReaderWriter = NULL;
-	}
-
 	if(_border)
 	{
 		delete _border;
 		_border = NULL;
 	}
+
+	if(_flmReaderWriter)
+	{
+		delete _flmReaderWriter;
+		_flmReaderWriter = NULL;
+	}
 }
+
+
+//void GLUtil::Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix, float* projMatrix)
+//{
+//	float x = pos3D[0];
+//	float y = pos3D[1];
+//	float z = pos3D[2];
+//
+//	float* a = modelMatrix;
+//	float* b = projMatrix;
+//
+//	float xWPos = a[0]*x + a[4]*y + a[8]*z + a[12];
+//	float yWPos = a[1]*x + a[5]*y + a[9]*z + a[13];
+//	float zWPos = a[2]*x + a[6]*y + a[10]*z + a[14];
+//
+//	x = xWPos;
+//	y = yWPos;
+//	z = zWPos;
+//
+//	float xOnNear = b[0]*x + b[4]*y + b[8]*z + b[12];
+//	float yOnNear = b[1]*x + b[5]*y + b[9]*z + b[13];
+//	float zOnNear = b[2]*x + b[6]*y + b[10]*z + b[14];
+//
+//	pos2D[0] = ( xOnNear + 1) * SW * 0.5;
+//	pos2D[1] = SH - ( yOnNear + 1) * SH * 0.5;
+//}

@@ -75,8 +75,8 @@ public:
 	FLModel(string folderPath, float* mat);
 	~FLModel();
 
-	void Save();
-	void Save(string folderPath);
+	void Write();
+	void Write(string folderPath);
 
 	float* GetVerticesPointer();
 	unsigned int GetNumVertices();

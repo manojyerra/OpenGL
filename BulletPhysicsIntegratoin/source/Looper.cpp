@@ -40,16 +40,16 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	FLModel* model = _modelsMgr->Add("data/barrel", 0.0f, 0.0f, 0.0f);
 	
-	PhyManager::GetInstance();
+	//PhyManager::GetInstance();
 
-	_floorBox = new PhyBox(0,-0.5,0, 10,1,10, 0);
-	_phyBox = new PhyBox(0,10,0, 1,1,1, 1);
+	//_floorBox = new PhyBox(0,-0.5,0, 10,1,10, 0);
+	//_phyBox = new PhyBox(0,10,0, 1,1,1, 1);
 
 	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
 
-	shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
+	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
 
-	model->AddBoundingShape(shape);
+	//model->AddBoundingShape(shape);
 
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);
 
@@ -105,8 +105,8 @@ void Looper::Draw(float deltaTime)
 	_modelsMgr->Draw();
 	_floor->Draw();
 	
-	_floorBox->Draw();
-	_phyBox->Draw();
+	//_floorBox->Draw();
+	//_phyBox->Draw();
 	
 	UpdateDrawRect();
 
@@ -325,4 +325,3 @@ Looper::~Looper()
 
 	SUIQuit();
 }
-

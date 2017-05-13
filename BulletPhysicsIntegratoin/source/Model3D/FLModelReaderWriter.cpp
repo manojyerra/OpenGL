@@ -20,6 +20,8 @@ FLModelReaderWriter::FLModelReaderWriter(FLModelBoundingShapes* boundingShapes)
 
 void FLModelReaderWriter::Load(string folderPath)
 {
+	_folderPath = folderPath;
+
 	if(CFileReader::IsFileExists(folderPath+"/vertex.buf"))
 	{
 		CFileReader* fileReader = new CFileReader(folderPath+"/vertex.buf", "rb");
@@ -70,7 +72,7 @@ void FLModelReaderWriter::Load(string folderPath)
 	delete imgBuf;
 
 
-	FILE* aabbFile = fopen( GetBBoxFilePath(folderPath).c_str(), "r" );
+	FILE* aabbFile = fopen( GetAABBFilePath(folderPath).c_str(), "r" );
 
 	if(aabbFile == NULL)
 	{
@@ -90,7 +92,6 @@ void FLModelReaderWriter::Load(string folderPath)
 		_aabb.SetSize(size.x, size.y, size.z);
 	}
 
-
 	FILE* matFile = fopen( GetOrientationFilePath(folderPath).c_str(), "r" );
 
 	float* m = _mat.m;
@@ -100,13 +101,87 @@ void FLModelReaderWriter::Load(string folderPath)
 		ReadMatrixFromFile(matFile, m);
 		fclose(matFile);
 	}
+
+	ReadBoundingShapesInfo(folderPath, _boundingShapes);
 }
 
+void FLModelReaderWriter::ReadBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes)
+{
+	string boundingFilePath = GetBoundingShapesFilePath(folderPath);
 
-string FLModelReaderWriter::GetBBoxFilePath(string folderPath)				{ return folderPath+"/bbox.txt";			}
+	if(CFileReader::IsFileExists(boundingFilePath))
+	{
+		CFileReader* fileReader = new CFileReader(boundingFilePath, "r");
+
+		char* line = NULL;
+
+		while( (line = fileReader->ReadLine()) != NULL)
+		{
+			string str(line);
+
+			if(str.length() > 3 && str[0]=='B' && str[1]=='o'&& str[2]=='x')
+			{
+				float w = 0;
+				float h = 0;
+				float d = 0;
+
+				sscanf(line, "Box %f %f %f\n", &w, &h, &d);
+
+				float mat[16];
+				
+				ReadMatrixFromCFileReader(fileReader, mat);
+
+				boundingShapes->AddBoundingBox(w, h, d, mat);
+			}
+			else if(str.length() > 8 && str[0]=='C' && str[1]=='y'&& str[2]=='l' && str[3] == 'i')
+			{
+				float r = 0;
+				float h = 0;
+
+				sscanf(line, "Cylinder %f %f\n", &r, &h);
+
+				float mat[16];
+				
+				ReadMatrixFromCFileReader(fileReader, mat);
+
+				boundingShapes->AddBoudningCylinder(r, h, mat);
+			}
+			else if(str.length() > 8 && str[0]=='C' && str[1]=='o'&& str[2]=='n' && str[3] == 'e')
+			{
+				float r = 0;
+				float h = 0;
+
+				sscanf(line, "Cone %f %f\n", &r, &h);
+
+				float mat[16];
+				
+				ReadMatrixFromCFileReader(fileReader, mat);
+
+				boundingShapes->AddBoundingCone(r, h, mat);
+			}
+			else if(str.length() > 8 && str[0]=='S' && str[1]=='p'&& str[2]=='h' && str[3] == 'e')
+			{
+				float r = 0;
+
+				sscanf(line, "Sphere %f\n", &r);
+
+				float mat[16];
+				
+				ReadMatrixFromCFileReader(fileReader, mat);
+
+				boundingShapes->AddBoundingSphere(r, mat);
+			}
+
+			free(line);
+		}
+
+		delete fileReader;
+	}
+}
+
+string FLModelReaderWriter::GetAABBFilePath(string folderPath)				{ return folderPath+"/aabb.txt";			}
 string FLModelReaderWriter::GetBoundingShapesFilePath(string folderPath)	{ return folderPath+"/boundingShapes.txt";	}
 string FLModelReaderWriter::GetOrientationFilePath(string folderPath)		{ return folderPath+"/transformation.txt";	}
-
 
 unsigned char* FLModelReaderWriter::GetVerticesPointer()	{ return _verticesPointer;	}
 unsigned char* FLModelReaderWriter::GetTexCoordsPointer()	{ return _uvsPointer;		}
@@ -121,20 +196,19 @@ unsigned int FLModelReaderWriter::GetTextureID()			{ return _textureID;		}
 GLMat FLModelReaderWriter::GetMat()							{ return _mat;				}
 Box FLModelReaderWriter::GetAABB()							{ return _aabb;				}
 
-
-void FLModelReaderWriter::Save()
+void FLModelReaderWriter::Write()
 {
-	Save(_folderPath);
+	Write(_folderPath);
 }
 
-void FLModelReaderWriter::Save(string folderPath)
+void FLModelReaderWriter::Write(string folderPath)
 {
-	SaveOrientation(folderPath, _mat.m);
-	SaveBBoxInfo(folderPath, _aabb);
-	SaveBoundingShapesInfo(folderPath, _boundingShapes);
+	WriteOrientation(folderPath, _mat.m);
+	WriteAABBInfo(folderPath, _aabb);
+	WriteBoundingShapesInfo(folderPath, _boundingShapes);
 }
 
-void FLModelReaderWriter::SaveOrientation(string folderPath, float* mat)
+void FLModelReaderWriter::WriteOrientation(string folderPath, float* mat)
 {
 	FILE* matFile = fopen(GetOrientationFilePath(folderPath).c_str(), "w");
 	
@@ -144,9 +218,9 @@ void FLModelReaderWriter::SaveOrientation(string folderPath, float* mat)
 	fclose(matFile);
 }
 
-void FLModelReaderWriter::SaveBBoxInfo(string folderPath, Box aabb)
+void FLModelReaderWriter::WriteAABBInfo(string folderPath, Box aabb)
 {
-	FILE* bBoxFile = fopen( GetBBoxFilePath(folderPath).c_str(), "w" );
+	FILE* bBoxFile = fopen( GetAABBFilePath(folderPath).c_str(), "w" );
 	
 	CVector3 pos = aabb.GetPos();
 	CVector3 size = aabb.GetSize();
@@ -157,7 +231,7 @@ void FLModelReaderWriter::SaveBBoxInfo(string folderPath, Box aabb)
 	fclose(bBoxFile);
 }
 
-void FLModelReaderWriter::SaveBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes)
+void FLModelReaderWriter::WriteBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes)
 {
 	FILE* bShapesFile = fopen( GetBoundingShapesFilePath(folderPath).c_str(), "w" );
 
@@ -171,58 +245,40 @@ void FLModelReaderWriter::SaveBoundingShapesInfo(string folderPath, FLModelBound
 		{
 			Box* box = (Box*)shape;
 
-			CVector3 pos = box->GetPos();
 			CVector3 size = box->GetSize();
 
-			fprintf(bShapesFile, "Box %f %f %f %f %f %f\n", pos.x, pos.y, pos.z, size.x, size.y, size.z);
+			fprintf(bShapesFile, "Box %f %f %f\n", size.x, size.y, size.z);
 			WriteMatrixToFile(bShapesFile, mat);
 		}
 		else if(shape->GetID() == Shape::CYLINDER)
 		{
 			Cylinder* cylinder = (Cylinder*)shape;
 
-			CVector3 pos = cylinder->GetPos();
 			float r = cylinder->GetRadius();
 			float h = cylinder->GetHeight();
 
-			fprintf(bShapesFile, "Cylinder %f %f %f %f %f\n", pos.x, pos.y, pos.z, r, h);
+			fprintf(bShapesFile, "Cylinder %f %f\n", r, h);
 			WriteMatrixToFile(bShapesFile, mat);
 		}
 		else if(shape->GetID() == Shape::CONE)
 		{
 			Cone* cone = (Cone*)shape;
 
-			CVector3 pos = cone->GetPos();
 			float r = cone->GetRadius();
 			float h = cone->GetHeight();
 
-			fprintf(bShapesFile, "Cone %f %f %f %f %f\n", pos.x, pos.y, pos.z, r, h);
+			fprintf(bShapesFile, "Cone %f %f\n", r, h);
 			WriteMatrixToFile(bShapesFile, mat);
 		}
 		else if(shape->GetID() == Shape::SPHERE)
 		{
 			Sphere* sphere = (Sphere*)shape;
 
-			CVector3 pos = sphere->GetPos();
 			float r = sphere->GetRadius();
 			
-			fprintf(bShapesFile, "Sphere %f %f %f %f\n", pos.x, pos.y, pos.z, r);
+			fprintf(bShapesFile, "Sphere %f\n", r);
 			WriteMatrixToFile(bShapesFile, mat);
 		}
-	}
-}
-
-void FLModelReaderWriter::LoadBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes)
-{
-	string boundingFilePath = GetBoundingShapesFilePath(folderPath);
-
-	if(CFileReader::IsFileExists(boundingFilePath))
-	{
-		CFileReader* fileReader = new CFileReader(boundingFilePath, "r");
-
-
-
-		delete fileReader;
 	}
 }
 
@@ -240,6 +296,30 @@ void FLModelReaderWriter::ReadMatrixFromFile(FILE* matFile, float* m)
 	fscanf(matFile, "%f %f %f %f\n",&m[4], &m[5], &m[6], &m[7]);
 	fscanf(matFile, "%f %f %f %f\n",&m[8], &m[9], &m[10],&m[11]);
 	fscanf(matFile, "%f %f %f %f\n",&m[12],&m[13],&m[14],&m[15]);
+}
+
+void FLModelReaderWriter::ReadMatrixFromVectorLines(vector<string>* vecLines, float* m)
+{
+	sscanf(vecLines->at(0).c_str(), "%f %f %f %f\n",&m[0], &m[1], &m[2], &m[3]);
+	sscanf(vecLines->at(1).c_str(), "%f %f %f %f\n",&m[4], &m[5], &m[6], &m[7]);
+	sscanf(vecLines->at(2).c_str(), "%f %f %f %f\n",&m[8], &m[9], &m[10],&m[11]);
+	sscanf(vecLines->at(3).c_str(), "%f %f %f %f\n",&m[12],&m[13],&m[14],&m[15]);
+}
+
+void FLModelReaderWriter::ReadMatrixFromCFileReader(CFileReader* fileReader, float* mat)
+{
+	vector<string> vecLines;
+	char* line1;
+	char* line2;
+	char* line3;
+	char* line4;
+
+	vecLines.push_back( (line1 = fileReader->ReadLine()) ); free(line1);
+	vecLines.push_back( (line2 = fileReader->ReadLine()) ); free(line2);
+	vecLines.push_back( (line3 = fileReader->ReadLine()) ); free(line3);
+	vecLines.push_back( (line4 = fileReader->ReadLine()) ); free(line4);
+
+	ReadMatrixFromVectorLines(&vecLines, mat);
 }
 
 FLModelReaderWriter::~FLModelReaderWriter()

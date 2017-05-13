@@ -11,6 +11,7 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Cone.h"
 #include "Shapes3D/Sphere.h"
+#include "CFileReader.h"
 
 #include "FLModelBoundingShapes.h"
 
@@ -41,12 +42,15 @@ private:
 	FLModelBoundingShapes* _boundingShapes;
 
 	void WriteMatrixToFile(FILE* matFile, float* mat);
-	void ReadMatrixFromFile(FILE* matFile, float* mat);
 
-	string GetBBoxFilePath(string folderPath);
+	void ReadMatrixFromFile(FILE* matFile, float* mat);
+	void ReadMatrixFromVectorLines(vector<string>* vecLines, float* mat);
+	void ReadMatrixFromCFileReader(CFileReader* fileReader, float* mat);
+	void ReadBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes);
+
+	string GetAABBFilePath(string folderPath);
 	string GetOrientationFilePath(string folderPath);
-	string GetBoundingShapesFilePath(string folderPath);
-	void LoadBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes);
+	string GetBoundingShapesFilePath(string folderPath);	
 
 public:
 	FLModelReaderWriter(FLModelBoundingShapes* boundingShapes);
@@ -67,11 +71,11 @@ public:
 	GLMat GetMat();
 	Box GetAABB();
 
-	void Save();
-	void Save(string folderPath);
-	void SaveOrientation(string folderPath, float* mat);
-	void SaveBBoxInfo(string folderPath, Box aabb);
-	void SaveBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes);
+	void Write();
+	void Write(string folderPath);
+	void WriteOrientation(string folderPath, float* mat);
+	void WriteAABBInfo(string folderPath, Box aabb);
+	void WriteBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes);
 };
 
 #endif
