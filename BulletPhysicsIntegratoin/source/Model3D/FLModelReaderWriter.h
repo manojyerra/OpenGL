@@ -71,8 +71,6 @@ public:
 	GLMat GetMat();
 	Box GetAABB();
 
-	void Write();
-	void Write(string folderPath);
 	void WriteOrientation(string folderPath, float* mat);
 	void WriteAABBInfo(string folderPath, Box aabb);
 	void WriteBoundingShapesInfo(string folderPath, FLModelBoundingShapes* boundingShapes);

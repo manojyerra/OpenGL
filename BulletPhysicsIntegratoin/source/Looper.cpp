@@ -27,18 +27,19 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	_modelsMgr = new ModelsManager();
 
-	for(int j=0; j<50; j+=25)
-	{
-		for(int i=0; i<50; i+=25)
-		{
-			if(rand()%2 == 0)
-				_modelsMgr->Add("data/cat", -40.0f+i, 0.0f, -40.0f+j);
-			else
-				_modelsMgr->Add("data/barrel", -40.0f+i, 0.0f, -40.0f+j);
-		}
-	}
+	//for(int j=0; j<50; j+=25)
+	//{
+	//	for(int i=0; i<50; i+=25)
+	//	{
+	//		if(rand()%2 == 0)
+	//			_modelsMgr->Add("data/cat", -40.0f+i, 0.0f, -40.0f+j);
+	//		else
+	//			_modelsMgr->Add("data/barrel", -40.0f+i, 0.0f, -40.0f+j);
+	//	}
+	//}
 
-	FLModel* model = _modelsMgr->Add("data/barrel", 0.0f, 0.0f, 0.0f);
+	_modelsMgr->Add("data/barrel");
+	_modelsMgr->Add("data/cat");
 	
 	//PhyManager::GetInstance();
 
@@ -46,9 +47,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 	//_phyBox = new PhyBox(0,10,0, 1,1,1, 1);
 
 	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
-
 	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
-
 	//model->AddBoundingShape(shape);
 
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);

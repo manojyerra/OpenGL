@@ -196,17 +196,6 @@ unsigned int FLModelReaderWriter::GetTextureID()			{ return _textureID;		}
 GLMat FLModelReaderWriter::GetMat()							{ return _mat;				}
 Box FLModelReaderWriter::GetAABB()							{ return _aabb;				}
 
-void FLModelReaderWriter::Write()
-{
-	Write(_folderPath);
-}
-
-void FLModelReaderWriter::Write(string folderPath)
-{
-	WriteOrientation(folderPath, _mat.m);
-	WriteAABBInfo(folderPath, _aabb);
-	WriteBoundingShapesInfo(folderPath, _boundingShapes);
-}
 
 void FLModelReaderWriter::WriteOrientation(string folderPath, float* mat)
 {

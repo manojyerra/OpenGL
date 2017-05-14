@@ -129,12 +129,14 @@ void FLModel::Reset(string folderPath, float* mat)
 
 void FLModel::Write()
 {
-	_flmReaderWriter->Write();
+	Write(_folderPath);
 }
 
 void FLModel::Write(string folderPath)
 {
-	_flmReaderWriter->Write(folderPath);
+	_flmReaderWriter->WriteAABBInfo(folderPath, _aabb);
+	_flmReaderWriter->WriteOrientation(folderPath, GetMat().m);
+	_flmReaderWriter->WriteBoundingShapesInfo(folderPath, _boundingShapes);
 }
 
 float* FLModel::GetVerticesPointer()
