@@ -14,10 +14,33 @@
 #define new DEBUG_CLIENTBLOCK
 #endif
 
+#include "MemTrace.h"
+#include "TestClass.h"
+
 int main()
 {
-	int* pBuffer = new int[100];
-	void* leak = malloc(222);
-	_CrtDumpMemoryLeaks();
+	TestClass* testClass = (TestClass*)newTrace( TestClass(10,20,30) );
+	
+	deleteTrace( testClass );
+
+	//delete testClass;
+
+	//TestClass* testClass = new TestClass();
+	//delete testClass;
+
+	//int* arr = new int[100];
+	//delete arr;
+
+	int* arr1 = (int*)newTrace(int[100]);
+
+	//deleteTrace( arr1 );
+
+	MemTrace::ReportMemoryLeaks();
+
+	//_CrtDumpMemoryLeaks();
 	return 0;
 }
+
+
+//int* pBuffer = new int[100];
+//void* leak = malloc(222);
