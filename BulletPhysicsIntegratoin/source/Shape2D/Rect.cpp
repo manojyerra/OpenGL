@@ -1,6 +1,4 @@
 #include "Rect.h"
-#include <windows.h>
-#include <gl/gl.h>
 #include "Util/GLUtil.h"
 
 Rect::Rect()

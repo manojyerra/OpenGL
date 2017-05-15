@@ -1,6 +1,7 @@
 #ifndef FLModelBoundingShapes_H
 #define FLModelBoundingShapes_H
 
+#include "DefinesAndIncludes.h"
 #include "Util/GLUtil.h"
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
@@ -11,11 +12,8 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Cone.h"
 #include "Shapes3D/Sphere.h"
-
 #include "FLModelBorder.h"
 
-#include <windows.h>
-#include <gl/gl.h>
 #include <vector>
 #include <string>
 using namespace std;

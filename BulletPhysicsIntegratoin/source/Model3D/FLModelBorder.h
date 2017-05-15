@@ -1,11 +1,9 @@
 #ifndef FLModelBorder_H
 #define FLModelBorder_H
 
+#include "DefinesAndIncludes.h"
 #include "Util/GL2DState.h"
 #include "Shape2D/Rect.h"
-
-#include <windows.h>
-#include <gl/gl.h>
 #include <vector>
 #include <string>
 using namespace std;

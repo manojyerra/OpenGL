@@ -172,20 +172,6 @@ float SUIFont::GetLength(string text, float fontSize)
 	return (x);
 }
 
-//void SUIFont::Draw(int number, float xPos, float yPos, float fontSize)
-//{
-//	char str[64];
-//	sprintf(str,"%d",number);
-//	Draw(str, xPos, yPos, fontSize);
-//}
-//
-//void SUIFont::Draw(char ch, float xPos, float yPos, float fontSize)
-//{
-//	string str="";
-//	str += ch;
-//	Draw(str, xPos, yPos, fontSize);
-//}
-
 void SUIFont::EnableBatch()
 {
 	_data->glBegin(GL_TRIANGLES);

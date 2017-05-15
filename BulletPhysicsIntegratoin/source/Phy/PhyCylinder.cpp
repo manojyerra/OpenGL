@@ -1,9 +1,6 @@
 #include "PhyCylinder.h"
 #include "PhyManager.h"
-//#include "Sui/Sui.h"
-
-#include <windows.h>
-#include <gl/gl.h>
+#include "DefinesAndIncludes.h"
 
 PhyCylinder::PhyCylinder(float x, float y, float z, float r, float h, float massVal)
 {

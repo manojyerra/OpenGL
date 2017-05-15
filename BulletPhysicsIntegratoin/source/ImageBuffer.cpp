@@ -1,7 +1,6 @@
 #include "ImageBuffer.h"
 #include "PNG/PNGReadWrite.h"
-#include <windows.h>
-#include <gl/gl.h>
+#include "DefinesAndIncludes.h"
 
 ImageBuffer::ImageBuffer(string imagePath)
 {

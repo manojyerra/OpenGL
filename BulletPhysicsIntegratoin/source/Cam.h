@@ -1,9 +1,7 @@
 #ifndef Cam_H
 #define Cam_H
-#pragma once
 
-#include <windows.h>
-#include <gl/gl.h>
+#include "DefinesAndIncludes.h"
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
 
@@ -57,9 +55,6 @@ public:
 	void SetBottomView();
 
 	void ChangeView();
-
-	//void Get2DPosOnScreenFrom3DPos(float* pos3D, float* pos2D, float* modelMatrix);
-	//vector<CVector3> Get2DPosOnScreenFrom3DPos(vector<CVector3>* pos3DVec, float* modelMatrix);
 };
 
 #endif

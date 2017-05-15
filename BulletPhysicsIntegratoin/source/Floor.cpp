@@ -1,6 +1,4 @@
 #include "Floor.h"
-#include <windows.h>
-#include <gl/gl.h>
 #include "Util/GLUtil.h"
 
 Floor::Floor()

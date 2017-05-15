@@ -1,18 +1,12 @@
 #ifndef GLUtil_H
 #define GLUtil_H
-#pragma once
 
-#include <windows.h>
-#include <gl/gl.h>
+#include "DefinesAndIncludes.h"
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
 
 #include <vector>
 using namespace std;
-
-#define glColor(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
-#define glColorA(c,a) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, a)
-
 
 class GLUtil
 {

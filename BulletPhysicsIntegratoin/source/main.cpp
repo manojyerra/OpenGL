@@ -2,11 +2,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-//#include "vld.h"
-#include <windows.h>
-#include <gl/gl.h>
-#include <stdio.h>
-
+#include "DefinesAndIncludes.h"
 #include "Looper.h"
 #include "Input.h"
 
@@ -223,10 +219,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		int errorID = glGetError();
 		if(errorID != GL_NO_ERROR)
-			printf("Error in GL %d", errorID);
+			writeConsole("Error in GL %d", errorID);
 
 		if(SwapBuffers(hDC) == FALSE)
-			printf("Error in SwapBuffers...");
+			writeConsole("Error in SwapBuffers...");
 
 		if(GetTickCount() - startTime >= 500)
 		{
@@ -248,8 +244,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	DeleteContext();
 	DestroyWindow();
-
-	//VLDReportLeaks();
 
     return msg.wParam;
 }

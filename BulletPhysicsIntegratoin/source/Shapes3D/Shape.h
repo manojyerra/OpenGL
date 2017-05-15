@@ -1,11 +1,8 @@
 #ifndef Shape_H
 #define Shape_H
 
-#include <windows.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
-
-#include "../Math/Vector3.h"
+#include "DefinesAndIncludes.h"
+#include "Math/Vector3.h"
 
 class Shape
 {

@@ -1,6 +1,7 @@
 #ifndef FLModel_H
 #define FLModel_H
 
+#include "DefinesAndIncludes.h"
 #include "Util/GLUtil.h"
 #include "Math/GLMat.h"
 #include "Math/Vector3.h"
@@ -13,8 +14,6 @@
 #include "FLModelBorder.h"
 #include "FLModelBoundingShapes.h"
 
-#include <windows.h>
-#include <gl/gl.h>
 #include <vector>
 #include <string>
 using namespace std;

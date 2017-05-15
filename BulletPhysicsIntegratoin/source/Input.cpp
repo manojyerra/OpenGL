@@ -1,7 +1,6 @@
 #include "Input.h"
 #include "math.h"
-#include <windows.h>
-
+#include "DefinesAndIncludes.h"
 
 int Input::MX = 0;
 int Input::MY = 0;

@@ -1,9 +1,9 @@
 #ifndef Box_H
 #define Box_H
 
+#include "DefinesAndIncludes.h"
 #include "Shape.h"
-#include "../Util/RandomColor.h"
-
+#include "Util/RandomColor.h"
 
 class Box : public Shape
 {

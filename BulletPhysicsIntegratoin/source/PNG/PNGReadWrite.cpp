@@ -215,7 +215,6 @@ bool PNGReadWrite::Write(unsigned char* rawData, int width, int height, int bits
 
 bool PNGReadWrite::BeginWrite(unsigned char* rawData, int width, int height, int bitsPerPixel, const char *savePath)
 {
-	printf("PNG writing started...");
 	png_ptr = NULL;
 	info_ptr = NULL;
 	row_pointers = NULL;
@@ -329,7 +328,6 @@ int PNGReadWrite::WritePercent(float percent)
 
 			if(currPercent - prevPercent >= percent)
 			{
-				printf("\n WritePercent : %f", currPercent);
 				prevPercent = currPercent;
 				return (int)currPercent;
 			}
@@ -349,6 +347,4 @@ void PNGReadWrite::EndWrite()
 	png_free (png_ptr, row_pointers);
 	png_destroy_write_struct (&png_ptr, &info_ptr);
 	fclose (fpToWrite);
-
-	printf("PNG writing ended...");
 }

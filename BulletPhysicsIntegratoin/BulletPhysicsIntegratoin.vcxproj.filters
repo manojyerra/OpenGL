@@ -80,6 +80,9 @@
     <Filter Include="source\Model3D">
       <UniqueIdentifier>{59d4ecb6-9b9b-4b03-956e-879b29837094}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\UIFrames">
+      <UniqueIdentifier>{e2cfcc6b-4e9d-4518-a1f7-30eb39bbe672}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CFileReader.cpp">
@@ -282,12 +285,6 @@
     </ClCompile>
     <ClCompile Include="source\SUI\SUISlider.cpp">
       <Filter>source\SUI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MainFrame.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModelPropsFrame.cpp">
-      <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Util\GL2DState.cpp">
       <Filter>source\Util</Filter>
@@ -757,6 +754,18 @@
     <ClCompile Include="source\Model3D\FLModelBoundingShapes.cpp">
       <Filter>source\Model3D</Filter>
     </ClCompile>
+    <ClCompile Include="source\UIFrames\MainFrame.cpp">
+      <Filter>source\UIFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIFrames\ModelPropsFrame.cpp">
+      <Filter>source\UIFrames</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MemTrace.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DefinesAndIncludes.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -920,12 +929,6 @@
     </ClInclude>
     <ClInclude Include="source\SUI\SUISlider.h">
       <Filter>source\SUI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MainFrame.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModelPropsFrame.h">
-      <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\Util\GL2DState.h">
       <Filter>source\Util</Filter>
@@ -1631,6 +1634,18 @@
     </ClInclude>
     <ClInclude Include="source\Model3D\FLModelBoundingShapes.h">
       <Filter>source\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIFrames\MainFrame.h">
+      <Filter>source\UIFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIFrames\ModelPropsFrame.h">
+      <Filter>source\UIFrames</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MemTrace.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DefinesAndIncludes.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

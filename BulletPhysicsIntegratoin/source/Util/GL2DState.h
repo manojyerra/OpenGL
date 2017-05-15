@@ -2,8 +2,7 @@
 #define GL2DState_H
 #pragma once
 
-#include <windows.h>
-#include <gl/gl.h>
+#include "DefinesAndIncludes.h"
 
 class GL2DState
 {

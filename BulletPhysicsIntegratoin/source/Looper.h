@@ -13,8 +13,8 @@
 #include "SUI/SUIInput.h"
 #include "SUI/SUIActionListener.h"
 
-#include "MainFrame.h"
-#include "ModelPropsFrame.h"
+#include "UIFrames/MainFrame.h"
+#include "UIFrames/ModelPropsFrame.h"
 #include "Pointer3D.h"
 #include "Floor.h"
 

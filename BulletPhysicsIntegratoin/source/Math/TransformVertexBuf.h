@@ -1,6 +1,7 @@
 #ifndef TransformVertexBuf_H
 #define TransformVertexBuf_H
 
+#include "DefinesAndIncludes.h"
 #include "Vector3.h"
 
 class TransformVertexBuf

@@ -1,8 +1,9 @@
 #ifndef Cylinder_H
 #define Cylinder_H
 
+#include "DefinesAndIncludes.h"
 #include "Shape.h"
-#include "../Util/RandomColor.h"
+#include "Util/RandomColor.h"
 
 class Cylinder : public Shape
 {

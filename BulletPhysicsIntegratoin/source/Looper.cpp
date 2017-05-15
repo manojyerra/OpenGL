@@ -6,9 +6,8 @@
 #include "Math/TransformVertexBuf.h"
 #include "math.h"
 #include "Cam.h"
+#include "DefinesAndIncludes.h"
 
-#include <windows.h>
-#include <gl/gl.h>
 
 Looper::Looper(int windowWidth, int windowHeight)
 {

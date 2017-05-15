@@ -1,10 +1,6 @@
 #ifndef IMAGE_BUFFER_H
 #define IMAGE_BUFFER_H
 
-//#include "SuiIncludes.h"
-//#include "Sui/SuiRect.h"
-//#include "MathLib/Point.h"
-
 #include <string>
 #include <vector>
 
