@@ -207,7 +207,7 @@ void SUIManager::Update()
 				_activeFrame->ResetBounds();
 			}
 		}
-		else if(SUIInput::IsScrolled())
+		else if(SUIInput::IsScrolled() && _activeFrame->Contains(mx, my))
 		{
 			_activeFrame->UpdateByInput();
 		}
