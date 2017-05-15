@@ -8,6 +8,7 @@
 #include "SUI/SUIButton.h"
 #include "SUI/SUILabel.h"
 #include "SUI/SUIChoice.h"
+#include "SUI/SUITextField.h"
 #include "SUI/SUIBox.h"
 
 #include "Cam.h"

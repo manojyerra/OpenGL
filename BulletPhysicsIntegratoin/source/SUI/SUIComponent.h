@@ -65,6 +65,7 @@ public:
 	static const int SLIDER = 7;
 	static const int SUI_CHOICE = 8;
 	static const int SUI_LIST = 9;
+	static const int TEXTFIELD = 10;
 
 	SUIComponent(int id);
 	virtual ~SUIComponent();

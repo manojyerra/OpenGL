@@ -56,7 +56,6 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 	isMouseReleased = false;
 	isMouseDoubleClicked = false;
 
-
 	for(int i=0;i<256;i++)	prevKeyStates[i] = currKeyStates[i];
 	for(int i=0;i<256;i++)	currKeyStates[i] =  GetKeyState(i);
 
@@ -179,6 +178,20 @@ bool SUIInput::IsKeyTyped(int key)		{ return (bool)(!(prevKeyStates[key]&0x80)  
 bool SUIInput::IsKeyReleased(int key)	{ return (bool)((prevKeyStates[key]&0x80)  && !(currKeyStates[key]&0x80) );}
 bool SUIInput::IsKeyPressed(int key)	{ return (bool)( (currKeyStates[key]&0x80) && true ); }
 bool SUIInput::IsKeyPressedStill(int key, float time) { return (IsKeyPressed(key) && timeCountForKeyPress[key] > time); }
+
+int SUIInput::GetReleasedKey()
+{
+	for(int i=0;i<256;i++)
+	{
+		if(prevKeyStates[i] != currKeyStates[i])
+		{
+			if(IsKeyReleased(i))
+				return i;
+		}
+	}
+
+	return 0;
+}
 
 bool SUIInput::IsMousePressed()			{ return isMousePressed;	}
 bool SUIInput::IsMouseReleased()		{ return isMouseReleased;	}

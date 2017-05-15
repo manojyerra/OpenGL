@@ -766,6 +766,9 @@
     <ClCompile Include="source\DefinesAndIncludes.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\SUI\SUITextField.cpp">
+      <Filter>source\SUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -1646,6 +1649,9 @@
     </ClInclude>
     <ClInclude Include="source\DefinesAndIncludes.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SUI\SUITextField.h">
+      <Filter>source\SUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

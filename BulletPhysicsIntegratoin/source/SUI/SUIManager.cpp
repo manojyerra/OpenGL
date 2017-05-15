@@ -197,7 +197,8 @@ void SUIManager::Update()
 
 	if(_activeFrame && !_activeFrame->IsMinimized())
 	{
-		if(	SUIInput::IsMouseClicked()  || SUIInput::IsMousePressed() || SUIInput::IsMouseReleased())
+		if(	SUIInput::IsMouseClicked()  || SUIInput::IsMousePressed() || 
+			SUIInput::IsMouseReleased() || SUIInput::GetReleasedKey() != 0)
 		{
 			SUIComponent* com = _activeFrame->getComponentAt(mx, my);
 		

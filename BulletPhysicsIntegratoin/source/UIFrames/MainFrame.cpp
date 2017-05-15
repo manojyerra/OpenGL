@@ -25,6 +25,8 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_frame->Add( showBoundBox = new SUICheckBox("Show Bounding Box", SUICheckBox::CENTER, this) );
 	_frame->Add( onBorder = new SUICheckBox("Selected Object Border", SUICheckBox::CENTER, this) );
 
+	_frame->Add( new SUITextField("a", SUICheckBox::LEFT, this) );
+
 	showMarkedObjs->SetSelect(true);
 	showUnmarkedObjs->SetSelect(true);
 	onBorder->SetSelect(true);
