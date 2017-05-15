@@ -12,10 +12,19 @@ Cam* Cam::GetInstance()
 {
 	if(_ref == NULL)
 	{
-		_ref = new Cam();
+		_ref = (Cam*)newTrace (Cam());
 	}
 
 	return _ref;
+}
+
+void Cam::DeleteInstance()
+{
+	if(_ref)
+	{
+		deleteTrace(_ref);
+		_ref = NULL;
+	}
 }
 
 void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW)
@@ -208,4 +217,3 @@ void Cam::ChangeView()
 	else if(_viewType == 4) SetTopView();
 	else if(_viewType == 5) SetBottomView();
 }
-

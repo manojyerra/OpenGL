@@ -36,6 +36,8 @@ private:
 
 public:
 	static Cam* GetInstance();
+	static void DeleteInstance();
+
 	void Init(int screenW, int screenH, float zNear, float zFar, float zNearPlaneW);
 
 	void SetProjection();

@@ -36,7 +36,7 @@ public:
 	void glColor4ub(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 	void glColor4f(float r, float g, float b, float a);
 
-    void glColor(unsigned int color);
+    void glColorui(unsigned int color);
 	void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
 	void glTexCoord2f(GLfloat u, GLfloat v);
 	void glNormal3f(GLfloat x, GLfloat y, GLfloat z);

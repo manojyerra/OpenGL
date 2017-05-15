@@ -12,10 +12,10 @@ SUIBatch::SUIBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPres
 	_colorArr = NULL;
 	_normalArr = NULL;
 
-	_vertexArr = new GLfloat[_capacity*3];
-	if(colorDataPresent)	_colorArr = new GLubyte[_capacity*4];
-	if(uvDataPresent)		_uvArr = new GLfloat[_capacity*2];
-	if(normalsDataPresent)	_normalArr = new GLfloat[_capacity*3];
+	_vertexArr							= (GLfloat*)mallocTrace(_capacity*3*sizeof(GLfloat));
+	if(colorDataPresent)	_colorArr	= (GLubyte*)mallocTrace(_capacity*4*sizeof(GLubyte));
+	if(uvDataPresent)		_uvArr		= (GLfloat*)mallocTrace(_capacity*2*sizeof(GLfloat));
+	if(normalsDataPresent)	_normalArr	= (GLfloat*)mallocTrace(_capacity*3*sizeof(GLfloat));
 
 	_r = (GLubyte)255;
 	_g = (GLubyte)255;
@@ -40,20 +40,20 @@ void SUIBatch::ReCreateMem()
 	GLfloat* newUVArr = NULL;
 	GLfloat* newNormalArr = NULL;
 
-	if(_vertexArr)	newVertexArr = new GLfloat[newCapacity*3];
-	if(_colorArr)	newColorArr = new GLubyte[newCapacity*4];
-	if(_uvArr)		newUVArr = new GLfloat[newCapacity*2];
-	if(_normalArr)	newNormalArr = new GLfloat[newCapacity*3];
+	if(_vertexArr)	newVertexArr	= (GLfloat*)mallocTrace(newCapacity*3*sizeof(GLfloat));
+	if(_colorArr)	newColorArr		= (GLubyte*)mallocTrace(newCapacity*4*sizeof(GLubyte));
+	if(_uvArr)		newUVArr		= (GLfloat*)mallocTrace(newCapacity*2*sizeof(GLfloat));
+	if(_normalArr)	newNormalArr	= (GLfloat*)mallocTrace(newCapacity*3*sizeof(GLfloat));
 
 	if(_vertexArr)	memcpy(newVertexArr,	_vertexArr,		_capacity*3*4);
 	if(_colorArr)	memcpy(newColorArr,		_colorArr,		_capacity*4*1);
 	if(_uvArr)		memcpy(newUVArr,		_uvArr,			_capacity*2*4);
 	if(_normalArr)	memcpy(newNormalArr,	_normalArr,		_capacity*3*4);
 
-	if(_vertexArr)	delete[] _vertexArr;
-	if(_colorArr)	delete[] _colorArr;
-	if(_uvArr)		delete[] _uvArr;
-	if(_normalArr)	delete[] _normalArr;
+	if(_vertexArr)	freeTrace(_vertexArr);
+	if(_colorArr)	freeTrace(_colorArr	);
+	if(_uvArr)		freeTrace(_uvArr	);
+	if(_normalArr)	freeTrace(_normalArr);
 
 	_vertexArr = newVertexArr;
 	_colorArr = newColorArr;
@@ -69,7 +69,7 @@ void SUIBatch::glBegin(GLenum mode)
 	_count = 0;
 }
 
-void SUIBatch::glColor(unsigned int color)
+void SUIBatch::glColorui(unsigned int color)
 {
     _r	= (color >> 24) & 255;
 	_g	= (color >> 16) & 255;
@@ -181,8 +181,8 @@ unsigned int SUIBatch::GetCount()
 
 SUIBatch::~SUIBatch()
 {
-	if(_vertexArr)	delete[] _vertexArr;
-	if(_colorArr)	delete[] _colorArr;
-	if(_uvArr)		delete[] _uvArr;
-	if(_normalArr)	delete[] _normalArr;
+	if(_vertexArr)	freeTrace(_vertexArr);
+	if(_colorArr)	freeTrace(_colorArr	);
+	if(_uvArr)		freeTrace(_uvArr	);
+	if(_normalArr)	freeTrace(_normalArr);
 }
