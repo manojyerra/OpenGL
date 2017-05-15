@@ -28,6 +28,7 @@ bool Input::PREV_MIDDLE_BUTTON_DOWN = false;
 bool Input::MIDDLE_BUTTON_DOWN = false;
 
 int Input::SCROLL_STATE = Input::SCROLL_NONE; 
+int Input::SCROLL_STATE_STORE = Input::SCROLL_NONE;
 
 bool Input::isMouseClicked = false;
 bool Input::isMousePressed = false;
@@ -80,6 +81,9 @@ void Input::Update(float deltaTime)
 	isMousePressed = false;
 	isMouseReleased = false;
 	isMouseDoubleClicked = false;
+
+	SCROLL_STATE = SCROLL_STATE_STORE;
+	SCROLL_STATE_STORE = SCROLL_NONE;
 
 	if(PREV_LEFT_BUTTON_DOWN == false && LEFT_BUTTON_DOWN == true)		isMouseClicked = true;
 	else if(PREV_LEFT_BUTTON_DOWN == true && LEFT_BUTTON_DOWN == true)	isMousePressed = true;
@@ -189,8 +193,9 @@ bool Input::IsMiddleMouseClicked()			{ return enable && (isMiddleMouseClicked &&
 bool Input::IsMiddleMouseDragged()			{ return enable && (IsMouseMoved() && IsMiddleMousePressed());				}
 bool Input::IsMiddleMouseDoubleClicked()	{ return enable && isMiddleMouseDoubleClicked;								}
 
-bool Input::IsScrollUp()	{ return enable && (SCROLL_STATE == SCROLL_UP);	}
-bool Input::IsScrollDown()	{ return enable && (SCROLL_STATE == SCROLL_DOWN);	}
+bool Input::IsScrollUp()					{ return enable && (SCROLL_STATE == SCROLL_UP);		}
+bool Input::IsScrollDown()					{ return enable && (SCROLL_STATE == SCROLL_DOWN);	}
+void Input::SetScrollState(int scrollState)	{ SCROLL_STATE_STORE = scrollState;					}
 
 bool Input::IsMouseMoved()
 {

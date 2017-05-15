@@ -146,16 +146,12 @@ bool Cam::UpdateCamera()
 
 	if(Input::IsScrollDown())
 	{
-		Input::SCROLL_STATE = Input::SCROLL_NONE;
 		_trans.z -= 45.0f;
-
 		return true;
 	}
 	else if(Input::IsScrollUp())
 	{
-		Input::SCROLL_STATE = Input::SCROLL_NONE;
 		_trans.z += 45.0f;
-
 		return true;
 	}
 

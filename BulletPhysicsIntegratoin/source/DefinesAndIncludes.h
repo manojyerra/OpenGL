@@ -4,7 +4,8 @@
 #include <windows.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
-#include "MemTrace.h"
+#include <stdio.h>
+//#include "MemTrace.h"
 
 #define glColor(c) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, (c) & 255)
 #define glColorA(c,a) glColor4ub((c >> 24) & 255, (c >> 16) & 255, (c >> 8) & 255, a)

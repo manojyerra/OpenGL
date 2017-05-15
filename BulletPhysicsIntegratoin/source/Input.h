@@ -67,6 +67,7 @@ public:
 	static int WIN_MOVE_Y;
 
 	static int SCROLL_STATE; 
+	static int SCROLL_STATE_STORE;
 	static const int SCROLL_NONE = 0;
 	static const int SCROLL_UP = 1;
 	static const int SCROLL_DOWN = 2;
@@ -115,10 +116,11 @@ public:
 	static bool IsMiddleMouseDragged();
 	static bool IsMiddleMouseDoubleClicked();
 
+	static bool IsMouseMoved();
+
 	static bool IsScrollUp();
 	static bool IsScrollDown();
-
-	static bool IsMouseMoved();
+	static void SetScrollState(int scrollState);
 
 	static float GetDragDist();
 	static float GetAngle();

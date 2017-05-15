@@ -43,6 +43,14 @@ public:
 	static const int MOUSE_NONE = 0;
 	static const int MOUSE_LEFT = 1;
 
+	//Begin : Scroll related code
+	static int SCROLL_STATE; 
+	static int SCROLL_STATE_STORE;
+	static const int SCROLL_NONE = 0;
+	static const int SCROLL_UP = 1;
+	static const int SCROLL_DOWN = 2;
+	//End : Scroll related code
+
 	static int MX;
 	static int MY;
 
@@ -75,6 +83,13 @@ public:
 	static bool IsMouseDoubleClicked();
 
 	static bool IsMouseMoved();
+
+	//Begin : Scroll related code
+	static bool IsScrollUp();
+	static bool IsScrollDown();
+	static bool IsScrolled();
+	static void SetScrollState(int scrollState);
+	//End : Scroll related code
 };
 
 #endif

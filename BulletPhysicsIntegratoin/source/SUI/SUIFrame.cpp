@@ -195,7 +195,25 @@ SUIEvents SUIFrame::UpdateByInput()
 	float mx = (float)SUIInput::MX;
 	float my = (float)SUIInput::MY;
 
-	if(SUIInput::IsMouseClicked())
+	if(SUIInput::IsScrolled())
+	{
+		//_activeBar = SCROLL_BAR;
+
+		_scroller->Update();
+		
+		if(_scroller->IsScrollEnabled())
+		{
+			float currentPercent = _scroller->GetScrollPercent();
+			
+			float percent = SUIInput::IsScrollDown() ?  currentPercent+10 : currentPercent-10;
+
+			if(percent < 0)				percent = 0;
+			else if(percent > 100)		percent = 100;
+
+			Scroll( percent );
+		}
+	}
+	else if(SUIInput::IsMouseClicked())
 	{
 		if(_dragRect.Contains(mx, my))
 		{

@@ -2,9 +2,11 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+#include <vld.h> 
 #include "DefinesAndIncludes.h"
 #include "Looper.h"
 #include "Input.h"
+#include "SUI/SUIInput.h"
 
 HWND hWnd = NULL;
 HDC hDC = NULL;
@@ -30,8 +32,16 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	}
 	else if(message == WM_MOUSEWHEEL)
 	{
-		if(GET_WHEEL_DELTA_WPARAM(wParam) > 0)		Input::SCROLL_STATE = Input::SCROLL_UP;
-		else if(GET_WHEEL_DELTA_WPARAM(wParam) < 0)	Input::SCROLL_STATE = Input::SCROLL_DOWN;
+		if(GET_WHEEL_DELTA_WPARAM(wParam) > 0)
+		{
+			Input::SetScrollState(Input::SCROLL_UP);
+			SUIInput::SetScrollState(SUIInput::SCROLL_UP);
+		}
+		else if(GET_WHEEL_DELTA_WPARAM(wParam) < 0)
+		{
+			Input::SetScrollState(Input::SCROLL_DOWN);
+			SUIInput::SetScrollState(SUIInput::SCROLL_DOWN);
+		}
 	}
 	else if(message == WM_LBUTTONDOWN)	{	Input::LEFT_BUTTON_DOWN = true;		}
 	else if(message == WM_LBUTTONUP)	{	Input::LEFT_BUTTON_DOWN = false;		}
@@ -245,7 +255,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DeleteContext();
 	DestroyWindow();
 
-	//MemTrace::ReportMemoryLeaks();
+	//VLDSetReportOptions(VLD_OPT_UNICODE_REPORT, NULL);
+	VLDReportLeaks();
 
     return msg.wParam;
 }

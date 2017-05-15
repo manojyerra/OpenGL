@@ -6,6 +6,11 @@
 bool SUIInput::PREV_LEFT_BUTTON_DOWN = false;
 bool SUIInput::LEFT_BUTTON_DOWN = false;
 
+//Begin : Scroll related code.
+int SUIInput::SCROLL_STATE = SCROLL_NONE;
+int SUIInput::SCROLL_STATE_STORE = SCROLL_NONE;
+//End : Scroll related code.
+
 int SUIInput::MX = 0;
 int SUIInput::MY = 0;
 
@@ -42,6 +47,9 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 {
 	PREV_LEFT_BUTTON_DOWN = LEFT_BUTTON_DOWN;
 	LEFT_BUTTON_DOWN = down;
+
+	SCROLL_STATE = SCROLL_STATE_STORE;
+	SCROLL_STATE_STORE = SCROLL_NONE;
 
 	isMouseClicked = false;
 	isMousePressed = false;
@@ -182,3 +190,13 @@ bool SUIInput::IsMouseMoved()
 {
 	return (PrevMX != MX || PrevMY != MY);
 }
+
+//Begin : Scroll related code.
+bool SUIInput::IsScrollUp()						{ return SCROLL_STATE == SCROLL_UP;		}
+bool SUIInput::IsScrollDown()					{ return SCROLL_STATE == SCROLL_DOWN;	}
+bool SUIInput::IsScrolled()						{ return IsScrollDown() || IsScrollUp();}
+void SUIInput::SetScrollState(int scrollState)	
+{ 
+	SCROLL_STATE_STORE = scrollState;
+}
+//End : Scroll related code.
