@@ -87,7 +87,7 @@ unsigned char* PNGReadWrite::Read(string path, int* imgWidth, int* imgHeight, in
 	
 	int fialSize = sizeof(png_byte) * (rowbytes*theight);
 
-	png_byte *image_data = (png_byte*)mallocTrace(sizeof(png_byte) * (rowbytes*theight));
+	png_byte *image_data = (png_byte*)malloc(sizeof(png_byte) * (rowbytes*theight));
 
 	if (!image_data)
 	{
@@ -97,12 +97,12 @@ unsigned char* PNGReadWrite::Read(string path, int* imgWidth, int* imgHeight, in
 	}
 
 	//row_pointers is for pointing to image_data for reading the png with libpng
-	png_bytep *row_pointers = (png_bytep*)mallocTrace(sizeof(png_bytep)*theight);
+	png_bytep *row_pointers = (png_bytep*)malloc(sizeof(png_bytep)*theight);
 
 	if (!row_pointers)
 	{
 		png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);	//clean up memory and close stuff
-		freeTrace(image_data);
+		free(image_data);
 		fclose(fp);
 		return NULL;
 	}
@@ -119,7 +119,7 @@ unsigned char* PNGReadWrite::Read(string path, int* imgWidth, int* imgHeight, in
 	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 	fclose(fp);
 
-	freeTrace(row_pointers);
+	free(row_pointers);
 
     *imgWidth = twidth;
     *imgHeight = theight;

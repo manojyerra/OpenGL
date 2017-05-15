@@ -196,7 +196,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	unsigned long prevTickCount = GetTickCount();
 	unsigned long startTime = GetTickCount();
 	
-	Looper* looper = (Looper*)newTrace (Looper(windowW, windowH));
+	Looper* looper = new Looper(windowW, windowH);
 	
     while(true)
     {
@@ -238,14 +238,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	if(looper)
 	{
-		deleteTrace( looper);
+		delete looper;
 		looper = NULL;
 	}
 
 	DeleteContext();
 	DestroyWindow();
 
-	MemTrace::ReportMemoryLeaks();
+	//MemTrace::ReportMemoryLeaks();
 
     return msg.wParam;
 }

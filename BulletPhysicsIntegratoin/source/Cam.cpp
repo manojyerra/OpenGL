@@ -12,7 +12,7 @@ Cam* Cam::GetInstance()
 {
 	if(_ref == NULL)
 	{
-		_ref = (Cam*)newTrace (Cam());
+		_ref = new Cam();
 	}
 
 	return _ref;
@@ -22,7 +22,7 @@ void Cam::DeleteInstance()
 {
 	if(_ref)
 	{
-		deleteTrace(_ref);
+		delete _ref;
 		_ref = NULL;
 	}
 }

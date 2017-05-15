@@ -22,9 +22,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	Cam::GetInstance()->Init((int)_windowW, (int)_windowH, 1.0f, 10000.0f, 0.2f);
 
-	_floor = (Floor*)newTrace (Floor());
+	_floor = new Floor();
 
-	_modelsMgr = (ModelsManager*)newTrace (ModelsManager());
+	_modelsMgr = new ModelsManager();
 
 	//for(int j=0; j<50; j+=25)
 	//{
@@ -49,9 +49,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
 	//model->AddBoundingShape(shape);
 
-	_modelPropsFrame = (ModelPropsFrame*)newTrace (ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr));
+	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);
 
-	_mainFrame = (MainFrame*)newTrace (MainFrame(0,0,200,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame));
+	_mainFrame = new MainFrame(0,0,200,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
 }
 
 void Looper::Draw(float deltaTime)
@@ -305,25 +305,25 @@ Looper::~Looper()
 {
 	if(_modelsMgr)
 	{
-		deleteTrace( _modelsMgr);
+		delete _modelsMgr;
 		_modelsMgr = NULL;
 	}
 
 	if(_mainFrame)
 	{
-		deleteTrace( _mainFrame);
+		delete _mainFrame;
 		_mainFrame = NULL;
 	}
 
 	if(_modelPropsFrame)
 	{
-		deleteTrace(_modelPropsFrame);
+		delete _modelPropsFrame;
 		_modelPropsFrame = NULL;
 	}
 
 	if(_floor)
 	{
-		deleteTrace( _floor);
+		delete _floor;
 		_floor = NULL;
 	}
 
