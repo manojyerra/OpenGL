@@ -176,7 +176,7 @@ void SUIManager::Update()
 		return;
 	}
 
-	if(SUIInput::IsMouseClicked())
+	if(SUIInput::IsMouseClicked() || SUIInput::IsScrolled())
 	{
 		for(int i=_framesVec.size()-1; i>=0; i--)
 		{
@@ -185,10 +185,11 @@ void SUIManager::Update()
 				if(_framesVec[i] != _activeFrame)
 				{
 					ActiveFrame(i);
+
 					if(_activeFrame)
 						_activeFrame->UpdateByInput();
-					//return;
 				}
+
 				break;
 			}
 		}
@@ -196,7 +197,7 @@ void SUIManager::Update()
 
 	if(_activeFrame && !_activeFrame->IsMinimized())
 	{
-		if(SUIInput::IsMouseClicked() || SUIInput::IsMousePressed() || SUIInput::IsMouseReleased())
+		if(	SUIInput::IsMouseClicked()  || SUIInput::IsMousePressed() || SUIInput::IsMouseReleased())
 		{
 			SUIComponent* com = _activeFrame->getComponentAt(mx, my);
 		
@@ -205,6 +206,10 @@ void SUIManager::Update()
 				FireEvent(com, com->UpdateByInput());
 				_activeFrame->ResetBounds();
 			}
+		}
+		else if(SUIInput::IsScrolled())
+		{
+			_activeFrame->UpdateByInput();
 		}
 	}
 }

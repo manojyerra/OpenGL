@@ -197,15 +197,13 @@ SUIEvents SUIFrame::UpdateByInput()
 
 	if(SUIInput::IsScrolled())
 	{
-		//_activeBar = SCROLL_BAR;
-
 		_scroller->Update();
 		
 		if(_scroller->IsScrollEnabled())
 		{
 			float currentPercent = _scroller->GetScrollPercent();
 			
-			float percent = SUIInput::IsScrollDown() ?  currentPercent+10 : currentPercent-10;
+			float percent = SUIInput::IsScrollDown() ?  currentPercent+35 : currentPercent-35;
 
 			if(percent < 0)				percent = 0;
 			else if(percent > 100)		percent = 100;
