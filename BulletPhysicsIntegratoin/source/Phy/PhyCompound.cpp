@@ -66,7 +66,7 @@ void PhyCompound::AddBox(float* mat, float w, float h, float d)
 	prim->SetColor(rand()%255, rand()%255, rand()%255, 255);
 	_primVec.push_back((Shape*)prim);
 
-	btCollisionShape* shape = new btBoxShape(btVector3(w,h,d));
+	btCollisionShape* shape = new btBoxShape(btVector3(w/2.0f,h/2.0f,d/2.0f));
 	btTransform trans;
 	trans.setFromOpenGLMatrix(mat);
 	((btCompoundShape*)colliShape)->addChildShape(trans,shape);
@@ -123,13 +123,14 @@ void PhyCompound::AddCone(float* mat, float r, float h)
 	trans.setFromOpenGLMatrix(mat);
 	((btCompoundShape*)colliShape)->addChildShape(trans,shape);
 }
+
 void PhyCompound::AddCylinder(float x, float y, float z, float r, float h)
 {
 	Cylinder* prim = new Cylinder(x,y,z, r,h);
 	prim->SetColor(rand()%255, rand()%255, rand()%255, 255);
 	_primVec.push_back((Shape*)prim);
 
-	btCollisionShape* shape = new btConeShape(btScalar(r), btScalar(h));
+	btCollisionShape* shape = new btCylinderShape(btVector3(btScalar(r),btScalar(h/2),btScalar(r)));
 	btTransform trans;
 	trans.setIdentity();
 	trans.setOrigin(btVector3(x,y,z));
@@ -143,7 +144,7 @@ void PhyCompound::AddCylinder(float* mat, float r, float h)
 	prim->SetColor(rand()%255, rand()%255, rand()%255, 255);
 	_primVec.push_back((Shape*)prim);
 
-	btCollisionShape* shape = new btCylinderShape(btVector3(btScalar(r),btScalar(h),btScalar(r)));
+	btCollisionShape* shape = new btCylinderShape(btVector3(btScalar(r),btScalar(h/2),btScalar(r)));
 	btTransform trans;
 	trans.setFromOpenGLMatrix(mat);
 	((btCompoundShape*)colliShape)->addChildShape(trans,shape);

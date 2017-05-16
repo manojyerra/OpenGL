@@ -23,7 +23,6 @@ FLModelBoundingShapes::~FLModelBoundingShapes()
 	_boundingShapes.clear();
 }
 
-
 void FLModelBoundingShapes::AddBoundingShape(Shape* shape)
 {
 	_boundingShapes.push_back(shape);

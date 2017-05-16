@@ -5,8 +5,8 @@
 PhyCylinder::PhyCylinder(float x, float y, float z, float r, float h, float massVal)
 {
 	_r = r;
-	_h = h;
-	_d = 1;
+	_h = h/2.0f;
+	_d = r;
 
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
 

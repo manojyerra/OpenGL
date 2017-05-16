@@ -12,7 +12,6 @@
 #include "Shapes3D/Cylinder.h"
 #include "Shapes3D/Cone.h"
 #include "Shapes3D/Sphere.h"
-#include "FLModelBorder.h"
 
 #include <vector>
 #include <string>
@@ -23,7 +22,7 @@ class FLModelBoundingShapes
 {
 private:
 	vector<Shape*> _boundingShapes;
-
+	
 public:
 	FLModelBoundingShapes();
 	~FLModelBoundingShapes();
