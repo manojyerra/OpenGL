@@ -258,6 +258,13 @@ void SUIManager::FireEvent(SUIComponent* com, SUIEvents &eventsVec)
 		if(actionListener)
 			actionListener->actionPerformed(SUIActionEvent(com));
 	}
+	else if(id == SUIComponent::TEXTFIELD)
+	{
+		SUIActionListener* actionListener = ((SUITextField*)com)->GetActionListener();
+		if(actionListener)
+			actionListener->actionPerformed(SUIActionEvent(com));
+	}
+
 }
 
 

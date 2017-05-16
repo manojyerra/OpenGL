@@ -37,6 +37,7 @@ private:
 	SUICheckBox* showBoundShapes;
 	SUICheckBox* showBoundBox;
 	SUICheckBox* onBorder;
+	SUITextField* textField;
 	
 	Cam* _cam;
 	Floor* _floor;

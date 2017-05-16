@@ -4,6 +4,7 @@
 #include "SUIIncludes.h"
 #include "SUIFrame.h"
 #include "SUIButton.h"
+#include "SUITextField.h"
 #include "SUILabel.h"
 #include "SUICheckBox.h"
 #include "SUIRadioButton.h"

@@ -31,16 +31,16 @@ bool SUIInput::isMouseDoubleClicked = false;
 float SUIInput::clickTimeCount = 0;
 float SUIInput::doubleClickTime = 0.2f;
 
-int SUIInput::currKeyStates[] = {0};
-int SUIInput::prevKeyStates[] = {0};
+short SUIInput::currKeyStates[] = {0};
+short SUIInput::prevKeyStates[] = {0};
 
 float SUIInput::timeCountForKeyPress[] = {0};
 
 void SUIInput::Init()
 {
-	for(int i=0;i<256;i++) currKeyStates[i] = 0;
-	for(int i=0;i<256;i++) prevKeyStates[i] = 0;
-	for(int i=0;i<256;i++) timeCountForKeyPress[i] = 0;
+	for(int i=0;i<NUM_KEYS;i++) currKeyStates[i] = 0;
+	for(int i=0;i<NUM_KEYS;i++) prevKeyStates[i] = 0;
+	for(int i=0;i<NUM_KEYS;i++) timeCountForKeyPress[i] = 0;
 }
 
 bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
@@ -56,10 +56,10 @@ bool SUIInput::Update(float mouseX, float mouseY, bool down, float deltaTime)
 	isMouseReleased = false;
 	isMouseDoubleClicked = false;
 
-	for(int i=0;i<256;i++)	prevKeyStates[i] = currKeyStates[i];
-	for(int i=0;i<256;i++)	currKeyStates[i] =  GetKeyState(i);
+	for(int i=0;i<NUM_KEYS;i++)	prevKeyStates[i] = currKeyStates[i];
+	for(int i=0;i<NUM_KEYS;i++)	currKeyStates[i] =  GetKeyState(i);
 
-	for(int i=0;i<256;i++)
+	for(int i=0;i<NUM_KEYS;i++)
 	{
 		if(!(currKeyStates[i]&0x80))
 			timeCountForKeyPress[i] = 0.0f;
@@ -181,14 +181,58 @@ bool SUIInput::IsKeyPressedStill(int key, float time) { return (IsKeyPressed(key
 
 int SUIInput::GetReleasedKey()
 {
-	for(int i=0;i<256;i++)
+	for(int i='A'; i<='Z'; i++)
 	{
-		if(prevKeyStates[i] != currKeyStates[i])
+		if(IsKeyReleased(i))
 		{
-			if(IsKeyReleased(i))
-				return i;
+			if(!IsKeyPressed(VK_SHIFT))
+				return i- ('A' - 'a');
+
+			return i;
 		}
 	}
+
+	for(int i='0'; i<='9'; i++)
+	{
+		if(IsKeyReleased(i))
+		{
+			if(IsKeyPressed(VK_SHIFT))
+			{
+				if(i=='0')		return ')';
+				else if(i=='1')	return '!';
+				else if(i=='2')	return '@';
+				else if(i=='3')	return '#';
+				else if(i=='4')	return '$';
+				else if(i=='5')	return '%';
+				else if(i=='6')	return '^';
+				else if(i=='7')	return '&';
+				else if(i=='8')	return '*';
+				else if(i=='9')	return '(';
+			}
+				
+			return i;
+		}
+	}
+
+	int asciiArr[] = {0xBA, 0xBF, 0xC0,	0xDB, 0xDC, 0xDD, 0xDE, 0xBD, 0xBB, 0xBC, 0xBE};
+	char charArr[] = {';',	'/',  '`',  '[',  '\\', ']',  '\'', '-',  '=',  ',',  '.'};
+	char capsArr[] = {':',	'?',  '~',  '{',  '|',  '}',  '"',  '_',  '+',  '<',  '>'};
+
+	for(int i=0; i<11; i++)
+	{
+		if(IsKeyReleased(asciiArr[i]))
+		{
+			if(IsKeyPressed(VK_SHIFT))
+				return capsArr[i];
+
+			return charArr[i];
+		}
+	}
+
+	if(IsKeyReleased(VK_BACK))			return VK_BACK;
+	else if(IsKeyReleased(VK_SPACE))	return ' ';
+	else if(IsKeyReleased(VK_RETURN))	return VK_RETURN;
+	else if(IsKeyReleased(VK_ESCAPE))	return VK_ESCAPE;
 
 	return 0;
 }

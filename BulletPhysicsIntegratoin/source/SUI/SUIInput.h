@@ -7,15 +7,16 @@ using namespace std;
 class SUIInput
 {
 private:
-	static int currKeyStates[256];
-	static int prevKeyStates[256];
+	static const int NUM_KEYS = 256;
+
+	static short currKeyStates[NUM_KEYS];
+	static short prevKeyStates[NUM_KEYS];
+	static float timeCountForKeyPress[NUM_KEYS];
 
 	static bool isMouseClicked;
 	static bool isMousePressed;
 	static bool isMouseReleased;
 	static bool isMouseDoubleClicked;
-
-	static float timeCountForKeyPress[256];
 
 	static bool PREV_LEFT_BUTTON_DOWN;
 
