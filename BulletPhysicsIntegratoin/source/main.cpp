@@ -21,6 +21,45 @@ int windowH = 600;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {	
+	/*
+	char msg[128];
+
+	UINT uMsg = message;
+
+    switch (uMsg)
+    {
+    case WM_SYSKEYDOWN:
+        sprintf(msg, "WM_SYSKEYDOWN: 0x%x\n", wParam);
+        OutputDebugString(msg);
+        break;
+
+    case WM_SYSCHAR:
+        sprintf(msg, "WM_SYSCHAR: %c\n", (wchar_t)wParam);
+        OutputDebugString(msg);
+        break;
+
+    case WM_SYSKEYUP:
+        sprintf(msg, "WM_SYSKEYUP: 0x%x\n", wParam);
+        OutputDebugString(msg);
+        break;
+
+    case WM_KEYDOWN:
+        sprintf(msg, "WM_KEYDOWN: 0x%x\n", wParam);
+        OutputDebugString(msg);
+        break;
+
+    case WM_KEYUP:
+        sprintf(msg, "WM_KEYUP: 0x%x\n", wParam);
+        OutputDebugString(msg);
+        break;
+
+    case WM_CHAR:
+        sprintf(msg, "WM_CHAR: %c\n", (wchar_t)wParam);
+        OutputDebugString(msg);
+        break;
+    }
+	*/
+
 	if(message == WM_DESTROY)
 	{
 		PostQuitMessage(0);
