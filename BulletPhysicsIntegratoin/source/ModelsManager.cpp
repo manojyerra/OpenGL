@@ -97,6 +97,12 @@ void ModelsManager::SetBoundingBoxEnabled(bool enable)
 		_vec[i]->SetBoundingBoxEnabled(enable);
 }
 
+void ModelsManager::SetAsPhysicsObjects(bool val)
+{
+	for(unsigned int i=0; i<_vec.size();i++)
+		_vec[i]->SetAsPhysicsObject(val);
+}
+
 FLModel* ModelsManager::Get(unsigned int index)
 {
 	return _vec[index];

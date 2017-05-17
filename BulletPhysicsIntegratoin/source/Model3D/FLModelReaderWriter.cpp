@@ -269,6 +269,9 @@ void FLModelReaderWriter::WriteBoundingShapesInfo(string folderPath, FLModelBoun
 			WriteMatrixToFile(bShapesFile, mat);
 		}
 	}
+
+	fflush(bShapesFile);
+	fclose(bShapesFile);
 }
 
 void FLModelReaderWriter::WriteMatrixToFile(FILE* matFile, float* mat)

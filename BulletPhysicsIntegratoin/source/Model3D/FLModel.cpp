@@ -87,6 +87,7 @@ void FLModel::Reset(string folderPath, float* mat)
 	_showModel = true;
 	_drawLocalAxis = false;
 	_isMarked = false;
+	_phyCompound = NULL;
 
 	GLfloat ka[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
 	GLfloat kd[4] = { 0.6f, 0.6f, 0.6f, 1.0f};
@@ -139,6 +140,21 @@ void FLModel::Write(string folderPath)
 	_flmReaderWriter->WriteBoundingShapesInfo(folderPath, _boundingShapes);
 }
 
+void FLModel::WriteBoundingShapes()
+{
+	_flmReaderWriter->WriteBoundingShapesInfo(_folderPath, _boundingShapes);
+}
+
+void FLModel::WriteTranformation()
+{
+	_flmReaderWriter->WriteOrientation(_folderPath, GetMat().m);
+}
+
+void FLModel::WriteAABB()
+{
+	_flmReaderWriter->WriteAABBInfo(_folderPath, _aabb);
+}
+
 float* FLModel::GetVerticesPointer()
 {
 	return (float*)_verticesPointer;
@@ -154,18 +170,100 @@ GLMat FLModel::GetMat()
 	return _mat;
 }
 
-void FLModel::SetPos(float x, float y, float z)				{ _mat.SetPos(x, y, z);						}
-void FLModel::SetPos(CVector3 pos)							{ _mat.SetPos(pos);							}
-CVector3 FLModel::GetPos()									{ return _mat.GetPos();						}
-void FLModel::AddTransInWorld(float x, float y, float z)	{ _mat.AddTransInWorld(x, y, z);			}
-void FLModel::AddTransInLocal(char axis, float move)		{ _mat.AddTransInLocal( axis, move );		}
-void FLModel::AddRotateInWorld(char axis, float angle)		{ _mat.AddRotateInWorld(axis, angle);		}
-void FLModel::AddRotateInLocal(char axis, float angle)		{ _mat.AddRotateInLocal(axis, angle);		}
-CVector3 FLModel::GetRotation()								{ return _mat.GetRotation();				}
-void FLModel::SetRotation(CVector3 rot)						{ _mat.SetRotation(rot);					}
-void FLModel::AddScale(CVector3 scale)						{ _mat.glScalef(scale.x, scale.y, scale.z);	}
-void FLModel::AddUniformScale(float scale)					{ _mat.glScalef(scale, scale, scale);		}
+void FLModel::SetMat(float* mat)
+{
+	_mat.Copy(mat);
+}
 
+void FLModel::SetAsPhysicsObject(bool val)
+{
+	if(val)
+	{
+		if(_phyCompound)
+		{
+			delete _phyCompound;
+			_phyCompound = NULL;
+		}
+
+		_phyCompound = new PhyCompound();
+
+		unsigned int size = _boundingShapes->Size();
+
+		float totVolume = 0;
+
+		for(int i=0; i<size; i++)
+		{
+			Shape* shape = _boundingShapes->Get(i);
+
+			if(shape->GetID() == Shape::BOX)
+			{
+				Box* box = (Box*)shape;
+				_phyCompound->AddBox(shape->GetGLMatrix(), box->GetSize().x, box->GetSize().y, box->GetSize().z);
+				totVolume += box->Volume();
+			}
+			else if(shape->GetID() == Shape::CYLINDER)
+			{
+				Cylinder* cylinder = (Cylinder*)shape;
+				_phyCompound->AddCylinder(shape->GetGLMatrix(), cylinder->GetRadius(), cylinder->GetHeight());
+				totVolume += cylinder->Volume();
+			}
+			else if(shape->GetID() == Shape::CONE)
+			{
+				Cone* cone = (Cone*)shape;
+				_phyCompound->AddCone(shape->GetGLMatrix(), cone->GetRadius(), cone->GetHeight());
+				totVolume += cone->Volume();
+			}
+			else if(shape->GetID() == Shape::SPHERE)
+			{
+				Sphere* sphere = (Sphere*)shape;
+				_phyCompound->AddSphere(shape->GetGLMatrix(), sphere->GetRadius());
+				totVolume += sphere->Volume();
+			}
+		}
+
+		_phyCompound->MakeCompoundShape(_mat.m, totVolume/10);
+
+		_backMat = _mat;
+	}
+	else
+	{
+		if(_phyCompound)
+		{
+			delete _phyCompound;
+			_phyCompound = NULL;
+		}
+
+		_mat = _backMat;
+	}
+}
+
+PhyCompound* FLModel::GetPhyCompound()
+{
+	return _phyCompound;
+}
+
+CVector3 FLModel::GetPos()									{ return _mat.GetPos();						}
+CVector3 FLModel::GetRotation()								{ return _mat.GetRotation();				}
+
+void FLModel::SetPos(float x, float y, float z)				{ _mat.SetPos(x, y, z);						SetPhyOrientation(_mat.m);	}
+void FLModel::SetPos(CVector3 pos)							{ _mat.SetPos(pos);							SetPhyOrientation(_mat.m);	}
+void FLModel::AddTransInWorld(float x, float y, float z)	{ _mat.AddTransInWorld(x, y, z);			SetPhyOrientation(_mat.m);	}
+void FLModel::AddTransInLocal(char axis, float move)		{ _mat.AddTransInLocal( axis, move );		SetPhyOrientation(_mat.m);	}
+void FLModel::AddRotateInWorld(char axis, float angle)		{ _mat.AddRotateInWorld(axis, angle);		SetPhyOrientation(_mat.m);	}
+void FLModel::AddRotateInLocal(char axis, float angle)		{ _mat.AddRotateInLocal(axis, angle);		SetPhyOrientation(_mat.m);	}
+void FLModel::SetRotation(CVector3 rot)						{ _mat.SetRotation(rot);					SetPhyOrientation(_mat.m);	}
+void FLModel::AddScale(CVector3 scale)						{ _mat.glScalef(scale.x, scale.y, scale.z);	SetPhyOrientation(_mat.m);	}
+void FLModel::AddUniformScale(float scale)					{ _mat.glScalef(scale, scale, scale);		SetPhyOrientation(_mat.m);	}
+
+void FLModel::SetPhyOrientation(float* mat)
+{
+	if(_phyCompound)
+	{
+		_phyCompound->SetOrientation(mat);
+
+		//_phyCompound->SetPos(CVector3(mat[12], mat[13], mat[14]));
+	}
+}
 
 void FLModel::SetTextureEnabled(bool enable)				{	_isTextureEnabled = enable;				}
 bool FLModel::IsTextureEnabled()							{	return _isTextureEnabled;				}
@@ -226,6 +324,9 @@ Shape* FLModel::AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID)
 void FLModel::Draw()
 {
 	GLboolean isLightOn = GLUtil::GLEnable(GL_LIGHTING, _lightingEnabled);
+
+	if(_phyCompound)
+		_phyCompound->GetOrientation(_mat.m);
 
 	glPushMatrix();
 	glMultMatrixf(_mat.m);
@@ -451,6 +552,12 @@ FLModel::~FLModel()
 	{
 		delete _flmReaderWriter;
 		_flmReaderWriter = NULL;
+	}
+
+	if(_phyCompound)
+	{
+		delete _phyCompound;
+		_phyCompound = NULL;
 	}
 }
 

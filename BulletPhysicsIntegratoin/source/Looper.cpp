@@ -14,6 +14,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_windowW = (float)windowWidth;
 	_windowH = (float)windowHeight;
 
+	_enablePhysics = false;
+	_pausedPhysics = false;
+
 	_rect.SetColor(0xff000077);
 
 	SUISetup((int)_windowW, (int)_windowH);
@@ -37,13 +40,15 @@ Looper::Looper(int windowWidth, int windowHeight)
 	//	}
 	//}
 
-	_modelsMgr->Add("data/barrel");
-	_modelsMgr->Add("data/cat");
-	
-	//PhyManager::GetInstance();
+	FLModel* model1 = _modelsMgr->Add("data/barrel");
+	FLModel* model2 = _modelsMgr->Add("data/barrel", CVector3(10,5,10) );
 
-	//_floorBox = new PhyBox(0,-0.5,0, 10,1,10, 0);
-	//_phyBox = new PhyBox(0,10,0, 1,1,1, 1);
+	//FLModel* model2 = _modelsMgr->Add("data/cat");
+	
+	PhyManager::GetInstance();
+
+	_floorBox = new PhyBox(0,-0.5,0, 60,1,60, 0);
+	_phyBox = new PhyBox(0,10,0, 1,1,1, 1);
 
 	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
 	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
@@ -59,6 +64,11 @@ void Looper::Draw(float deltaTime)
 	bool consumed = SUIInput::Update((float)Input::MX, (float)Input::MY, Input::LEFT_BUTTON_DOWN, deltaTime);
 	Input::SetEnable( !consumed );
 
+	_enablePhysics = _mainFrame->IsPhysicsEnabled();
+	_pausedPhysics = _mainFrame->IsPhysicsPaused();
+
+	if(_enablePhysics && !_pausedPhysics)
+		UpdatePhysics(deltaTime);
 
 	Cam::GetInstance()->SetProjection();
 
@@ -73,8 +83,6 @@ void Looper::Draw(float deltaTime)
 	Cam::GetInstance()->SetModelViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	UpdatePhysics(deltaTime);
-
 	if(Input::IsRightMousePressed())
 	{
 		glClearColor(1.0f,1.0f,1.0f,1.0f);
@@ -82,11 +90,11 @@ void Looper::Draw(float deltaTime)
 
 		SelectModel(Input::MX, Input::MY);
 
-		if(_mainFrame->IsSelectedObjectAsPivot())
+		if(_mainFrame->IsSelectedObjectAsPivot() && !_enablePhysics)
 			Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
 	}
 
-	if(_mainFrame->IsSelectedObjectAsPivot() && Input::IsMouseReleased())
+	if(_mainFrame->IsSelectedObjectAsPivot() && Input::IsMouseReleased() && !_enablePhysics)
 		Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
 
 	if(_modelsMgr->GetSelectedModel() && _mainFrame->IsShowingBorder())
@@ -102,66 +110,41 @@ void Looper::Draw(float deltaTime)
 
 	_modelsMgr->Draw();
 	_floor->Draw();
-	
-	//_floorBox->Draw();
-	//_phyBox->Draw();
-	
-	UpdateDrawRect();
 
-
-	int keys[5] = {'1','2','3','4','5'};
-
-	if(Input::IsAnyKeyReleased(keys, 5) && _rect.w > 0 && _rect.h > 0)
+	if(_enablePhysics)
 	{
-		FLModel* selModel = _modelsMgr->GetSelectedModel();
+		_floorBox->Draw();
+		_phyBox->Draw();
+	}
 
-		if( selModel)
+	if(!_enablePhysics)
+	{
+		UpdateDrawRect();
+
+		int keys[5] = {'1','2','3','4','5'};
+
+		if(Input::IsAnyKeyReleased(keys, 5) && _rect.w > 0 && _rect.h > 0)
 		{
-			if(Input::IsKeyReleased((int)'1'))		selModel->AddBestBoudingShapeByVerticesOnRect(&_rect);
-			else if(Input::IsKeyReleased((int)'2'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::BOX);
-			else if(Input::IsKeyReleased((int)'3'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::CONE);
-			else if(Input::IsKeyReleased((int)'4'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::CYLINDER);
-			else if(Input::IsKeyReleased((int)'5'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::SPHERE);
+			FLModel* selModel = _modelsMgr->GetSelectedModel();
 
-			selModel->ShowBoundingShapes(true);
-			_modelPropsFrame->ShowBoundingShapes(true);
+			if( selModel)
+			{
+				if(Input::IsKeyReleased((int)'1'))		selModel->AddBestBoudingShapeByVerticesOnRect(&_rect);
+				else if(Input::IsKeyReleased((int)'2'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::BOX);
+				else if(Input::IsKeyReleased((int)'3'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::CONE);
+				else if(Input::IsKeyReleased((int)'4'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::CYLINDER);
+				else if(Input::IsKeyReleased((int)'5'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::SPHERE);
+
+				selModel->ShowBoundingShapes(true);
+				_modelPropsFrame->ShowBoundingShapes(true);
+			}
 		}
 	}
 
-	/*
-	if(shape)
+	if(!_enablePhysics || _pausedPhysics)
 	{
-		_pointer3D.Draw(shape->GetGLMatrix());
-
-		if(_pointer3D.IsPointerDragged())
-		{
-			if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
-			{
-				shape->SetPos( _pointer3D.pos );
-			}
-			else if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
-			{
-				shape->AddRotateInLocal('x', _pointer3D.rot.x);
-				shape->AddRotateInLocal('y', _pointer3D.rot.y);
-				shape->AddRotateInLocal('z', _pointer3D.rot.z);
-			}
-			else if(_pointer3D.GetTransformationType() == Pointer3D::SCALE)
-			{				
-				if(Input::IsKeyPressed((int)'U'))
-				{
-					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
-				
-					if(scaleSum > 0)		shape->AddUniformScale(1.01);
-					else if(scaleSum < 0)	shape->AddUniformScale(0.99);
-				}
-				else
-				{
-					shape->AddScale(_pointer3D.scale);
-				}
-			}
-		}
-	}
-	*/
+	bool transChanged = false;
+	bool rotChanged = false;
 
 	if(_modelsMgr->GetSelectedModel())
 	{
@@ -175,12 +158,14 @@ void Looper::Draw(float deltaTime)
 				{
 					float rotAmount = Input::IsKeyPressedStill(VK_LEFT) ? 5.0f : 1.0f;
 					_modelsMgr->GetSelectedModel()->AddRotateInLocal(_pointer3D.GetInvisibleAxis(), rotAmount);
+					rotChanged = true;
 				}
 				else if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 				{
 					float transAmount = Input::IsKeyPressedStill(VK_LEFT) ? -0.1f : -0.01f;
 					transAmount = transAmount * _pointer3D.GetSideAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal(_pointer3D.GetSideAxis(), transAmount);
+					transChanged = true;
 				}
 			}
 			else if(Input::IsKeyPressedStill(VK_RIGHT) || Input::IsKeyTyped(VK_RIGHT))
@@ -189,12 +174,14 @@ void Looper::Draw(float deltaTime)
 				{
 					float rotAmount = Input::IsKeyPressedStill(VK_RIGHT) ? -5.0f : -1.0f;
 					_modelsMgr->GetSelectedModel()->AddRotateInLocal(_pointer3D.GetInvisibleAxis(), rotAmount);
+					rotChanged = true;
 				}
 				else if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 				{
 					float transAmount = Input::IsKeyPressedStill(VK_RIGHT) ? 0.1f : 0.01f;
 					transAmount = transAmount * _pointer3D.GetSideAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal(_pointer3D.GetSideAxis(), transAmount);
+					transChanged = true;
 				}
 			}
 			else if(Input::IsKeyPressedStill(VK_UP) || Input::IsKeyTyped(VK_UP))
@@ -204,6 +191,7 @@ void Looper::Draw(float deltaTime)
 					float transAmount = Input::IsKeyPressedStill(VK_UP) ? 0.1f : 0.01f;
 					transAmount = transAmount * _pointer3D.GetTopAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal( _pointer3D.GetTopAxis(), transAmount );
+					transChanged = true;
 				}
 			}
 			else if(Input::IsKeyPressedStill(VK_DOWN) || Input::IsKeyTyped(VK_DOWN))
@@ -213,6 +201,7 @@ void Looper::Draw(float deltaTime)
 					float transAmount = Input::IsKeyPressedStill(VK_DOWN) ? -0.1f : -0.01f;
 					transAmount = transAmount * _pointer3D.GetTopAxisSign();
 					_modelsMgr->GetSelectedModel()->AddTransInLocal( _pointer3D.GetTopAxis(), transAmount );
+					transChanged = true;
 				}
 			}
 		}
@@ -222,12 +211,14 @@ void Looper::Draw(float deltaTime)
 			if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
 			{
 				_modelsMgr->GetSelectedModel()->SetPos( _pointer3D.pos );
+				transChanged = true;
 			}
 			else if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
 			{
 				_modelsMgr->GetSelectedModel()->AddRotateInLocal('x', _pointer3D.rot.x);
 				_modelsMgr->GetSelectedModel()->AddRotateInLocal('y', _pointer3D.rot.y);
 				_modelsMgr->GetSelectedModel()->AddRotateInLocal('z', _pointer3D.rot.z);
+				rotChanged = true;
 			}
 			else if(_pointer3D.GetTransformationType() == Pointer3D::SCALE)
 			{				
@@ -252,9 +243,12 @@ void Looper::Draw(float deltaTime)
 		}
 	}
 	
-	_modelPropsFrame->UpdateTransInfo( _modelsMgr->GetSelectedModel() );
-	_modelPropsFrame->UpdateRotationInfo( _modelsMgr->GetSelectedModel() );
+	if(transChanged)
+		_modelPropsFrame->UpdateTransInfo( _modelsMgr->GetSelectedModel() );
 
+	if(rotChanged)
+		_modelPropsFrame->UpdateRotationInfo( _modelsMgr->GetSelectedModel() );
+	}
 
 	SUIDraw();
 }
@@ -332,3 +326,40 @@ Looper::~Looper()
 
 	SUIQuit();
 }
+
+
+
+	/*
+	if(shape)
+	{
+		_pointer3D.Draw(shape->GetGLMatrix());
+
+		if(_pointer3D.IsPointerDragged())
+		{
+			if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+			{
+				shape->SetPos( _pointer3D.pos );
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
+			{
+				shape->AddRotateInLocal('x', _pointer3D.rot.x);
+				shape->AddRotateInLocal('y', _pointer3D.rot.y);
+				shape->AddRotateInLocal('z', _pointer3D.rot.z);
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::SCALE)
+			{				
+				if(Input::IsKeyPressed((int)'U'))
+				{
+					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
+				
+					if(scaleSum > 0)		shape->AddUniformScale(1.01);
+					else if(scaleSum < 0)	shape->AddUniformScale(0.99);
+				}
+				else
+				{
+					shape->AddScale(_pointer3D.scale);
+				}
+			}
+		}
+	}
+	*/

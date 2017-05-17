@@ -16,6 +16,8 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_frame->Add(new SUIButton("Save Models", this));
 
 	_frame->Add( enablePhysics = new SUICheckBox("Enable Physics", SUICheckBox::CENTER, this));
+	_frame->Add( pausePhysics = new SUICheckBox("Pause Physics", SUICheckBox::CENTER, this));
+	
 	_frame->Add( showMarkedObjs = new SUICheckBox("Show Marked Objects", SUICheckBox::CENTER, this));
 	_frame->Add( showUnmarkedObjs = new SUICheckBox("Show Unmarked Objects", SUICheckBox::CENTER, this));
 	_frame->Add( markAllObjs = new SUIButton("Mark all objects", SUIButton::CENTER, this));
@@ -106,6 +108,10 @@ void MainFrame::actionPerformed(SUIActionEvent e)
 		_modelsMgr->UnmarkAllObjects();
 		_modelProps->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
 	}
+	else if(com == enablePhysics)
+	{
+		_modelsMgr->SetAsPhysicsObjects(enablePhysics->IsSelected());
+	}
 }
 
 void MainFrame::SetAsOrtho(bool ortho)		{	projRadio->SetSelect( ortho ? 1 : 0);		}
@@ -114,6 +120,8 @@ void MainFrame::SetBorderOn(bool on)		{	onBorder->SetSelect(on);					}
 void MainFrame::SetPhysicsOn(bool on)		{	enablePhysics->SetSelect(on);				}
 
 bool MainFrame::IsPhysicsEnabled()			{	return enablePhysics->IsSelected();			}
+bool MainFrame::IsPhysicsPaused()			{	return pausePhysics->IsSelected();			}
+
 //bool MainFrame::IsShowingObjects()			{	return showObjs->IsSelected();				}
 bool MainFrame::IsShowingBoundingShapes()	{	return showBoundShapes->IsSelected();		}
 bool MainFrame::IsShowingBorder()			{	return onBorder->IsSelected();				}

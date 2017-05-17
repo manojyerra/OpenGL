@@ -180,6 +180,24 @@ void PhyCompound::GetOrientation(float* mat)
 	trans.getOpenGLMatrix(mat);
 }
 
+void PhyCompound::SetOrientation(float* mat)
+{
+	//btTransform transform = _rigidBody->getCenterOfMassTransform();
+	//transform.setIdentity();
+	//transform.setFromOpenGLMatrix(mat);	
+	//_rigidBody->getMotionState()->setWorldTransform(transform);
+	//_rigidBody->setCenterOfMassTransform(transform);
+
+    btTransform initialTransform;
+	initialTransform.setIdentity();
+	initialTransform.setFromOpenGLMatrix(mat);	
+
+    _rigidBody->setWorldTransform(initialTransform);
+    _rigidBody->getMotionState()->setWorldTransform(initialTransform);
+	//_rigidBody->clearForces();
+	//_rigidBody->setLinearVelocity(btVector3(0,1,0));
+}
+
 void PhyCompound::Draw()
 {
 	float mat[16];

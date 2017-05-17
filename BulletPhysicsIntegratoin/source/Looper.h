@@ -45,6 +45,9 @@ private:
 	PhyBox* _floorBox;
 	PhyBox* _phyBox;
 
+	bool _enablePhysics;
+	bool _pausedPhysics;
+
 	bool SelectModel(int mx, int my);
 	void UpdateDrawRect();
 	void UpdatePhysics(float deltaTime);

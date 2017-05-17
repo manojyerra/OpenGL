@@ -36,6 +36,7 @@ public:
 
 	void ShowBoundingShapes(bool show);
 	void SetBoundingBoxEnabled(bool enable);
+	void SetAsPhysicsObjects(bool val);
 
 	void DrawForSelection();
 	void Draw();

@@ -30,6 +30,7 @@ private:
 	SUICheckBox* showGridLines;
 
 	SUICheckBox* enablePhysics;
+	SUICheckBox* pausePhysics;
 	SUICheckBox* showMarkedObjs;
 	SUICheckBox* showUnmarkedObjs;
 	SUIButton* markAllObjs;
@@ -64,6 +65,7 @@ public:
 	bool IsGridEnable();
 	bool IsGridLinesEnable();
 	bool IsPhysicsEnabled();
+	bool IsPhysicsPaused();
 	//bool IsShowingObjects();
 	bool IsShowingBoundingShapes();
 	bool IsShowingBorder();

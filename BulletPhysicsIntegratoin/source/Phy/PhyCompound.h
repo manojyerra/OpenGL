@@ -36,6 +36,8 @@ public:
 	btCollisionShape* GetCollisionShape();
 	void GetOrientation(float* mat);
 
+	void SetOrientation(float* mat);
+
 	void AddBox(float x, float y, float z, float w, float h, float d);
 	void AddBox(float* mat, float w, float h, float d);
 

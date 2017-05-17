@@ -15,8 +15,8 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	box->SetMargin(0,0,10,10);
 
 	box->AddCheckBox( _texureChkBox = new SUICheckBox("Texture", this) );
-	box->AddCheckBox( _boundingBoxChkBox = new SUICheckBox("Bounding Box", this) );
-	box->AddCheckBox( _bounding2DRectChkBox = new SUICheckBox("Bounding 2D Rect", this) );
+	box->AddCheckBox( _boundingBoxChkBox = new SUICheckBox("AABB", this) );
+	box->AddCheckBox( _bounding2DRectChkBox = new SUICheckBox("AABB Bounding 2D Rect", this) );
 	box->AddCheckBox( _showBoundingShapesChkBox = new SUICheckBox("Show Bounding Shapes", this) );
 	box->AddCheckBox( _wireFrameLinesChkBox = new SUICheckBox("WireFrame Lines", this) );
 	box->AddCheckBox( _wireFramePointsChkBox = new SUICheckBox("WireFrame Points", this) );
@@ -172,9 +172,9 @@ SUIBox* ModelPropsFrame::SetUpSaveBox()
 	box->SetOnOffEnable(true);
 	box->SetMargin(5,5,5,5);
 
-	box->AddButton( _saveBoundingShapes = new SUIButton("Set Bounding Shapes", SUIBox::LEFT, this) );
-	box->AddButton( _saveAABB = new SUIButton("Set AABB", SUIBox::LEFT, this) );
-	box->AddButton( _saveTransformation = new SUIButton("Set Transformation", SUIBox::LEFT, this) );
+	box->AddButton( _saveBoundingShapes = new SUIButton("Save Bounding Shapes", SUIBox::LEFT, this) );
+	box->AddButton( _saveTransformation = new SUIButton("Save Transformation", SUIBox::LEFT, this) );
+	box->AddButton( _saveAABB = new SUIButton("Save AABB", SUIBox::LEFT, this) );
 	box->AddButton( _saveAll = new SUIButton("Save All", SUIBox::LEFT, this) );
 
 	return box;
@@ -201,11 +201,11 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		{
 			selModel->SetTextureEnabled(((SUICheckBox*)com)->IsSelected());
 		}
-		else if(name == "Bounding Box")
+		else if(name == "AABB")
 		{
 			selModel->SetBoundingBoxEnabled(((SUICheckBox*)com)->IsSelected());
 		}
-		else if(name == "Bounding 2D Rect")
+		else if(name == "AABB Bounding 2D Rect")
 		{
 			selModel->SetBounding2DRectEnabled(((SUICheckBox*)com)->IsSelected());
 		}

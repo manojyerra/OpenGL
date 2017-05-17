@@ -9,6 +9,7 @@
 #include "Util/GL2DState.h"
 #include "Shape2D/Rect.h"
 #include "Shapes3D/Box.h"
+#include "Phy/PhyCompound.h"
 
 #include "FLModelReaderWriter.h"
 #include "FLModelBorder.h"
@@ -54,11 +55,14 @@ private:
 	GLfloat _shininess;
 
 	GLMat _mat;
+	GLMat _backMat;
 	GL2DState state2D;	
 	
 	FLModelReaderWriter* _flmReaderWriter;
 	FLModelBorder* _border;
 	FLModelBoundingShapes* _boundingShapes;
+	PhyCompound* _phyCompound;
+
 
 	void Reset(string folderPath, float* mat);
 	void DrawBoundingBox();
@@ -75,12 +79,21 @@ public:
 	~FLModel();
 
 	void Write();
+	void WriteBoundingShapes();
+	void WriteTranformation();
+	void WriteAABB();
+
 	void Write(string folderPath);
 
 	float* GetVerticesPointer();
 	unsigned int GetNumVertices();
 
 	GLMat GetMat();
+	void SetMat(float* mat);
+
+	void SetAsPhysicsObject(bool val);
+	PhyCompound* GetPhyCompound();
+	void SetPhyOrientation(float* mat);
 	
 	void SetTextureEnabled(bool enable);
 	bool IsTextureEnabled();
