@@ -242,16 +242,18 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		{
 			_rotCopy = selModel->GetRotation();
 			_copyType = COPY;
+
+			ShowMessageBox(NULL, "Rotation values copied.", "", MESSAGE_OK);
 		}
 		else if(com == _pasteRotBtn)
 		{
-			//if(_copyType == COPY)
-			//{
-			//	selModel->SetRotation(_rotCopy);
-			//	UpdateRotationInfo(selModel);
-			//}
+			if(_copyType == COPY)
+			{
+				selModel->SetRotation(_rotCopy);
+				UpdateRotationInfo(selModel);
+			}
 
-			selModel->Write();
+			//selModel->Write();
 		}
 		else if( CheckLightBoxUI(com, selModel) )
 		{

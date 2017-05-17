@@ -15,6 +15,19 @@
 
 #define writeConsole DefinesAndIncludes::write
 
+//Begin : MessageBox related
+
+#define MESSAGE_OK						0x00000000L
+#define MESSAGE_OKCANCEL				0x00000001L
+#define MESSAGE_ABORTRETRYIGNORE		0x00000002L
+#define MESSAGE_YESNOCANCEL				0x00000003L
+#define MESSAGE_YESNO					0x00000004L
+#define MESSAGE_RETRYCANCEL				0x00000005L
+
+#define ShowMessageBox					MessageBox
+
+//End : MessageBox related
+
 
 //#ifdef _DEBUG
 //   #define DEBUG_CLIENTBLOCK   new( _CLIENT_BLOCK, __FILE__, __LINE__)
