@@ -367,6 +367,7 @@
     <ClCompile Include="source\SUI\SUIRect.cpp" />
     <ClCompile Include="source\SUI\SUIScroller.cpp" />
     <ClCompile Include="source\SUI\SUISlider.cpp" />
+    <ClCompile Include="source\Util\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\BulletPhysics\btBulletCollisionCommon.h" />
@@ -663,6 +664,7 @@
     <ClInclude Include="source\SUI\SUIRect.h" />
     <ClInclude Include="source\SUI\SUIScroller.h" />
     <ClInclude Include="source\SUI\SUISlider.h" />
+    <ClInclude Include="source\Util\StringUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
