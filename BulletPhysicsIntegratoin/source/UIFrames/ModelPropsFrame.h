@@ -7,6 +7,7 @@
 #include "SUI/SUIChoice.h"
 #include "SUI/SUIActionListener.h"
 #include "SUI/SUIBox.h"
+#include "SUI/SUITextField.h"
 #include "ModelsManager.h"
 
 class ModelPropsFrame : SUIActionListener
@@ -47,23 +48,23 @@ private:
 
 
 	//Begin : Translation box related ui
+	SUITextField* _transXTF;
+	SUITextField* _transYTF;
+	SUITextField* _transZTF;
 
-	SUILabel* _transXLabel;
-	SUILabel* _transYLabel;
-	SUILabel* _transZLabel;
+	SUIButton* _transXZeroBtn;
+	SUIButton* _transYZeroBtn;
+	SUIButton* _transZZeroBtn;
 
-	SUIButton* _transXBtn;
-	SUIButton* _transYBtn;
-	SUIButton* _transZBtn;
-
+	SUIButton* _copyTransBtn;
+	SUIButton* _pasteTransBtn;
 	//End : Translation box related ui
 
 
 	//Begin : Rotation box related ui
-
-	SUILabel* _rotXLabel;
-	SUILabel* _rotYLabel;
-	SUILabel* _rotZLabel;
+	SUITextField* _rotXTF;
+	SUITextField* _rotYTF;
+	SUITextField* _rotZTF;
 
 	SUIButton* _rx1;
 	SUIButton* _ry1;
@@ -84,17 +85,28 @@ private:
 	SUIButton* _rotZeroBtn;
 	SUIButton* _copyRotBtn;
 	SUIButton* _pasteRotBtn;
+
 	//End : Rotation box related ui
 
+
+	//Begin : Save box related ui
+
+	SUIButton* _saveBoundingShapes;
+	SUIButton* _saveAABB;
+	SUIButton* _saveTransformation;
+	SUIButton* _saveAll;
+
+	//End : Save box related ui
 
 	//Begin : ClipBoard values
 
 	static const int NONE = 0;
-	static const int COPY = 0;
+	static const int ROT = 0;
 	static const int TRANS = 0;
 
 	int _copyType;
 	CVector3 _rotCopy;
+	CVector3 _transCopy;
 
 	//End : ClipBoard values
 
@@ -102,6 +114,7 @@ private:
 	SUIBox* SetUpLightingBox();
 	SUIBox* SetUpTransBox();
 	SUIBox* SetUpRotationBox();
+	SUIBox* SetUpSaveBox();
 
 	bool CheckLightBoxUI(SUIComponent* com, FLModel* selModel);
 

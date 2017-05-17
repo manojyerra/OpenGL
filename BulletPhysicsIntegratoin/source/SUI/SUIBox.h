@@ -7,6 +7,7 @@
 #include "SUIRadioButton.h"
 #include "SUISlider.h"
 #include "SUIChoice.h"
+#include "SUITextField.h"
 
 #include "SUIComponent.h"
 #include <vector>
@@ -48,6 +49,7 @@ public:
 	void AddSlider(SUISlider* slider);
 	void AddChoice(SUIChoice* choice);
 	void AddList(SUIList* list);
+	void AddTextField(SUITextField* textField);
 
 	void ResetBounds();
 	void Move(float dx, float dy);

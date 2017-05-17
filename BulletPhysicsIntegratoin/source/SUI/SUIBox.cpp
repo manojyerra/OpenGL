@@ -216,6 +216,11 @@ void SUIBox::AddList(SUIList* list)
 	_elementVec.push_back(list);
 }
 
+void SUIBox::AddTextField(SUITextField* textField)
+{
+	_elementVec.push_back(textField);
+}
+
 void SUIBox::Draw()
 {
 	if(!_visible)

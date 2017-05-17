@@ -25,6 +25,7 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	box->AddCheckBox( _markObject = new SUICheckBox("Mark Object", this) );
 
 	_frame->Add(box);
+	_frame->Add( SetUpSaveBox() );
 	_frame->Add( SetUpLightingBox() );
 	_frame->Add( SetUpTransBox() );
 	_frame->Add( SetUpRotationBox() );
@@ -78,24 +79,34 @@ SUIBox* ModelPropsFrame::SetUpLightingBox()
 
 SUIBox* ModelPropsFrame::SetUpTransBox()
 {
-	SUIBox* box = new SUIBox(SUIBox::H_ALIGNMENT);
+	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
 	box->SetName("Translation", SUIBox::LEFT);
 	box->SetOn(false);
 	box->SetOnOffEnable(true);
 	box->SetMargin(5,5,5,5);
 
-	SUIBox* labelsBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	labelsBox->AddLabel( _transXLabel = new SUILabel("x : 0", SUIBox::LEFT) );
-	labelsBox->AddLabel( _transYLabel = new SUILabel("y : 0", SUIBox::LEFT) );
-	labelsBox->AddLabel( _transZLabel = new SUILabel("z : 0", SUIBox::LEFT) );
+	SUIBox* box1 = new SUIBox(SUIBox::H_ALIGNMENT);
+
+	SUIBox* tfBox = new SUIBox(SUIBox::V_ALIGNMENT);
+
+	tfBox->AddTextField( _transXTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
+	tfBox->AddTextField( _transYTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
+	tfBox->AddTextField( _transZTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
 
 	SUIBox* btnsBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	btnsBox->AddButton( _transXBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
-	btnsBox->AddButton( _transYBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
-	btnsBox->AddButton( _transZBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
+	btnsBox->AddButton( _transXZeroBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
+	btnsBox->AddButton( _transYZeroBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
+	btnsBox->AddButton( _transZZeroBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
 
-	box->AddBox( labelsBox );
-	box->AddBox( btnsBox );
+	SUIBox* lastBox = new SUIBox(SUIBox::H_ALIGNMENT);
+	lastBox->AddButton( _copyTransBtn = new SUIButton("Copy Trans", SUIBox::LEFT, this) );
+	lastBox->AddButton( _pasteTransBtn = new SUIButton("Paste Trans", SUIBox::LEFT, this) );
+
+	box1->AddBox( tfBox );
+	box1->AddBox( btnsBox );
+
+	box->AddBox(box1);
+	box->AddBox(lastBox);
 
 	return box;
 }
@@ -109,13 +120,12 @@ SUIBox* ModelPropsFrame::SetUpRotationBox()
 	box->SetOnOffEnable(true);
 	box->SetMargin(5,5,5,5);
 
-
 	SUIBox* box1 = new SUIBox(SUIBox::H_ALIGNMENT);
 
-		SUIBox* labelsBox = new SUIBox(SUIBox::V_ALIGNMENT);
-		labelsBox->AddLabel( _rotXLabel = new SUILabel("x:0", SUIBox::LEFT) );
-		labelsBox->AddLabel( _rotYLabel = new SUILabel("y:0", SUIBox::LEFT) );
-		labelsBox->AddLabel( _rotZLabel = new SUILabel("z:0", SUIBox::LEFT) );
+		SUIBox* tfBox = new SUIBox(SUIBox::V_ALIGNMENT);
+		tfBox->AddTextField( _rotXTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
+		tfBox->AddTextField( _rotYTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
+		tfBox->AddTextField( _rotZTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
 
 		SUIBox* boxR1 = new SUIBox(SUIBox::V_ALIGNMENT);
 		boxR1->AddButton( _rx1 = new SUIButton(">", SUIBox::CENTER, this) );
@@ -137,21 +147,38 @@ SUIBox* ModelPropsFrame::SetUpRotationBox()
 		boxL2->AddButton( _ly2 = new SUIButton("<<", SUIBox::CENTER, this) );
 		boxL2->AddButton( _lz2 = new SUIButton("<<", SUIBox::CENTER, this) );
 
-	box1->AddBox( labelsBox );
+	box1->AddBox( tfBox );
+	box1->AddBox( boxL2 );
+	box1->AddBox( boxL1 );
 	box1->AddBox( boxR1 );
 	box1->AddBox( boxR2 );
-	box1->AddBox( boxL1 );
-	box1->AddBox( boxL2 );
 	
 	box->AddBox( box1 );
-	box->AddButton( _rotZeroBtn = new SUIButton("Set Rotation to (0,0,0)", SUIBox::LEFT, this) );
-	box->AddButton( _copyRotBtn = new SUIButton("Copy Rotation", SUIBox::LEFT, this) );
-	box->AddButton( _pasteRotBtn = new SUIButton("Paste Rotation", SUIBox::LEFT, this) );
 
+	SUIBox* lastBox = new SUIBox(SUIBox::H_ALIGNMENT);
+	lastBox->AddButton( _rotZeroBtn = new SUIButton("Set (0,0,0)", SUIBox::LEFT, this) );
+	lastBox->AddButton( _copyRotBtn = new SUIButton("Copy Rot", SUIBox::CENTER, this) );
+	lastBox->AddButton( _pasteRotBtn = new SUIButton("Paste Rot", SUIBox::CENTER, this) );
 	
+	box->AddBox(lastBox);
 	return box;
 }
 
+SUIBox* ModelPropsFrame::SetUpSaveBox()
+{
+	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
+	box->SetName("Save Options", SUIBox::LEFT);
+	box->SetOn(false);
+	box->SetOnOffEnable(true);
+	box->SetMargin(5,5,5,5);
+
+	box->AddButton( _saveBoundingShapes = new SUIButton("Set Bounding Shapes", SUIBox::LEFT, this) );
+	box->AddButton( _saveAABB = new SUIButton("Set AABB", SUIBox::LEFT, this) );
+	box->AddButton( _saveTransformation = new SUIButton("Set Transformation", SUIBox::LEFT, this) );
+	box->AddButton( _saveAll = new SUIButton("Save All", SUIBox::LEFT, this) );
+
+	return box;
+}
 
 void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 {
@@ -202,58 +229,131 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		{
 			selModel->SetMarked(((SUICheckBox*)com)->IsSelected());
 		}
-		else if(com == _transXBtn)
+		else if(com == _transXZeroBtn)
 		{
 			CVector3 pos = selModel->GetPos();
 			selModel->SetPos(0.0f, pos.y, pos.z);
+			_transXTF->SetDouble(0, 2);
 		}
-		else if(com == _transYBtn)
+		else if(com == _transYZeroBtn)
 		{
 			CVector3 pos = selModel->GetPos();
 			selModel->SetPos(pos.x, 0, pos.z);
+			_transYTF->SetDouble(0, 2);
 		}
-		else if(com == _transZBtn)
+		else if(com == _transZZeroBtn)
 		{
 			CVector3 pos = selModel->GetPos();
 			selModel->SetPos(pos.x, pos.y, 0);
+			_transZTF->SetDouble(0, 2);
 		}
-		
-		else if(com == _rx1) selModel->AddRotateInLocal('x', 1);
-		else if(com == _ry1) selModel->AddRotateInLocal('y', 1);
-		else if(com == _rz1) selModel->AddRotateInLocal('z', 1);
+		else if(com == _transXTF)
+		{
+			SUITextField* textField = (SUITextField*)com;
+			CVector3 pos = selModel->GetPos();
+			selModel->SetPos(textField->GetDouble(), pos.y, pos.z);
+		}
+		else if(com == _transYTF)
+		{
+			SUITextField* textField = (SUITextField*)com;
+			CVector3 pos = selModel->GetPos();
+			selModel->SetPos(pos.x, textField->GetDouble(), pos.z);
+		}
+		else if(com == _transZTF)
+		{
+			SUITextField* textField = (SUITextField*)com;
+			CVector3 pos = selModel->GetPos();
+			selModel->SetPos(pos.x, pos.y, textField->GetDouble());
+		}		
+		else if(com == _rotXTF)
+		{
+			SUITextField* textField = (SUITextField*)com;
+			CVector3 rot = selModel->GetRotation();
+			selModel->SetRotation(CVector3(textField->GetDouble(), rot.y, rot.z));
+		}
+		else if(com == _rotYTF)
+		{
+			SUITextField* textField = (SUITextField*)com;
+			CVector3 rot = selModel->GetRotation();
+			selModel->SetRotation(CVector3(rot.x, textField->GetDouble(), rot.z));
+		}
+		else if(com == _rotZTF)
+		{
+			SUITextField* textField = (SUITextField*)com;
+			CVector3 rot = selModel->GetRotation();
+			selModel->SetRotation(CVector3(rot.x, rot.y, textField->GetDouble()));
+		}
 
-		else if(com == _rx2) selModel->AddRotateInLocal('x', 10);
-		else if(com == _ry2) selModel->AddRotateInLocal('y', 10);
-		else if(com == _rz2) selModel->AddRotateInLocal('z', 10);
+		else if(com == _rx1) { selModel->AddRotateInLocal('x', 1); UpdateRotationInfo(selModel); }
+		else if(com == _ry1) { selModel->AddRotateInLocal('y', 1); UpdateRotationInfo(selModel); }
+		else if(com == _rz1) { selModel->AddRotateInLocal('z', 1); UpdateRotationInfo(selModel); }
 
-		else if(com == _lx1) selModel->AddRotateInLocal('x', -1);
-		else if(com == _ly1) selModel->AddRotateInLocal('y', -1);
-		else if(com == _lz1) selModel->AddRotateInLocal('z', -1);
+		else if(com == _rx2) { selModel->AddRotateInLocal('x', 10); UpdateRotationInfo(selModel); }
+		else if(com == _ry2) { selModel->AddRotateInLocal('y', 10); UpdateRotationInfo(selModel); }
+		else if(com == _rz2) { selModel->AddRotateInLocal('z', 10); UpdateRotationInfo(selModel); }
 
-		else if(com == _lx2) selModel->AddRotateInLocal('x', -10);
-		else if(com == _ly2) selModel->AddRotateInLocal('y', -10);
-		else if(com == _lz2) selModel->AddRotateInLocal('z', -10);
+		else if(com == _lx1) { selModel->AddRotateInLocal('x', -1); UpdateRotationInfo(selModel); }
+		else if(com == _ly1) { selModel->AddRotateInLocal('y', -1); UpdateRotationInfo(selModel); }
+		else if(com == _lz1) { selModel->AddRotateInLocal('z', -1); UpdateRotationInfo(selModel); }
+
+		else if(com == _lx2) { selModel->AddRotateInLocal('x', -10); UpdateRotationInfo(selModel); }
+		else if(com == _ly2) { selModel->AddRotateInLocal('y', -10); UpdateRotationInfo(selModel); }
+		else if(com == _lz2) { selModel->AddRotateInLocal('z', -10); UpdateRotationInfo(selModel); }
 
 		else if(com == _rotZeroBtn)
 		{
 			selModel->SetRotation(CVector3(0,0,0));
+			UpdateRotationInfo(selModel);
 		}
 		else if(com == _copyRotBtn)
 		{
 			_rotCopy = selModel->GetRotation();
-			_copyType = COPY;
+			_copyType = ROT;
 
 			ShowMessageBox(NULL, "Rotation values copied.", "", MESSAGE_OK);
 		}
 		else if(com == _pasteRotBtn)
 		{
-			if(_copyType == COPY)
+			if(_copyType == ROT)
 			{
 				selModel->SetRotation(_rotCopy);
 				UpdateRotationInfo(selModel);
 			}
+		}
+		else if(com == _copyTransBtn)
+		{
+			_transCopy = selModel->GetPos();
+			_copyType = TRANS;
 
-			//selModel->Write();
+			ShowMessageBox(NULL, "Tranlation values copied.", "", MESSAGE_OK);
+		}
+		else if(com == _pasteTransBtn)
+		{
+			if(_copyType == TRANS)
+			{
+				selModel->SetPos(_transCopy);
+				UpdateTransInfo(selModel);
+			}
+		}
+		else if(com == _saveBoundingShapes)
+		{
+			selModel->WriteBoundingShapes();
+			ShowMessageBox(NULL, "Saved Bounding Shapes", "", MESSAGE_OK);
+		}
+		else if(com == _saveAABB)
+		{
+			selModel->WriteAABB();
+			ShowMessageBox(NULL, "Saved AABB", "", MESSAGE_OK);
+		}
+		else if(com == _saveTransformation)
+		{
+			selModel->WriteTranformation();
+			ShowMessageBox(NULL, "Saved Transformation", "", MESSAGE_OK);
+		}
+		else if(com == _saveAll)
+		{
+			selModel->Write();
+			ShowMessageBox(NULL, "Saved", "", MESSAGE_OK);
 		}
 		else if( CheckLightBoxUI(com, selModel) )
 		{
@@ -355,13 +455,13 @@ void ModelPropsFrame::SetUIValuesFromModel(FLModel* model)
 		_specularG->SetValue( 0.0 );
 		_specularB->SetValue( 0.0 );
 
-		_transXLabel->SetName("x : 0", SUIBox::LEFT);
-		_transYLabel->SetName("y : 0", SUIBox::LEFT);
-		_transZLabel->SetName("z : 0", SUIBox::LEFT);
+		_transXTF->SetDouble(0, 2);
+		_transYTF->SetDouble(0, 2);
+		_transZTF->SetDouble(0, 2);
 
-		_rotXLabel->SetName("x:0", SUIBox::LEFT);
-		_rotYLabel->SetName("y:0", SUIBox::LEFT);
-		_rotYLabel->SetName("z:0", SUIBox::LEFT);
+		_rotXTF->SetDouble(0, 2);
+		_rotYTF->SetDouble(0, 2);
+		_rotYTF->SetDouble(0, 2);
 	}
 }
 
@@ -369,11 +469,9 @@ void ModelPropsFrame::UpdateTransInfo(FLModel* model)
 {
 	if(model)
 	{
-		char chArr[128];
-
-		sprintf(chArr, "x : %.2f", model->GetPos().x);	_transXLabel->SetName(chArr);
-		sprintf(chArr, "y : %.2f", model->GetPos().y);	_transYLabel->SetName(chArr);
-		sprintf(chArr, "z : %.2f", model->GetPos().z);	_transZLabel->SetName(chArr);
+		_transXTF->SetDouble(model->GetPos().x, 2);
+		_transYTF->SetDouble(model->GetPos().y, 2);
+		_transZTF->SetDouble(model->GetPos().z, 2);
 	}
 }
 
@@ -381,13 +479,11 @@ void ModelPropsFrame::UpdateRotationInfo(FLModel* model)
 {
 	if(model)
 	{
-		char chArr[128];
-		
 		CVector3 rot = model->GetRotation();
 
-		sprintf(chArr, "x:%.1f", rot.x);	_rotXLabel->SetName(chArr);
-		sprintf(chArr, "y:%.1f", rot.y);	_rotYLabel->SetName(chArr);
-		sprintf(chArr, "z:%.1f", rot.z);	_rotZLabel->SetName(chArr);
+		_rotXTF->SetDouble(rot.x, 2);
+		_rotYTF->SetDouble(rot.y, 2);
+		_rotZTF->SetDouble(rot.z, 2);
 	}
 }
 
