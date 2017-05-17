@@ -488,39 +488,12 @@ void SUIFrame::Draw()
 	glGetIntegerv(GL_SCISSOR_BOX, scissorBox);
 
 	int scX = (int)(_x-1);
-	int scY = (int)(_y);
+	int scY = (int)(_y+TITLE_BAR_HEIGHT);
 	int scW = (int)(_w+1);
-	int scH = (int)(_h+1);
+	int scH = (int)(_h+1-TITLE_BAR_HEIGHT);
 
 	glEnable(GL_SCISSOR_TEST);
-
-	//AppInfo* appInfo = AppInfo::GetInstance();
-	//int newScX = appInfo->viewX + appInfo->viewW * scX / appInfo->baseWindowW;
-	//int newScY = appInfo->viewY + appInfo->viewH * scY / appInfo->baseWindowH;
-	//int newScW = appInfo->viewW * scW / appInfo->baseWindowW;
-	//int newScH = appInfo->viewH * scH / appInfo->baseWindowH;
-
-	float windowW = SUIManager::GetInstance()->GetWindowWidth();
-	float windowH = SUIManager::GetInstance()->GetWindowHeight();
-
-	float viewX = 0;
-	float viewY = 0;
-	float viewW = windowW;
-	float viewH = windowH;
-
-	float baseWindowW = windowW;
-	float baseWindowH = windowH;
-
-	float currWindowH = windowH;
-
-	int newScX = (int)(viewX + viewW * scX / baseWindowW);
-	int newScY = (int)(viewY + viewH * scY / baseWindowH);
-	int newScW = (int)(viewW * scW / baseWindowW);
-	int newScH = (int)(viewH * scH / baseWindowH);
-
-	glScissor(newScX, (GLint)(currWindowH-newScY-newScH), newScW, newScH);
-
-	//glScissor(scX, (GLint)(SUIManager::GetInstance()->GetWindowHeight()-scY-scH), scW, scH);
+	glScissor(scX, (GLint)(SUIManager::GetInstance()->GetWindowHeight()-scY-scH), scW, scH);
 
 	SUIFont::GetInstance()->EnableBatch();
 
@@ -538,21 +511,16 @@ void SUIFrame::Draw()
 
 	_scroller->Draw();
 
-	DrawTitleBar();
-
 	if(_isBorderVisible)
 		DrawBorder();
 
 	SUIFont::GetInstance()->DrawBatch();
 
 	//Reset Scissor state
-
-	if(isScissorEnable)
-		glEnable(GL_SCISSOR_TEST);
-	else
-		glDisable(GL_SCISSOR_TEST);
-
+	if(isScissorEnable) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
 	glScissor(scissorBox[0], scissorBox[1], scissorBox[2], scissorBox[3]);
+
+	DrawTitleBar();
 }
 
 void SUIFrame::DrawTitleBar()
