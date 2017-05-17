@@ -25,8 +25,6 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_frame->Add( showBoundBox = new SUICheckBox("Show Bounding Box", SUICheckBox::CENTER, this) );
 	_frame->Add( onBorder = new SUICheckBox("Selected Object Border", SUICheckBox::CENTER, this) );
 
-	_frame->Add( textField = new SUITextField("100.0", SUICheckBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
-
 	showMarkedObjs->SetSelect(true);
 	showUnmarkedObjs->SetSelect(true);
 	onBorder->SetSelect(true);
@@ -107,11 +105,6 @@ void MainFrame::actionPerformed(SUIActionEvent e)
 	{
 		_modelsMgr->UnmarkAllObjects();
 		_modelProps->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
-	}
-	else if(com == textField)
-	{
-		double val = textField->GetDouble();
-		textField->SetDouble(val*2);
 	}
 }
 
