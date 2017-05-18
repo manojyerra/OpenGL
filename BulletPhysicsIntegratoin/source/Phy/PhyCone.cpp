@@ -2,18 +2,38 @@
 #include "PhyManager.h"
 //#include "Sui/Sui.h"
 
+
+
+PhyCone::PhyCone(float* mat, float r, float h, float massVal)
+{
+	Init(mat, r, h, massVal);
+}
+
 PhyCone::PhyCone(float x, float y, float z, float r, float h, float massVal)
+{
+	float mat[16];
+	memset(mat, 0, 16*sizeof(float));
+	mat[0] = mat[5] = mat[10] = mat[15] = 1.0f;
+
+	mat[12] = x;
+	mat[13] = y;
+	mat[14] = z;
+
+	Init(mat, r, h, massVal);
+}
+
+void PhyCone::Init(float* mat, float r, float h, float massVal)
 {
 	_r = r;
 	_h = h;
 
-	_shape = new Cone(x,y,z, r,h);
+	_shape = new Cone(mat, r,h);
 
 	colliShape = new btConeShape(btScalar(_r),btScalar(_h));
 
 	btTransform trans;
 	trans.setIdentity();
-	trans.setOrigin(btVector3(x,y,z));
+	trans.setFromOpenGLMatrix(mat);
 
 	_mass = btScalar(massVal);
 
@@ -24,11 +44,11 @@ PhyCone::PhyCone(float x, float y, float z, float r, float h, float massVal)
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(trans);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass,myMotionState,colliShape,localInertia);
 	_rigidBody = new btRigidBody(rbInfo);
-	_rigidBody->setFriction(btScalar(10.0f));
-	_rigidBody->setRollingFriction(btScalar(10.0f));
 
 	PhyManager::GetInstance()->GetDynamicWorld()->addRigidBody(_rigidBody);
 }
+
+
 
 bool PhyCone::isDynamic()
 {

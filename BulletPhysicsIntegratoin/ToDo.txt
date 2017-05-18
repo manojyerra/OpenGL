@@ -1,4 +1,3 @@
-*) Need to check PhyCylinder and PhyCone after setting height as height/2.0f
 *) By double click on object other objects should be invisible and pivot point should be object position and fit it in screen properly.
 *) Short cut key for Ortho and Perspective Views.
 *) Short cut key for Pause physics.
@@ -26,7 +25,7 @@
 	Ortho
 	Tranlation
 	Rotation
-	Pivot	
+	Pivot
 	
 
 //////////////////////// Begin : Later /////////////////////////
@@ -75,5 +74,7 @@
 *) Repalce Labels with TextFields.
 *) Add message box for copy and save options.
 *) glScissor usage : SUIFrame and text is going out of frame needs to fixed.
+*) Need to check PhyCylinder and PhyCone after setting height as height/2.0f
+
 
 ///////////////////////// End : Done ////////////////////////////////

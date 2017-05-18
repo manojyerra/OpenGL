@@ -2,24 +2,26 @@
 #define PhyCylinder_H
 
 #include "btBulletDynamicsCommon.h"
-//#include "Sui/Sui.h"
+#include "Shapes3D/Cylinder.h"
 
 class PhyCylinder
 {
 private:
 	btRigidBody* _rigidBody;
 	btCollisionShape* colliShape;
+	btScalar _mass;
 
 	float _r;
 	float _h;
 	float _d;
 
-	btScalar _mass;
+	Cylinder* _shape;
 
-	unsigned char _color[4];
+	void Init(float* mat, float r, float h, float massVal);
 
 public:
 	PhyCylinder(float x, float y, float z, float r, float h, float massVal);
+	PhyCylinder(float* mat, float r, float h, float massVal);
 	~PhyCylinder();
 
 	void Draw();

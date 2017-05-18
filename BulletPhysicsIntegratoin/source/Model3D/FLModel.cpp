@@ -221,7 +221,7 @@ void FLModel::SetAsPhysicsObject(bool val)
 			}
 		}
 
-		_phyCompound->MakeCompoundShape(_mat.m, totVolume/10);
+		_phyCompound->MakeCompoundShape(_mat.m, totVolume);
 
 		_backMat = _mat;
 	}

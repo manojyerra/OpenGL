@@ -4,17 +4,36 @@
 
 PhyCylinder::PhyCylinder(float x, float y, float z, float r, float h, float massVal)
 {
+	float mat[16];
+	memset(mat, 0, 16*sizeof(float));
+	mat[0] = mat[5] = mat[10] = mat[15] = 1.0f;
+
+	mat[12] = x;
+	mat[13] = y;
+	mat[14] = z;
+
+	Init(mat, r, h, massVal);
+}
+
+PhyCylinder::PhyCylinder(float* mat, float r, float h, float massVal)
+{
+	Init(mat, r, h, massVal);
+}
+
+void PhyCylinder::Init(float* mat, float r, float h, float massVal)
+{
 	_r = r;
-	_h = h/2.0f;
+	_h = h;
 	_d = r;
 
-	_color[0] = _color[1] = _color[2] = _color[3] = 255;
+	_shape = new Cylinder(mat, r,h);
+	_shape->SetColor(rand()%255,rand()%255,rand()%255,255);
 
-	colliShape = new btCylinderShape( btVector3(btScalar(_r),btScalar(_h),btScalar(_d)) );
+	colliShape = new btCylinderShape( btVector3(btScalar(_r),btScalar(_h/2),btScalar(_d)) );
 
 	btTransform trans;
 	trans.setIdentity();
-	trans.setOrigin(btVector3(x,y,z));
+	trans.setFromOpenGLMatrix(mat);
 
 	_mass = btScalar(massVal);
 
@@ -25,8 +44,6 @@ PhyCylinder::PhyCylinder(float x, float y, float z, float r, float h, float mass
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(trans);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass,myMotionState,colliShape,localInertia);
 	_rigidBody = new btRigidBody(rbInfo);
-	_rigidBody->setFriction(btScalar(10.0f));
-	_rigidBody->setRollingFriction(btScalar(10.0f));
 
 	PhyManager::GetInstance()->GetDynamicWorld()->addRigidBody(_rigidBody);
 }
@@ -38,6 +55,18 @@ bool PhyCylinder::isDynamic()
 
 void PhyCylinder::Draw()
 {
+	float mat[16];
+	btTransform trans;
+	_rigidBody->getMotionState()->getWorldTransform(trans);
+	trans.getOpenGLMatrix(mat);
+
+	if(_shape)
+	{
+		_shape->SetGLMatrix(mat);
+		_shape->Draw();
+	}
+
+	/*
 	float mat[16];
 	btTransform trans;
 	_rigidBody->getMotionState()->getWorldTransform(trans);
@@ -62,14 +91,12 @@ void PhyCylinder::Draw()
 	glEnd();
 	
 	glPopMatrix();
+	*/
 }
 
 void PhyCylinder::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
-	_color[0] = r;
-	_color[1] = g;
-	_color[2] = b;
-	_color[3] = a;
+	_shape->SetColor(r, g, b, a);
 }
 
 PhyCylinder::~PhyCylinder()

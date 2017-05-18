@@ -16,8 +16,12 @@ private:
 
 	Cone* _shape;
 
+	void Init(float* mat, float r, float h, float massVal);
+
 public:
 	PhyCone(float x, float y, float z, float r, float h, float massVal);
+	PhyCone(float* mat, float r, float h, float massVal);
+
 	~PhyCone();
 
 	void Draw();
