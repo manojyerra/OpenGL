@@ -194,8 +194,14 @@ void PhyCompound::SetOrientation(float* mat)
 
     _rigidBody->setWorldTransform(initialTransform);
     _rigidBody->getMotionState()->setWorldTransform(initialTransform);
-	//_rigidBody->clearForces();
-	//_rigidBody->setLinearVelocity(btVector3(0,1,0));
+
+	if(!_rigidBody->isStaticObject())
+	{
+		_rigidBody->clearForces();
+		_rigidBody->setLinearVelocity(btVector3(0,0,0));
+		_rigidBody->setAngularVelocity(btVector3(0,0,0));
+		_rigidBody->setActivationState(DISABLE_DEACTIVATION);
+	}
 }
 
 void PhyCompound::Draw()

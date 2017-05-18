@@ -1,0 +1,78 @@
+*) By double click on object other objects should be invisible and pivot point should be object position and fit it in screen properly.
+*) Short cut key for Ortho and Perspective Views.
+*) Short cut key for Pause physics.
+*) Model Props Frame should work when physics enabled.
+*) Main Frame should work when physics enabled.
+*) FLModel transformation should be able to copy and set when physics off.
+*) Memory leaks needs to be fixed for physics mainly.
+*) Show only selected objects option should be there in Main Frame.
+*) Add shourt cut key for bounding shapes visibility.
+*) glScissor usage: Button, Label, TextField, CheckBox etc... Font is going out of frame needs to fixed.
+*) Find proper way to clear array memory. ex : int* arr = new int[100]; delete[] arr; (or) delete arr;
+*) Add pre fix and post fix for SUITextField component.	
+*) Physics options in model frame props for Mass as text fields.
+*) Calculate mass based bounding shapes volume.	
+*) Physics Props Box
+	Mass 		: xxxx
+	Volume		: xxxx
+	Meterial 	: xxx
+				  xxx
+				  xxx
+				  xxx
+	Calculate Mass by Meterial and volume.	
+*) Camera box ( with below TextFields ) 
+	Perspective
+	Ortho
+	Tranlation
+	Rotation
+	Pivot	
+	
+
+//////////////////////// Begin : Later /////////////////////////
+	
+*) Remove scaling option for FLModel
+*) Delete bounding shapes.
+*) Undo and Redo options.
+*) Crash issue needs to be fixed while scaling the object.
+*) Cylinder bounding shape depth configration.
+*) When Physics enabled automatically view should changed to perspective and ortho should not work ( ortho should work only when physics paused or disabled. )
+*) Proper help to use the tool.
+*) Add text field for object name.
+*) Show message box while saving FLModel and it should show dialog box if object name already exists
+*) When enter key is clicked on object name text field and object name is already exist, it should show dialog box saying "Object name is already exists".
+*) Ctrl + S for saving FLModel.
+*) Save Options ( should be there in Main frame for all objects ).
+	Save Transformation
+	Save AABB
+	Save Bounding Shapes
+	Save All
+*) Confirmation box before saving ( not message box ).
+*) Delete option for model should be there in Main Frame and short cut key should be there.
+*) Duplicate option on model should be there in Main Frame and short cut key should be there ).
+*) Load model(s) option should be there.
+*) Multiple objects selection should be there and it should perform below operations.
+	Transformation
+	Delete
+	Duplicate
+	Apply transformation of object from physics enabled state to disable state.
+*) Duplicate objects should be saved by new folder.
+
+
+//////////////////////// End : Later ///////////////////////////////
+
+
+
+////////////////////////// Begin : Done /////////////////////////////
+
+*) Save Options
+	Save Transformation
+	Save AABB
+	Save Bounding Shapes
+	Save All	
+*) Remove save option from paste rotation button click event.
+*) Copy paste should be there for tranlation box.
+*) Repalce Labels with TextFields.
+*) Add message box for copy and save options.
+*) glScissor usage : SUIFrame and text is going out of frame needs to fixed.
+
+///////////////////////// End : Done ////////////////////////////////
