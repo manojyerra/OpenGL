@@ -10,6 +10,7 @@ protected:
 	int _id;
 	unsigned char _color[4];
 	unsigned char _randomColorAlpha;
+	bool _visible;
 
 public:
 	float m[16];
@@ -43,6 +44,8 @@ public:
 	void AddScale(CVector3 scale);
 
 	void SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+	void SetVisible(bool visible);
+	bool IsVisible();
 	
 	static Shape* GetBestFitBoundingShape(float* vertexBuf, int arrSize);
 	static Shape* GetBoundingShape(float* vertexBuf, int arrSize, int boundingShapeID);

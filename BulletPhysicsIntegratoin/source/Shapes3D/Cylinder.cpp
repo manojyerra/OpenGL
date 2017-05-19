@@ -1,3 +1,4 @@
+
 #include "Cylinder.h"
 #include "math.h"
 #include "../Util/GLUtil.h"
@@ -187,6 +188,9 @@ Cylinder Cylinder::GetBoundingCylinderAfterRotXYZ(float* vertexBuf, int arrSize,
 
 void Cylinder::Draw()
 {
+	if(!_visible)
+		return;
+
 	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
 
 	glPushMatrix();

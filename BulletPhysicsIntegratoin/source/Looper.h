@@ -19,6 +19,9 @@
 #include "Floor.h"
 
 #include "Phy/PhyBox.h"
+#include "Phy/PhyBox.h"
+#include "Phy/PhyCone.h"
+#include "Phy/PhyCylinder.h"
 #include "Phy/PhyManager.h"
 #include "Shape2D/Rect.h"
 
@@ -43,14 +46,17 @@ private:
 	Floor* _floor;
 
 	PhyBox* _floorBox;
-	PhyBox* _phyBox;
 
 	bool _enablePhysics;
 	bool _pausedPhysics;
 
 	bool SelectModel(int mx, int my);
-	void UpdateDrawRect();
+	bool CheckBoundingBoxAddition(FLModel* model, Rect* rect);
+
+	void UpdateSelectionRect();
+	void DrawRect(Rect* rect);
 	void UpdatePhysics(float deltaTime);
+	void DrawOnPhysicsEnable(float deltaTime);
 
 public:
 	Looper(int windowWidth, int windowHeight);

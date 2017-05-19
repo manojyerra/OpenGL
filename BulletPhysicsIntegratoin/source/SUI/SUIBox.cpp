@@ -221,6 +221,19 @@ void SUIBox::AddTextField(SUITextField* textField)
 	_elementVec.push_back(textField);
 }
 
+void SUIBox::Delete(SUIComponent* com)
+{
+	for(int i=0; i<_elementVec.size(); i++)
+	{
+		if(_elementVec[i] == com)
+		{
+			delete _elementVec[i];
+			_elementVec.erase(_elementVec.begin() + i);
+			break;
+		}
+	}
+}
+
 void SUIBox::Draw()
 {
 	if(!_visible)

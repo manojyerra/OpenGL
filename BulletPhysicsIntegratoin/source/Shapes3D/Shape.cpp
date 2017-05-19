@@ -12,6 +12,7 @@ Shape::Shape()
 	m[0] = m[5] = m[10] = m[15] = 1;
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
 	_randomColorAlpha = 255;
+	_visible = true;
 }
 
 Shape::Shape(int id)
@@ -21,6 +22,7 @@ Shape::Shape(int id)
 	m[0] = m[5] = m[10] = m[15] = 1;
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
 	_randomColorAlpha = 255;
+	_visible = true;
 }
 
 int Shape::GetID()
@@ -179,6 +181,16 @@ void Shape::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned
 	_color[1] = g;
 	_color[2] = b;
 	_color[3] = a;
+}
+
+void Shape::SetVisible(bool visible)
+{
+	_visible = visible;
+}
+
+bool Shape::IsVisible()
+{
+	return _visible;
 }
 
 Shape* Shape::GetBestFitBoundingShape(float* vertexBuf, int arrSize)

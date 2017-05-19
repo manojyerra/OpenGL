@@ -306,6 +306,16 @@ unsigned int FLModel::GetMeterial(int lightParam)
 	return 0;
 }
 
+vector<Shape*> FLModel::GetBoundingShapes()
+{
+	return _boundingShapes->GetBoudingShapes();
+}
+
+void FLModel::DeleteBoundingShape(Shape* shape)
+{
+	_boundingShapes->DeleteBoundingShape(shape);
+}
+
 void FLModel::AddBoundingShape(Shape* shape)
 {
 	_boundingShapes->AddBoundingShape(shape);

@@ -43,20 +43,17 @@ Looper::Looper(int windowWidth, int windowHeight)
 	FLModel* model1 = _modelsMgr->Add("data/barrel");
 	FLModel* model2 = _modelsMgr->Add("data/barrel", CVector3(10,5,10) );
 
-	//FLModel* model2 = _modelsMgr->Add("data/cat");
-	
 	PhyManager::GetInstance();
 
 	_floorBox = new PhyBox(0,-0.5,0, 60,1,60, 0);
-	_phyBox = new PhyBox(0,10,0, 1,1,1, 1);
-
+	
 	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
 	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
 	//model->AddBoundingShape(shape);
 
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);
 
-	_mainFrame = new MainFrame(0,0,200,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
+	_mainFrame = new MainFrame(0,0,215,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
 }
 
 void Looper::Draw(float deltaTime)
@@ -68,7 +65,10 @@ void Looper::Draw(float deltaTime)
 	_pausedPhysics = _mainFrame->IsPhysicsPaused();
 
 	if(_enablePhysics && !_pausedPhysics)
-		UpdatePhysics(deltaTime);
+	{
+		DrawOnPhysicsEnable(deltaTime);
+		return;
+	}
 
 	Cam::GetInstance()->SetProjection();
 
@@ -90,11 +90,11 @@ void Looper::Draw(float deltaTime)
 
 		SelectModel(Input::MX, Input::MY);
 
-		if(_mainFrame->IsSelectedObjectAsPivot() && !_enablePhysics)
+		if(_mainFrame->IsSelectedObjectAsPivot())
 			Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
 	}
 
-	if(_mainFrame->IsSelectedObjectAsPivot() && Input::IsMouseReleased() && !_enablePhysics)
+	if(_mainFrame->IsSelectedObjectAsPivot() && Input::IsMouseReleased())
 		Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
 
 	if(_modelsMgr->GetSelectedModel() && _mainFrame->IsShowingBorder())
@@ -105,40 +105,23 @@ void Looper::Draw(float deltaTime)
 		_modelsMgr->GetSelectedModel()->CalcBorder();
 	}
 
-	glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	_modelsMgr->Draw();
 	_floor->Draw();
-
-	if(_enablePhysics)
-	{
+	if(_enablePhysics && _pausedPhysics)
 		_floorBox->Draw();
-		_phyBox->Draw();
-	}
+
+
+	bool bShapeAdded = false;
 
 	if(!_enablePhysics)
 	{
-		UpdateDrawRect();
+		UpdateSelectionRect();
+		DrawRect(&_rect);
 
-		int keys[5] = {'1','2','3','4','5'};
-
-		if(Input::IsAnyKeyReleased(keys, 5) && _rect.w > 0 && _rect.h > 0)
-		{
-			FLModel* selModel = _modelsMgr->GetSelectedModel();
-
-			if( selModel)
-			{
-				if(Input::IsKeyReleased((int)'1'))		selModel->AddBestBoudingShapeByVerticesOnRect(&_rect);
-				else if(Input::IsKeyReleased((int)'2'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::BOX);
-				else if(Input::IsKeyReleased((int)'3'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::CONE);
-				else if(Input::IsKeyReleased((int)'4'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::CYLINDER);
-				else if(Input::IsKeyReleased((int)'5'))	selModel->AddBoudingShapeByVerticesOnRect(&_rect, Shape::SPHERE);
-
-				selModel->ShowBoundingShapes(true);
-				_modelPropsFrame->ShowBoundingShapes(true);
-			}
-		}
+		bShapeAdded = CheckBoundingBoxAddition(_modelsMgr->GetSelectedModel(), &_rect);
 	}
 
 	if(!_enablePhysics || _pausedPhysics)
@@ -248,7 +231,37 @@ void Looper::Draw(float deltaTime)
 
 	if(rotChanged)
 		_modelPropsFrame->UpdateRotationInfo( _modelsMgr->GetSelectedModel() );
+
+	if(bShapeAdded)
+	{
+		_modelPropsFrame->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
+		_modelPropsFrame->ShowBoundingShapes(true);
 	}
+	}
+
+	SUIDraw();
+}
+
+void Looper::DrawOnPhysicsEnable(float deltaTime)
+{
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	Cam::GetInstance()->SetProjection();
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	GLUtil::SetLightPosition(0, 0, 0, GL_LIGHT0);
+
+	Cam::GetInstance()->SetModelViewMatrix();
+	Cam::GetInstance()->UpdateCamera();
+
+	UpdatePhysics(deltaTime);
+
+	_modelsMgr->Draw();
+	_floor->Draw();
+	_floorBox->Draw();
 
 	SUIDraw();
 }
@@ -262,7 +275,31 @@ void Looper::UpdatePhysics(float deltaTime)
 	else if(Input::IsMouseDragged())	PhyManager::GetInstance()->OnDrag(Input::MX, Input::MY);
 }
 
-void Looper::UpdateDrawRect()
+bool Looper::CheckBoundingBoxAddition(FLModel* model, Rect* rect)
+{
+	bool added = false;
+
+	if(model && rect->w > 0 && rect->h > 0)
+	{
+		int keys[5] = {'1','2','3','4','5'};
+
+		if(Input::IsAnyKeyReleased(keys, 5))
+		{
+			if(Input::IsKeyReleased((int)'1'))		model->AddBestBoudingShapeByVerticesOnRect(rect);
+			else if(Input::IsKeyReleased((int)'2'))	model->AddBoudingShapeByVerticesOnRect(rect, Shape::BOX);
+			else if(Input::IsKeyReleased((int)'3'))	model->AddBoudingShapeByVerticesOnRect(rect, Shape::CONE);
+			else if(Input::IsKeyReleased((int)'4'))	model->AddBoudingShapeByVerticesOnRect(rect, Shape::CYLINDER);
+			else if(Input::IsKeyReleased((int)'5'))	model->AddBoudingShapeByVerticesOnRect(rect, Shape::SPHERE);
+
+			model->ShowBoundingShapes(true);
+			added = true;
+		}
+	}
+
+	return added;
+}
+
+void Looper::UpdateSelectionRect()
 {
 	if(Input::IsMouseClicked() || Input::IsRightMouseClicked())
 	{
@@ -272,8 +309,11 @@ void Looper::UpdateDrawRect()
 	{
 		_rect.SetBoundsByPoints(Input::MouseClickX, Input::MouseClickY, Input::MX, Input::MY);
 	}
+}
 
-	if( _rect.w > 0 && _rect.h > 0)
+void Looper::DrawRect(Rect* rect)
+{
+	if(_rect.w > 0 && _rect.h > 0)
 	{
 		state2D.Begin(0xff000055, 2.0f, 1.0f, true, false);
 		_rect.Draw();

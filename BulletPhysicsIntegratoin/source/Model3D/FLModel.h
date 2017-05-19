@@ -136,6 +136,8 @@ public:
 	Shape* AddBestBoudingShapeByVerticesOnRect(Rect* rect);
 	Shape* AddBoudingShapeByVerticesOnRect(Rect* rect, int boundingShapeID);
 	void AddBoundingShape(Shape* shape);
+	vector<Shape*> GetBoundingShapes();
+	void DeleteBoundingShape(Shape* shape);
 
 	void Draw();
 	void DrawBorder();

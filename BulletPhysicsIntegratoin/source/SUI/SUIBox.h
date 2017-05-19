@@ -50,6 +50,7 @@ public:
 	void AddChoice(SUIChoice* choice);
 	void AddList(SUIList* list);
 	void AddTextField(SUITextField* textField);
+	void Delete(SUIComponent* com);
 
 	void ResetBounds();
 	void Move(float dx, float dy);

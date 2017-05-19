@@ -98,4 +98,6 @@ void FLModelBorder::DrawBorder()
 
 		state2D.End();
 	}
+
+	_borderVec.clear();
 }

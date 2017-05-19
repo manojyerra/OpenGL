@@ -95,6 +95,24 @@ Shape* FLModelBoundingShapes::AddBoudingShapeByVerticesOnRect(Rect* rect, int bo
 	return bShape;
 }
 
+vector<Shape*> FLModelBoundingShapes::GetBoudingShapes()
+{
+	return _boundingShapes;
+}
+
+void FLModelBoundingShapes::DeleteBoundingShape(Shape* shape)
+{
+	for(int i=0; i<_boundingShapes.size(); i++)
+	{
+		if(_boundingShapes[i] == shape)
+		{
+			delete _boundingShapes[i];
+			_boundingShapes.erase(_boundingShapes.begin() + i);
+			break;
+		}
+	}
+}
+
 Shape* FLModelBoundingShapes::Get(unsigned int index)
 {
 	return _boundingShapes[index];

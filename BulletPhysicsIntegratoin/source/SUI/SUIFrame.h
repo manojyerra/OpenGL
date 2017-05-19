@@ -86,6 +86,7 @@ public:
 	int GetNumComponents();
 
 	void Add(SUIComponent* com);
+	void Delete(SUIComponent* com);
 	void Draw();
 };
 

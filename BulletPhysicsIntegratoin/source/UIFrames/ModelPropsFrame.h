@@ -90,13 +90,25 @@ private:
 
 
 	//Begin : Save box related ui
-
+	SUIBox*	_saveBox;
 	SUIButton* _saveBoundingShapes;
 	SUIButton* _saveAABB;
 	SUIButton* _saveTransformation;
 	SUIButton* _saveAll;
 
 	//End : Save box related ui
+
+
+	//Begin : Bouding shapes box
+
+	vector<SUICheckBox*> _bShapesChKBoxVec;
+	vector<Shape*> _bShapesVec;
+	SUIButton* _deleteBoudingShape;
+	SUIButton* _selectAllBoundingShapes;
+	SUIButton* _deSelectAllBoundingShapes;
+
+	//End : Bouding shapes box
+
 
 	//Begin : ClipBoard values
 
@@ -115,12 +127,27 @@ private:
 	SUIBox* SetUpTransBox();
 	SUIBox* SetUpRotationBox();
 	SUIBox* SetUpSaveBox();
+	
+
+	SUIBox* _bShapesBox;
+
+	void AddUIForBoundingShapes(FLModel* model);
+	void AddCheckBoxesForBoundingShapes(FLModel* model, SUIBox* box);
 
 	bool CheckLightBoxUI(SUIComponent* com, FLModel* selModel);
+	bool CheckBoudingShapesBoxUI(SUIComponent* com, FLModel* selModel);
 
 public:
 	ModelPropsFrame(int x, int y, int w, int h, ModelsManager* modelsMgr);
 	~ModelPropsFrame();
+
+	void ResetBounds();
+
+	void SetVisible(bool visible);
+	bool IsVisible();
+
+	void SetVisibleSaveBox(bool visible);
+	void SetVisibleBShapesBox(bool visible);
 
 	void actionPerformed(SUIActionEvent SUIActionEvent);
 

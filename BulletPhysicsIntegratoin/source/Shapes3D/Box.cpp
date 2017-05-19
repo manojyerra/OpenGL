@@ -264,6 +264,9 @@ Box Box::GetBoundingBoxAfterRotXYZ(float* vertexBuf, int arrSize, float xAng, fl
 
 void Box::Draw()
 {
+	if(!_visible)
+		return;
+
 	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
 
 	float w = _w/2.0f;

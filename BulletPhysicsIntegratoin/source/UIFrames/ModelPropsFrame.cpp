@@ -7,6 +7,8 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 {
 	_modelsMgr = modelsMgr;
 	_copyType = NONE;
+	_saveBox = NULL;
+	_bShapesBox = NULL;
 
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
 	_frame->SetName("Model Properties", SUIFrame::LEFT);
@@ -25,14 +27,39 @@ ModelPropsFrame::ModelPropsFrame(int x, int y, int w, int h, ModelsManager* mode
 	box->AddCheckBox( _markObject = new SUICheckBox("Mark Object", this) );
 
 	_frame->Add(box);
-	_frame->Add( SetUpSaveBox() );
 	_frame->Add( SetUpLightingBox() );
 	_frame->Add( SetUpTransBox() );
 	_frame->Add( SetUpRotationBox() );
-
-	//_frame->SetMinimized(true);
+	_frame->Add( (_saveBox = SetUpSaveBox()) );
+	
+	AddUIForBoundingShapes(NULL);
 }
 
+void ModelPropsFrame::ResetBounds()
+{
+	_frame->ResetBounds();
+}
+
+void ModelPropsFrame::SetVisible(bool visible)
+{
+	_frame->SetVisible(visible);
+}
+
+bool ModelPropsFrame::IsVisible()
+{
+	return _frame->IsVisible();
+}
+
+void ModelPropsFrame::SetVisibleSaveBox(bool visible)
+{
+	_saveBox->SetVisible(visible);
+}
+
+void ModelPropsFrame::SetVisibleBShapesBox(bool visible)
+{
+	if(_bShapesBox)
+		_bShapesBox->SetVisible(visible);
+}
 
 SUIBox* ModelPropsFrame::SetUpLightingBox()
 {
@@ -178,6 +205,92 @@ SUIBox* ModelPropsFrame::SetUpSaveBox()
 	box->AddButton( _saveAll = new SUIButton("Save All", SUIBox::LEFT, this) );
 
 	return box;
+}
+
+void ModelPropsFrame::AddUIForBoundingShapes(FLModel* model)
+{
+	bool visibile = true;
+
+	if(_bShapesBox)
+	{
+		visibile = _bShapesBox->IsVisible();
+
+		_frame->Delete(_bShapesBox);
+		_bShapesBox = NULL;
+	}
+	
+	_bShapesChKBoxVec.clear();
+	_bShapesVec.clear();
+
+	SUIBox* box = new SUIBox(SUIBox::V_ALIGNMENT);
+	box->SetName("Bounding Shapes Options", SUIBox::LEFT);
+	box->SetOn(true);
+	box->SetOnOffEnable(true);
+	box->SetMargin(5,5,5,5);
+
+	AddCheckBoxesForBoundingShapes(model, box);
+
+	SUIBox* box1 = new SUIBox(SUIBox::H_ALIGNMENT);
+	box1->AddButton( _deleteBoudingShape = new SUIButton("Delete", SUIBox::LEFT, this) );
+	box1->AddButton( _selectAllBoundingShapes = new SUIButton("Select All", SUIBox::LEFT, this) );
+	box1->AddButton( _deSelectAllBoundingShapes = new SUIButton("Deselect All", SUIBox::LEFT, this) );
+	box->AddBox(box1);
+
+	if(_bShapesChKBoxVec.size() == 0)
+		box->SetOn(false);
+
+	_frame->Add(box);
+	_frame->ResetBounds();
+
+	_bShapesBox = box;
+
+	_bShapesBox->SetVisible(visibile);
+}
+
+void ModelPropsFrame::AddCheckBoxesForBoundingShapes(FLModel* model, SUIBox* box)
+{
+	if(model == NULL || box == NULL)
+		return;
+
+	vector<Shape*> bShapes = model->GetBoundingShapes();
+
+	for(int i=0; i<bShapes.size(); i++)
+	{
+		Shape* shape = bShapes[i];
+
+		if(shape->GetID() == Shape::BOX)
+		{
+			SUICheckBox* checkBox = new SUICheckBox("Box",SUICheckBox::LEFT, this);
+			_bShapesChKBoxVec.push_back(checkBox);
+			box->AddCheckBox(checkBox);
+			_bShapesVec.push_back(shape);
+			checkBox->SetSelect(shape->IsVisible());
+		}
+		else if(shape->GetID() == Shape::CONE)
+		{
+			SUICheckBox* checkBox = new SUICheckBox("Cone",SUICheckBox::LEFT, this);
+			_bShapesChKBoxVec.push_back(checkBox);
+			box->AddCheckBox(checkBox);
+			_bShapesVec.push_back(shape);
+			checkBox->SetSelect(shape->IsVisible());
+		}
+		else if(shape->GetID() == Shape::CYLINDER)
+		{
+			SUICheckBox* checkBox = new SUICheckBox("Cylinder",SUICheckBox::LEFT, this);
+			_bShapesChKBoxVec.push_back(checkBox);
+			box->AddCheckBox(checkBox);
+			_bShapesVec.push_back(shape);
+			checkBox->SetSelect(shape->IsVisible());
+		}
+		else if(shape->GetID() == Shape::SPHERE)
+		{
+			SUICheckBox* checkBox = new SUICheckBox("Sphere",SUICheckBox::LEFT, this);
+			_bShapesChKBoxVec.push_back(checkBox);
+			box->AddCheckBox(checkBox);
+			_bShapesVec.push_back(shape);
+			checkBox->SetSelect(shape->IsVisible());
+		}
+	}
 }
 
 void ModelPropsFrame::actionPerformed(SUIActionEvent e)
@@ -355,12 +468,71 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 			selModel->Write();
 			ShowMessageBox(NULL, "Saved", "", MESSAGE_OK);
 		}
+		else if(com == _selectAllBoundingShapes)
+		{
+			for(int i=0; i<_bShapesChKBoxVec.size(); i++)
+			{
+				_bShapesChKBoxVec[i]->SetSelect(true);
+				_bShapesVec[i]->SetVisible(true);
+			}
+		}
+		else if(com == _deSelectAllBoundingShapes)
+		{
+			for(int i=0; i<_bShapesChKBoxVec.size(); i++)
+			{
+				_bShapesChKBoxVec[i]->SetSelect(false);
+				_bShapesVec[i]->SetVisible(false);
+			}
+		}
+		else if(com == _deleteBoudingShape)
+		{
+			for(int i=0; i<_bShapesChKBoxVec.size(); i++)
+			{
+				if(_bShapesChKBoxVec[i]->IsSelected())
+				{
+					_bShapesBox->Delete(_bShapesChKBoxVec[i]);
+
+					selModel->DeleteBoundingShape(_bShapesVec[i]);
+
+					_bShapesVec[i] = NULL;
+					_bShapesVec.erase(_bShapesVec.begin() + i);
+
+					_bShapesChKBoxVec[i] = NULL;
+					_bShapesChKBoxVec.erase(_bShapesChKBoxVec.begin() + i);
+
+					i--;
+				}
+			}
+		}
+		else if( CheckBoudingShapesBoxUI(com, selModel))
+		{
+		}
+
 		else if( CheckLightBoxUI(com, selModel) )
 		{
 		}
 	}
 }
 
+bool ModelPropsFrame::CheckBoudingShapesBoxUI(SUIComponent* com, FLModel* selModel)
+{
+	if(com == NULL)
+		return false;
+
+	for(int i=0; i<_bShapesChKBoxVec.size(); i++)
+	{
+		if(_bShapesChKBoxVec[i] == com)
+		{
+			SUICheckBox* chkBox = (SUICheckBox*)com;
+
+			_bShapesVec[i]->SetVisible(chkBox->IsSelected());
+			
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool ModelPropsFrame::CheckLightBoxUI(SUIComponent* com, FLModel* selModel)
 {
@@ -429,6 +601,8 @@ void ModelPropsFrame::SetUIValuesFromModel(FLModel* model)
 
 		UpdateTransInfo(model);
 		UpdateRotationInfo(model);
+
+		AddUIForBoundingShapes(model);
 	}
 	else
 	{
@@ -462,6 +636,8 @@ void ModelPropsFrame::SetUIValuesFromModel(FLModel* model)
 		_rotXTF->SetDouble(0, 2);
 		_rotYTF->SetDouble(0, 2);
 		_rotYTF->SetDouble(0, 2);
+
+		AddUIForBoundingShapes(NULL);
 	}
 }
 

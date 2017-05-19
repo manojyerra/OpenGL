@@ -175,6 +175,9 @@ float Cone::CalcRadius(float* vertexBuf, int arrSize, float height)
 
 void Cone::Draw()
 {
+	if(!_visible)
+		return;
+
 	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
 
 	glPushMatrix();

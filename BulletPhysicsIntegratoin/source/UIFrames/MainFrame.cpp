@@ -10,30 +10,40 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_modelProps = modelProps;
 
 	_frame = new SUIFrame((float)x, (float)y, (float)w, (float)h, SUIFrame::V_ALIGNMENT);
-	_frame->SetName("Main Frame", SUIFrame::CENTER);
+	_frame->SetName("Main Frame", SUIFrame::LEFT);
 
 	_frame->Add(new SUIButton("Load Models", this));
 	_frame->Add(new SUIButton("Save Models", this));
 
-	_frame->Add( enablePhysics = new SUICheckBox("Enable Physics", SUICheckBox::CENTER, this));
-	_frame->Add( pausePhysics = new SUICheckBox("Pause Physics", SUICheckBox::CENTER, this));
+	_frame->Add( enablePhysics = new SUICheckBox("Enable Physics", SUICheckBox::LEFT, this));
+	_frame->Add( pausePhysics = new SUICheckBox("Pause Physics", SUICheckBox::LEFT, this));
 	
-	_frame->Add( showMarkedObjs = new SUICheckBox("Show Marked Objects", SUICheckBox::CENTER, this));
-	_frame->Add( showUnmarkedObjs = new SUICheckBox("Show Unmarked Objects", SUICheckBox::CENTER, this));
-	_frame->Add( markAllObjs = new SUIButton("Mark all objects", SUIButton::CENTER, this));
-	_frame->Add( unmarkAllObjs = new SUIButton("Unmark all objects", SUIButton::CENTER, this));
+	_frame->Add( showMarkedObjs = new SUICheckBox("Show Marked Objects", SUICheckBox::LEFT, this));
+	_frame->Add( showUnmarkedObjs = new SUICheckBox("Show Unmarked Objects", SUICheckBox::LEFT, this));
+	_frame->Add( markAllObjs = new SUIButton("Mark all objects", SUIButton::LEFT, this));
+	_frame->Add( unmarkAllObjs = new SUIButton("Unmark all objects", SUIButton::LEFT, this));
 
-	_frame->Add( showBoundShapes = new SUICheckBox("Show Bounding Shapes", SUICheckBox::CENTER, this) );
-	_frame->Add( showBoundBox = new SUICheckBox("Show Bounding Box", SUICheckBox::CENTER, this) );
-	_frame->Add( onBorder = new SUICheckBox("Selected Object Border", SUICheckBox::CENTER, this) );
+	_frame->Add( showBoundShapes = new SUICheckBox("Show Bounding Shapes", SUICheckBox::LEFT, this) );
+	_frame->Add( showBoundBox = new SUICheckBox("Show Bounding Box", SUICheckBox::LEFT, this) );
+	_frame->Add( onBorder = new SUICheckBox("Selected Object Border", SUICheckBox::LEFT, this) );
 
 	showMarkedObjs->SetSelect(true);
 	showUnmarkedObjs->SetSelect(true);
 	onBorder->SetSelect(true);
 
-	_frame->Add( SetUpPivotBox()	);
-	_frame->Add( SetUpProjBox()		);
-	_frame->Add( SetUpCamViewBox()	) ;
+	SUIBox* cameraBox = new SUIBox(SUIBox::V_ALIGNMENT);
+	cameraBox->SetMargin(5,5,10,5);
+	cameraBox->SetName("Camera Options", SUIBox::LEFT);
+	cameraBox->SetOnOffEnable(true);
+	cameraBox->SetOn(true);
+
+	cameraBox->AddBox( SetUpPivotBox()		);
+	cameraBox->AddBox( SetUpProjBox()		);
+	cameraBox->AddBox( SetUpCamViewBox()	);
+	cameraBox->SetBgVisible(true);
+	cameraBox->SetBgColor(64, 64, 64, 255);
+
+	_frame->Add( cameraBox );
 	_frame->Add( SetUpFloorBox()	);
 }
 
@@ -111,6 +121,42 @@ void MainFrame::actionPerformed(SUIActionEvent e)
 	else if(com == enablePhysics)
 	{
 		_modelsMgr->SetAsPhysicsObjects(enablePhysics->IsSelected());
+
+		if(enablePhysics->IsSelected())
+			_modelProps->SetVisible(pausePhysics->IsSelected());
+		else
+			_modelProps->SetVisible(true);
+
+		if(!_modelProps->IsVisible())
+		{
+			_modelProps->SetUIValuesFromModel(NULL);
+			_modelsMgr->SetSelectedModelIndex(-1);
+		}
+
+		bool saveAndBShapesVisibility = !(enablePhysics->IsSelected() && pausePhysics->IsSelected());
+
+		_modelProps->SetVisibleSaveBox(saveAndBShapesVisibility);
+		_modelProps->SetVisibleBShapesBox(saveAndBShapesVisibility);
+		_modelProps->ResetBounds();
+	}
+	else if(com == pausePhysics)
+	{
+		if(enablePhysics->IsSelected())
+			_modelProps->SetVisible(pausePhysics->IsSelected());
+		else
+			_modelProps->SetVisible(true);
+
+		if(!_modelProps->IsVisible())
+		{
+			_modelProps->SetUIValuesFromModel(NULL);
+			_modelsMgr->SetSelectedModelIndex(-1);
+		}
+
+		bool saveAndBShapesVisibility = !(enablePhysics->IsSelected() && pausePhysics->IsSelected());
+
+		_modelProps->SetVisibleSaveBox(saveAndBShapesVisibility);
+		_modelProps->SetVisibleBShapesBox(saveAndBShapesVisibility);
+		_modelProps->ResetBounds();
 	}
 }
 
@@ -137,13 +183,13 @@ bool MainFrame::IsGridLinesEnable()			{	return showGridLines->IsSelected();			}
 SUIBox* MainFrame::SetUpPivotBox()
 {
 	SUIBox* pivotBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	pivotBox->SetMargin(10,10,10,0);
-	pivotBox->SetName("Pivot", SUIBox::CENTER);
+	pivotBox->SetMargin(3,3,5,0);
+	pivotBox->SetName("Pivot", SUIBox::LEFT);
 	pivot = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
-	pivot->AddCheckBox(new SUICheckBox("Origin as pivot", SUICheckBox::CENTER));
-	pivot->AddCheckBox(new SUICheckBox("Selected object as pivot", SUICheckBox::CENTER));
+	pivot->AddCheckBox(new SUICheckBox("Origin as pivot", SUICheckBox::LEFT));
+	pivot->AddCheckBox(new SUICheckBox("Selected object as pivot", SUICheckBox::LEFT));
 	pivot->AddActionListener(this);
-	pivot->SetName("Pivot", SUIRadioButton::CENTER);
+	pivot->SetName("Pivot", SUIRadioButton::LEFT);
 	pivot->SetSelect(0);
 	pivotBox->AddRadioButton(pivot);
 	pivotBox->SetOnOffEnable(true);
@@ -154,17 +200,17 @@ SUIBox* MainFrame::SetUpPivotBox()
 SUIBox* MainFrame::SetUpProjBox()
 {
 	SUIBox* projBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	projBox->SetMargin(10,10,10,0);
-	projBox->SetName("Projection", SUIBox::CENTER);
+	projBox->SetMargin(3,3,5,0);
+	projBox->SetName("Projection", SUIBox::LEFT);
 	projRadio = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
-	projRadio->SetName("Projection", SUIRadioButton::CENTER);
-	projRadio->AddCheckBox(new SUICheckBox("Perspective", SUICheckBox::CENTER));
-	projRadio->AddCheckBox(new SUICheckBox("Ortho", SUICheckBox::CENTER));
+	projRadio->SetName("Projection", SUIRadioButton::LEFT);
+	projRadio->AddCheckBox(new SUICheckBox("Perspective", SUICheckBox::LEFT));
+	projRadio->AddCheckBox(new SUICheckBox("Ortho", SUICheckBox::LEFT));
 	projRadio->SetSelect(0);
 	projRadio->AddActionListener(this);
 	projBox->AddRadioButton(projRadio);
 	projBox->SetOnOffEnable(true);
-	projBox->SetOn(true);
+	projBox->SetOn(false);
 
 	return projBox;
 }
@@ -172,16 +218,16 @@ SUIBox* MainFrame::SetUpProjBox()
 SUIBox* MainFrame::SetUpCamViewBox()
 {
 	SUIBox* viewTypeBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	viewTypeBox->SetMargin(10,10,10,0);
-	viewTypeBox->SetName("View Type", SUIBox::CENTER);
+	viewTypeBox->SetMargin(3,3,5,5);
+	viewTypeBox->SetName("View Type", SUIBox::LEFT);
 
-	viewTypeBox->AddButton(new SUIButton("Change View", this));
-	viewTypeBox->AddButton(new SUIButton("Front View", this));
-	viewTypeBox->AddButton(new SUIButton("Back View", this));
-	viewTypeBox->AddButton(new SUIButton("Left View", this));
-	viewTypeBox->AddButton(new SUIButton("Right View", this));
-	viewTypeBox->AddButton(new SUIButton("Top View", this));
-	viewTypeBox->AddButton(new SUIButton("Bottom View", this));
+	viewTypeBox->AddButton(new SUIButton("Change View", SUIBox::LEFT, this));
+	viewTypeBox->AddButton(new SUIButton("Front View", SUIBox::LEFT, this));
+	viewTypeBox->AddButton(new SUIButton("Back View", SUIBox::LEFT, this));
+	viewTypeBox->AddButton(new SUIButton("Left View", SUIBox::LEFT, this));
+	viewTypeBox->AddButton(new SUIButton("Right View", SUIBox::LEFT, this));
+	viewTypeBox->AddButton(new SUIButton("Top View", SUIBox::LEFT, this));
+	viewTypeBox->AddButton(new SUIButton("Bottom View", SUIBox::LEFT, this));
 
 	viewTypeBox->SetOnOffEnable(true);
 	viewTypeBox->SetOn(false);
@@ -192,13 +238,13 @@ SUIBox* MainFrame::SetUpCamViewBox()
 SUIBox* MainFrame::SetUpFloorBox()
 {
 	SUIBox* floorBox = new SUIBox(SUIBox::V_ALIGNMENT);
-	floorBox->AddCheckBox( floorVisible = new SUICheckBox("Visible", SUICheckBox::CENTER, this) );
-	floorBox->AddCheckBox( showAxis = new SUICheckBox("Show Axis", SUICheckBox::CENTER, this) );
-	floorBox->AddCheckBox( showGrid = new SUICheckBox("Show Grid", SUICheckBox::CENTER, this) );
-	floorBox->AddCheckBox( showGridLines = new SUICheckBox("Show Grid Lines", SUICheckBox::CENTER, this) );
+	floorBox->AddCheckBox( floorVisible = new SUICheckBox("Visible", SUICheckBox::LEFT, this) );
+	floorBox->AddCheckBox( showAxis = new SUICheckBox("Show Axis", SUICheckBox::LEFT, this) );
+	floorBox->AddCheckBox( showGrid = new SUICheckBox("Show Grid", SUICheckBox::LEFT, this) );
+	floorBox->AddCheckBox( showGridLines = new SUICheckBox("Show Grid Lines", SUICheckBox::LEFT, this) );
 
-	floorBox->SetMargin(10,10,10,0);
-	floorBox->SetName("Floor", SUIBox::CENTER);
+	floorBox->SetMargin(5,5,5,0);
+	floorBox->SetName("Floor", SUIBox::LEFT);
 	floorBox->SetOnOffEnable(true);
 	floorBox->SetOn(false);
 
