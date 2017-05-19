@@ -37,8 +37,8 @@ void Cam::Init(int screenW, int screenH, float zNear, float zFar, float zNearPla
 	_zNearPlaneHalfW = zNearPlaneW/2.0f;
 
 	_pivot = CVector3(0, 0, 0);
-	_trans = CVector3(0, -8.0f, -250.0f);
-	_angle = CVector3(15, -30, 0);
+	_trans = CVector3(0, 0, -400.0f);
+	_angle = CVector3(30, 0, 0);
 
 	_viewType = 5;
 
@@ -102,6 +102,9 @@ void Cam::SetModelViewMatrix()
 	glLoadIdentity();
 	
 	glTranslatef(_trans.x, _trans.y, _trans.z);
+
+	//glTranslatef(_pivot.x, _pivot.y, _pivot.z);
+
 	glRotatef(_angle.x,1,0,0);
 	glRotatef(_angle.y,0,1,0);
 
@@ -161,6 +164,8 @@ bool Cam::UpdateCamera()
 void Cam::SetPivot(CVector3 pivotPoint)
 {
 	_pivot = pivotPoint;
+	//_trans.Set(0, 0, -300.0f);
+	//_angle.Set(0,0,0);
 }
 
 void Cam::SetFrontView()

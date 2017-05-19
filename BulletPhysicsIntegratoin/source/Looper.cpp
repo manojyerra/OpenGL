@@ -41,7 +41,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 	//}
 
 	FLModel* model1 = _modelsMgr->Add("data/barrel");
-	FLModel* model2 = _modelsMgr->Add("data/barrel", CVector3(10,5,10) );
+	FLModel* model2 = _modelsMgr->Add("data/barrel", CVector3(5,0,0) );
+	FLModel* model3 = _modelsMgr->Add("data/barrel", CVector3(10,5,-100) );
+
 
 	PhyManager::GetInstance();
 
