@@ -332,6 +332,10 @@ bool Pointer3D::IsPointerDragged()
 	return (_heldPointer && Input::IsMouseDragged());
 }
 
+bool Pointer3D::IsHeldPointer()
+{
+	return _heldPointer;
+}
 
 char Pointer3D::GetInvisibleAxis()
 {

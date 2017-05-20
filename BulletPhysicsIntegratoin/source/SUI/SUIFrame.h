@@ -83,6 +83,7 @@ public:
 	void SetBounds(float x, float y, float w, float h);
 	SUIComponent* getComponentAt(float x, float y);
 	SUIComponent* getComponent(unsigned int index);
+	SUIComponent* getComponentByKeyEvent();
 	int GetNumComponents();
 
 	void Add(SUIComponent* com);

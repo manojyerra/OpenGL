@@ -49,6 +49,9 @@ public:
 	bool UpdateCamera();
 
 	void SetPivot(CVector3 pivotPoint);
+	void SetTrans(CVector3 trans);
+	void SetRot(CVector3 rot);
+
 	void SetFrontView();
 	void SetBackView();
 	void SetLeftView();

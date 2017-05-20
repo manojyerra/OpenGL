@@ -40,6 +40,7 @@ public:
 	void SetOnOffEnable(bool onOffEnable);
 	vector<SUIComponent*> getComponentList();
 	SUIComponent* getComponentAt(float x, float y);
+	SUIComponent* getComponentByKeyEvent();
 
 	void AddBox(SUIBox* box);
 	void AddButton(SUIButton* box);

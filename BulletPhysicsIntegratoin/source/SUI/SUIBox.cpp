@@ -94,6 +94,30 @@ SUIComponent* SUIBox::getComponentAt(float x, float y)
 	return NULL;
 }
 
+SUIComponent* SUIBox::getComponentByKeyEvent()
+{
+	for(int i=0; i<(int)_elementVec.size(); i++)
+	{
+		if(_elementVec[i]->IsVisible() == false)
+				continue;
+
+		SUIComponent* com = _elementVec[i];
+
+		if(com->GetComponentID() == SUIComponent::BOX)
+		{
+			SUIComponent* returnCom = ((SUIBox*)_elementVec[i])->getComponentByKeyEvent();
+
+			if(returnCom != NULL)
+				return returnCom;
+		}
+		else if(com->IsKeyEventFired())
+			return com;
+	}
+
+	return NULL;
+}
+
+
 SUIEvents SUIBox::UpdateByInput()
 {
 	SUIEvents eventsVec;

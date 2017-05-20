@@ -44,7 +44,6 @@ Looper::Looper(int windowWidth, int windowHeight)
 	FLModel* model2 = _modelsMgr->Add("data/barrel", CVector3(5,0,0) );
 	FLModel* model3 = _modelsMgr->Add("data/barrel", CVector3(10,5,-100) );
 
-
 	PhyManager::GetInstance();
 
 	_floorBox = new PhyBox(0,-0.5,0, 60,1,60, 0);
@@ -79,24 +78,34 @@ void Looper::Draw(float deltaTime)
 
 	GLUtil::SetLightPosition(0, 0, 0, GL_LIGHT0);
 
-	if(Input::IsKeyReleased((int)'V'))
-		Cam::GetInstance()->ChangeView();
-
 	Cam::GetInstance()->SetModelViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	if(Input::IsRightMousePressed())
+	if(Input::IsRightMousePressed() || Input::IsMouseDoubleClicked())
 	{
 		glClearColor(1.0f,1.0f,1.0f,1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		SelectModel(Input::MX, Input::MY);
+		FLModel* flModel = SelectModel(Input::MX, Input::MY);
 
-		if(_mainFrame->IsSelectedObjectAsPivot())
-			Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
+		if(flModel)
+		{
+			if(Input::IsMouseDoubleClicked())
+			{
+				_mainFrame->SetObjectAsPivot();
+				_modelsMgr->ShowOnlySelectedObject( !_modelsMgr->IsShowingOnlySelectedObject() );
+			}
+
+			if(_mainFrame->IsSelectedObjectAsPivot() && flModel)
+			{
+				Cam::GetInstance()->SetPivot( flModel->GetPos()		);
+				Cam::GetInstance()->SetRot	( CVector3(0,0,0)		);
+				Cam::GetInstance()->SetTrans( CVector3(0,0,-300.0f)	);
+			}
+		}
 	}
 
-	if(_mainFrame->IsSelectedObjectAsPivot() && Input::IsMouseReleased())
+	if(_mainFrame->IsSelectedObjectAsPivot() && _pointer3D.IsHeldPointer() && Input::IsMouseReleased())
 		Cam::GetInstance()->SetPivot( _modelsMgr->GetSelectedModel()->GetPos() );
 
 	if(_modelsMgr->GetSelectedModel() && _mainFrame->IsShowingBorder())
@@ -323,7 +332,7 @@ void Looper::DrawRect(Rect* rect)
 	}
 }
 
-bool Looper::SelectModel(int mx, int my)
+FLModel* Looper::SelectModel(int mx, int my)
 {
 	unsigned int index = _modelsMgr->GetModelIndexByMousePos((float)mx, (float)my);
 
@@ -331,10 +340,10 @@ bool Looper::SelectModel(int mx, int my)
 	{
 		_modelsMgr->SetSelectedModelIndex( index );
 		_modelPropsFrame->SetUIValuesFromModel( _modelsMgr->GetSelectedModel() );
-		return true;
+		return _modelsMgr->GetSelectedModel();
 	}
 
-	return false;
+	return NULL;
 }
 
 Looper::~Looper()

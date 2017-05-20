@@ -50,7 +50,7 @@ private:
 	bool _enablePhysics;
 	bool _pausedPhysics;
 
-	bool SelectModel(int mx, int my);
+	FLModel* SelectModel(int mx, int my);
 	bool CheckBoundingBoxAddition(FLModel* model, Rect* rect);
 
 	void UpdateSelectionRect();

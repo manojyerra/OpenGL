@@ -20,6 +20,7 @@ public:
 
 	~SUIButton();
 
+	void SetShortCut(SUIKeyCombi keysCombi);
 	SUIEvents UpdateByInput();
 	void Move(float dx, float dy);
 	void ResetBounds();

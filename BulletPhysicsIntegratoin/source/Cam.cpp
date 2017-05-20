@@ -164,8 +164,16 @@ bool Cam::UpdateCamera()
 void Cam::SetPivot(CVector3 pivotPoint)
 {
 	_pivot = pivotPoint;
-	//_trans.Set(0, 0, -300.0f);
-	//_angle.Set(0,0,0);
+}
+
+void Cam::SetTrans(CVector3 trans)
+{
+	_trans = trans;
+}
+
+void Cam::SetRot(CVector3 rot)
+{
+	_angle = rot;
 }
 
 void Cam::SetFrontView()

@@ -15,17 +15,22 @@ MainFrame::MainFrame(int x, int y, int w, int h, Cam* cam, Floor* floor, ModelsM
 	_frame->Add(new SUIButton("Load Models", this));
 	_frame->Add(new SUIButton("Save Models", this));
 
-	_frame->Add( enablePhysics = new SUICheckBox("Enable Physics", SUICheckBox::LEFT, this));
-	_frame->Add( pausePhysics = new SUICheckBox("Pause Physics", SUICheckBox::LEFT, this));
+	_frame->Add( enablePhysics = new SUICheckBox("Enable Physics (P)", SUICheckBox::LEFT, this));
+	_frame->Add( pausePhysics = new SUICheckBox("Pause Physics (Space)", SUICheckBox::LEFT, this));
 	
+	enablePhysics->SetShortCut(SUIKeyCombi('P'));
+	pausePhysics->SetShortCut(SUIKeyCombi(VK_SPACE));
+
 	_frame->Add( showMarkedObjs = new SUICheckBox("Show Marked Objects", SUICheckBox::LEFT, this));
 	_frame->Add( showUnmarkedObjs = new SUICheckBox("Show Unmarked Objects", SUICheckBox::LEFT, this));
 	_frame->Add( markAllObjs = new SUIButton("Mark all objects", SUIButton::LEFT, this));
 	_frame->Add( unmarkAllObjs = new SUIButton("Unmark all objects", SUIButton::LEFT, this));
 
-	_frame->Add( showBoundShapes = new SUICheckBox("Show Bounding Shapes", SUICheckBox::LEFT, this) );
+	_frame->Add( showBoundShapes = new SUICheckBox("Show Bounding Shapes (B)", SUICheckBox::LEFT, this) );
 	_frame->Add( showBoundBox = new SUICheckBox("Show Bounding Box", SUICheckBox::LEFT, this) );
 	_frame->Add( onBorder = new SUICheckBox("Selected Object Border", SUICheckBox::LEFT, this) );
+
+	showBoundShapes->SetShortCut(SUIKeyCombi('B'));
 
 	showMarkedObjs->SetSelect(true);
 	showUnmarkedObjs->SetSelect(true);
@@ -65,17 +70,23 @@ void MainFrame::actionPerformed(SUIActionEvent e)
 
 		if(selIndex == 0)
 		{
-			_cam->SetPivot(CVector3(0,0,0));
+			Cam::GetInstance()->SetPivot( CVector3(0,0,0)		);
+			//Cam::GetInstance()->SetTrans( CVector3(0,0,-300.0f)	);
+			//Cam::GetInstance()->SetRot	( CVector3(0,0,0)		);
 		}
 		else if(selIndex == 1)
 		{
 			FLModel* flModel = _modelsMgr->GetSelectedModel();
 
 			if(flModel)
-				_cam->SetPivot(CVector3(flModel->GetPos()));
+			{
+				Cam::GetInstance()->SetPivot( flModel->GetPos()		);
+				Cam::GetInstance()->SetTrans( CVector3(0,0,-300.0f)	);
+				Cam::GetInstance()->SetRot	( CVector3(0,0,0)		);
+			}
 		}
 	}
-	else if(name == "Change View")		_cam->ChangeView();
+	else if(com == changeViewBtn)		_cam->ChangeView();
 	else if(name == "Front View")		_cam->SetFrontView();
 	else if(name == "Back View")		_cam->SetBackView();
 	else if(name == "Left View")		_cam->SetLeftView();
@@ -138,6 +149,9 @@ void MainFrame::actionPerformed(SUIActionEvent e)
 		_modelProps->SetVisibleSaveBox(saveAndBShapesVisibility);
 		_modelProps->SetVisibleBShapesBox(saveAndBShapesVisibility);
 		_modelProps->ResetBounds();
+
+		projRadio->SetSelect(0);
+		_cam->SetPerspectiveView();
 	}
 	else if(com == pausePhysics)
 	{
@@ -175,6 +189,11 @@ bool MainFrame::IsShowingBorder()			{	return onBorder->IsSelected();				}
 bool MainFrame::IsOriginAsPivot()			{	return (pivot->GetSelectedIndex() == 0);	}
 bool MainFrame::IsSelectedObjectAsPivot()	{	return (pivot->GetSelectedIndex() == 1);	}
 
+void MainFrame::SetObjectAsPivot()
+{
+	pivot->SetSelect(1);
+}
+
 bool MainFrame::IsOrtho()					{	return (projRadio->GetSelectedIndex() == 1);}
 bool MainFrame::IsAxisEnable()				{	return showAxis->IsSelected();				}
 bool MainFrame::IsGridEnable()				{	return showGrid->IsSelected();				}
@@ -184,8 +203,9 @@ SUIBox* MainFrame::SetUpPivotBox()
 {
 	SUIBox* pivotBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	pivotBox->SetMargin(3,3,5,0);
-	pivotBox->SetName("Pivot", SUIBox::LEFT);
+	pivotBox->SetName("Pivot (I)", SUIBox::LEFT);
 	pivot = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	pivot->SetShortCut('I');
 	pivot->AddCheckBox(new SUICheckBox("Origin as pivot", SUICheckBox::LEFT));
 	pivot->AddCheckBox(new SUICheckBox("Selected object as pivot", SUICheckBox::LEFT));
 	pivot->AddActionListener(this);
@@ -201,8 +221,9 @@ SUIBox* MainFrame::SetUpProjBox()
 {
 	SUIBox* projBox = new SUIBox(SUIBox::V_ALIGNMENT);
 	projBox->SetMargin(3,3,5,0);
-	projBox->SetName("Projection", SUIBox::LEFT);
+	projBox->SetName("Projection (O)", SUIBox::LEFT);
 	projRadio = new SUIRadioButton(SUIRadioButton::V_ALIGNMENT);
+	projRadio->SetShortCut('O');
 	projRadio->SetName("Projection", SUIRadioButton::LEFT);
 	projRadio->AddCheckBox(new SUICheckBox("Perspective", SUICheckBox::LEFT));
 	projRadio->AddCheckBox(new SUICheckBox("Ortho", SUICheckBox::LEFT));
@@ -221,7 +242,10 @@ SUIBox* MainFrame::SetUpCamViewBox()
 	viewTypeBox->SetMargin(3,3,5,5);
 	viewTypeBox->SetName("View Type", SUIBox::LEFT);
 
-	viewTypeBox->AddButton(new SUIButton("Change View", SUIBox::LEFT, this));
+	changeViewBtn = new SUIButton("Change View (V)", SUIBox::LEFT, this);
+	changeViewBtn->SetShortCut('V');
+
+	viewTypeBox->AddButton(changeViewBtn);
 	viewTypeBox->AddButton(new SUIButton("Front View", SUIBox::LEFT, this));
 	viewTypeBox->AddButton(new SUIButton("Back View", SUIBox::LEFT, this));
 	viewTypeBox->AddButton(new SUIButton("Left View", SUIBox::LEFT, this));

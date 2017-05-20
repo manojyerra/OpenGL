@@ -45,6 +45,11 @@ SUIButton::~SUIButton()
 {
 }
 
+void SUIButton::SetShortCut(SUIKeyCombi keysCombi)
+{
+	_keyCombi = keysCombi;
+}
+
 void SUIButton::Move(float dx, float dy)
 {
 	_x += dx;
@@ -86,6 +91,14 @@ void SUIButton::Draw()
 SUIEvents SUIButton::UpdateByInput()
 {
 	SUIEvents eventsVec;
+	
+	bool keyEventFired = IsKeyEventFired();
+
+	if(_actionListener && keyEventFired)
+	{
+		eventsVec.ACTION_PERFORMED = true;
+		return eventsVec;
+	}
 
 	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
 		return eventsVec;

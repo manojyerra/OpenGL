@@ -344,6 +344,7 @@
     <ClCompile Include="source\Shapes3D\Cylinder.cpp" />
     <ClCompile Include="source\Shapes3D\Shape.cpp" />
     <ClCompile Include="source\Shapes3D\Sphere.cpp" />
+    <ClCompile Include="source\SUI\SUIKeyCombi.cpp" />
     <ClCompile Include="source\SUI\SUITextField.cpp" />
     <ClCompile Include="source\UIFrames\MainFrame.cpp" />
     <ClCompile Include="source\UIFrames\ModelPropsFrame.cpp" />
@@ -635,6 +636,7 @@
     <ClInclude Include="source\Shapes3D\Cylinder.h" />
     <ClInclude Include="source\Shapes3D\Shape.h" />
     <ClInclude Include="source\Shapes3D\Sphere.h" />
+    <ClInclude Include="source\SUI\SUIKeyCombi.h" />
     <ClInclude Include="source\SUI\SUITextField.h" />
     <ClInclude Include="source\UIFrames\MainFrame.h" />
     <ClInclude Include="source\UIFrames\ModelPropsFrame.h" />

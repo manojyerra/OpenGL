@@ -191,9 +191,23 @@ void SUICheckBox::DrawCircle(float cx, float cy, float r)
 	}
 }
 
+void SUICheckBox::SetShortCut(SUIKeyCombi keysCombi)
+{
+	_keyCombi = keysCombi;
+}
+
 SUIEvents SUICheckBox::UpdateByInput()
 {
 	SUIEvents eventsVec;
+
+	bool keyEventFired = IsKeyEventFired();
+
+	if(_actionListener && keyEventFired)
+	{
+		SetSelect(!IsSelected());
+		eventsVec.ACTION_PERFORMED = true;
+		return eventsVec;
+	}
 
 	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
 		return eventsVec;

@@ -19,6 +19,7 @@ public:
 	SUIRadioButton(int contentAlignment);
 	~SUIRadioButton();
 
+	void SetShortCut(SUIKeyCombi keyCombi);
 	void SetSelect(int index);
 	int GetSelectedIndex();
 	void Move(float dx, float dy);

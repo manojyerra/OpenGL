@@ -108,9 +108,32 @@ void SUIRadioButton::Draw()
 		DrawBorder();
 }
 
+void SUIRadioButton::SetShortCut(SUIKeyCombi keyCombi)
+{
+	_keyCombi = keyCombi;
+}
+
 SUIEvents SUIRadioButton::UpdateByInput()
 {
 	SUIEvents eventsVec;
+
+	bool keyEventFired = IsKeyEventFired();
+
+	if(keyEventFired)
+	{
+		int unSelIndex = GetSelectedIndex();
+		int selIndex = unSelIndex+1;
+
+		if(selIndex >= _elementVec.size())
+			selIndex = 0;
+
+		SetSelect(selIndex);
+
+		if(_actionListener)
+			eventsVec.ACTION_PERFORMED = true;
+
+		return eventsVec;
+	}
 
 	if(!Contains((float)SUIInput::MX, (float)SUIInput::MY))
 		return eventsVec;

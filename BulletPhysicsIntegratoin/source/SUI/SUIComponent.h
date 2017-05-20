@@ -2,6 +2,7 @@
 #define SUIComponent_H
 
 #include "SUIEvents.h"
+#include "SUIKeyCombi.h"
 
 #include <string>
 #include <vector>
@@ -45,6 +46,8 @@ protected:
 	unsigned char _borderA;
 
 	float _borderWidth;
+
+	SUIKeyCombi _keyCombi;
 
 	unsigned int MixColor(unsigned int baseColor, unsigned int mixColor, float percent);
 
@@ -112,6 +115,7 @@ public:
 	void DrawBackground(bool onPress = false);
 	void DrawBorder();
 
+	virtual bool IsKeyEventFired();
 	virtual bool Contains(float x, float y);
 	virtual bool IsDialogMode(){ return false; }
 	virtual void UpdateDialog(){}

@@ -11,6 +11,7 @@ class ModelsManager
 private:
 	vector<FLModel*> _vec;
 	FLModel* _selModel;
+	bool _showOnlySelObject;
 
 public:
 	ModelsManager();
@@ -37,6 +38,9 @@ public:
 	void ShowBoundingShapes(bool show);
 	void SetBoundingBoxEnabled(bool enable);
 	void SetAsPhysicsObjects(bool val);
+
+	void ShowOnlySelectedObject(bool show);
+	bool IsShowingOnlySelectedObject();
 
 	void DrawForSelection();
 	void Draw();

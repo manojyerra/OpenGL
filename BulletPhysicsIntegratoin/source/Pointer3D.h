@@ -50,6 +50,7 @@ public:
 
 	int GetTransformationType();
 	bool IsPointerDragged();
+	bool IsHeldPointer();
 	char GetInvisibleAxis();
 	char GetTopAxis();
 	char GetSideAxis();

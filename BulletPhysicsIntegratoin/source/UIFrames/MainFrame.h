@@ -38,6 +38,7 @@ private:
 	SUICheckBox* showBoundShapes;
 	SUICheckBox* showBoundBox;
 	SUICheckBox* onBorder;
+	SUIButton* changeViewBtn;
 
 	Cam* _cam;
 	Floor* _floor;
@@ -71,6 +72,7 @@ public:
 	bool IsShowingBorder();
 	bool IsOriginAsPivot();
 	bool IsSelectedObjectAsPivot();
+	void SetObjectAsPivot();
 };
 
 #endif

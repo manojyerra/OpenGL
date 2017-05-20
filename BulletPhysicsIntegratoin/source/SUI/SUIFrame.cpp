@@ -157,6 +157,31 @@ SUIComponent* SUIFrame::getComponent(unsigned int index)
 	return NULL;
 }
 
+SUIComponent* SUIFrame::getComponentByKeyEvent()
+{
+	int size = (int)_elementVec.size();
+
+	for(int i=0; i<size; i++)
+	{
+		if(_elementVec[i]->IsVisible() == false)
+				continue;
+
+		SUIComponent* com = _elementVec[i];
+
+		if(com->GetComponentID() == SUIComponent::BOX)
+		{
+			SUIComponent* returnCom = ((SUIBox*)_elementVec[i])->getComponentByKeyEvent();
+
+			if(returnCom != NULL)
+				return returnCom;
+		}
+		else if(com->IsKeyEventFired())
+			return com;
+	}
+
+	return NULL;
+}
+
 int SUIFrame::GetNumComponents()
 {
 	return _elementVec.size();

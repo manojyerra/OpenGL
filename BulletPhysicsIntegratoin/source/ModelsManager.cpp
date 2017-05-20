@@ -4,6 +4,7 @@ ModelsManager::ModelsManager()
 {
 	_vec.clear();
 	_selModel = NULL;
+	_showOnlySelObject = false;
 }
 
 FLModel* ModelsManager::Add(string folderPath)
@@ -103,6 +104,17 @@ void ModelsManager::SetAsPhysicsObjects(bool val)
 		_vec[i]->SetAsPhysicsObject(val);
 }
 
+
+void ModelsManager::ShowOnlySelectedObject(bool show)
+{
+	_showOnlySelObject = show;
+}
+
+bool ModelsManager::IsShowingOnlySelectedObject()
+{
+	return _showOnlySelObject;
+}
+
 FLModel* ModelsManager::Get(unsigned int index)
 {
 	return _vec[index];
@@ -191,8 +203,16 @@ void ModelsManager::DrawForSelection()
 
 void ModelsManager::Draw()
 {
-	for(unsigned int i=0; i<_vec.size();i++)
-		_vec[i]->Draw();
+	if(!_showOnlySelObject)
+	{
+		for(unsigned int i=0; i<_vec.size();i++)
+			_vec[i]->Draw();
+	}
+	else
+	{
+		if(_selModel)
+			_selModel->Draw();
+	}
 
 	if(_selModel)
 		_selModel->DrawBorder();

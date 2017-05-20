@@ -75,6 +75,11 @@ bool SUIComponent::Contains(float x, float y)
 	return (x >= _x && x <= _x+_w && y >= _y && y <= _y+_h);
 }
 
+bool SUIComponent::IsKeyEventFired()
+{
+	return _keyCombi.IsEventFired();
+}
+
 void SUIComponent::SetVisible(bool visible)
 {
 	_visible = visible;

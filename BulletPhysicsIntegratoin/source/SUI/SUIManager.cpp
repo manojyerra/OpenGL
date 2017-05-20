@@ -213,6 +213,24 @@ void SUIManager::Update()
 			_activeFrame->UpdateByInput();
 		}
 	}
+
+	if(SUIInput::GetReleasedKey() != 0)
+	{
+		for(int i=0; i<_framesVec.size(); i++)
+		{
+			if(!_framesVec[i]->IsMinimized())
+			{
+				SUIComponent* com = _framesVec[i]->getComponentByKeyEvent();
+		
+				if(com)
+				{
+					FireEvent(com, com->UpdateByInput());
+					_framesVec[i]->ResetBounds();
+					break;
+				}
+			}
+		}
+	}
 }
 
 void SUIManager::FireEvent(SUIComponent* com, SUIEvents &eventsVec)

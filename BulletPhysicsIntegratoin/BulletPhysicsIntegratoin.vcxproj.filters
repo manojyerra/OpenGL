@@ -772,6 +772,9 @@
     <ClCompile Include="source\Util\StringUtils.cpp">
       <Filter>source\Util</Filter>
     </ClCompile>
+    <ClCompile Include="source\SUI\SUIKeyCombi.cpp">
+      <Filter>source\SUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -1658,6 +1661,9 @@
     </ClInclude>
     <ClInclude Include="source\Util\StringUtils.h">
       <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SUI\SUIKeyCombi.h">
+      <Filter>source\SUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
