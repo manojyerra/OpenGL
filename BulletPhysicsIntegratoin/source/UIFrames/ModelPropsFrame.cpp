@@ -89,7 +89,7 @@ SUIBox* ModelPropsFrame::SetUpLightingBox()
 
 	SUIBox* boxLighting = new SUIBox(SUIBox::V_ALIGNMENT);
 	boxLighting->SetName("Lighting", SUIBox::LEFT);
-	boxLighting->SetMargin(5,5,5,5);
+	boxLighting->SetMargin(3,3,5,5);
 	boxLighting->SetOnOffEnable(true);
 	boxLighting->SetOn(false);
 	boxLighting->AddCheckBox( _lightingChkBox = new SUICheckBox("Lighting On", this));
@@ -110,12 +110,11 @@ SUIBox* ModelPropsFrame::SetUpTransBox()
 	box->SetName("Translation", SUIBox::LEFT);
 	box->SetOn(false);
 	box->SetOnOffEnable(true);
-	box->SetMargin(5,5,5,5);
+	box->SetMargin(3,3,5,5);
 
 	SUIBox* box1 = new SUIBox(SUIBox::H_ALIGNMENT);
 
 	SUIBox* tfBox = new SUIBox(SUIBox::V_ALIGNMENT);
-
 	tfBox->AddTextField( _transXTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
 	tfBox->AddTextField( _transYTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
 	tfBox->AddTextField( _transZTF = new SUITextField("0", SUIBox::LEFT, this, SUITextField::INPUT_DOUBLE) );
@@ -126,6 +125,7 @@ SUIBox* ModelPropsFrame::SetUpTransBox()
 	btnsBox->AddButton( _transZZeroBtn = new SUIButton("Set 0", SUIBox::LEFT, this) );
 
 	SUIBox* lastBox = new SUIBox(SUIBox::H_ALIGNMENT);
+	lastBox->AddButton( _transZeroBtn = new SUIButton("Set (0,0,0)", SUIBox::LEFT, this) );
 	lastBox->AddButton( _copyTransBtn = new SUIButton("Copy Trans", SUIBox::LEFT, this) );
 	lastBox->AddButton( _pasteTransBtn = new SUIButton("Paste Trans", SUIBox::LEFT, this) );
 
@@ -145,7 +145,7 @@ SUIBox* ModelPropsFrame::SetUpRotationBox()
 	box->SetName("Rotation", SUIBox::LEFT);
 	box->SetOn(false);
 	box->SetOnOffEnable(true);
-	box->SetMargin(5,5,5,5);
+	box->SetMargin(3,3,5,5);
 
 	SUIBox* box1 = new SUIBox(SUIBox::H_ALIGNMENT);
 
@@ -197,7 +197,7 @@ SUIBox* ModelPropsFrame::SetUpSaveBox()
 	box->SetName("Save Options", SUIBox::LEFT);
 	box->SetOn(false);
 	box->SetOnOffEnable(true);
-	box->SetMargin(5,5,5,5);
+	box->SetMargin(3,3,5,5);
 
 	box->AddButton( _saveBoundingShapes = new SUIButton("Save Bounding Shapes", SUIBox::LEFT, this) );
 	box->AddButton( _saveTransformation = new SUIButton("Save Transformation", SUIBox::LEFT, this) );
@@ -226,7 +226,7 @@ void ModelPropsFrame::AddUIForBoundingShapes(FLModel* model)
 	box->SetName("Bounding Shapes Options", SUIBox::LEFT);
 	box->SetOn(true);
 	box->SetOnOffEnable(true);
-	box->SetMargin(5,5,5,5);
+	box->SetMargin(3,3,5,5);
 
 	AddCheckBoxesForBoundingShapes(model, box);
 
@@ -238,6 +238,27 @@ void ModelPropsFrame::AddUIForBoundingShapes(FLModel* model)
 
 	if(_bShapesChKBoxVec.size() == 0)
 		box->SetOn(false);
+
+
+	//SUIBox* bShapesBox = new SUIBox(SUIBox::V_ALIGNMENT);
+	//bShapesBox->SetName("Create Bounding Shapes", SUIBox::LEFT);
+	//bShapesBox->SetOn(true);
+	//bShapesBox->SetOnOffEnable(true);
+	//bShapesBox->SetMargin(0,0,5,5);
+
+	//bShapesBox->AddButton( _bestBShapeBtn = new SUIButton("Best (1)", SUIBox::LEFT, this) );
+	//bShapesBox->AddButton( _boxBShapeBtn = new SUIButton("Box (2)", SUIBox::LEFT, this) );
+	//bShapesBox->AddButton( _cylinderBShapeBtn = new SUIButton("Cylinder (3)", SUIBox::LEFT, this) );
+	//bShapesBox->AddButton( _coneBShapeBtn = new SUIButton("Cone (4)", SUIBox::LEFT, this) );
+	//bShapesBox->AddButton( _sphereBShapeBtn = new SUIButton("Sphere (5)", SUIBox::LEFT, this) );
+
+	//_bestBShapeBtn->SetShortCut('1');
+	//_boxBShapeBtn->SetShortCut('2');
+	//_cylinderBShapeBtn->SetShortCut('3');
+	//_coneBShapeBtn->SetShortCut('4');
+	//_sphereBShapeBtn->SetShortCut('5');
+
+	//box->AddBox(bShapesBox);
 
 	_frame->Add(box);
 	_frame->ResetBounds();
@@ -358,6 +379,15 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		{
 			CVector3 pos = selModel->GetPos();
 			selModel->SetPos(pos.x, pos.y, 0);
+			_transZTF->SetDouble(0, 2);
+		}
+		else if(com == _transZeroBtn)
+		{
+			CVector3 pos = selModel->GetPos();
+			selModel->SetPos(0,0,0);
+
+			_transXTF->SetDouble(0, 2);
+			_transYTF->SetDouble(0, 2);
 			_transZTF->SetDouble(0, 2);
 		}
 		else if(com == _transXTF)
@@ -504,6 +534,21 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 				}
 			}
 		}
+		//else if(com == _bestBShapeBtn)
+		//{
+		//}
+		//else if(com == _boxBShapeBtn)
+		//{
+		//}
+		//else if(com == _cylinderBShapeBtn)
+		//{
+		//}
+		//else if(com == _coneBShapeBtn)
+		//{
+		//}
+		//else if(com == _sphereBShapeBtn)
+		//{
+		//}
 		else if( CheckBoudingShapesBoxUI(com, selModel))
 		{
 		}

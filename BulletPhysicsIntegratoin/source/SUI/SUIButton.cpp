@@ -34,9 +34,9 @@ void SUIButton::Init(string name, int nameAlignment, SUIActionListener* actionLi
 	_isBorderVisible = true;
 	_isBgGradient = true;
 
-	_bgR = 170;
-	_bgG = 170;
-	_bgB = 170;
+	_bgR = 140;
+	_bgG = 140;
+	_bgB = 140;
 
 	_mouseListener = NULL;
 }

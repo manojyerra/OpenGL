@@ -56,6 +56,7 @@ private:
 	SUIButton* _transYZeroBtn;
 	SUIButton* _transZZeroBtn;
 
+	SUIButton* _transZeroBtn;
 	SUIButton* _copyTransBtn;
 	SUIButton* _pasteTransBtn;
 	//End : Translation box related ui
@@ -106,6 +107,12 @@ private:
 	SUIButton* _deleteBoudingShape;
 	SUIButton* _selectAllBoundingShapes;
 	SUIButton* _deSelectAllBoundingShapes;
+
+	//SUIButton* _bestBShapeBtn;
+	//SUIButton* _boxBShapeBtn;
+	//SUIButton* _cylinderBShapeBtn;
+	//SUIButton* _coneBShapeBtn;
+	//SUIButton* _sphereBShapeBtn;
 
 	//End : Bouding shapes box
 

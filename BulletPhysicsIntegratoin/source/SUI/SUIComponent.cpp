@@ -22,9 +22,9 @@ SUIComponent::SUIComponent(int id)
 	_isBorderVisible = false;
 	_isBgGradient = false;
 
-	_bgR = 170;
-	_bgG = 170;
-	_bgB = 170;
+	_bgR = 140;
+	_bgG = 140;
+	_bgB = 140;
 	_bgA = 255;
 
 	_borderR = 0;

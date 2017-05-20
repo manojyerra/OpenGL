@@ -52,7 +52,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
 	//model->AddBoundingShape(shape);
 
-	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);
+	_modelPropsFrame = new ModelPropsFrame((int)_windowW-250, 0, 250, 550, _modelsMgr);
 
 	_mainFrame = new MainFrame(0,0,215,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
 }
