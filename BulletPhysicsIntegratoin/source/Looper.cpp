@@ -103,6 +103,8 @@ void Looper::Draw(float deltaTime)
 				Cam::GetInstance()->SetRot	( CVector3(0,0,0)		);
 				Cam::GetInstance()->SetTrans( CVector3(0,0,-300.0f)	);
 			}
+
+			_shape = NULL;
 		}
 	}
 
@@ -399,13 +401,14 @@ Shape* Looper::SelectBoundingShape(FLModel* model, float x, float y)
 
 	Shape* shape = model->GetBoundingShapeIndexByMousePos(x, y);
 
-	if(shape)
-	{
-		//GLMat mat = model->GetMat();
-		//mat.glMultMatrixf(shape->GetGLMatrix());
+	//if(shape)
+	//{
+	//	GLMat mat;
+	//	mat.glMultMatrixf(model->GetMat().m);
+	//	mat.glMultMatrixf(shape->GetGLMatrix());
 
-		shape->SetGLMatrix(shape->GetGLMatrix());
-	}
+	//	shape->SetGLMatrix(mat.m);
+	//}
 
 	return shape;
 }
