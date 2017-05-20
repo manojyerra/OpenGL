@@ -40,6 +40,7 @@ public:
 	Shape* Get(unsigned int index);
 	vector<Shape*> GetBoudingShapes();
 	void DeleteBoundingShape(Shape* shape);
+	void DrawForSelection();
 
 	void Draw();
 };

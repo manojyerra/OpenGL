@@ -306,6 +306,31 @@ unsigned int FLModel::GetMeterial(int lightParam)
 	return 0;
 }
 
+Shape* FLModel::GetBoundingShapeIndexByMousePos(int x, int y)
+{
+	if(_showBoundingShapes)
+	{
+		glPushMatrix();
+		glMultMatrixf(_mat.m);
+
+		_boundingShapes->DrawForSelection();
+	
+		glPopMatrix();
+
+		GLubyte data[4];
+		glReadPixels((GLint)x, GLUtil::GetWindowHeight()-(GLint)y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+		unsigned int colorVal = (unsigned int)((data[0]<<24) + (data[1]<<16) + (data[2]<<8) + data[3]);
+
+		if(colorVal < _boundingShapes->Size())
+		{
+			return _boundingShapes->Get(colorVal);
+		}
+	}
+
+	return NULL;
+}
+
 vector<Shape*> FLModel::GetBoundingShapes()
 {
 	return _boundingShapes->GetBoudingShapes();
@@ -421,11 +446,11 @@ void FLModel::Draw()
 	if(_verticesPointer)
 		glDisableClientState(GL_VERTEX_ARRAY);
 
+	GLboolean lighting1 = GLUtil::GLEnable(GL_LIGHTING, false);
+	
 	if(_showBoundingShapes)
 		_boundingShapes->Draw();
 
-	GLboolean lighting1 = GLUtil::GLEnable(GL_LIGHTING, false);
-	
 	if(_boundingBoxEnabled)
 		_aabb.Draw();
 

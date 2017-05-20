@@ -113,6 +113,32 @@ void FLModelBoundingShapes::DeleteBoundingShape(Shape* shape)
 	}
 }
 
+void FLModelBoundingShapes::DrawForSelection()
+{
+	GLboolean light = GLUtil::GLEnable(GL_LIGHTING, false);
+	GLboolean blend = GLUtil::GLEnable(GL_BLEND, false);
+	GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
+	unsigned int prevColor = GLUtil::GLColor(0x000000ff);
+
+	for(int i=0; i<_boundingShapes.size(); i++)
+	{
+		Shape* shape = _boundingShapes[i];
+
+		bool isUsingRandomColors = shape->IsUsingRandomColors();
+		shape->SetUseRandomColors(false);
+
+		shape->SetColor(i);
+		shape->Draw();
+
+		shape->SetUseRandomColors(isUsingRandomColors);
+	}
+
+	GLUtil::GLEnable(GL_LIGHTING, light);
+	GLUtil::GLEnable(GL_BLEND, blend);
+	GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	GLUtil::GLColor(prevColor);
+}
+
 Shape* FLModelBoundingShapes::Get(unsigned int index)
 {
 	return _boundingShapes[index];

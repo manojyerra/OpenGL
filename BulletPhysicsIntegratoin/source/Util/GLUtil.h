@@ -24,6 +24,8 @@ public:
 	static void GLEnable(unsigned int* arr, int size, bool enable);
 	static GLfloat GLLineWidth(GLfloat width);
 	static unsigned int GLColor(unsigned int color);
+	static unsigned int GLColor(unsigned char* color);
+	static unsigned int GLColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 	static unsigned int GetUInt(float r, float g, float b, float a);
 	static GLfloat GLPointSize(GLfloat val);
 	static GLenum GLDepthFunc(GLenum val);

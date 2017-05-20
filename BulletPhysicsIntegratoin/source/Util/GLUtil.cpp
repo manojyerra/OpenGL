@@ -87,6 +87,26 @@ unsigned int GLUtil::GLColor(unsigned int color)
 	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
 }
 
+unsigned int GLUtil::GLColor(unsigned char* color)
+{
+	float c[4];
+	glGetFloatv(GL_CURRENT_COLOR, c);
+
+	glColor4ub(color[0], color[1], color[2], color[3]);
+
+	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
+}
+
+unsigned int GLUtil::GLColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	float c[4];
+	glGetFloatv(GL_CURRENT_COLOR, c);
+
+	glColor4ub(r,g,b,a);
+
+	return GLUtil::GetUInt(c[0], c[1], c[2], c[3]);
+}
+
 unsigned int GLUtil::GetUInt(float r, float g, float b, float a)
 {
 	int rr = (int)(r*255);

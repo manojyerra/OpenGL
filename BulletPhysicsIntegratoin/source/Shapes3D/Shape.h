@@ -11,6 +11,7 @@ protected:
 	unsigned char _color[4];
 	unsigned char _randomColorAlpha;
 	bool _visible;
+	bool _useRandomColors;
 
 public:
 	float m[16];
@@ -26,6 +27,8 @@ public:
 	Shape(int id);
 	int GetID();
 	void SetRandomColorAlpha(unsigned char alpha);
+	void SetUseRandomColors(bool useRandomColors);
+	bool IsUsingRandomColors();
 
 	void SetGLMatrix(float* mat);
 	float* GetGLMatrix();
@@ -44,6 +47,8 @@ public:
 	void AddScale(CVector3 scale);
 
 	void SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+	void SetColor(unsigned int color);
+
 	void SetVisible(bool visible);
 	bool IsVisible();
 	

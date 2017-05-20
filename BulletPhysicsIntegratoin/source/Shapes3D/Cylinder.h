@@ -10,7 +10,6 @@ class Cylinder : public Shape
 private:
 	float _r;
 	float _h;
-	unsigned char _color[4];
 	RandomColor _randomColor;
 
 public:

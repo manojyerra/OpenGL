@@ -38,7 +38,7 @@ private:
 	GL2DState state2D;
 
 	ModelsManager* _modelsMgr;
-	Shape* shape;
+	Shape* _shape;
 
 	MainFrame* _mainFrame;
 	ModelPropsFrame* _modelPropsFrame;
@@ -57,6 +57,7 @@ private:
 	void DrawRect(Rect* rect);
 	void UpdatePhysics(float deltaTime);
 	void DrawOnPhysicsEnable(float deltaTime);
+	Shape* SelectBoundingShape(FLModel* model, float x, float y);
 
 public:
 	Looper(int windowWidth, int windowHeight);

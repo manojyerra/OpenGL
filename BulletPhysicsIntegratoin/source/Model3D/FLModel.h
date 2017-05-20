@@ -138,6 +138,7 @@ public:
 	void AddBoundingShape(Shape* shape);
 	vector<Shape*> GetBoundingShapes();
 	void DeleteBoundingShape(Shape* shape);
+	Shape* GetBoundingShapeIndexByMousePos(int x, int y);
 
 	void Draw();
 	void DrawBorder();

@@ -191,7 +191,8 @@ void Cylinder::Draw()
 	if(!_visible)
 		return;
 
-	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
+	//GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
+	unsigned int prevColor = GLUtil::GLColor(_color);
 
 	glPushMatrix();
 	glMultMatrixf(m);
@@ -200,7 +201,8 @@ void Cylinder::Draw()
 	float halfLength = _h/2.0f;
 	float piVal = 3.14159265f;
 
-	_randomColor.Reset();
+	if(_useRandomColors)
+		_randomColor.Reset();
 
 	glBegin(GL_TRIANGLES);
 
@@ -209,7 +211,8 @@ void Cylinder::Draw()
 		float theta = (i-20)*piVal/180.0f;
 		float nextTheta = (i)*piVal/180.0f;
 
-		glColor( _randomColor.NextColor() );
+		if(_useRandomColors)
+			glColor( _randomColor.NextColor() );
 		
 		glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
 		glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
@@ -221,16 +224,19 @@ void Cylinder::Draw()
 
 		glVertex3f(0, halfLength, 0);
 
-		glColor( _randomColor.NextColor() );
+		if(_useRandomColors)
+			glColor( _randomColor.NextColor() );
 
 		glVertex3f(radius*cos(theta),	halfLength,		radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta),	halfLength,		radius*sin(nextTheta));
 
-		glColor( _randomColor.NextColor() );
+		if(_useRandomColors)
+			glColor( _randomColor.NextColor() );
 
 		glVertex3f(0, -halfLength, 0);
 		
-		glColor( _randomColor.NextColor() );
+		if(_useRandomColors)
+			glColor( _randomColor.NextColor() );
 
 		glVertex3f(radius*cos(theta),	-halfLength,		radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta),	-halfLength,		radius*sin(nextTheta));
@@ -239,7 +245,8 @@ void Cylinder::Draw()
 
 	glPopMatrix();
 
-	GLUtil::GLEnable( GL_LIGHTING, isLightOn );
+	GLUtil::GLColor(prevColor);
+	//GLUtil::GLEnable( GL_LIGHTING, isLightOn );
 }
 
 Cylinder::~Cylinder()

@@ -7,8 +7,6 @@ class Sphere : public Shape
 {
 private:
 	float _r;
-	unsigned char _color[4];
-
 	GLUquadricObj* _quad;
 
 public:

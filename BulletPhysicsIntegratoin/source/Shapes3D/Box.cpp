@@ -267,7 +267,8 @@ void Box::Draw()
 	if(!_visible)
 		return;
 
-	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
+	//GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
+	unsigned int prevColor = GLUtil::GLColor(_color);
 
 	float w = _w/2.0f;
 	float h = _h/2.0f;
@@ -278,60 +279,62 @@ void Box::Draw()
 
 	glBegin(GL_QUADS);
 
-	_randomColor.Reset();
+	if(_useRandomColors)
+		_randomColor.Reset();
 
 	//Front face
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(-w, -h, +d);
 	glVertex3f(+w, -h, +d);
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(+w, +h, +d);
 	glVertex3f(-w, +h, +d);
 
 	//Back face
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(-w, -h, -d);
 	glVertex3f(-w, +h, -d);
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(+w, +h, -d);
 	glVertex3f(+w, -h, -d);
 
 	//Top face
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(-w, +h, -d);
 	glVertex3f(-w, +h, +d);
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(+w, +h, +d);
 	glVertex3f(+w, +h, -d);
 	
 	//Bottom face
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(-w, -h, -d);
 	glVertex3f(+w, -h, -d);
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(+w, -h, +d);
 	glVertex3f(-w, -h, +d);
 
 	//Right face
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(+w, -h, -d);
 	glVertex3f(+w, +h, -d);
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(+w, +h, +d);
 	glVertex3f(+w, -h, +d);
 
 	//Left face
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(-w, -h, -d);
 	glVertex3f(-w, -h, +d);
-	glColorA(_randomColor.NextColor(), _randomColorAlpha);
+	if(_useRandomColors) glColorA(_randomColor.NextColor(), _randomColorAlpha);
 	glVertex3f(-w, +h, +d);
 	glVertex3f(-w, +h, -d);
 	glEnd();
 
 	glPopMatrix();
 
-	GLUtil::GLEnable( GL_LIGHTING, isLightOn );
+	GLUtil::GLColor(prevColor);
+	//GLUtil::GLEnable( GL_LIGHTING, isLightOn );
 }
 
 Box::~Box()

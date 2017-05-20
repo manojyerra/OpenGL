@@ -16,6 +16,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	_enablePhysics = false;
 	_pausedPhysics = false;
+	_shape = NULL;
 
 	_rect.SetColor(0xff000077);
 
@@ -48,9 +49,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	_floorBox = new PhyBox(0,-0.5,0, 60,1,60, 0);
 	
-	//shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
-	//shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
-	//model->AddBoundingShape(shape);
+	//_shape = Shape::GetBestFitBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3);
+	//_shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
+	//model->AddBoundingShape(_shape);
 
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-250, 0, 250, 550, _modelsMgr);
 
@@ -81,7 +82,7 @@ void Looper::Draw(float deltaTime)
 	Cam::GetInstance()->SetModelViewMatrix();
 	Cam::GetInstance()->UpdateCamera();
 
-	if(Input::IsRightMousePressed() || Input::IsMouseDoubleClicked())
+	if(Input::IsRightMousePressed() || (Input::IsMouseClicked() && Input::IsKeyPressed(VK_SHIFT)))
 	{
 		glClearColor(1.0f,1.0f,1.0f,1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -90,7 +91,7 @@ void Looper::Draw(float deltaTime)
 
 		if(flModel)
 		{
-			if(Input::IsMouseDoubleClicked())
+			if((Input::IsMouseClicked() && Input::IsKeyPressed(VK_SHIFT)))
 			{
 				_mainFrame->SetObjectAsPivot();
 				_modelsMgr->ShowOnlySelectedObject( !_modelsMgr->IsShowingOnlySelectedObject() );
@@ -103,6 +104,13 @@ void Looper::Draw(float deltaTime)
 				Cam::GetInstance()->SetTrans( CVector3(0,0,-300.0f)	);
 			}
 		}
+	}
+
+	if(Input::IsMouseDoubleClicked() && _modelsMgr->GetSelectedModel())
+	{
+		FLModel* model = _modelsMgr->GetSelectedModel();
+
+		_shape = SelectBoundingShape(model, Input::MX, Input::MY);
 	}
 
 	if(_mainFrame->IsSelectedObjectAsPivot() && _pointer3D.IsHeldPointer() && Input::IsMouseReleased())
@@ -140,7 +148,45 @@ void Looper::Draw(float deltaTime)
 	bool transChanged = false;
 	bool rotChanged = false;
 
-	if(_modelsMgr->GetSelectedModel())
+
+	if(_shape)
+	{
+		glPushMatrix();
+		glMultMatrixf(_modelsMgr->GetSelectedModel()->GetMat().m);
+
+		_pointer3D.Draw(_shape->GetGLMatrix());
+
+		if(_pointer3D.IsPointerDragged())
+		{
+			if(_pointer3D.GetTransformationType() == Pointer3D::TRANS)
+			{
+				_shape->SetPos( _pointer3D.pos );
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::ROTATE)
+			{
+				_shape->AddRotateInLocal('x', _pointer3D.rot.x);
+				_shape->AddRotateInLocal('y', _pointer3D.rot.y);
+				_shape->AddRotateInLocal('z', _pointer3D.rot.z);
+			}
+			else if(_pointer3D.GetTransformationType() == Pointer3D::SCALE)
+			{				
+				if(Input::IsKeyPressed((int)'U'))
+				{
+					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
+				
+					if(scaleSum > 0)		_shape->AddUniformScale(1.01);
+					else if(scaleSum < 0)	_shape->AddUniformScale(0.99);
+				}
+				else
+				{
+					_shape->AddScale(_pointer3D.scale);
+				}
+			}
+		}
+
+		glPopMatrix();
+	}
+	else if(_modelsMgr->GetSelectedModel())
 	{
 		_pointer3D.Draw(_modelsMgr->GetSelectedModel()->GetMat().m);
 
@@ -344,6 +390,24 @@ FLModel* Looper::SelectModel(int mx, int my)
 	}
 
 	return NULL;
+}
+
+Shape* Looper::SelectBoundingShape(FLModel* model, float x, float y)
+{
+	glClearColor(1.0f,1.0f,1.0f,1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	Shape* shape = model->GetBoundingShapeIndexByMousePos(x, y);
+
+	if(shape)
+	{
+		//GLMat mat = model->GetMat();
+		//mat.glMultMatrixf(shape->GetGLMatrix());
+
+		shape->SetGLMatrix(shape->GetGLMatrix());
+	}
+
+	return shape;
 }
 
 Looper::~Looper()

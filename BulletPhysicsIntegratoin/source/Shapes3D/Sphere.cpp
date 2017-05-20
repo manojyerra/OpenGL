@@ -93,9 +93,9 @@ void Sphere::Draw()
 	if(!_visible)
 		return;
 
-	unsigned int prevColor = GLUtil::GLColor(0xff0000ff);
+	unsigned int prevColor = GLUtil::GLColor(_color);
 	GLboolean colorMtlEnabled = GLUtil::GLEnable(GL_COLOR_MATERIAL, true);
-	GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
+	//GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
 
 	glPushMatrix();
 	glMultMatrixf(m);
@@ -103,8 +103,8 @@ void Sphere::Draw()
 	glPopMatrix();
 
 	GLUtil::GLEnable(GL_COLOR_MATERIAL, colorMtlEnabled);
-	GLUtil::GLEnable(GL_BLEND, blend);
-	GLUtil::GLColor(0xff0000ff);
+	//GLUtil::GLEnable(GL_BLEND, blend);
+	GLUtil::GLColor(prevColor);
 }
 
 Sphere::~Sphere()

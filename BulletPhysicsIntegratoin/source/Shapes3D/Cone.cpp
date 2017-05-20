@@ -178,7 +178,8 @@ void Cone::Draw()
 	if(!_visible)
 		return;
 
-	GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
+	//GLboolean isLightOn = GLUtil::GLEnable( GL_LIGHTING, false );
+	unsigned int prevColor = GLUtil::GLColor(_color);
 
 	glPushMatrix();
 	glMultMatrixf(m);
@@ -187,7 +188,8 @@ void Cone::Draw()
 	float halfLength = _h/2.0f;
 	float piVal = 3.14159265f;
 
-	_randomColor.Reset();
+	if(_useRandomColors)
+		_randomColor.Reset();
 
 	glBegin(GL_TRIANGLES);
 
@@ -196,7 +198,9 @@ void Cone::Draw()
 		float theta = i*piVal/180.0f;
 		float nextTheta = (i+20)*piVal/180.0f;
 
-		glColor(_randomColor.NextColor());
+		if(_useRandomColors)
+			glColor(_randomColor.NextColor());
+
 		glVertex3f(0, halfLength, 0);
 
 		glColor4ub(80, 80, 80, 255);
@@ -204,7 +208,9 @@ void Cone::Draw()
 		glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 		glVertex3f(0, -halfLength, 0);
 
-		glColor(_randomColor.NextColor());
+		if(_useRandomColors)
+			glColor(_randomColor.NextColor());
+
 		glVertex3f(radius*cos(theta),	-halfLength,	radius*sin(theta));
 		glVertex3f(radius*cos(nextTheta),	-halfLength,	radius*sin(nextTheta));
 	}
@@ -213,7 +219,8 @@ void Cone::Draw()
 
 	glPopMatrix();
 
-	GLUtil::GLEnable( GL_LIGHTING, isLightOn );
+	GLUtil::GLColor(prevColor);
+	//GLUtil::GLEnable( GL_LIGHTING, isLightOn );
 }
 
 Cone::~Cone()

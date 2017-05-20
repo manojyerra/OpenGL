@@ -13,6 +13,7 @@ Shape::Shape()
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
 	_randomColorAlpha = 255;
 	_visible = true;
+	_useRandomColors = true;
 }
 
 Shape::Shape(int id)
@@ -23,6 +24,7 @@ Shape::Shape(int id)
 	_color[0] = _color[1] = _color[2] = _color[3] = 255;
 	_randomColorAlpha = 255;
 	_visible = true;
+	_useRandomColors = true;
 }
 
 int Shape::GetID()
@@ -33,6 +35,16 @@ int Shape::GetID()
 void Shape::SetRandomColorAlpha(unsigned char alpha)
 {
 	_randomColorAlpha = alpha;
+}
+
+void Shape::SetUseRandomColors(bool useRandomColors)
+{
+	_useRandomColors = useRandomColors;
+}
+
+bool Shape::IsUsingRandomColors()
+{
+	return _useRandomColors;
 }
 
 void Shape::SetGLMatrix(float* mat)
@@ -181,6 +193,14 @@ void Shape::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned
 	_color[1] = g;
 	_color[2] = b;
 	_color[3] = a;
+}
+
+void Shape::SetColor(unsigned int c)
+{
+	_color[0] = (c >> 24) & 255;
+	_color[1] = (c >> 16) & 255;
+	_color[2] = (c >> 8) & 255;
+	_color[3] = (c) & 255;
 }
 
 void Shape::SetVisible(bool visible)

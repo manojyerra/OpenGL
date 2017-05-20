@@ -552,7 +552,6 @@ void ModelPropsFrame::actionPerformed(SUIActionEvent e)
 		else if( CheckBoudingShapesBoxUI(com, selModel))
 		{
 		}
-
 		else if( CheckLightBoxUI(com, selModel) )
 		{
 		}
