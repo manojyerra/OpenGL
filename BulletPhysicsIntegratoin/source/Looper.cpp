@@ -151,7 +151,7 @@ void Looper::Draw(float deltaTime)
 	bool rotChanged = false;
 
 
-	if(_shape)
+	if(_shape && _modelsMgr->GetSelectedModel())
 	{
 		glPushMatrix();
 		glMultMatrixf(_modelsMgr->GetSelectedModel()->GetMat().m);
@@ -176,12 +176,13 @@ void Looper::Draw(float deltaTime)
 				{
 					float scaleSum = _pointer3D.scale.x + _pointer3D.scale.y + _pointer3D.scale.z;
 				
-					if(scaleSum > 0)		_shape->AddUniformScale(1.01);
-					else if(scaleSum < 0)	_shape->AddUniformScale(0.99);
+					if(scaleSum < 3)	_shape->AddUniformScale(0.99);
+					else				_shape->AddUniformScale(1.01);
 				}
 				else
 				{
-					_shape->AddScale(_pointer3D.scale);
+					CVector3 scale = CVector3(_pointer3D.scale.x-1, _pointer3D.scale.y-1, _pointer3D.scale.z-1);
+					_shape->AddScale(scale);
 				}
 			}
 		}
