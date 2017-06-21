@@ -1,0 +1,39 @@
+VisualStudioProject
+{
+	Version = "9.00"
+	Name = "Box2DEditor"
+}
+
+Configurations
+{
+	Debug|Win32
+	Release|Win32
+}
+
+Debug|Win32
+{
+	OutputDirectory = "Debug"
+	Optimization="0"
+	PreprocessorDefinitions = "WIN32 _DEBUG _WINDOWS _PLATFORM_WIN32 _PLATFORM_WIN32_DEBUG"
+	AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib winmm.lib libs/*.lib"
+	OutputFile="Debug/Box2DEditor.exe"
+	DebugInformationFormat	= "4"
+	IgnoreDefaultLibraryNames="libcd"
+	RuntimeLibrary = "1"
+}
+
+Release|Win32
+{
+	OutputDirectory = "Release"
+	Optimization="4"
+	PreprocessorDefinitions = "WIN32 NDEBUG _WINDOWS _PLATFORM_WIN32"
+	AdditionalDependencies="odbc32.lib odbccp32.lib opengl32.lib glu32.lib winmm.lib"
+	OutputFile="Release/Box2DEditor.exe"
+	IgnoreDefaultLibraryNames="libcd"
+	RuntimeLibrary = "0"
+}
+
+IncludeFolders
+{
+	source
+}

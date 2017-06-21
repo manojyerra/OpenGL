@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{54BB2D5D-2222-404C-A274-EF8E2D18014A}</ProjectGuid>
+    <RootNamespace>Box2DEditor</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>Debug\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>Release\</OutDir>
+    <IntDir>Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>F:\git\OpenGL\Box2DEditor\source;F:\git\OpenGL\Box2DEditor\source\Game;F:\git\OpenGL\Box2DEditor\source\Game\GamePlay;F:\git\OpenGL\Box2DEditor\source\Game\GamePlay\Editor;F:\git\OpenGL\Box2DEditor\source\Game\LeaderBoard;F:\git\OpenGL\Box2DEditor\source\Game\MyLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\Box2D;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\CommonLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\Effects;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\JPGE;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\JPGE\libjpeg;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\PNG;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\PNG\libpng;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\PNG\zlib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\MathLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\PhysicsLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\Primitives;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\UI;F:\git\OpenGL\Box2DEditor\source\Game\Pages;F:\git\OpenGL\Box2DEditor\source\Game\SaveManager;F:\git\OpenGL\Box2DEditor\source\Game\SoundManager;F:\git\OpenGL\Box2DEditor\source\Platform;F:\git\OpenGL\Box2DEditor\source\Platform\Platform_Android;F:\git\OpenGL\Box2DEditor\source\Platform\Platform_Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_PLATFORM_WIN32;_PLATFORM_WIN32_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <PrecompiledHeaderOutputFile>Debug/Box2DEditor.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <ObjectFileName>Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>Debug/</ProgramDataBaseFileName>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;winmm.lib;libs/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>Debug/Box2DEditor.exe</OutputFile>
+      <ProgramDatabaseFile>Debug/Box2DEditor.pdb</ProgramDatabaseFile>
+      <IgnoreSpecificDefaultLibraries>libcd;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>F:\git\OpenGL\Box2DEditor\source;F:\git\OpenGL\Box2DEditor\source\Game;F:\git\OpenGL\Box2DEditor\source\Game\GamePlay;F:\git\OpenGL\Box2DEditor\source\Game\GamePlay\Editor;F:\git\OpenGL\Box2DEditor\source\Game\LeaderBoard;F:\git\OpenGL\Box2DEditor\source\Game\MyLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\Box2D;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\CommonLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\Effects;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\JPGE;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\JPGE\libjpeg;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\PNG;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\PNG\libpng;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\IO\PNG\zlib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\MathLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\PhysicsLib;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\Primitives;F:\git\OpenGL\Box2DEditor\source\Game\MyLib\UI;F:\git\OpenGL\Box2DEditor\source\Game\Pages;F:\git\OpenGL\Box2DEditor\source\Game\SaveManager;F:\git\OpenGL\Box2DEditor\source\Game\SoundManager;F:\git\OpenGL\Box2DEditor\source\Platform;F:\git\OpenGL\Box2DEditor\source\Platform\Platform_Android;F:\git\OpenGL\Box2DEditor\source\Platform\Platform_Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_PLATFORM_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <PrecompiledHeaderOutputFile>Release/Box2DEditor.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <ObjectFileName>Release/</ObjectFileName>
+      <ProgramDataBaseFileName>Release/</ProgramDataBaseFileName>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>Release/Box2DEditor.exe</OutputFile>
+      <ProgramDatabaseFile>Release/Box2DEditor.pdb</ProgramDatabaseFile>
+      <IgnoreSpecificDefaultLibraries>libcd;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\Game\GameInfo.cpp" />
+    <ClCompile Include="..\source\Game\GameInit.cpp" />
+    <ClCompile Include="..\source\Game\GameLoop.cpp" />
+    <ClCompile Include="..\source\Game\ModuleManager.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\AfterLevelOver.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\GameManager.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\PlayPart.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\Editor\EditCirclePrim.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\Editor\EditLinePrim.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\Editor\Editor.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\Editor\EditPolyPrim.cpp" />
+    <ClCompile Include="..\source\Game\GamePlay\Editor\EditRectPrim.cpp" />
+    <ClCompile Include="..\source\Game\LeaderBoard\LBHelper.cpp" />
+    <ClCompile Include="..\source\Game\LeaderBoard\LeaderBoard.cpp" />
+    <ClCompile Include="..\source\Game\LeaderBoard\LeaderBoardData.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2BlockAllocator.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Body.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2BroadPhase.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2ChainAndCircleContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2ChainAndPolygonContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2ChainShape.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2CircleContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2CircleShape.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2CollideCircle.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2CollideEdge.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2CollidePolygon.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Collision.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Contact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2ContactManager.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2ContactSolver.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Distance.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2DistanceJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Draw.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2DynamicTree.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2EdgeAndCircleContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2EdgeAndPolygonContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2EdgeShape.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Fixture.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2FrictionJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2GearJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Island.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Joint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Math.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2MouseJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2PolygonAndCircleContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2PolygonContact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2PolygonShape.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2PrismaticJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2PulleyJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2RevoluteJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Rope.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2RopeJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Settings.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2StackAllocator.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2TimeOfImpact.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2Timer.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2WeldJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2WheelJoint.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2World.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Box2D\b2WorldCallbacks.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\AddData.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\AnimSprite.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\Button.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\ColorBlend.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\FileReader.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\Flags.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\Input.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\MapVoid.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\MsgBox.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\Sprite.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\TextureInfo.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\TextureManager.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\UIFont.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\CommonLib\Utils.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Effects\BlastRect.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Effects\BlendTransBg.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Effects\ColorBlendBg.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Effects\ColorRect.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\JPEGReadWrite.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jaricom.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcapimin.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcapistd.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcarith.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jccoefct.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jccolor.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcdctmgr.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jchuff.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcinit.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcmainct.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcmarker.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcmaster.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcomapi.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcparam.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcprepct.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jcsample.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jctrans.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdapimin.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdapistd.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdarith.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdatadst.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdatasrc.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdcoefct.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdcolor.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jddctmgr.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdhuff.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdinput.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdmainct.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdmarker.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdmaster.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdmerge.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdpostct.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdsample.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdtrans.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jerror.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jfdctflt.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jfdctfst.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jfdctint.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jidctflt.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jidctfst.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jidctint.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jmemmgr.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jmemname.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jquant1.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jquant2.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jutils.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\PNGReadWrite.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\myFile.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\png.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngerror.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngget.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngmem.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngpread.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngread.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngrio.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngrtran.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngrutil.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngset.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngtrans.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngwio.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngwrite.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngwtran.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\libpng\pngwutil.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\adler32.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\compress.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\crc32.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\deflate.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\gzclose.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\gzlib.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\gzread.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\gzwrite.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\infback.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\inffast.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\inflate.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\inftrees.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\minigzip.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\trees.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\uncompr.c" />
+    <ClCompile Include="..\source\Game\MyLib\IO\PNG\zlib\zutil.c" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Circle.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Collisions.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Line2D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Line3D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\LineSeg2D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\LineSeg3D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\MyVector.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Plane.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Point.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Poly2D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Poly3D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Rect2D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Triangle2D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Triangle3D.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\MathLib\Vector3.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhyCircle.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhyCompoundShape.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhyLine.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhyPoly.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhyRect.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhysicsManager.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\PhysicsLib\PhyWorld.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Primitives\BasePrim.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Primitives\CirclePrim.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Primitives\LinePrim.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Primitives\PolyPrim.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Primitives\RectPrim.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\Primitives\TriPrim.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\UI\MyButton.cpp" />
+    <ClCompile Include="..\source\Game\MyLib\UI\MyWindow.cpp" />
+    <ClCompile Include="..\source\Game\Pages\MainMenu.cpp" />
+    <ClCompile Include="..\source\Game\Pages\ModeSelection.cpp" />
+    <ClCompile Include="..\source\Game\Pages\ModeSelection_High.cpp" />
+    <ClCompile Include="..\source\Game\Pages\PagesManager.cpp" />
+    <ClCompile Include="..\source\Game\SaveManager\SaveManager.cpp" />
+    <ClCompile Include="..\source\Game\SoundManager\SoundManager.cpp" />
+    <ClCompile Include="..\source\Platform\Includes.cpp" />
+    <ClCompile Include="..\source\Platform\Platform.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Android\EntryPoint_Android.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Android\Platform_Android.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Win32\EntryPoint_Win32.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Win32\MusicPlayer.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Win32\Platform_Win32.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Win32\Win32InputBox.cpp" />
+    <ClCompile Include="..\source\Platform\Platform_Win32\Win32Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\Game\GameInfo.h" />
+    <ClInclude Include="..\source\Game\GameInit.h" />
+    <ClInclude Include="..\source\Game\GameLoop.h" />
+    <ClInclude Include="..\source\Game\ModuleManager.h" />
+    <ClInclude Include="..\source\Game\GamePlay\AfterLevelOver.h" />
+    <ClInclude Include="..\source\Game\GamePlay\GameManager.h" />
+    <ClInclude Include="..\source\Game\GamePlay\PlayPart.h" />
+    <ClInclude Include="..\source\Game\GamePlay\Editor\EditCirclePrim.h" />
+    <ClInclude Include="..\source\Game\GamePlay\Editor\EditLinePrim.h" />
+    <ClInclude Include="..\source\Game\GamePlay\Editor\Editor.h" />
+    <ClInclude Include="..\source\Game\GamePlay\Editor\EditPolyPrim.h" />
+    <ClInclude Include="..\source\Game\GamePlay\Editor\EditPrim.h" />
+    <ClInclude Include="..\source\Game\GamePlay\Editor\EditRectPrim.h" />
+    <ClInclude Include="..\source\Game\LeaderBoard\LBHelper.h" />
+    <ClInclude Include="..\source\Game\LeaderBoard\LeaderBoard.h" />
+    <ClInclude Include="..\source\Game\LeaderBoard\LeaderBoardData.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2BlockAllocator.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Body.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2BroadPhase.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2ChainAndCircleContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2ChainAndPolygonContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2ChainShape.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2CircleContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2CircleShape.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Collision.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Contact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2ContactManager.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2ContactSolver.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Distance.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2DistanceJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Draw.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2DynamicTree.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2EdgeAndCircleContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2EdgeAndPolygonContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2EdgeShape.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Fixture.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2FrictionJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2GearJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2GrowableStack.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Island.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Joint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Math.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2MouseJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2PolygonAndCircleContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2PolygonContact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2PolygonShape.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2PrismaticJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2PulleyJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2RevoluteJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Rope.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2RopeJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Settings.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Shape.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2StackAllocator.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2TimeOfImpact.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2Timer.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2TimeStep.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2WeldJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2WheelJoint.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2World.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\b2WorldCallbacks.h" />
+    <ClInclude Include="..\source\Game\MyLib\Box2D\Box2D.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\AddData.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\AnimSprite.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\Button.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\ColorBlend.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\Dir.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\FileReader.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\Flags.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\Input.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\MapVoid.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\MsgBox.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\Sprite.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\TextureInfo.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\TextureManager.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\UIFont.h" />
+    <ClInclude Include="..\source\Game\MyLib\CommonLib\Utils.h" />
+    <ClInclude Include="..\source\Game\MyLib\Effects\BlastRect.h" />
+    <ClInclude Include="..\source\Game\MyLib\Effects\BlendTransBg.h" />
+    <ClInclude Include="..\source\Game\MyLib\Effects\ColorBlendBg.h" />
+    <ClInclude Include="..\source\Game\MyLib\Effects\ColorRect.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\JPEGReadWrite.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jconfig.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jdct.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jerror.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jinclude.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jmemsys.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jmorecfg.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jpegint.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jpeglib.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\JPGE\libjpeg\jversion.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\PNGReadWrite.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\libpng\myFile.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\libpng\png.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\libpng\pngconf.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\libpng\pngpriv.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\crc32.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\deflate.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\gzguts.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\inffast.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\inffixed.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\inflate.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\inftrees.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\trees.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\zconf.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\zlib.h" />
+    <ClInclude Include="..\source\Game\MyLib\IO\PNG\zlib\zutil.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Circle.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Collisions.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Direction.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Line2D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Line3D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\LineSeg2D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\LineSeg3D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\MyVector.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Plane.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Point.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Poly2D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Poly3D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Pos.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Posf.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Rect2D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Triangle2D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Triangle3D.h" />
+    <ClInclude Include="..\source\Game\MyLib\MathLib\Vector3.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyCircle.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyCompoundShape.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyLine.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyPoly.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyRect.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyShape.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhysicsManager.h" />
+    <ClInclude Include="..\source\Game\MyLib\PhysicsLib\PhyWorld.h" />
+    <ClInclude Include="..\source\Game\MyLib\Primitives\BasePrim.h" />
+    <ClInclude Include="..\source\Game\MyLib\Primitives\CirclePrim.h" />
+    <ClInclude Include="..\source\Game\MyLib\Primitives\LinePrim.h" />
+    <ClInclude Include="..\source\Game\MyLib\Primitives\PolyPrim.h" />
+    <ClInclude Include="..\source\Game\MyLib\Primitives\RectPrim.h" />
+    <ClInclude Include="..\source\Game\MyLib\Primitives\TriPrim.h" />
+    <ClInclude Include="..\source\Game\MyLib\UI\MyButton.h" />
+    <ClInclude Include="..\source\Game\MyLib\UI\MyWindow.h" />
+    <ClInclude Include="..\source\Game\Pages\MainMenu.h" />
+    <ClInclude Include="..\source\Game\Pages\ModeSelection.h" />
+    <ClInclude Include="..\source\Game\Pages\ModeSelection_High.h" />
+    <ClInclude Include="..\source\Game\Pages\Page.h" />
+    <ClInclude Include="..\source\Game\Pages\PagesManager.h" />
+    <ClInclude Include="..\source\Game\SaveManager\SaveData.h" />
+    <ClInclude Include="..\source\Game\SaveManager\SaveManager.h" />
+    <ClInclude Include="..\source\Game\SoundManager\SoundManager.h" />
+    <ClInclude Include="..\source\Game\SoundManager\SoundsList.h" />
+    <ClInclude Include="..\source\Platform\Includes.h" />
+    <ClInclude Include="..\source\Platform\Platform.h" />
+    <ClInclude Include="..\source\Platform\Platform_Android\Platform_Android.h" />
+    <ClInclude Include="..\source\Platform\Platform_Win32\MusicPlayer.h" />
+    <ClInclude Include="..\source\Platform\Platform_Win32\Platform_Win32.h" />
+    <ClInclude Include="..\source\Platform\Platform_Win32\vld.h" />
+    <ClInclude Include="..\source\Platform\Platform_Win32\vld_def.h" />
+    <ClInclude Include="..\source\Platform\Platform_Win32\Win32InputBox.h" />
+    <ClInclude Include="..\source\Platform\Platform_Win32\Win32Window.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
