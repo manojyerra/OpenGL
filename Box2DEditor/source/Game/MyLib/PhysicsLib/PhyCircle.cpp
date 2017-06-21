@@ -21,7 +21,7 @@ PhyCircle::PhyCircle(float x, float y, float r, int bodyType)
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
 	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.001f;		//temp
+	fixtureDef.friction = 2.001f;		//temp
 
 	_body = world->CreateBody(&bodyDef);
 	//_body->SetFixedRotation(true);
