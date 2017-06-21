@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="CommonLib">
+      <UniqueIdentifier>{d9cbbac3-e0e3-44ce-8d33-160636001ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libpng">
+      <UniqueIdentifier>{fc6dc409-d14a-40c1-abee-13d55f1fd5e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{1a174fd9-21cb-4aa7-b636-49d6586a9e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SaveManager">
+      <UniqueIdentifier>{3c35ab06-8781-43b3-8be2-325c793ac6b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MathLib">
+      <UniqueIdentifier>{c1a5596d-082a-4f8a-a7b5-af88f8270bee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="zlib">
+      <UniqueIdentifier>{d8b12141-9427-41bf-a83d-8897c840afba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Box2D">
+      <UniqueIdentifier>{8c296700-fb88-48f9-9c00-ff144e4ca2c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysicsLib">
+      <UniqueIdentifier>{c43bf822-41a6-4cd1-9899-3e77866dfd86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primitives">
+      <UniqueIdentifier>{385e28c5-32f8-4944-9c9b-6bf5597e6d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{3da4d325-3865-4e42-bc14-ec77a32c8d33}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\CommonLib\AddData.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\AnimSprite.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\Cam.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\DialogBox.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\FileReader.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\Input.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\Ref.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\Sprite.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonLib\UIFont.cpp">
+      <Filter>CommonLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\myFile.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\png.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngerror.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngget.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngmem.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngpread.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngread.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngrio.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngrtran.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngrutil.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngset.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngtest.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngtrans.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngwio.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngwrite.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngwtran.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\libpng\pngwutil.c">
+      <Filter>libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Platform\Platform.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SaveManager\SaveManager.cpp">
+      <Filter>SaveManager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Circle.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Collisions.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Line2D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Line3D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\LineSeg2D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\LineSeg3D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\MyVector.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Plane.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Point.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Poly2D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Poly3D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Rect2D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Triangle2D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Triangle3D.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Vector3.cpp">
+      <Filter>MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\adler32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\compress.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\crc32.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\deflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\gzclose.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\gzlib.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\gzread.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\gzwrite.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\infback.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\inffast.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\inflate.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\inftrees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\minigzip.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\trees.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\uncompr.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\zlib\zutil.c">
+      <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2BlockAllocator.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Body.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2BroadPhase.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2ChainAndCircleContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2ChainAndPolygonContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2ChainShape.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2CircleContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2CircleShape.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2CollideCircle.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2CollideEdge.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2CollidePolygon.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Collision.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Contact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2ContactManager.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2ContactSolver.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Distance.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2DistanceJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Draw.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2DynamicTree.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2EdgeAndCircleContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2EdgeAndPolygonContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2EdgeShape.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Fixture.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2FrictionJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2GearJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Island.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Joint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Math.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2MouseJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2PolygonAndCircleContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2PolygonContact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2PolygonShape.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2PrismaticJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2PulleyJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2RevoluteJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Rope.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2RopeJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Settings.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2StackAllocator.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2TimeOfImpact.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2Timer.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2WeldJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2WheelJoint.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2World.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Box2D\b2WorldCallbacks.cpp">
+      <Filter>Box2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyBox.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyCircle.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyCompoundShape.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyLine.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyPoly.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhysicsManager.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyTriangle.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysicsLib\PhyWorld.cpp">
+      <Filter>PhysicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives\CirclePrim.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives\LinePrim.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives\PolyPrim.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives\RectPolyPrim.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives\RectPrim.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Primitives\TriPrim.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\MyButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\MyWindow.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameInit.cpp" />
+    <ClCompile Include="source\GameLoop.cpp" />
+    <ClCompile Include="source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\CommonLib\AddData.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\AnimSprite.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\Cam.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\DialogBox.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\FileReader.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\Input.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\Ref.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\Sprite.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonLib\UIFont.h">
+      <Filter>CommonLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\libpng\myFile.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\libpng\png.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\libpng\pngconf.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\libpng\pngpriv.h">
+      <Filter>libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Platform\Platform.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SaveManager\SaveData.h">
+      <Filter>SaveManager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SaveManager\SaveManager.h">
+      <Filter>SaveManager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Circle.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Collisions.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Direction.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Line2D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Line3D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\LineSeg2D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\LineSeg3D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\MyVector.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Plane.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Point.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Poly2D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Poly3D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Pos.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Posf.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Rect2D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Triangle2D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Triangle3D.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Vector3.h">
+      <Filter>MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\crc32.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\deflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\gzguts.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\inffast.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\inffixed.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\inflate.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\inftrees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\trees.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\zconf.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\zlib.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\zlib\zutil.h">
+      <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2BlockAllocator.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Body.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2BroadPhase.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2ChainAndCircleContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2ChainAndPolygonContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2ChainShape.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2CircleContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2CircleShape.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Collision.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Contact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2ContactManager.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2ContactSolver.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Distance.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2DistanceJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Draw.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2DynamicTree.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2EdgeAndCircleContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2EdgeAndPolygonContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2EdgeShape.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Fixture.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2FrictionJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2GearJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2GrowableStack.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Island.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Joint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Math.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2MouseJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2PolygonAndCircleContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2PolygonContact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2PolygonShape.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2PrismaticJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2PulleyJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2RevoluteJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Rope.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2RopeJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Settings.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Shape.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2StackAllocator.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2TimeOfImpact.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2Timer.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2TimeStep.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2WeldJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2WheelJoint.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2World.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\b2WorldCallbacks.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Box2D\Box2D.h">
+      <Filter>Box2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyBox.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyCircle.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyCompoundShape.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyLine.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyPoly.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyShape.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhysicsManager.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyTriangle.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysicsLib\PhyWorld.h">
+      <Filter>PhysicsLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\CirclePrim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\LinePrim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\PolyPrim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\Prim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\RectPolyPrim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\RectPrim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Primitives\TriPrim.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UI\MyButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UI\MyWindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameInit.h" />
+    <ClInclude Include="source\GameLoop.h" />
+    <ClInclude Include="source\MyDefines.h" />
+  </ItemGroup>
+</Project>
