@@ -140,12 +140,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\CFileReader.cpp" />
+    <ClCompile Include="source\DefinesAndIncludes.cpp" />
+    <ClCompile Include="source\Experiment.cpp" />
     <ClCompile Include="source\Looper.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\ObjToFLM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h" />
+    <ClInclude Include="source\DefinesAndIncludes.h" />
+    <ClInclude Include="source\Experiment.h" />
     <ClInclude Include="source\Looper.h" />
     <ClInclude Include="source\ObjToFLM.h" />
   </ItemGroup>

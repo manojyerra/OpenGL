@@ -1,38 +1,15 @@
 #include "ObjToFLM.h"
 #include "CFileReader.h"
-
-//unsigned short convFloatToUShort(float val)
-//{
-//	float val1 = val * 10000;
-//
-//	if(val1 < 0)
-//		val1 = (val1 * -1.0f) + 10000;
-//
-//	return val1;
-//}
-//
-//float convUShortToFloat(unsigned short val)
-//{
-//	float val1 = (float)val / 10000.0f;
-//
-//	if(val1 > 1)
-//		val1 = -(val1 - 1.0f);
-//
-//	return val1;
-//}
-
+#include "Experiment.h"
+#include "DefinesAndIncludes.h"
 
 ObjToFLM::ObjToFLM(string folderPath)
 {
-	//float nx = -0.0112f;
-	//float ny = 0.9999f;
+	//Experiment::PrintFloatBits(0.0269);
+	//Experiment::PrintFloatBits(-0.7273);
 
-	//unsigned short val1 = convFloatToUShort(nx);
-	//unsigned short val2 = convFloatToUShort(ny);
-
-	//float val3 = convUShortToFloat(val1);
-	//float val4 = convUShortToFloat(val2);
-
+	//short shortVal = Experiment::ConvFloatToShort(-0.0069895);
+	//float floatval = Experiment::ConvShortToFloat(shortVal);
 
 	CFileReader fileReader(folderPath+"/objFile.obj", "rb");
 	
@@ -113,7 +90,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 				Face face(V,T,N);
 
 				if(v[i] >= _faceVec.size())
-					printf("error");
+					writeConsole("error");
 
 				int containIndex = ContainsFace(&face);
 
