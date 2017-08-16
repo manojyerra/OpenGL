@@ -5,11 +5,7 @@
 
 ObjToFLM::ObjToFLM(string folderPath)
 {
-	//Experiment::PrintFloatBits(0.0269);
-	//Experiment::PrintFloatBits(-0.7273);
-
-	//short shortVal = Experiment::ConvFloatToShort(-0.0069895);
-	//float floatval = Experiment::ConvShortToFloat(shortVal);
+	normalArrType = SHORT_ARR;
 
 	CFileReader fileReader(folderPath+"/objFile.obj", "rb");
 	
@@ -35,6 +31,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 		{
 			sscanf(line, "vn %f %f %f", &nx, &ny, &nz);
 
+			UtilFuncs::Normalize( &nx, &ny, &nz );
 
 			normalVec.push_back(Point(nx, ny, nz));
 		}
@@ -60,7 +57,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 
 	for(int i=0; i<vertexVec.size(); i++)
 	{
-		_faceVec.push_back(Face());
+		faceVec.push_back(Face());
 	}
 
 	while((line = fileReader.ReadLine())!= NULL)
@@ -91,31 +88,31 @@ ObjToFLM::ObjToFLM(string folderPath)
 
 				Face face(V,T,N);
 
-				if(v[i] >= _faceVec.size())
+				if(v[i] >= faceVec.size())
 					writeConsole("error");
 
 				int containIndex = ContainsFace(&face);
 
 				if(containIndex != -1)
 				{
-					_indVec.push_back(containIndex);
+					indVec.push_back(containIndex);
 				}
-				else if(_faceVec[v[i]].filled)
+				else if(faceVec[v[i]].filled)
 				{
-					if(_faceVec[v[i]].IsSame(&face) == false)
+					if(faceVec[v[i]].IsSame(&face) == false)
 					{
-						_faceVec.push_back(face);
-						_indVec.push_back(_faceVec.size()-1);
+						faceVec.push_back(face);
+						indVec.push_back(faceVec.size()-1);
 					}
 					else
 					{
-						_indVec.push_back(v[i]);
+						indVec.push_back(v[i]);
 					}
 				}
 				else
 				{
-					_faceVec[v[i]] = face;
-					_indVec.push_back(v[i]);
+					faceVec[v[i]] = face;
+					indVec.push_back(v[i]);
 				}
 			}
 		}
@@ -123,18 +120,27 @@ ObjToFLM::ObjToFLM(string folderPath)
 		free(line);
 	}
 
-	for(int i=0; i<_faceVec.size(); i++)
+	for(int i=0; i<faceVec.size(); i++)
 	{
-		vertexIndArr.push_back(_faceVec[i].v.x);
-		vertexIndArr.push_back(_faceVec[i].v.y);
-		vertexIndArr.push_back(_faceVec[i].v.z);
+		vertexIndArr.push_back(faceVec[i].v.x);
+		vertexIndArr.push_back(faceVec[i].v.y);
+		vertexIndArr.push_back(faceVec[i].v.z);
 
-		uvIndArr.push_back(_faceVec[i].t.x);
-		uvIndArr.push_back(_faceVec[i].t.y);
+		uvIndArr.push_back(faceVec[i].t.x);
+		uvIndArr.push_back(faceVec[i].t.y);
 
-		normalIndArr.push_back(_faceVec[i].n.x);
-		normalIndArr.push_back(_faceVec[i].n.y);
-		normalIndArr.push_back(_faceVec[i].n.z);
+		if(normalArrType == SHORT_ARR)
+		{
+			normalIndShortArr.push_back(UtilFuncs::ConvFloatToShort(faceVec[i].n.x));
+			normalIndShortArr.push_back(UtilFuncs::ConvFloatToShort(faceVec[i].n.y));
+			normalIndShortArr.push_back(UtilFuncs::ConvFloatToShort(faceVec[i].n.z));
+		}
+		else
+		{
+			normalIndFloatArr.push_back(faceVec[i].n.x);
+			normalIndFloatArr.push_back(faceVec[i].n.y);
+			normalIndFloatArr.push_back(faceVec[i].n.z);
+		}
 	}
 
 	if(vertexIndArr.size() > 0)
@@ -155,16 +161,30 @@ ObjToFLM::ObjToFLM(string folderPath)
 		fclose(bufFile);
 	}
 
-	if(normalIndArr.size() > 0)
+	if(normalArrType == FLOAT_ARR)
 	{
-		string bufFilePath = folderPath+"/normal.buf";
-		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
-		fwrite(&normalIndArr[0], 4, normalIndArr.size(), bufFile);
-		fflush(bufFile);
-		fclose(bufFile);
+		if(normalIndFloatArr.size() > 0)
+		{
+			string bufFilePath = folderPath+"/normal.buf";
+			FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+			fwrite(&normalIndFloatArr[0], 4, normalIndFloatArr.size(), bufFile);
+			fflush(bufFile);
+			fclose(bufFile);
+		}
+	}
+	else if(normalArrType == SHORT_ARR)
+	{
+		if(normalIndShortArr.size() > 0)
+		{
+			string bufFilePath = folderPath+"/normal.buf";
+			FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+			fwrite(&normalIndShortArr[0], 2, normalIndShortArr.size(), bufFile);
+			fflush(bufFile);
+			fclose(bufFile);
+		}
 	}
 
-	if(_indVec.size() > 0)
+	if(indVec.size() > 0)
 	{
 		string bufFilePath = folderPath+"/index.buf";
 		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
@@ -173,14 +193,14 @@ ObjToFLM::ObjToFLM(string folderPath)
 		
 		if(type == 4)
 		{
-			fwrite(&_indVec[0], 4, _indVec.size(), bufFile);
+			fwrite(&indVec[0], 4, indVec.size(), bufFile);
 		}
 		else if(type == 2)
 		{
 			vector<unsigned short> shortIndVec;
 
-			for(int i=0; i<_indVec.size(); i++)
-				shortIndVec.push_back( (unsigned short)_indVec[i] );
+			for(int i=0; i<indVec.size(); i++)
+				shortIndVec.push_back( (unsigned short)indVec[i] );
 
 			fwrite(&shortIndVec[0], 2, shortIndVec.size(), bufFile);
 		}
@@ -188,8 +208,8 @@ ObjToFLM::ObjToFLM(string folderPath)
 		{
 			vector<unsigned char> byteIndVec;
 
-			for(int i=0; i<_indVec.size(); i++)
-				byteIndVec.push_back( (unsigned char)_indVec[i] );
+			for(int i=0; i<indVec.size(); i++)
+				byteIndVec.push_back( (unsigned char)indVec[i] );
 
 			fwrite(&byteIndVec[0], 1, byteIndVec.size(), bufFile);
 		}
@@ -212,17 +232,17 @@ int ObjToFLM::GetIndicesType()
 	bool unsigned_3bytes = false;
 	bool unsigned_int = false;
 
-	for(int i=0; i<_indVec.size(); i++)
+	for(int i=0; i<indVec.size(); i++)
 	{
-		if(_indVec[i] > UNSIGNED_3BYTES_MAX_VAL)
+		if(indVec[i] > UNSIGNED_3BYTES_MAX_VAL)
 		{
 			unsigned_int = true;
 		}
-		else if(_indVec[i] > UNSIGNED_SHORT_MAX_VAL)
+		else if(indVec[i] > UNSIGNED_SHORT_MAX_VAL)
 		{
 			unsigned_3bytes = true;
 		}
-		else if(_indVec[i] > UNSIGNED_BYTE_MAX_VAL)
+		else if(indVec[i] > UNSIGNED_BYTE_MAX_VAL)
 		{
 			unsigned_short = true;
 		}
@@ -240,15 +260,18 @@ int ObjToFLM::GetIndicesType()
 
 int ObjToFLM::ContainsFace(Face* face)
 {
-	int size = _faceVec.size();
+	int size = faceVec.size();
 
 	for(int i=0; i<size; i++)
 	{
-		if(_faceVec[i].filled)
+		if(faceVec[i].v.x == face->v.x)
 		{
-			if(_faceVec[i].IsSame(face))
+			if(faceVec[i].filled)
 			{
-				return i;
+				if(faceVec[i].IsSame(face))
+				{
+					return i;
+				}
 			}
 		}
 	}

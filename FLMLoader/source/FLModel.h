@@ -15,6 +15,7 @@ private:
 	unsigned int _numIndices;
 
 	unsigned int _textureID;
+	unsigned int _numVertex;
 
 public:
     FLModel(string filePath);

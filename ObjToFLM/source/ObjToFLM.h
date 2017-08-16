@@ -61,12 +61,24 @@ public:
 	{
 		return (face->v.IsSame(&v) && face->t.IsSame(&t) && face->n.IsSame(&n) );
 	}
+
+	string toString()
+	{
+		int filled_int = filled ? 1 : 0;
+
+		char arr[1024];
+		sprintf(arr, "%f %f %f %f %f %f %f %f %d", v.x, v.y, v.z, t.x, t.y, n.x, n.y, n.z, filled_int);
+		return string(arr);
+	}
 };
 
 
 class ObjToFLM
 {
 private:
+	static const int FLOAT_ARR = 1;
+	static const int SHORT_ARR = 2;
+
 	vector<Point> vertexVec;
 	vector<Point> uvVec;
 	vector<Point> normalVec;
@@ -75,11 +87,14 @@ private:
 	vector<float> uvFloatArr;
 	vector<float> normalFloatArr;
 
-	vector<Face> _faceVec;
-	vector<int> _indVec;
+	vector<Face> faceVec;
+	vector<int> indVec;
 	vector<float> vertexIndArr;
 	vector<float> uvIndArr;
-	vector<float> normalIndArr;
+	vector<float> normalIndFloatArr;
+	vector<short> normalIndShortArr;
+
+	int normalArrType;
 
 	int ContainsFace(Face* face);
 	int GetIndicesType();

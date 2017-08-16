@@ -42,9 +42,30 @@ void FLModelReaderWriter::Load(string folderPath)
 	if(CFileReader::IsFileExists(folderPath+"/normal.buf"))
 	{
 		CFileReader* fileReader = new CFileReader(folderPath+"/normal.buf", "rb");
-		_normalsPointer = (unsigned char*)malloc(fileReader->GetLength());
-		memcpy(_normalsPointer, fileReader->GetData(), fileReader->GetLength());
-		delete fileReader;
+
+		int fileLen = fileReader->GetLength();
+
+		if(fileLen == _numVertex * 12)
+		{
+			_normalsPointer = (unsigned char*)malloc( fileLen );
+			memcpy(_normalsPointer, fileReader->GetData(), fileLen);
+			delete fileReader;
+		}
+		else
+		{
+			short* shortArr = (short*)malloc( fileLen );
+			memcpy(shortArr, fileReader->GetData(), fileLen);
+			delete fileReader;
+			
+			_normalsPointer = (unsigned char*)malloc( fileLen*2 );
+
+			float* tempArr = (float*)_normalsPointer;
+
+			for(int i=0; i<fileLen/2; i++)
+			{
+				tempArr[i] = (float)(shortArr[i] / 10000.0f);
+			}
+		}
 	}
 
 	if(CFileReader::IsFileExists(folderPath+"/index.buf"))

@@ -3,7 +3,16 @@
 
 short UtilFuncs::ConvFloatToShort(float val)
 {
-	return (short)(val * 10000);
+	int intVal = val * 100000;
+
+	int sign = (intVal < 0) ? -1 : 1;
+
+	if(sign == -1)
+		intVal = -intVal;
+
+	int intVal4 = (intVal / 10) + ((intVal % 10) > 5 ? 1 : 0);
+
+	return (short)intVal4*sign;
 }
 
 float UtilFuncs::ConvShortToFloat(short val)
@@ -41,4 +50,17 @@ vector<unsigned char> UtilFuncs::GetFloatBits(float floatVal)
 	}
 
 	return bitsVec;
+}
+
+void UtilFuncs::Normalize(float* nx, float* ny, float* nz)
+{
+	float x = nx[0];
+	float y = ny[0];
+	float z = nz[0];
+
+	float len = sqrt(x*x + y*y + z*z);
+
+	nx[0] = x / len;
+	ny[0] = y / len;
+	nz[0] = z / len;
 }

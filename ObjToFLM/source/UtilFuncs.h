@@ -12,4 +12,6 @@ public:
 
 	static vector<unsigned char> GetFloatBits(float floatVal);
 	static void PrintFloatBits(float val);
+
+	static void Normalize(float* nx, float* ny, float* nz);
 };
