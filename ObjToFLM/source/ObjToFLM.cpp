@@ -238,10 +238,18 @@ int ObjToFLM::GetIndicesType()
 
 int ObjToFLM::ContainsFace(Face* face)
 {
-	for(int i=0; i<_faceVec.size(); i++)
+	int size = _faceVec.size();
+
+	for(int i=0; i<size; i++)
 	{
-		if(_faceVec[i].filled && _faceVec[i].IsSame(face))
-			return i;
+		if(_faceVec[i].filled)
+		{
+			if(_faceVec[i].IsSame(face))
+			{
+				return i;
+			}
+		}
 	}
+
 	return -1;
 }
