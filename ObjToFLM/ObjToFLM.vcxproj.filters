@@ -19,10 +19,10 @@
     <ClCompile Include="source\ObjToFLM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Experiment.cpp">
+    <ClCompile Include="source\DefinesAndIncludes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\DefinesAndIncludes.cpp">
+    <ClCompile Include="source\UtilFuncs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,10 +36,10 @@
     <ClInclude Include="source\ObjToFLM.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Experiment.h">
+    <ClInclude Include="source\DefinesAndIncludes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\DefinesAndIncludes.h">
+    <ClInclude Include="source\UtilFuncs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

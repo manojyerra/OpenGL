@@ -1,6 +1,6 @@
 #include "ObjToFLM.h"
 #include "CFileReader.h"
-#include "Experiment.h"
+#include "UtilFuncs.h"
 #include "DefinesAndIncludes.h"
 
 ObjToFLM::ObjToFLM(string folderPath)
@@ -34,6 +34,8 @@ ObjToFLM::ObjToFLM(string folderPath)
 		else if(line[0] == 'v' && line[1] == 'n')
 		{
 			sscanf(line, "vn %f %f %f", &nx, &ny, &nz);
+
+
 			normalVec.push_back(Point(nx, ny, nz));
 		}
 

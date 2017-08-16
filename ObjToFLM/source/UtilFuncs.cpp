@@ -1,25 +1,17 @@
-#include "Experiment.h"
+#include "UtilFuncs.h"
 #include "DefinesAndIncludes.h"
 
-Experiment::Experiment()
-{
-}
-
-Experiment::~Experiment()
-{
-}
-
-short Experiment::ConvFloatToShort(float val)
+short UtilFuncs::ConvFloatToShort(float val)
 {
 	return (short)(val * 10000);
 }
 
-float Experiment::ConvShortToFloat(short val)
+float UtilFuncs::ConvShortToFloat(short val)
 {
 	return (float)(val / 10000.0f);
 }
 
-void Experiment::PrintFloatBits(float val)
+void UtilFuncs::PrintFloatBits(float val)
 {
 	vector<unsigned char> bits = GetFloatBits(val);
 
@@ -33,7 +25,7 @@ void Experiment::PrintFloatBits(float val)
 	writeConsole("]\n");
 }
 
-vector<unsigned char> Experiment::GetFloatBits(float floatVal)
+vector<unsigned char> UtilFuncs::GetFloatBits(float floatVal)
 {
 	int numBits = sizeof(float) * 8;
 

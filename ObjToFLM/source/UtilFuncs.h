@@ -1,13 +1,11 @@
 #include <vector>
 using namespace std;
 
-class Experiment
+class UtilFuncs
 {
 private:
 
 public:
-	Experiment();
-	~Experiment();
 
 	static short ConvFloatToShort(float val);
 	static float ConvShortToFloat(short val);
