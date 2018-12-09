@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A434B225-8064-4C2C-9A44-90DF1218D8A6}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.28127.55</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/usingWin.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/3DModelLocalAndWorldTransformation.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;winmm.lib;lib/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Debug/3DModelLocalAndWorldTransformation.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/3DModelLocalAndWorldTransformation.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/3DModelLocalAndWorldTransformation.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/usingWin.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/usingWin.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Release/usingWin.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/usingWin.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/usingWin.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="source\CFileReader.cpp" />
+    <ClCompile Include="source\FLModel.cpp" />
+    <ClCompile Include="source\Floor.cpp" />
+    <ClCompile Include="source\GLAndUtil.cpp" />
+    <ClCompile Include="source\GLMat.cpp" />
+    <ClCompile Include="source\ImageBuffer.cpp" />
+    <ClCompile Include="source\Input.cpp" />
+    <ClCompile Include="source\Looper.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\PNG\libpng\png.c" />
+    <ClCompile Include="source\PNG\libpng\pngerror.c" />
+    <ClCompile Include="source\PNG\libpng\pngget.c" />
+    <ClCompile Include="source\PNG\libpng\pngmem.c" />
+    <ClCompile Include="source\PNG\libpng\pngpread.c" />
+    <ClCompile Include="source\PNG\libpng\pngread.c" />
+    <ClCompile Include="source\PNG\libpng\pngrio.c" />
+    <ClCompile Include="source\PNG\libpng\pngrtran.c" />
+    <ClCompile Include="source\PNG\libpng\pngrutil.c" />
+    <ClCompile Include="source\PNG\libpng\pngset.c" />
+    <ClCompile Include="source\PNG\libpng\pngtest.c" />
+    <ClCompile Include="source\PNG\libpng\pngtrans.c" />
+    <ClCompile Include="source\PNG\libpng\pngwio.c" />
+    <ClCompile Include="source\PNG\libpng\pngwrite.c" />
+    <ClCompile Include="source\PNG\libpng\pngwtran.c" />
+    <ClCompile Include="source\PNG\libpng\pngwutil.c" />
+    <ClCompile Include="source\PNG\PNGReadWrite.cpp" />
+    <ClCompile Include="source\PNG\zlib\adler32.c" />
+    <ClCompile Include="source\PNG\zlib\compress.c" />
+    <ClCompile Include="source\PNG\zlib\crc32.c" />
+    <ClCompile Include="source\PNG\zlib\deflate.c" />
+    <ClCompile Include="source\PNG\zlib\gzclose.c" />
+    <ClCompile Include="source\PNG\zlib\gzlib.c" />
+    <ClCompile Include="source\PNG\zlib\gzread.c" />
+    <ClCompile Include="source\PNG\zlib\gzwrite.c" />
+    <ClCompile Include="source\PNG\zlib\infback.c" />
+    <ClCompile Include="source\PNG\zlib\inffast.c" />
+    <ClCompile Include="source\PNG\zlib\inflate.c" />
+    <ClCompile Include="source\PNG\zlib\inftrees.c" />
+    <ClCompile Include="source\PNG\zlib\minigzip.c" />
+    <ClCompile Include="source\PNG\zlib\trees.c" />
+    <ClCompile Include="source\PNG\zlib\uncompr.c" />
+    <ClCompile Include="source\PNG\zlib\zutil.c" />
+    <ClCompile Include="source\UtilFuncs.cpp" />
+    <ClCompile Include="source\Vector3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\CFileReader.h" />
+    <ClInclude Include="source\FLModel.h" />
+    <ClInclude Include="source\Floor.h" />
+    <ClInclude Include="source\GLAndUtil.h" />
+    <ClInclude Include="source\GLMat.h" />
+    <ClInclude Include="source\ImageBuffer.h" />
+    <ClInclude Include="source\Input.h" />
+    <ClInclude Include="source\Looper.h" />
+    <ClInclude Include="source\PNG\libpng\png.h" />
+    <ClInclude Include="source\PNG\libpng\pngconf.h" />
+    <ClInclude Include="source\PNG\libpng\pngpriv.h" />
+    <ClInclude Include="source\PNG\PNGReadWrite.h" />
+    <ClInclude Include="source\PNG\zlib\crc32.h" />
+    <ClInclude Include="source\PNG\zlib\deflate.h" />
+    <ClInclude Include="source\PNG\zlib\gzguts.h" />
+    <ClInclude Include="source\PNG\zlib\inffast.h" />
+    <ClInclude Include="source\PNG\zlib\inffixed.h" />
+    <ClInclude Include="source\PNG\zlib\inflate.h" />
+    <ClInclude Include="source\PNG\zlib\inftrees.h" />
+    <ClInclude Include="source\PNG\zlib\trees.h" />
+    <ClInclude Include="source\PNG\zlib\zconf.h" />
+    <ClInclude Include="source\PNG\zlib\zlib.h" />
+    <ClInclude Include="source\PNG\zlib\zutil.h" />
+    <ClInclude Include="source\UtilFuncs.h" />
+    <ClInclude Include="source\Vector3.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
