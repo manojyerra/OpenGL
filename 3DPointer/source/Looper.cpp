@@ -48,6 +48,11 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_modelPropsFrame = new ModelPropsFrame((int)_windowW-240, 0, 240, 550, _modelsMgr);
 
 	_mainFrame = new MainFrame(0,0,200,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
+
+	float arr[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, arr);
+	int a = 10;
+
 }
 
 void Looper::Update(float deltaTime)
