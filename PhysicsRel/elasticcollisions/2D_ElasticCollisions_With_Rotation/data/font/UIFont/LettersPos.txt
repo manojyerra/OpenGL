@@ -1,0 +1,98 @@
+﻿<ObjectsList> 
+<Object   name="A" x="3" y="9"  width="18" height="15" />
+<Object   name="B" x="26" y="9"  width="14" height="15" />
+<Object   name="C" x="45" y="9"  width="14" height="15" />
+<Object   name="D" x="64" y="9"  width="15" height="15" />
+<Object   name="E" x="84" y="9"  width="14" height="15" />
+<Object   name="F" x="103" y="9" width="13" height="15" />
+<Object   name="G" x="120" y="9" width="16" height="15" />
+<Object   name="H" x="141" y="9" width="16" height="15" />
+<Object   name="I" x="162" y="9" width="9" height="15" />
+<Object   name="J" x="174" y="9" width="13" height="15" />
+<Object   name="K" x="192" y="9" width="16" height="15" />
+<Object   name="L" x="212" y="9" width="13" height="15" />
+<Object   name="M" x="229" y="9" width="18" height="15" />
+<Object   name="N" x="252" y="9" width="16" height="15" />
+<Object   name="O" x="273" y="9" width="17" height="15" />
+<Object   name="P" x="295" y="9" width="14" height="15" />
+<Object   name="Q" x="313" y="9" width="18" height="15" />
+<Object   name="R" x="335" y="9" width="15" height="15" />
+<Object   name="S" x="354" y="9" width="12" height="15" />
+<Object   name="T" x="371" y="9" width="15" height="15" />
+<Object   name="U" x="390" y="9" width="15" height="15" />
+<Object   name="V" x="409" y="9" width="16" height="15" />
+<Object   name="W" x="430" y="9" width="21" height="15" />
+<Object   name="X" x="454" y="9" width="16" height="15" />
+<Object   name="Y" x="474" y="9" width="15" height="15" />
+<Object   name="Z" x="492" y="9" width="15" height="15" />
+<Object   name="a" x="3" y="37"  width="13" height="12" />
+<Object   name="b" x="21" y="34"  width="14" height="15" />
+<Object   name="c" x="39" y="37"  width="12" height="12" />
+<Object   name="d" x="55" y="34"  width="15" height="15" />
+<Object   name="e" x="74" y="37"  width="13" height="12" />
+<Object   name="f" x="91" y="34"  width="11" height="15" />
+<Object   name="g" x="106" y="37" width="14" height="16" />
+<Object   name="h" x="125" y="34" width="14" height="15" />
+<Object   name="i" x="143" y="34" width="9" height="15" />
+<Object   name="j" x="154" y="34" width="11" height="19" />
+<Object   name="k" x="169" y="34" width="14" height="15" />
+<Object   name="l" x="187" y="34" width="9" height="15" />
+<Object   name="m" x="200" y="37" width="19" height="12" />
+<Object   name="n" x="223" y="37" width="14" height="12" />
+<Object   name="o" x="242" y="37" width="14" height="12" />
+<Object   name="p" x="260" y="37" width="15" height="16" />
+<Object   name="q" x="279" y="37" width="14" height="16" />
+<Object   name="r" x="297" y="37" width="11" height="12" />
+<Object   name="s" x="312" y="37" width="11" height="12" />
+<Object   name="t" x="328" y="34" width="11" height="15" />
+<Object   name="u" x="343" y="37" width="14" height="12" />
+<Object   name="v" x="361" y="37" width="14" height="12" />
+<Object   name="w" x="378" y="37" width="19" height="12" />
+<Object   name="x" x="401" y="37" width="14" height="12" />
+<Object   name="y" x="419" y="37" width="14" height="16" />
+<Object   name="z" x="437" y="37" width="12" height="12" />
+<Object   name="1" x="5" y="62" width="12" height="14" />
+<Object   name="2" x="22" y="62" width="14" height="15" />
+<Object   name="3" x="40" y="62" width="15" height="15" />
+<Object   name="4" x="59" y="62" width="14" height="15" />
+<Object   name="5" x="77" y="62" width="14" height="15" />
+<Object   name="6" x="95" y="62" width="15" height="15" />
+<Object   name="7" x="114" y="62" width="14" height="15" />
+<Object   name="8" x="132" y="62" width="15" height="15" />
+<Object   name="9" x="150" y="62" width="16" height="15" />
+<Object   name="0" x="169" y="62" width="15" height="15" />
+<Object   name="`" x="4" y="91" width="9" height="6" />
+<Object   name="!" x="20" y="91" width="8" height="15" />
+//<Object   name="”" x="40" y="266" width="10" height="19" />
+<Object   name="$" x="49" y="89" width="12" height="19" />
+<Object   name="%" x="66" y="91" width="19" height="15" />
+<Object   name="^" x="85" y="91" width="19" height="11" />
+<Object   name="&" x="105" y="91" width="16" height="15" />
+<Object   name="*" x="126" y="91" width="10" height="10" />
+<Object   name="(" x="142" y="91" width="8" height="19" />
+<Object   name=")" x="155" y="91" width="9" height="19" />
+<Object   name="-" x="168" y="97" width="9" height="6" />
+<Object   name="_" x="181" y="102" width="12" height="6" />
+<Object   name="=" x="197" y="94" width="14" height="9" />
+<Object   name="+" x="216" y="92" width="14" height="14" />
+<Object   name="[" x="234" y="91" width="10" height="19" />
+<Object   name="{" x="248" y="91" width="10" height="19" />
+<Object   name="]" x="262" y="91" width="10" height="19" />
+<Object   name="}" x="277" y="91" width="10" height="19" />
+<Object   name=";" x="291" y="94" width="9" height="14" />
+<Object   name=":" x="305" y="94" width="8 " height="12" />
+<Object   name="’" x="317" y="91" width="8 " height="7" />
+<Object   name="@" x="329" y="91" width="18" height="15" />
+<Object   name="#" x="351" y="91" width="15" height="15" />
+<Object   name="~" x="489" y="266" width="20" height="19" />
+<Object   name="\" x="369" y="91" width="13" height="19" />
+<Object   name="|" x="386" y="91" width="8 " height="18" />
+<Object   name="," x="400" y="100" width="9 " height="8" />
+<Object   name="<" x="413" y="92" width="12" height="13" />
+<Object   name="." x="429" y="99" width="8 " height="7" />
+<Object   name=">" x="442" y="92" width="12" height="13" />
+<Object   name="/" x="455" y="91" width="14" height="19" />
+<Object   name="?" x="473" y="91" width="12" height="15" />
+</ObjectsList>
+</Level>
+
