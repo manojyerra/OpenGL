@@ -1,0 +1,30 @@
+describe all features in editor events like Camera, Delete bouding box, create boudning box, select bounding box.
+1) Window issues. ( normal window mode and full screen issues and check bigfish game window behaviour ).
+2) Add "IsHiddenObject" property in ModelProps.
+2) setting name for 'save' and 'object name'.
+3) automatic change to orthographic projection for side views.
+4) load the previous scene on load ( including camera and UI information also ).
+5) Resource manager for textures.
+6) undo and redo implementation.
+
+
+later...
+--------
+deselect all the objects on left click in the empty screen area.
+double click on the circle to reset the translation / rotation
+
+
+Done ...
+--------
+Material order should be in alphabetic order.
+Save and Delete should have dialog box for confirmation and completion of work
+In WireFrame mode, texture should be disabled, and border should come properly.
+each object should have save, duplicate, delete, wireframe, focus object feature in ModelProps window.
+Add Material ID in FLMStruct, Object type ( like wood or rock or steel etc... ) http://www.yourspreadsheets.co.uk/typical-weights-of-building-materials.html
+duplicate object
+onDoubleClick OR type 'O' to see object in frontview in ortho and pivot to object and should be center in the screen.
+Change Bin to FLM
+After saving some indication should be there. and after clicking on 'OK' it should delete automatically.
+scroll to zoom.
+Pointers issue need to be fixed.
+Button click should have some indication.

@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A434B225-8064-4C2C-9A44-90DF1218D8A6}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/usingWin.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>source;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/usingWin.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;winmm.lib;lib/*.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Debug/usingWin.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/usingWin.pdb</ProgramDatabaseFile>
+      <SubSystem>NotSet</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/usingWin.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/usingWin.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/usingWin.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Release/usingWin.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/usingWin.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/usingWin.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="source\AllDemos.cpp" />
+    <ClCompile Include="source\AppInfo.cpp" />
+    <ClCompile Include="source\Cam.cpp" />
+    <ClCompile Include="source\EntryPoint.cpp" />
+    <ClCompile Include="source\WGL_ARB_multisample.cpp" />
+    <ClCompile Include="source\WinUtil.cpp" />
+    <ClCompile Include="source\Sui\Sui.cpp" />
+    <ClCompile Include="source\Sui\SuiBatch.cpp" />
+    <ClCompile Include="source\Sui\SuiBox.cpp" />
+    <ClCompile Include="source\Sui\SuiButton.cpp" />
+    <ClCompile Include="source\Sui\SuiCheckBox.cpp" />
+    <ClCompile Include="source\Sui\SuiChoice.cpp" />
+    <ClCompile Include="source\Sui\SuiComponent.cpp" />
+    <ClCompile Include="source\Sui\SuiFont.cpp" />
+    <ClCompile Include="source\Sui\SuiFrame.cpp" />
+    <ClCompile Include="source\Sui\SuiIncludes.cpp" />
+    <ClCompile Include="source\Sui\SuiInput.cpp" />
+    <ClCompile Include="source\Sui\SuiLabel.cpp" />
+    <ClCompile Include="source\Sui\SuiList.cpp" />
+    <ClCompile Include="source\Sui\SuiManager.cpp" />
+    <ClCompile Include="source\Sui\SuiRadioButton.cpp" />
+    <ClCompile Include="source\Sui\SuiRect.cpp" />
+    <ClCompile Include="source\Sui\SuiScroller.cpp" />
+    <ClCompile Include="source\Sui\SuiSlider.cpp" />
+    <ClCompile Include="source\Phy\PhyBox.cpp" />
+    <ClCompile Include="source\Phy\PhyCompound.cpp" />
+    <ClCompile Include="source\Phy\PhyCone.cpp" />
+    <ClCompile Include="source\Phy\PhyCylinder.cpp" />
+    <ClCompile Include="source\Phy\PhyManager.cpp" />
+    <ClCompile Include="source\Phy\PhySphere.cpp" />
+    <ClCompile Include="source\MathLib\Line2D.cpp" />
+    <ClCompile Include="source\MathLib\Point.cpp" />
+    <ClCompile Include="source\MathLib\Vector3.cpp" />
+    <ClCompile Include="source\MathLib\MatrixLib\DXMat.cpp" />
+    <ClCompile Include="source\MathLib\MatrixLib\GLMat.cpp" />
+    <ClCompile Include="source\MathLib\MatrixLib\MatrixUtil.cpp" />
+    <ClCompile Include="source\Shapes\Box.cpp" />
+    <ClCompile Include="source\Shapes\Cone.cpp" />
+    <ClCompile Include="source\Shapes\Cylinder.cpp" />
+    <ClCompile Include="source\Shapes\Sphere.cpp" />
+    <ClCompile Include="source\Editor\Editor.cpp" />
+    <ClCompile Include="source\Editor\EventsFrame.cpp" />
+    <ClCompile Include="source\Editor\Floor.cpp" />
+    <ClCompile Include="source\Editor\MainFrame.cpp" />
+    <ClCompile Include="source\Editor\ModelPropsFrame.cpp" />
+    <ClCompile Include="source\Editor\Pointers.cpp" />
+    <ClCompile Include="source\Util\ImageBuffer.cpp" />
+    <ClCompile Include="source\Util\Meterial.cpp" />
+    <ClCompile Include="source\Util\ModelBorder.cpp" />
+    <ClCompile Include="source\Util\Prim.cpp" />
+    <ClCompile Include="source\Util\SuiBatchFiles.cpp" />
+    <ClCompile Include="source\Util\SuiFile.cpp" />
+    <ClCompile Include="source\Util\UtilFuncs.cpp" />
+    <ClCompile Include="source\Util\VectorByte.cpp" />
+    <ClCompile Include="source\Util\VertexBufUtils.cpp" />
+    <ClCompile Include="source\IO\PNG\PNGReadWrite.cpp" />
+    <ClCompile Include="source\IO\PNG\libpng\png.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngerror.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngget.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngmem.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngpread.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngread.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngrio.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngrtran.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngrutil.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngset.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngtest.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngtrans.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngwio.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngwrite.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngwtran.c" />
+    <ClCompile Include="source\IO\PNG\libpng\pngwutil.c" />
+    <ClCompile Include="source\IO\PNG\zlib\adler32.c" />
+    <ClCompile Include="source\IO\PNG\zlib\compress.c" />
+    <ClCompile Include="source\IO\PNG\zlib\crc32.c" />
+    <ClCompile Include="source\IO\PNG\zlib\deflate.c" />
+    <ClCompile Include="source\IO\PNG\zlib\gzclose.c" />
+    <ClCompile Include="source\IO\PNG\zlib\gzlib.c" />
+    <ClCompile Include="source\IO\PNG\zlib\gzread.c" />
+    <ClCompile Include="source\IO\PNG\zlib\gzwrite.c" />
+    <ClCompile Include="source\IO\PNG\zlib\infback.c" />
+    <ClCompile Include="source\IO\PNG\zlib\inffast.c" />
+    <ClCompile Include="source\IO\PNG\zlib\inflate.c" />
+    <ClCompile Include="source\IO\PNG\zlib\inftrees.c" />
+    <ClCompile Include="source\IO\PNG\zlib\minigzip.c" />
+    <ClCompile Include="source\IO\PNG\zlib\trees.c" />
+    <ClCompile Include="source\IO\PNG\zlib\uncompr.c" />
+    <ClCompile Include="source\IO\PNG\zlib\zutil.c" />
+    <ClCompile Include="source\IO\JPEG\JPEGReadWrite.cpp" />
+    <ClCompile Include="source\IO\DDS\DDSReadWrite.cpp" />
+    <ClCompile Include="source\IO\File\FileReader.cpp" />
+    <ClCompile Include="source\IO\Obj\ObjReader.cpp" />
+    <ClCompile Include="source\IO\FLM\FLMReader.cpp" />
+    <ClCompile Include="source\IO\FLM\FLMStruct.cpp" />
+    <ClCompile Include="source\IO\FLM\FLMWriter.cpp" />
+    <ClCompile Include="source\IO\BinaryObject\BinaryIterator.cpp" />
+    <ClCompile Include="source\IO\BinaryObject\BinaryObjectReader.cpp" />
+    <ClCompile Include="source\IO\BinaryObject\BinaryObjectWriter.cpp" />
+    <ClCompile Include="source\Model3D\Model3D.cpp" />
+    <ClCompile Include="source\Model3D\Model3D_Helper.cpp" />
+    <ClCompile Include="source\Bound\BoundingBox.cpp" />
+    <ClCompile Include="source\Bound\BoundingCone.cpp" />
+    <ClCompile Include="source\Bound\BoundingCylinder.cpp" />
+    <ClCompile Include="source\Bound\BoundingSphere.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\AllDemos.h" />
+    <ClInclude Include="source\AppInfo.h" />
+    <ClInclude Include="source\Cam.h" />
+    <ClInclude Include="source\Def.h" />
+    <ClInclude Include="source\WGL_ARB_multisample.h" />
+    <ClInclude Include="source\WinUtil.h" />
+    <ClInclude Include="source\Sui\Sui.h" />
+    <ClInclude Include="source\Sui\SuiActionEvent.h" />
+    <ClInclude Include="source\Sui\SuiActionListener.h" />
+    <ClInclude Include="source\Sui\SuiBatch.h" />
+    <ClInclude Include="source\Sui\SuiBox.h" />
+    <ClInclude Include="source\Sui\SuiButton.h" />
+    <ClInclude Include="source\Sui\SuiCheckBox.h" />
+    <ClInclude Include="source\Sui\SuiChoice.h" />
+    <ClInclude Include="source\Sui\SuiComponent.h" />
+    <ClInclude Include="source\Sui\SuiCycle.h" />
+    <ClInclude Include="source\Sui\SuiEvents.h" />
+    <ClInclude Include="source\Sui\SuiFont.h" />
+    <ClInclude Include="source\Sui\SuiFrame.h" />
+    <ClInclude Include="source\Sui\SuiIncludes.h" />
+    <ClInclude Include="source\Sui\SuiInput.h" />
+    <ClInclude Include="source\Sui\SuiLabel.h" />
+    <ClInclude Include="source\Sui\SuiList.h" />
+    <ClInclude Include="source\Sui\SuiManager.h" />
+    <ClInclude Include="source\Sui\SuiMouseEvent.h" />
+    <ClInclude Include="source\Sui\SuiMouseListener.h" />
+    <ClInclude Include="source\Sui\SuiRadioButton.h" />
+    <ClInclude Include="source\Sui\SuiRect.h" />
+    <ClInclude Include="source\Sui\SuiScroller.h" />
+    <ClInclude Include="source\Sui\SuiSlider.h" />
+    <ClInclude Include="source\Phy\PhyBox.h" />
+    <ClInclude Include="source\Phy\PhyCompound.h" />
+    <ClInclude Include="source\Phy\PhyCone.h" />
+    <ClInclude Include="source\Phy\PhyCylinder.h" />
+    <ClInclude Include="source\Phy\PhyManager.h" />
+    <ClInclude Include="source\Phy\PhySphere.h" />
+    <ClInclude Include="source\MathLib\Line2D.h" />
+    <ClInclude Include="source\MathLib\Point.h" />
+    <ClInclude Include="source\MathLib\Vector3.h" />
+    <ClInclude Include="source\MathLib\MatrixLib\DXMat.h" />
+    <ClInclude Include="source\MathLib\MatrixLib\GLMat.h" />
+    <ClInclude Include="source\MathLib\MatrixLib\MatrixUtil.h" />
+    <ClInclude Include="source\Shapes\Box.h" />
+    <ClInclude Include="source\Shapes\Cone.h" />
+    <ClInclude Include="source\Shapes\Cylinder.h" />
+    <ClInclude Include="source\Shapes\Shape.h" />
+    <ClInclude Include="source\Shapes\Sphere.h" />
+    <ClInclude Include="source\Editor\Editor.h" />
+    <ClInclude Include="source\Editor\EventsFrame.h" />
+    <ClInclude Include="source\Editor\Floor.h" />
+    <ClInclude Include="source\Editor\MainFrame.h" />
+    <ClInclude Include="source\Editor\ModelPropsFrame.h" />
+    <ClInclude Include="source\Editor\Pointers.h" />
+    <ClInclude Include="source\Util\ImageBuffer.h" />
+    <ClInclude Include="source\Util\Meterial.h" />
+    <ClInclude Include="source\Util\ModelBorder.h" />
+    <ClInclude Include="source\Util\Prim.h" />
+    <ClInclude Include="source\Util\Rect.h" />
+    <ClInclude Include="source\Util\SuiBatchFiles.h" />
+    <ClInclude Include="source\Util\SuiFile.h" />
+    <ClInclude Include="source\Util\UtilFuncs.h" />
+    <ClInclude Include="source\Util\VectorByte.h" />
+    <ClInclude Include="source\Util\VertexBufUtils.h" />
+    <ClInclude Include="source\IO\PNG\PNGReadWrite.h" />
+    <ClInclude Include="source\IO\PNG\libpng\png.h" />
+    <ClInclude Include="source\IO\PNG\libpng\pngconf.h" />
+    <ClInclude Include="source\IO\PNG\libpng\pngpriv.h" />
+    <ClInclude Include="source\IO\PNG\zlib\crc32.h" />
+    <ClInclude Include="source\IO\PNG\zlib\deflate.h" />
+    <ClInclude Include="source\IO\PNG\zlib\gzguts.h" />
+    <ClInclude Include="source\IO\PNG\zlib\inffast.h" />
+    <ClInclude Include="source\IO\PNG\zlib\inffixed.h" />
+    <ClInclude Include="source\IO\PNG\zlib\inflate.h" />
+    <ClInclude Include="source\IO\PNG\zlib\inftrees.h" />
+    <ClInclude Include="source\IO\PNG\zlib\trees.h" />
+    <ClInclude Include="source\IO\PNG\zlib\zconf.h" />
+    <ClInclude Include="source\IO\PNG\zlib\zlib.h" />
+    <ClInclude Include="source\IO\PNG\zlib\zutil.h" />
+    <ClInclude Include="source\IO\JPEG\JPEGReadWrite.h" />
+    <ClInclude Include="source\IO\DDS\DDSReadWrite.h" />
+    <ClInclude Include="source\IO\File\FileReader.h" />
+    <ClInclude Include="source\IO\Obj\ObjReader.h" />
+    <ClInclude Include="source\IO\FLM\FLMReader.h" />
+    <ClInclude Include="source\IO\FLM\FLMStruct.h" />
+    <ClInclude Include="source\IO\FLM\FLMWriter.h" />
+    <ClInclude Include="source\IO\BinaryObject\BinaryIterator.h" />
+    <ClInclude Include="source\IO\BinaryObject\BinaryObjectReader.h" />
+    <ClInclude Include="source\IO\BinaryObject\BinaryObjectWriter.h" />
+    <ClInclude Include="source\Model3D\Model3D.h" />
+    <ClInclude Include="source\Model3D\Model3D_Helper.h" />
+    <ClInclude Include="source\Bound\BoundingBox.h" />
+    <ClInclude Include="source\Bound\BoundingCone.h" />
+    <ClInclude Include="source\Bound\BoundingCylinder.h" />
+    <ClInclude Include="source\Bound\BoundingSphere.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

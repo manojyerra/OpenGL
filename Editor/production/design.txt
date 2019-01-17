@@ -1,0 +1,26 @@
+automatic change to orthographic projection for side views
+
+undo -- redo 
+
+cone inplace of cube for translation manipulato
+
+double click on the circle to reset the traslation / rotation
+
+scroll to zoom.
+
+For Rotation
+ctrl + leftclick(x) + middleClick(y) + rightClick(z)
+
+
+load the previous scene on load
+
+x -- delete the selected object
+
+deselect all the object on left click in the empty screen area -- 
+
+http://scratchapixel.com/lessons/3d-advanced-lessons/
+
+tab to go to face mode
+
+place cursor to high light the face.. click to select.. double click to select continious faces.
+

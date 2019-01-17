@@ -1,0 +1,664 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{789b38f3-73b6-440f-bdc6-cd4f7ec3708e}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Sui">
+      <UniqueIdentifier>{2e07d577-9da0-4d65-9e75-67bdb7698159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Phy">
+      <UniqueIdentifier>{c03a4707-aa17-40af-b2bf-fe8ec81d4abe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MathLib">
+      <UniqueIdentifier>{6a3ce5ff-bff2-4f82-aa66-4b595ff44b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MathLib\MatrixLib">
+      <UniqueIdentifier>{22c76f24-b0c4-4706-bbdf-07cdc5ab8f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shapes">
+      <UniqueIdentifier>{444c1694-0db6-48d5-a35c-71cdf72efc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor">
+      <UniqueIdentifier>{1a7ff76d-5862-48bc-9a52-2d8a8ae9ee06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{14cc5f60-7a0b-4aa1-b541-af316e61b080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO">
+      <UniqueIdentifier>{232431c4-effc-4bcf-9af9-20c9ed956e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\PNG">
+      <UniqueIdentifier>{80e605d4-9d05-4102-b232-81820c0ae942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\PNG\libpng">
+      <UniqueIdentifier>{c1e04c69-b26f-4a20-a936-bf96dbc6cf26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\PNG\zlib">
+      <UniqueIdentifier>{2a26f06c-e65c-434b-8a6f-9e7880313196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\JPEG">
+      <UniqueIdentifier>{c5e83457-5467-4006-91b5-2c57dc17a2b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\DDS">
+      <UniqueIdentifier>{7cc30b96-46ce-4e64-b0f7-a5bef4ecfcc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\File">
+      <UniqueIdentifier>{b7659270-26f3-44c4-937a-3c415333bdae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\Obj">
+      <UniqueIdentifier>{21601eef-9036-485a-9ed4-ef0944ceffbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\FLM">
+      <UniqueIdentifier>{691d452c-1c1a-4beb-ae65-8058847a446b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\IO\BinaryObject">
+      <UniqueIdentifier>{8b2f3a6e-d18e-4cba-92fa-b306f8d8fd21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model3D">
+      <UniqueIdentifier>{693630e8-4ca0-4158-8afc-dff1ae8c5f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bound">
+      <UniqueIdentifier>{6f6224df-dd24-4f91-ae21-e3b2600fc64b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\AllDemos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AppInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Cam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EntryPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WGL_ARB_multisample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WinUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\Sui.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiBatch.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiBox.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiButton.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiCheckBox.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiChoice.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiComponent.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiFont.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiFrame.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiIncludes.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiInput.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiLabel.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiList.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiManager.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiRadioButton.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiRect.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiScroller.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Sui\SuiSlider.cpp">
+      <Filter>Source Files\Sui</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyBox.cpp">
+      <Filter>Source Files\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyCompound.cpp">
+      <Filter>Source Files\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyCone.cpp">
+      <Filter>Source Files\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyCylinder.cpp">
+      <Filter>Source Files\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhyManager.cpp">
+      <Filter>Source Files\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Phy\PhySphere.cpp">
+      <Filter>Source Files\Phy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Line2D.cpp">
+      <Filter>Source Files\MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Point.cpp">
+      <Filter>Source Files\MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\Vector3.cpp">
+      <Filter>Source Files\MathLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\MatrixLib\DXMat.cpp">
+      <Filter>Source Files\MathLib\MatrixLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\MatrixLib\GLMat.cpp">
+      <Filter>Source Files\MathLib\MatrixLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MathLib\MatrixLib\MatrixUtil.cpp">
+      <Filter>Source Files\MathLib\MatrixLib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes\Box.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes\Cone.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes\Cylinder.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes\Sphere.cpp">
+      <Filter>Source Files\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Editor\Editor.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Editor\EventsFrame.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Editor\Floor.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Editor\MainFrame.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Editor\ModelPropsFrame.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Editor\Pointers.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\ImageBuffer.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\Meterial.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\ModelBorder.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\Prim.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\SuiBatchFiles.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\SuiFile.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\UtilFuncs.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\VectorByte.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\VertexBufUtils.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\PNGReadWrite.cpp">
+      <Filter>Source Files\IO\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\png.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngerror.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngget.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngmem.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngpread.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngread.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngrio.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngrtran.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngrutil.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngset.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngtest.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngtrans.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngwio.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngwrite.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngwtran.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\libpng\pngwutil.c">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\adler32.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\compress.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\crc32.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\deflate.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\gzclose.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\gzlib.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\gzread.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\gzwrite.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\infback.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\inffast.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\inflate.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\inftrees.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\minigzip.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\trees.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\uncompr.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\PNG\zlib\zutil.c">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\JPEG\JPEGReadWrite.cpp">
+      <Filter>Source Files\IO\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\DDS\DDSReadWrite.cpp">
+      <Filter>Source Files\IO\DDS</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\File\FileReader.cpp">
+      <Filter>Source Files\IO\File</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\Obj\ObjReader.cpp">
+      <Filter>Source Files\IO\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\FLM\FLMReader.cpp">
+      <Filter>Source Files\IO\FLM</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\FLM\FLMStruct.cpp">
+      <Filter>Source Files\IO\FLM</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\FLM\FLMWriter.cpp">
+      <Filter>Source Files\IO\FLM</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\BinaryObject\BinaryIterator.cpp">
+      <Filter>Source Files\IO\BinaryObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\BinaryObject\BinaryObjectReader.cpp">
+      <Filter>Source Files\IO\BinaryObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IO\BinaryObject\BinaryObjectWriter.cpp">
+      <Filter>Source Files\IO\BinaryObject</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\Model3D.cpp">
+      <Filter>Source Files\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Model3D\Model3D_Helper.cpp">
+      <Filter>Source Files\Model3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bound\BoundingBox.cpp">
+      <Filter>Source Files\Bound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bound\BoundingCone.cpp">
+      <Filter>Source Files\Bound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bound\BoundingCylinder.cpp">
+      <Filter>Source Files\Bound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bound\BoundingSphere.cpp">
+      <Filter>Source Files\Bound</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\AllDemos.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AppInfo.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Cam.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Def.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WGL_ARB_multisample.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WinUtil.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\Sui.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiActionEvent.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiActionListener.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiBatch.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiBox.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiButton.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiCheckBox.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiChoice.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiComponent.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiCycle.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiEvents.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiFont.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiFrame.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiIncludes.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiInput.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiLabel.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiList.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiManager.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiMouseEvent.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiMouseListener.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiRadioButton.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiRect.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiScroller.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Sui\SuiSlider.h">
+      <Filter>Source Files\Sui</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyBox.h">
+      <Filter>Source Files\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyCompound.h">
+      <Filter>Source Files\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyCone.h">
+      <Filter>Source Files\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyCylinder.h">
+      <Filter>Source Files\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhyManager.h">
+      <Filter>Source Files\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Phy\PhySphere.h">
+      <Filter>Source Files\Phy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Line2D.h">
+      <Filter>Source Files\MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Point.h">
+      <Filter>Source Files\MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\Vector3.h">
+      <Filter>Source Files\MathLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\MatrixLib\DXMat.h">
+      <Filter>Source Files\MathLib\MatrixLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\MatrixLib\GLMat.h">
+      <Filter>Source Files\MathLib\MatrixLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MathLib\MatrixLib\MatrixUtil.h">
+      <Filter>Source Files\MathLib\MatrixLib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes\Box.h">
+      <Filter>Source Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes\Cone.h">
+      <Filter>Source Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes\Cylinder.h">
+      <Filter>Source Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes\Shape.h">
+      <Filter>Source Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes\Sphere.h">
+      <Filter>Source Files\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Editor\Editor.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Editor\EventsFrame.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Editor\Floor.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Editor\MainFrame.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Editor\ModelPropsFrame.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Editor\Pointers.h">
+      <Filter>Source Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\ImageBuffer.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\Meterial.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\ModelBorder.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\Prim.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\Rect.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\SuiBatchFiles.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\SuiFile.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\UtilFuncs.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\VectorByte.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\VertexBufUtils.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\PNGReadWrite.h">
+      <Filter>Source Files\IO\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\libpng\png.h">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\libpng\pngconf.h">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\libpng\pngpriv.h">
+      <Filter>Source Files\IO\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\crc32.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\deflate.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\gzguts.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\inffast.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\inffixed.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\inflate.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\inftrees.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\trees.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\zconf.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\zlib.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\PNG\zlib\zutil.h">
+      <Filter>Source Files\IO\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\JPEG\JPEGReadWrite.h">
+      <Filter>Source Files\IO\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\DDS\DDSReadWrite.h">
+      <Filter>Source Files\IO\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\File\FileReader.h">
+      <Filter>Source Files\IO\File</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\Obj\ObjReader.h">
+      <Filter>Source Files\IO\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\FLM\FLMReader.h">
+      <Filter>Source Files\IO\FLM</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\FLM\FLMStruct.h">
+      <Filter>Source Files\IO\FLM</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\FLM\FLMWriter.h">
+      <Filter>Source Files\IO\FLM</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\BinaryObject\BinaryIterator.h">
+      <Filter>Source Files\IO\BinaryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\BinaryObject\BinaryObjectReader.h">
+      <Filter>Source Files\IO\BinaryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IO\BinaryObject\BinaryObjectWriter.h">
+      <Filter>Source Files\IO\BinaryObject</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\Model3D.h">
+      <Filter>Source Files\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Model3D\Model3D_Helper.h">
+      <Filter>Source Files\Model3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Bound\BoundingBox.h">
+      <Filter>Source Files\Bound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Bound\BoundingCone.h">
+      <Filter>Source Files\Bound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Bound\BoundingCylinder.h">
+      <Filter>Source Files\Bound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Bound\BoundingSphere.h">
+      <Filter>Source Files\Bound</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
