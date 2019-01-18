@@ -16,3 +16,4 @@
 *.log
 *.unsuccessfulbuild
 *.vs
+Debug
