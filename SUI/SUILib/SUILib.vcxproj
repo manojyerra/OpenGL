@@ -63,7 +63,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>source;source/SUI;source/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;source/SUI/include;source/SUI/source;source/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -176,23 +176,23 @@
     <ClCompile Include="source\PNG\zlib\trees.c" />
     <ClCompile Include="source\PNG\zlib\uncompr.c" />
     <ClCompile Include="source\PNG\zlib\zutil.c" />
-    <ClCompile Include="source\SUI\SUILifyCycle.cpp" />
-    <ClCompile Include="source\SUI\SUIBatch.cpp" />
-    <ClCompile Include="source\SUI\SUIBox.cpp" />
-    <ClCompile Include="source\SUI\SUIButton.cpp" />
-    <ClCompile Include="source\SUI\SUICheckBox.cpp" />
-    <ClCompile Include="source\SUI\SUIChoice.cpp" />
-    <ClCompile Include="source\SUI\SUIComponent.cpp" />
-    <ClCompile Include="source\SUI\SUIFont.cpp" />
-    <ClCompile Include="source\SUI\SUIFrame.cpp" />
-    <ClCompile Include="source\SUI\SUIInput.cpp" />
-    <ClCompile Include="source\SUI\SUILabel.cpp" />
-    <ClCompile Include="source\SUI\SUIList.cpp" />
-    <ClCompile Include="source\SUI\SUIManager.cpp" />
-    <ClCompile Include="source\SUI\SUIRadioButton.cpp" />
-    <ClCompile Include="source\SUI\SUIRect.cpp" />
-    <ClCompile Include="source\SUI\SUIScroller.cpp" />
-    <ClCompile Include="source\SUI\SUISlider.cpp" />
+    <ClCompile Include="source\SUI\source\SUIBatch.cpp" />
+    <ClCompile Include="source\SUI\source\SUIBox.cpp" />
+    <ClCompile Include="source\SUI\source\SUIButton.cpp" />
+    <ClCompile Include="source\SUI\source\SUICheckBox.cpp" />
+    <ClCompile Include="source\SUI\source\SUIChoice.cpp" />
+    <ClCompile Include="source\SUI\source\SUIComponent.cpp" />
+    <ClCompile Include="source\SUI\source\SUIFont.cpp" />
+    <ClCompile Include="source\SUI\source\SUIFrame.cpp" />
+    <ClCompile Include="source\SUI\source\SUIInput.cpp" />
+    <ClCompile Include="source\SUI\source\SUILabel.cpp" />
+    <ClCompile Include="source\SUI\source\SUILifyCycle.cpp" />
+    <ClCompile Include="source\SUI\source\SUIList.cpp" />
+    <ClCompile Include="source\SUI\source\SUIManager.cpp" />
+    <ClCompile Include="source\SUI\source\SUIRadioButton.cpp" />
+    <ClCompile Include="source\SUI\source\SUIRect.cpp" />
+    <ClCompile Include="source\SUI\source\SUIScroller.cpp" />
+    <ClCompile Include="source\SUI\source\SUISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Input.h" />
@@ -212,29 +212,29 @@
     <ClInclude Include="source\PNG\zlib\zconf.h" />
     <ClInclude Include="source\PNG\zlib\zlib.h" />
     <ClInclude Include="source\PNG\zlib\zutil.h" />
-    <ClInclude Include="source\SUI\SUILifyCycle.h" />
-    <ClInclude Include="source\SUI\SUIActionEvent.h" />
-    <ClInclude Include="source\SUI\SUIActionListener.h" />
-    <ClInclude Include="source\SUI\SUIBatch.h" />
-    <ClInclude Include="source\SUI\SUIBox.h" />
-    <ClInclude Include="source\SUI\SUIButton.h" />
-    <ClInclude Include="source\SUI\SUICheckBox.h" />
-    <ClInclude Include="source\SUI\SUIChoice.h" />
-    <ClInclude Include="source\SUI\SUIComponent.h" />
-    <ClInclude Include="source\SUI\SUIEvents.h" />
-    <ClInclude Include="source\SUI\SUIFont.h" />
-    <ClInclude Include="source\SUI\SUIFrame.h" />
-    <ClInclude Include="source\SUI\SUIIncludes.h" />
-    <ClInclude Include="source\SUI\SUIInput.h" />
-    <ClInclude Include="source\SUI\SUILabel.h" />
-    <ClInclude Include="source\SUI\SUIList.h" />
-    <ClInclude Include="source\SUI\SUIManager.h" />
-    <ClInclude Include="source\SUI\SUIMouseEvent.h" />
-    <ClInclude Include="source\SUI\SUIMouseListener.h" />
-    <ClInclude Include="source\SUI\SUIRadioButton.h" />
-    <ClInclude Include="source\SUI\SUIRect.h" />
-    <ClInclude Include="source\SUI\SUIScroller.h" />
-    <ClInclude Include="source\SUI\SUISlider.h" />
+    <ClInclude Include="source\SUI\include\SUIActionEvent.h" />
+    <ClInclude Include="source\SUI\include\SUIActionListener.h" />
+    <ClInclude Include="source\SUI\include\SUIBatch.h" />
+    <ClInclude Include="source\SUI\include\SUIBox.h" />
+    <ClInclude Include="source\SUI\include\SUIButton.h" />
+    <ClInclude Include="source\SUI\include\SUICheckBox.h" />
+    <ClInclude Include="source\SUI\include\SUIChoice.h" />
+    <ClInclude Include="source\SUI\include\SUIComponent.h" />
+    <ClInclude Include="source\SUI\include\SUIEvents.h" />
+    <ClInclude Include="source\SUI\include\SUIFont.h" />
+    <ClInclude Include="source\SUI\include\SUIFrame.h" />
+    <ClInclude Include="source\SUI\include\SUIIncludes.h" />
+    <ClInclude Include="source\SUI\include\SUIInput.h" />
+    <ClInclude Include="source\SUI\include\SUILabel.h" />
+    <ClInclude Include="source\SUI\include\SUILifyCycle.h" />
+    <ClInclude Include="source\SUI\include\SUIList.h" />
+    <ClInclude Include="source\SUI\include\SUIManager.h" />
+    <ClInclude Include="source\SUI\include\SUIMouseEvent.h" />
+    <ClInclude Include="source\SUI\include\SUIMouseListener.h" />
+    <ClInclude Include="source\SUI\include\SUIRadioButton.h" />
+    <ClInclude Include="source\SUI\include\SUIRect.h" />
+    <ClInclude Include="source\SUI\include\SUIScroller.h" />
+    <ClInclude Include="source\SUI\include\SUISlider.h" />
     <ClInclude Include="source\vld.h" />
     <ClInclude Include="source\vld_def.h" />
   </ItemGroup>

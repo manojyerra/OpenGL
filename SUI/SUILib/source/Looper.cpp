@@ -1,8 +1,8 @@
 #include "Looper.h"
 #include "Input.h"
 #include "math.h"
-#include "SUI/SUIInput.h"
-#include "SUI/SUIFrame.h"
+#include "SUIInput.h"
+#include "SUIFrame.h"
 
 #include <windows.h>
 #include <gl/gl.h>
