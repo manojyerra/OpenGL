@@ -6,51 +6,54 @@
 #include "SUIMouseListener.h"
 #include "SUIRect.h"
 
-class SUISlider : public SUIComponent
+namespace SUI
 {
-private:
-	SUIActionListener* _actionListener;
-	SUIMouseListener* _mouseListener;
+	class SUISlider : public SUIComponent
+	{
+	private:
+		SUIActionListener* _actionListener;
+		SUIMouseListener* _mouseListener;
 
-	double _minValue;
-	double _maxValue;
-	double _currValue;
-	
-	bool _isIntegerValue;
-	string _valueAsString;
+		double _minValue;
+		double _maxValue;
+		double _currValue;
 
-	SUIRect _valueBoxRect;
-	SUIRect _sliderBgRect;
-	SUIRect _sliderBgLineRect;
-	SUIRect _pointerRect;
-	float _pointerX;
-	bool _pointerActive;
-	
-	void CalcPointerPos();
+		bool _isIntegerValue;
+		string _valueAsString;
 
-public:
-	SUISlider(string name, float minValue, float maxValue, bool isIntegerValue);
-	~SUISlider();
+		SUIRect _valueBoxRect;
+		SUIRect _sliderBgRect;
+		SUIRect _sliderBgLineRect;
+		SUIRect _pointerRect;
+		float _pointerX;
+		bool _pointerActive;
 
-	void SetMinValue(float minValue);
-	void SetMaxValue(float maxValue);
+		void CalcPointerPos();
 
-	void SetValue(double value);
-	double GetValue();
-	void SetPointerAt(double percent);
-	SUIEvents UpdateByInput();
-	void Move(float dx, float dy);
-	void ResetBounds();
-	void Draw();
+	public:
+		SUISlider(string name, float minValue, float maxValue, bool isIntegerValue);
+		~SUISlider();
 
-	//Listeners...
-	void AddMouseListener(SUIMouseListener* mouseListener)		{ _mouseListener = mouseListener;	}
-	void RemoveMouseListener()									{ _mouseListener = NULL;			}
-	SUIMouseListener* GetMouseListener()						{ return _mouseListener;			}
+		void SetMinValue(float minValue);
+		void SetMaxValue(float maxValue);
 
-	void AddActionListener(SUIActionListener* actionListener)	{ _actionListener = actionListener; }
-	void RemoveActionListener()									{ _actionListener = NULL;			}
-	SUIActionListener* GetActionListener()						{ return _actionListener;			}
-};
+		void SetValue(double value);
+		double GetValue();
+		void SetPointerAt(double percent);
+		SUIEvents UpdateByInput();
+		void Move(float dx, float dy);
+		void ResetBounds();
+		void Draw();
+
+		//Listeners...
+		void AddMouseListener(SUIMouseListener* mouseListener) { _mouseListener = mouseListener; }
+		void RemoveMouseListener() { _mouseListener = NULL; }
+		SUIMouseListener* GetMouseListener() { return _mouseListener; }
+
+		void AddActionListener(SUIActionListener* actionListener) { _actionListener = actionListener; }
+		void RemoveActionListener() { _actionListener = NULL; }
+		SUIActionListener* GetActionListener() { return _actionListener; }
+	};
+}
 
 #endif

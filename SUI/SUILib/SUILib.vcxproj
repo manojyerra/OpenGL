@@ -63,7 +63,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>source;source/Util;source/SUI;source/Shapes3D;source/PNG;source/Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;source/SUI;source/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -140,17 +140,9 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\CFileReader.cpp" />
-    <ClCompile Include="source\FLModel.cpp" />
-    <ClCompile Include="source\Floor.cpp" />
-    <ClCompile Include="source\ImageBuffer.cpp" />
     <ClCompile Include="source\Input.cpp" />
     <ClCompile Include="source\Looper.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\Math\GLMat.cpp" />
-    <ClCompile Include="source\Math\TransformVertexBuf.cpp" />
-    <ClCompile Include="source\Math\Vector3.cpp" />
-    <ClCompile Include="source\ModelsManager.cpp" />
     <ClCompile Include="source\PNG\libpng\png.c" />
     <ClCompile Include="source\PNG\libpng\pngerror.c" />
     <ClCompile Include="source\PNG\libpng\pngget.c" />
@@ -184,12 +176,7 @@
     <ClCompile Include="source\PNG\zlib\trees.c" />
     <ClCompile Include="source\PNG\zlib\uncompr.c" />
     <ClCompile Include="source\PNG\zlib\zutil.c" />
-    <ClCompile Include="source\Shapes3D\Box.cpp" />
-    <ClCompile Include="source\Shapes3D\Cone.cpp" />
-    <ClCompile Include="source\Shapes3D\Cylinder.cpp" />
-    <ClCompile Include="source\Shapes3D\Shape.cpp" />
-    <ClCompile Include="source\Shapes3D\Sphere.cpp" />
-    <ClCompile Include="source\SUI\SUI.cpp" />
+    <ClCompile Include="source\SUI\SUILifyCycle.cpp" />
     <ClCompile Include="source\SUI\SUIBatch.cpp" />
     <ClCompile Include="source\SUI\SUIBox.cpp" />
     <ClCompile Include="source\SUI\SUIButton.cpp" />
@@ -206,20 +193,10 @@
     <ClCompile Include="source\SUI\SUIRect.cpp" />
     <ClCompile Include="source\SUI\SUIScroller.cpp" />
     <ClCompile Include="source\SUI\SUISlider.cpp" />
-    <ClCompile Include="source\Util\GLUtil.cpp" />
-    <ClCompile Include="source\Util\RandomColor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\CFileReader.h" />
-    <ClInclude Include="source\FLModel.h" />
-    <ClInclude Include="source\Floor.h" />
-    <ClInclude Include="source\ImageBuffer.h" />
     <ClInclude Include="source\Input.h" />
     <ClInclude Include="source\Looper.h" />
-    <ClInclude Include="source\Math\GLMat.h" />
-    <ClInclude Include="source\Math\TransformVertexBuf.h" />
-    <ClInclude Include="source\Math\Vector3.h" />
-    <ClInclude Include="source\ModelsManager.h" />
     <ClInclude Include="source\PNG\libpng\png.h" />
     <ClInclude Include="source\PNG\libpng\pngconf.h" />
     <ClInclude Include="source\PNG\libpng\pngpriv.h" />
@@ -235,12 +212,7 @@
     <ClInclude Include="source\PNG\zlib\zconf.h" />
     <ClInclude Include="source\PNG\zlib\zlib.h" />
     <ClInclude Include="source\PNG\zlib\zutil.h" />
-    <ClInclude Include="source\Shapes3D\Box.h" />
-    <ClInclude Include="source\Shapes3D\Cone.h" />
-    <ClInclude Include="source\Shapes3D\Cylinder.h" />
-    <ClInclude Include="source\Shapes3D\Shape.h" />
-    <ClInclude Include="source\Shapes3D\Sphere.h" />
-    <ClInclude Include="source\SUI\SUI.h" />
+    <ClInclude Include="source\SUI\SUILifyCycle.h" />
     <ClInclude Include="source\SUI\SUIActionEvent.h" />
     <ClInclude Include="source\SUI\SUIActionListener.h" />
     <ClInclude Include="source\SUI\SUIBatch.h" />
@@ -263,8 +235,6 @@
     <ClInclude Include="source\SUI\SUIRect.h" />
     <ClInclude Include="source\SUI\SUIScroller.h" />
     <ClInclude Include="source\SUI\SUISlider.h" />
-    <ClInclude Include="source\Util\GLUtil.h" />
-    <ClInclude Include="source\Util\RandomColor.h" />
     <ClInclude Include="source\vld.h" />
     <ClInclude Include="source\vld_def.h" />
   </ItemGroup>

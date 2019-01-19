@@ -14,32 +14,11 @@
     <Filter Include="source\PNG\zlib">
       <UniqueIdentifier>{b30793ad-78f3-4fdd-b820-1e7be63d1fcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\Math">
-      <UniqueIdentifier>{fe3ff525-cac9-4187-bc3b-77e74f1e0ff6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\Shapes3D">
-      <UniqueIdentifier>{1236f7f3-45f2-4cec-831c-0182a2aca74d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\Util">
-      <UniqueIdentifier>{636b980c-ebf2-4731-ac57-efdf34fe6b1b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\SUI">
       <UniqueIdentifier>{7a62b9fd-0aa7-4b59-8abf-a251007fa976}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\CFileReader.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FLModel.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Floor.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImageBuffer.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\Input.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -47,9 +26,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModelsManager.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\PNG\PNGReadWrite.cpp">
@@ -151,39 +127,6 @@
     <ClCompile Include="source\PNG\zlib\zutil.c">
       <Filter>source\PNG\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="source\Math\GLMat.cpp">
-      <Filter>source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\TransformVertexBuf.cpp">
-      <Filter>source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Math\Vector3.cpp">
-      <Filter>source\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Shapes3D\Box.cpp">
-      <Filter>source\Shapes3D</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Shapes3D\Cone.cpp">
-      <Filter>source\Shapes3D</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Shapes3D\Cylinder.cpp">
-      <Filter>source\Shapes3D</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Shapes3D\Shape.cpp">
-      <Filter>source\Shapes3D</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Shapes3D\Sphere.cpp">
-      <Filter>source\Shapes3D</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Util\GLUtil.cpp">
-      <Filter>source\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Util\RandomColor.cpp">
-      <Filter>source\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\SUI.cpp">
-      <Filter>source\SUI</Filter>
-    </ClCompile>
     <ClCompile Include="source\SUI\SUIBatch.cpp">
       <Filter>source\SUI</Filter>
     </ClCompile>
@@ -232,27 +175,15 @@
     <ClCompile Include="source\SUI\SUISlider.cpp">
       <Filter>source\SUI</Filter>
     </ClCompile>
+    <ClCompile Include="source\SUI\SUILifyCycle.cpp">
+      <Filter>source\SUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\CFileReader.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\FLModel.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Floor.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ImageBuffer.h">
-      <Filter>source</Filter>
-    </ClInclude>
     <ClInclude Include="source\Input.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\Looper.h">
-      <Filter>source</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModelsManager.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\vld.h">
@@ -305,39 +236,6 @@
     </ClInclude>
     <ClInclude Include="source\PNG\zlib\zutil.h">
       <Filter>source\PNG\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Math\GLMat.h">
-      <Filter>source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Math\TransformVertexBuf.h">
-      <Filter>source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Math\Vector3.h">
-      <Filter>source\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Shapes3D\Box.h">
-      <Filter>source\Shapes3D</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Shapes3D\Cone.h">
-      <Filter>source\Shapes3D</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Shapes3D\Cylinder.h">
-      <Filter>source\Shapes3D</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Shapes3D\Shape.h">
-      <Filter>source\Shapes3D</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Shapes3D\Sphere.h">
-      <Filter>source\Shapes3D</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Util\GLUtil.h">
-      <Filter>source\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Util\RandomColor.h">
-      <Filter>source\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\SUI.h">
-      <Filter>source\SUI</Filter>
     </ClInclude>
     <ClInclude Include="source\SUI\SUIActionEvent.h">
       <Filter>source\SUI</Filter>
@@ -403,6 +301,9 @@
       <Filter>source\SUI</Filter>
     </ClInclude>
     <ClInclude Include="source\SUI\SUISlider.h">
+      <Filter>source\SUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SUI\SUILifyCycle.h">
       <Filter>source\SUI</Filter>
     </ClInclude>
   </ItemGroup>

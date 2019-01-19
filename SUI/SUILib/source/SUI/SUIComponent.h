@@ -7,118 +7,121 @@
 #include <vector>
 using namespace std;
 
-class SUIComponent
+namespace SUI
 {
-private:
-	int _id;
+	class SUIComponent
+	{
+	private:
+		int _id;
 
-protected:
-	float _x;
-	float _y;
-	float _w;
-	float _h;
+	protected:
+		float _x;
+		float _y;
+		float _w;
+		float _h;
 
-	string _name;
-	int _nameAlignment;
+		string _name;
+		int _nameAlignment;
 
-	string _data;
+		string _data;
 
-	bool _visible;
+		bool _visible;
 
-	float _leftMargin;
-	float _rightMargin;
-	float _topMargin;
-	float _bottomMargin;
+		float _leftMargin;
+		float _rightMargin;
+		float _topMargin;
+		float _bottomMargin;
 
-	bool _isBgVisible;
-	bool _isBgGradient;
-	bool _isBorderVisible;
+		bool _isBgVisible;
+		bool _isBgGradient;
+		bool _isBorderVisible;
 
-	unsigned char _bgR;
-	unsigned char _bgG;
-	unsigned char _bgB;
-	unsigned char _bgA;
+		unsigned char _bgR;
+		unsigned char _bgG;
+		unsigned char _bgB;
+		unsigned char _bgA;
 
-	unsigned char _borderR;
-	unsigned char _borderG;
-	unsigned char _borderB;
-	unsigned char _borderA;
+		unsigned char _borderR;
+		unsigned char _borderG;
+		unsigned char _borderB;
+		unsigned char _borderA;
 
-	float _borderWidth;
+		float _borderWidth;
 
-	unsigned int MixColor(unsigned int baseColor, unsigned int mixColor, float percent);
+		unsigned int MixColor(unsigned int baseColor, unsigned int mixColor, float percent);
 
-public:
-	static int const CENTER = 0;
-	static int const LEFT = 1;
-	static int const RIGHT = 2;	
+	public:
+		static int const CENTER = 0;
+		static int const LEFT = 1;
+		static int const RIGHT = 2;
 
-	static const int V_ALIGNMENT = 1;
-	static const int H_ALIGNMENT = 2;
+		static const int V_ALIGNMENT = 1;
+		static const int H_ALIGNMENT = 2;
 
-	static const int FRAME = 1;
-	static const int BOX = 2;
-	static const int BUTTON = 3;
-	static const int LABEL = 4;
-	static const int CHECKBOX = 5;
-	static const int RADIO_BUTTON = 6;
-	static const int SLIDER = 7;
-	static const int SUI_CHOICE = 8;
-	static const int SUI_LIST = 9;
+		static const int FRAME = 1;
+		static const int BOX = 2;
+		static const int BUTTON = 3;
+		static const int LABEL = 4;
+		static const int CHECKBOX = 5;
+		static const int RADIO_BUTTON = 6;
+		static const int SLIDER = 7;
+		static const int SUI_CHOICE = 8;
+		static const int SUI_LIST = 9;
 
-	SUIComponent(int id);
-	virtual ~SUIComponent();
+		SUIComponent(int id);
+		virtual ~SUIComponent();
 
-	int GetComponentID();
-	
-	void SetName(string name, int nameAlignment);
-	string GetName();
+		int GetComponentID();
 
-	void SetData(string data);
-	string GetData();
+		void SetName(string name, int nameAlignment);
+		string GetName();
 
-	void SetVisible(bool visible);
-	bool IsVisible();
+		void SetData(string data);
+		string GetData();
 
-	void SetMargin(float left, float right, float top, float bottom);
+		void SetVisible(bool visible);
+		bool IsVisible();
 
-	void SetHorMarign(float horMargin);
-	void SetVerMarign(float verMargin);
+		void SetMargin(float left, float right, float top, float bottom);
 
-	float LeftMargin();
-	float RightMargin();
-	float TopMargin();
-	float BottomMargin();
+		void SetHorMarign(float horMargin);
+		void SetVerMarign(float verMargin);
 
-	void SetBgColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-	void SetBgColor(unsigned char* color);
-	void SetBorderWidth(float borderWidth);
-	void SetBgVisible(bool visible);
-	void SetBgGradient(bool isBgGradient);
+		float LeftMargin();
+		float RightMargin();
+		float TopMargin();
+		float BottomMargin();
 
-	void SetBorderColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-	void SetBorderVisible(bool visible);
+		void SetBgColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+		void SetBgColor(unsigned char* color);
+		void SetBorderWidth(float borderWidth);
+		void SetBgVisible(bool visible);
+		void SetBgGradient(bool isBgGradient);
 
-	void SetPos(float x, float y);
-	void SetWidth(float w);
+		void SetBorderColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+		void SetBorderVisible(bool visible);
 
-	float GetX();
-	float GetY();
-	float GetW();
-	float GetH();
+		void SetPos(float x, float y);
+		void SetWidth(float w);
 
-	void DrawBackground(bool onPress = false);
-	void DrawBorder();
+		float GetX();
+		float GetY();
+		float GetW();
+		float GetH();
 
-	virtual bool Contains(float x, float y);
-	virtual bool IsDialogMode(){ return false; }
-	virtual void UpdateDialog(){}
-	virtual void DrawDialog(){}
+		void DrawBackground(bool onPress = false);
+		void DrawBorder();
 
-	virtual void ResetBounds() = 0;
-	virtual void Draw() = 0;
-	virtual SUIEvents UpdateByInput() = 0;
-	virtual void Move(float dx, float dy) = 0;
-};
+		virtual bool Contains(float x, float y);
+		virtual bool IsDialogMode() { return false; }
+		virtual void UpdateDialog() {}
+		virtual void DrawDialog() {}
+
+		virtual void ResetBounds() = 0;
+		virtual void Draw() = 0;
+		virtual SUIEvents UpdateByInput() = 0;
+		virtual void Move(float dx, float dy) = 0;
+	};
+}
 
 #endif

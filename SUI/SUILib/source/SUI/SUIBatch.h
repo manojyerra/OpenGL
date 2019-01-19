@@ -4,48 +4,52 @@
 
 #include "SUIIncludes.h"
 
-class SUIBatch
+namespace SUI
 {
-private:
-	unsigned int _capacity;
-	unsigned int _incrementInCapacity;	
+	class SUIBatch
+	{
+	private:
+		unsigned int _capacity;
+		unsigned int _incrementInCapacity;
 
-	GLfloat* _uvArr;
-	GLubyte* _colorArr;
-	GLfloat* _normalArr;
+		GLfloat* _uvArr;
+		GLubyte* _colorArr;
+		GLfloat* _normalArr;
 
-	unsigned int _count;
-	GLenum _mode;
-	
-	GLubyte _r;
-	GLubyte _g;
-	GLubyte _b;
-	GLubyte _a;
+		unsigned int _count;
+		GLenum _mode;
 
-	void ReCreateMem();
+		GLubyte _r;
+		GLubyte _g;
+		GLubyte _b;
+		GLubyte _a;
 
-public:
-	GLfloat* _vertexArr;
+		void ReCreateMem();
 
-	SUIBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent);
-	~SUIBatch();
+	public:
+		GLfloat* _vertexArr;
 
-	void SetIncrement(unsigned int increment);
+		SUIBatch(unsigned int capacity, bool colorDataPresent, bool uvDataPresent, bool normalsDataPresent);
+		~SUIBatch();
 
-	void glBegin(GLenum mode);
-	void glColor4ub(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-	void glColor4f(float r, float g, float b, float a);
+		void SetIncrement(unsigned int increment);
 
-    void glColor(unsigned int color);
-	void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
-	void glTexCoord2f(GLfloat u, GLfloat v);
-	void glNormal3f(GLfloat x, GLfloat y, GLfloat z);
-	void glEnd();
-    
-    void Draw();
+		void glBegin(GLenum mode);
+		void glColor4ub(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+		void glColor4f(float r, float g, float b, float a);
 
-	void ResetCount();
-	unsigned int GetCount();
-};
+		void glColor(unsigned int color);
+		void glVertex3f(GLfloat x, GLfloat y, GLfloat z);
+		void glTexCoord2f(GLfloat u, GLfloat v);
+		void glNormal3f(GLfloat x, GLfloat y, GLfloat z);
+		void glEnd();
+
+		void Draw();
+
+		void ResetCount();
+		unsigned int GetCount();
+	};
+}
 
 #endif
+

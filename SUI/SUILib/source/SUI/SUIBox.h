@@ -12,48 +12,51 @@
 #include <vector>
 using namespace std;
 
-class SUIBox : public SUIComponent
+namespace SUI
 {
-private:
-	int _alignment;
-	vector<SUIComponent*> _elementVec;
-	bool _isOn;
-	bool _isOnOffEnable;
-	
-	unsigned char _titleBgR;
-	unsigned char _titleBgG;
-	unsigned char _titleBgB;
-	unsigned char _titleBgA;
+	class SUIBox : public SUIComponent
+	{
+	private:
+		int _alignment;
+		vector<SUIComponent*> _elementVec;
+		bool _isOn;
+		bool _isOnOffEnable;
 
-	void CommonInit(int alignment, float leftMargin, float rightMargin, float topMargin, float bottomMargin);
-	
-	static const int TITLE_H = 22;
+		unsigned char _titleBgR;
+		unsigned char _titleBgG;
+		unsigned char _titleBgB;
+		unsigned char _titleBgA;
 
-public:
-	SUIBox(int alignment);
-	SUIBox(int alignment, float horMargin, float verMargin);
-	SUIBox(int alignment, float leftMargin, float rightMargin, float topMargin, float bottomMargin);
-	~SUIBox();
+		void CommonInit(int alignment, float leftMargin, float rightMargin, float topMargin, float bottomMargin);
 
-	void SetOn(bool on);
-	void SetOnOffEnable(bool onOffEnable);
-	vector<SUIComponent*> getComponentList();
-	SUIComponent* getComponentAt(float x, float y);
+		static const int TITLE_H = 22;
 
-	void AddBox(SUIBox* box);
-	void AddButton(SUIButton* box);
-	void AddLabel(SUILabel* label);
-	void AddCheckBox(SUICheckBox* checkBox);
-	void AddRadioButton(SUIRadioButton* radioButton);
-	void AddSlider(SUISlider* slider);
-	void AddChoice(SUIChoice* choice);
-	void AddList(SUIList* list);
+	public:
+		SUIBox(int alignment);
+		SUIBox(int alignment, float horMargin, float verMargin);
+		SUIBox(int alignment, float leftMargin, float rightMargin, float topMargin, float bottomMargin);
+		~SUIBox();
 
-	void ResetBounds();
-	void Move(float dx, float dy);
+		void SetOn(bool on);
+		void SetOnOffEnable(bool onOffEnable);
+		vector<SUIComponent*> getComponentList();
+		SUIComponent* getComponentAt(float x, float y);
 
-	SUIEvents UpdateByInput();
-	void Draw();
-};
+		void AddBox(SUIBox* box);
+		void AddButton(SUIButton* box);
+		void AddLabel(SUILabel* label);
+		void AddCheckBox(SUICheckBox* checkBox);
+		void AddRadioButton(SUIRadioButton* radioButton);
+		void AddSlider(SUISlider* slider);
+		void AddChoice(SUIChoice* choice);
+		void AddList(SUIList* list);
+
+		void ResetBounds();
+		void Move(float dx, float dy);
+
+		SUIEvents UpdateByInput();
+		void Draw();
+	};
+}
 
 #endif

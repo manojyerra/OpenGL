@@ -3,10 +3,13 @@
 
 #include "SUIActionEvent.h"
 
-class SUIActionListener
+namespace SUI
 {
-public:
-	virtual void actionPerformed(SUIActionEvent SUIActionEvent) = 0;
-};
+	class SUIActionListener
+	{
+	public:
+		virtual void actionPerformed(SUIActionEvent SUIActionEvent) = 0;
+	};
+}
 
 #endif

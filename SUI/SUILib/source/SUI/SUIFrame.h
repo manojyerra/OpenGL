@@ -8,85 +8,87 @@
 #include <vector>
 using namespace std;
 
-class SUIFrame : public SUIComponent
+namespace SUI
 {
-private:
-	int _alignment;
-	vector<SUIComponent*> _elementVec;
+	class SUIFrame : public SUIComponent
+	{
+	private:
+		int _alignment;
+		vector<SUIComponent*> _elementVec;
 
-	SUIRect _titleBarRect;
-	SUIRect _dragRect;
+		SUIRect _titleBarRect;
+		SUIRect _dragRect;
 
-	SUIRect _minRect;
-	SUIRect _maxRect;
-	SUIRect _closeRect;
+		SUIRect _minRect;
+		SUIRect _maxRect;
+		SUIRect _closeRect;
 
-	bool _removeCloseOption;
+		bool _removeCloseOption;
 
-	bool _isMinimized;
-	bool _isMaximized;
-	SUIRect _beforeMaxRect;
-	SUIRect _miniIconRect;
+		bool _isMinimized;
+		bool _isMaximized;
+		SUIRect _beforeMaxRect;
+		SUIRect _miniIconRect;
 
-	bool _focusGain;
+		bool _focusGain;
 
 
 
-	//Scroller realted...
-	SUIScroller* _scroller;
-	float _totViewHeight;
-	float _scrollAmount;
-	void Scroll(float percent);
-	static const int SLIDER_WIDTH = 15;
+		//Scroller realted...
+		SUIScroller* _scroller;
+		float _totViewHeight;
+		float _scrollAmount;
+		void Scroll(float percent);
+		static const int SLIDER_WIDTH = 15;
 
-	int _activeBar;
-	float _dxOnActive;
-	float _dyOnActive;
-	bool _resetBoundsCalled;
+		int _activeBar;
+		float _dxOnActive;
+		float _dyOnActive;
+		bool _resetBoundsCalled;
 
-	void ResetBounds(float x, float y, float w);
-	void MoveElements(float dx, float dy);
-	void DrawDragger();
-	void DrawTitleBar();
-	bool IsMinMaxCloseContains(float x, float y);
-	void SetBoundsToMinMaxClose();
-	void RectifyFrameBounds();
-	bool TitleBarContains(float x, float y);
-	void DrawMinMaxClose();
+		void ResetBounds(float x, float y, float w);
+		void MoveElements(float dx, float dy);
+		void DrawDragger();
+		void DrawTitleBar();
+		bool IsMinMaxCloseContains(float x, float y);
+		void SetBoundsToMinMaxClose();
+		void RectifyFrameBounds();
+		bool TitleBarContains(float x, float y);
+		void DrawMinMaxClose();
 
-	static const int NONE = 0;
-	static const int TITLE_BAR = 1;
-	static const int SCROLL_BAR = 2;
-	static const int DRAGGER = 3;
+		static const int NONE = 0;
+		static const int TITLE_BAR = 1;
+		static const int SCROLL_BAR = 2;
+		static const int DRAGGER = 3;
 
-	static const int TITLE_BAR_HEIGHT = 22;
+		static const int TITLE_BAR_HEIGHT = 22;
 
-public:
-	SUIFrame(float x, float y, float w, float h, int alignment);
-	~SUIFrame();
+	public:
+		SUIFrame(float x, float y, float w, float h, int alignment);
+		~SUIFrame();
 
-	void SetFocusOn();
-	void SetFocusOnFromManager(bool focus);
+		void SetFocusOn();
+		void SetFocusOnFromManager(bool focus);
 
-	bool IsMinimized();
-	bool IsMaximized();
+		bool IsMinimized();
+		bool IsMaximized();
 
-	void SetMinimized(bool val);
-	void SetMaximized(bool val);
-	void SetRemoveCloseOption(bool remove);
+		void SetMinimized(bool val);
+		void SetMaximized(bool val);
+		void SetRemoveCloseOption(bool remove);
 
-	SUIEvents UpdateByInput();
-	void Move(float dx, float dy);
-	void ResetBounds();
-	bool IsResetBoundsCalled();
+		SUIEvents UpdateByInput();
+		void Move(float dx, float dy);
+		void ResetBounds();
+		bool IsResetBoundsCalled();
 
-	void SetBounds(float x, float y, float w, float h);
-	SUIComponent* getComponentAt(float x, float y);
-	SUIComponent* getComponent(unsigned int index);
-	int GetNumComponents();
+		void SetBounds(float x, float y, float w, float h);
+		SUIComponent* getComponentAt(float x, float y);
+		SUIComponent* getComponent(unsigned int index);
+		int GetNumComponents();
 
-	void Add(SUIComponent* com);
-	void Draw();
-};
-
+		void Add(SUIComponent* com);
+		void Draw();
+	};
+}
 #endif

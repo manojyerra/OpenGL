@@ -1,17 +1,21 @@
 #ifndef SUIActionEvent_H
 #define SUIActionEvent_H
 
-class SUIActionEvent
+namespace SUI
 {
-	void* _com;
-
-public:
-	SUIActionEvent(void* com)
+	class SUIActionEvent
 	{
-		_com = com;
-	}
+		void* _com;
 
-	void* GetComponent()		{	return _com;		}
-};
+	public:
+		SUIActionEvent(void* com)
+		{
+			_com = com;
+		}
+
+		void* GetComponent() { return _com; }
+	};
+
+}
 
 #endif

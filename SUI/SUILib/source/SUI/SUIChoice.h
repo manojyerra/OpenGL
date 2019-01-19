@@ -9,48 +9,51 @@
 #include <string>
 using namespace std;
 
-class SUIChoice : public SUIComponent
+namespace SUI
 {
-private:
-	string _selectedStr;
-	SUIList* _SUIList;
-	bool _isListActive;
-	bool _actionPerformed;
+	class SUIChoice : public SUIComponent
+	{
+	private:
+		string _selectedStr;
+		SUIList* _SUIList;
+		bool _isListActive;
+		bool _actionPerformed;
 
-	SUIMouseListener* _mouseListener;
-	SUIActionListener* _actionListener;
+		SUIMouseListener* _mouseListener;
+		SUIActionListener* _actionListener;
 
-public:
-	SUIChoice(int elementsToShow);
-	~SUIChoice();
+	public:
+		SUIChoice(int elementsToShow);
+		~SUIChoice();
 
-	void SetSelect(int index);
-	void SetSelect(string itemName);
-	int GetSelectedIndex();
-	string GetSelectedStr();
-	string GetItem(int index);
+		void SetSelect(int index);
+		void SetSelect(string itemName);
+		int GetSelectedIndex();
+		string GetSelectedStr();
+		string GetItem(int index);
 
-	void Move(float dx, float dy);
-	void ResetBounds();
-	void Add(string name);
-	SUIEvents UpdateByInput();
-	void Draw();
+		void Move(float dx, float dy);
+		void ResetBounds();
+		void Add(string name);
+		SUIEvents UpdateByInput();
+		void Draw();
 
-	bool IsDialogMode();
-	void UpdateDialog();
-	void DrawDialog();
+		bool IsDialogMode();
+		void UpdateDialog();
+		void DrawDialog();
 
-	bool Contains(float x, float y);
+		bool Contains(float x, float y);
 
-	//Listeners...
+		//Listeners...
 
-	void AddMouseListener(SUIMouseListener* mouseListener)			{ _mouseListener = mouseListener;	}
-	void RemoveMouseListener()										{ _mouseListener = NULL;			}
-	SUIMouseListener* GetMouseListener()							{ return _mouseListener;			}
+		void AddMouseListener(SUIMouseListener* mouseListener) { _mouseListener = mouseListener; }
+		void RemoveMouseListener() { _mouseListener = NULL; }
+		SUIMouseListener* GetMouseListener() { return _mouseListener; }
 
-	void AddActionListener(SUIActionListener* actionListener)		{ _actionListener = actionListener; }
-	void RemoveActionListener()										{ _actionListener = NULL;			}
-	SUIActionListener* GetActionListener()							{ return _actionListener;			}
-};
+		void AddActionListener(SUIActionListener* actionListener) { _actionListener = actionListener; }
+		void RemoveActionListener() { _actionListener = NULL; }
+		SUIActionListener* GetActionListener() { return _actionListener; }
+	};
+}
 
 #endif

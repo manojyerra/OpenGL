@@ -1,6 +1,7 @@
 #include "SUIFont.h"
 #include "SUIIncludes.h"
 
+
 unsigned char asldlkas12323kj[256*83] = 
 {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -88,393 +89,397 @@ unsigned char asldlkas12323kj[256*83] =
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 };
 
-SUIFont* SUIFont::_ref = NULL;
-
-SUIFont::SUIFont()
+namespace SUI
 {
-	_textureID = 0;
 
-	for(int i=0; i<=126; i++)
-		_normalFontVec.push_back(new LetterInfo());
-	
-	FillUVInfo_Verdana_plain_12();
+	SUIFont* SUIFont::_ref = NULL;
 
-	for(int i=0;i<=126;i++)
+	SUIFont::SUIFont()
 	{
-		if(cw[i] != 0)
+		_textureID = 0;
+
+		for (int i = 0; i <= 126; i++)
+			_normalFontVec.push_back(new LetterInfo());
+
+		FillUVInfo_Verdana_plain_12();
+
+		for (int i = 0; i <= 126; i++)
 		{
-			_normalFontVec[i]->SetBounds(0,0,(float)cw[i],(float)ch[i]);
-			_normalFontVec[i]->SetUVBounds( ((float)u[i])/(float)_imgW, ((float)v[i])/(float)_imgH, 
-											((float)cw[i])/(float)_imgW, ((float)ch[i])/(float)_imgH);
+			if (cw[i] != 0)
+			{
+				_normalFontVec[i]->SetBounds(0, 0, (float)cw[i], (float)ch[i]);
+				_normalFontVec[i]->SetUVBounds(((float)u[i]) / (float)_imgW, ((float)v[i]) / (float)_imgH,
+					((float)cw[i]) / (float)_imgW, ((float)ch[i]) / (float)_imgH);
+			}
 		}
+
+		int size = _normalFontVec.size();
+
+		_unitWidth = _normalFontVec[(int)'A']->w;
+
+		SetColor(0, 0, 0, 255);
+
+		_borderX1 = 0;
+		_borderX2 = 0;
+
+		_horGap = 0;
+
+		_data = new SUIBatch(1024, true, true, false);
+		_enableBatch = false;
 	}
 
-	int size = _normalFontVec.size();
-
-	_unitWidth = _normalFontVec[(int)'A']->w;
-
-	SetColor(0,0,0,255);
-
-	_borderX1 = 0;
-	_borderX2 = 0;
-
-	_horGap = 0;
-
-	_data = new SUIBatch(1024, true, true, false);
-	_enableBatch = false;
-}
-
-SUIFont* SUIFont::GetInstance()
-{
-	if(_ref == NULL)
-		_ref = new SUIFont();
-	return _ref;
-}
-
-void SUIFont::SetColor(int r, int g, int b, int a)
-{
-	_r = r;
-	_g = g;
-	_b = b;
-	_a = a;
-}
-
-void SUIFont::SetColor(unsigned int color)
-{
-	_r	= (color >> 24) & 255;
-	_g	= (color >> 16) & 255;
-	_b	= (color >> 8) & 255;
-	_a	= (color ) & 255;
-}
-
-void SUIFont::HorBorder(float x1, float x2)
-{
-	_borderX1 = x1;
-	_borderX2 = x2;
-}
-
-float SUIFont::GetLength(string text, float fontSize)
-{
-	float x=0;
-
-	for(unsigned int i=0;i<text.length();i++)
+	SUIFont* SUIFont::GetInstance()
 	{
-		int index = (int)text[i];
-
-		if(index >=33 && index <= 126)
-			x += fontSize * _normalFontVec[index]->w / _normalFontVec[index]->h + _horGap;
-		else if(index == (int)' ')
-			x += _horGap + fontSize/2;
-		else if( index == (int)'\t')
-			x += _horGap + 2*fontSize;
+		if (_ref == NULL)
+			_ref = new SUIFont();
+		return _ref;
 	}
 
-	return (x);
-}
+	void SUIFont::SetColor(int r, int g, int b, int a)
+	{
+		_r = r;
+		_g = g;
+		_b = b;
+		_a = a;
+	}
 
-//void SUIFont::Draw(int number, float xPos, float yPos, float fontSize)
-//{
-//	char str[64];
-//	sprintf(str,"%d",number);
-//	Draw(str, xPos, yPos, fontSize);
-//}
-//
-//void SUIFont::Draw(char ch, float xPos, float yPos, float fontSize)
-//{
-//	string str="";
-//	str += ch;
-//	Draw(str, xPos, yPos, fontSize);
-//}
+	void SUIFont::SetColor(unsigned int color)
+	{
+		_r = (color >> 24) & 255;
+		_g = (color >> 16) & 255;
+		_b = (color >> 8) & 255;
+		_a = (color) & 255;
+	}
 
-void SUIFont::EnableBatch()
-{
-	_data->glBegin(GL_TRIANGLES);
-	_enableBatch = true;
-}
+	void SUIFont::HorBorder(float x1, float x2)
+	{
+		_borderX1 = x1;
+		_borderX2 = x2;
+	}
 
-void SUIFont::DrawBatch()
-{
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, _textureID);
-	
-	_data->glEnd();
+	float SUIFont::GetLength(string text, float fontSize)
+	{
+		float x = 0;
 
-	glDisable(GL_TEXTURE_2D);
+		for (unsigned int i = 0; i < text.length(); i++)
+		{
+			int index = (int)text[i];
 
-	_enableBatch = false;
-}
+			if (index >= 33 && index <= 126)
+				x += fontSize * _normalFontVec[index]->w / _normalFontVec[index]->h + _horGap;
+			else if (index == (int)' ')
+				x += _horGap + fontSize / 2;
+			else if (index == (int)'\t')
+				x += _horGap + 2 * fontSize;
+		}
 
-void SUIFont::Begin()
-{
-	if(_enableBatch == false)
+		return (x);
+	}
+
+	//void SUIFont::Draw(int number, float xPos, float yPos, float fontSize)
+	//{
+	//	char str[64];
+	//	sprintf(str,"%d",number);
+	//	Draw(str, xPos, yPos, fontSize);
+	//}
+	//
+	//void SUIFont::Draw(char ch, float xPos, float yPos, float fontSize)
+	//{
+	//	string str="";
+	//	str += ch;
+	//	Draw(str, xPos, yPos, fontSize);
+	//}
+
+	void SUIFont::EnableBatch()
+	{
+		_data->glBegin(GL_TRIANGLES);
+		_enableBatch = true;
+	}
+
+	void SUIFont::DrawBatch()
 	{
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, _textureID);
-		glBegin(GL_TRIANGLES);
-	}
-}
 
-void SUIFont::DrawFromLeft(string text, float xPos, float yPos, float fontSize)
-{
-	Draw(text, xPos, yPos-fontSize/2, fontSize);
-}
+		_data->glEnd();
 
-void SUIFont::DrawFromRight(string text, float xPos, float yPos, float fontSize)
-{
-	float length = (float)GetLength(text, fontSize);
-	Draw(text, xPos-length, yPos-fontSize/2, fontSize);
-}
-
-void SUIFont::DrawFromCenter(string text, float xPos, float yPos, float fontSize)
-{
-	float length = (float)GetLength(text, fontSize);
-	Draw(text, xPos-length/2, yPos-fontSize/2, fontSize);
-}
-
-void SUIFont::Draw(string text, float xPos, float yPos, float fontSize)
-{
-	glColor4ub(_r,_g,_b,_a);
-
-	float x = xPos;
-	float y = yPos;
-
-	for(unsigned int i=0;i<text.length();i++)
-	{
-		int index = (int)text[i];
-
-		if(index >= 33 && index <= 126)
-		{
-			float xx = x;
-			float yy = y;
-			float hh = fontSize;
-			float ww = hh * _normalFontVec[index]->w / _normalFontVec[index]->h;
-
-			//if(xx >= _borderX1 && xx+ww <= _borderX2)
-			{
-				LetterInfo* lf = _normalFontVec[index];
-
-				if(_enableBatch)
-				{
-					_data->glTexCoord2f(lf->u,			(lf->v));				_data->glVertex3f((xx),		(yy),		0);
-					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v));				_data->glVertex3f((xx+ww),	(yy),		0);
-					_data->glTexCoord2f(lf->u,			(lf->v+lf->ch));		_data->glVertex3f((xx),		(yy+hh),	0);
-					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v));				_data->glVertex3f((xx+ww),	(yy),		0);
-					_data->glTexCoord2f(lf->u,			(lf->v+lf->ch));		_data->glVertex3f((xx),		(yy+hh),	0);
-					_data->glTexCoord2f(lf->u+lf->cw,	(lf->v+lf->ch));		_data->glVertex3f((xx+ww),	(yy+hh),	0);
-				}
-				else
-				{
-					glTexCoord2f(lf->u,			(lf->v));			glVertex3f((xx),	(yy),		0);
-					glTexCoord2f(lf->u+lf->cw,	(lf->v));			glVertex3f((xx+ww),	(yy),		0);
-					glTexCoord2f(lf->u,			(lf->v+lf->ch));	glVertex3f((xx),	(yy+hh),	0);
-					glTexCoord2f(lf->u+lf->cw,	(lf->v));			glVertex3f((xx+ww),	(yy),		0);
-					glTexCoord2f(lf->u,			(lf->v+lf->ch));	glVertex3f((xx),	(yy+hh),	0);
-					glTexCoord2f(lf->u+lf->cw,	(lf->v+lf->ch));	glVertex3f((xx+ww),	(yy+hh),	0);
-				}
-			}
-
-			x += ww + _horGap;
-		}
-		else if(index == (int)'\n')
-		{
-			x = 0;
-			//y += verGap + height;
-		}
-		else if(index == (int)' ')
-		{
-			x += fontSize/2;
-			x += _horGap;
-		}
-		else if( index == (int)'\t')
-		{
-			x += 2*fontSize;
-			x += _horGap;
-		}
-	}
-}
-
-void SUIFont::End()
-{
-	if(_enableBatch == false)
-	{
-		glEnd();
 		glDisable(GL_TEXTURE_2D);
+
+		_enableBatch = false;
 	}
-}
 
-float SUIFont::GetFontSize()
-{
-	return (float)ch[(int)'A']; 
-}
-
-void SUIFont::FillUVInfo_Verdana_plain_12()
-{
-	_imgW = 256;
-	_imgH = 128;//83;
-
-	unsigned char* image_data = (unsigned char*) malloc(_imgW * _imgH * 4);
-
-	memset(image_data, 0, _imgW*_imgH*4);
-
-	for(int y=0; y<_imgH; y++)
+	void SUIFont::Begin()
 	{
-		for(int x=0; x<_imgW; x++)
+		if (_enableBatch == false)
 		{
-			int destinPos = (_imgW*y + x) * 4;
-			int sourcePos = (_imgW*y + x) * 1;
-
-			image_data[destinPos + 0] = 255;
-			image_data[destinPos + 1] = 255;
-			image_data[destinPos + 2] = 255;
-			image_data[destinPos + 3] = asldlkas12323kj[sourcePos];
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, _textureID);
+			glBegin(GL_TRIANGLES);
 		}
 	}
 
-	glGenTextures(1, &_textureID);
-	glBindTexture(GL_TEXTURE_2D, _textureID);
-	glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, _imgW, _imgH, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)image_data);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	if(image_data)
-		free(image_data);
-
-	for(int i=0;i<127;i++)
+	void SUIFont::DrawFromLeft(string text, float xPos, float yPos, float fontSize)
 	{
-		u[i] = 0;
-		v[i] = 0;
-		cw[i] = 0;
-		ch[i] = 0;
+		Draw(text, xPos, yPos - fontSize / 2, fontSize);
 	}
 
-	_horGap = 0;
-
-	u[(int)'A'] = 4; v[(int)'A'] = 3; cw[(int)'A'] = 9; ch[(int)'A'] = 12; 
-	u[(int)'B'] = 17; v[(int)'B'] = 3; cw[(int)'B'] = 8; ch[(int)'B'] = 12; 
-	u[(int)'C'] = 30; v[(int)'C'] = 3; cw[(int)'C'] = 8; ch[(int)'C'] = 12; 
-	u[(int)'D'] = 42; v[(int)'D'] = 3; cw[(int)'D'] = 9; ch[(int)'D'] = 12; 
-	u[(int)'E'] = 56; v[(int)'E'] = 3; cw[(int)'E'] = 7; ch[(int)'E'] = 12; 
-	u[(int)'F'] = 67; v[(int)'F'] = 3; cw[(int)'F'] = 7; ch[(int)'F'] = 12; 
-	u[(int)'G'] = 79; v[(int)'G'] = 3; cw[(int)'G'] = 9; ch[(int)'G'] = 12; 
-	u[(int)'H'] = 92; v[(int)'H'] = 3; cw[(int)'H'] = 9; ch[(int)'H'] = 12; 
-	u[(int)'I'] = 105; v[(int)'I'] = 3; cw[(int)'I'] = 5; ch[(int)'I'] = 12; 
-	u[(int)'J'] = 115; v[(int)'J'] = 3; cw[(int)'J'] = 5; ch[(int)'J'] = 12; 
-	u[(int)'K'] = 124; v[(int)'K'] = 3; cw[(int)'K'] = 9; ch[(int)'K'] = 12; 
-	u[(int)'L'] = 137; v[(int)'L'] = 3; cw[(int)'L'] = 6; ch[(int)'L'] = 12; 
-	u[(int)'M'] = 148; v[(int)'M'] = 3; cw[(int)'M'] = 10; ch[(int)'M'] = 12; 
-	u[(int)'N'] = 162; v[(int)'N'] = 3; cw[(int)'N'] = 9; ch[(int)'N'] = 12; 
-	u[(int)'O'] = 175; v[(int)'O'] = 3; cw[(int)'O'] = 10; ch[(int)'O'] = 12; 
-	u[(int)'P'] = 189; v[(int)'P'] = 3; cw[(int)'P'] = 7; ch[(int)'P'] = 12; 
-	u[(int)'Q'] = 200; v[(int)'Q'] = 3; cw[(int)'Q'] = 10; ch[(int)'Q'] = 12; 
-	u[(int)'R'] = 214; v[(int)'R'] = 3; cw[(int)'R'] = 8; ch[(int)'R'] = 12; 
-	u[(int)'S'] = 227; v[(int)'S'] = 3; cw[(int)'S'] = 8; ch[(int)'S'] = 12; 
-	u[(int)'T'] = 239; v[(int)'T'] = 3; cw[(int)'T'] = 7; ch[(int)'T'] = 12; 
-	u[(int)'U'] = 4; v[(int)'U'] = 19; cw[(int)'U'] = 10; ch[(int)'U'] = 12; 
-	u[(int)'V'] = 18; v[(int)'V'] = 19; cw[(int)'V'] = 8; ch[(int)'V'] = 12; 
-	u[(int)'W'] = 30; v[(int)'W'] = 19; cw[(int)'W'] = 12; ch[(int)'W'] = 12; 
-	u[(int)'X'] = 46; v[(int)'X'] = 19; cw[(int)'X'] = 8; ch[(int)'X'] = 12; 
-	u[(int)'Y'] = 59; v[(int)'Y'] = 19; cw[(int)'Y'] = 7; ch[(int)'Y'] = 12; 
-	u[(int)'Z'] = 70; v[(int)'Z'] = 19; cw[(int)'Z'] = 8; ch[(int)'Z'] = 12; 
-	u[(int)'a'] = 83; v[(int)'a'] = 19; cw[(int)'a'] = 7; ch[(int)'a'] = 12; 
-	u[(int)'b'] = 94; v[(int)'b'] = 19; cw[(int)'b'] = 8; ch[(int)'b'] = 12; 
-	u[(int)'c'] = 106; v[(int)'c'] = 19; cw[(int)'c'] = 6; ch[(int)'c'] = 12; 
-	u[(int)'d'] = 116; v[(int)'d'] = 19; cw[(int)'d'] = 8; ch[(int)'d'] = 12; 
-	u[(int)'e'] = 128; v[(int)'e'] = 19; cw[(int)'e'] = 7; ch[(int)'e'] = 12; 
-	u[(int)'f'] = 139; v[(int)'f'] = 19; cw[(int)'f'] = 5; ch[(int)'f'] = 12; 
-	u[(int)'g'] = 148; v[(int)'g'] = 19; cw[(int)'g'] = 7; ch[(int)'g'] = 12; 
-	u[(int)'h'] = 159; v[(int)'h'] = 19; cw[(int)'h'] = 8; ch[(int)'h'] = 12; 
-	u[(int)'i'] = 171; v[(int)'i'] = 19; cw[(int)'i'] = 4; ch[(int)'i'] = 12; 
-	u[(int)'j'] = 179; v[(int)'j'] = 19; cw[(int)'j'] = 4; ch[(int)'j'] = 12; 
-	u[(int)'k'] = 187; v[(int)'k'] = 19; cw[(int)'k'] = 7; ch[(int)'k'] = 12; 
-	u[(int)'l'] = 198; v[(int)'l'] = 19; cw[(int)'l'] = 4; ch[(int)'l'] = 12; 
-	u[(int)'m'] = 206; v[(int)'m'] = 19; cw[(int)'m'] = 12; ch[(int)'m'] = 12; 
-	u[(int)'n'] = 222; v[(int)'n'] = 19; cw[(int)'n'] = 7; ch[(int)'n'] = 12; 
-	u[(int)'o'] = 234; v[(int)'o'] = 19; cw[(int)'o'] = 7; ch[(int)'o'] = 12; 
-	u[(int)'p'] = 245; v[(int)'p'] = 19; cw[(int)'p'] = 8; ch[(int)'p'] = 12; 
-	u[(int)'q'] = 4; v[(int)'q'] = 35; cw[(int)'q'] = 8; ch[(int)'q'] = 12; 
-	u[(int)'r'] = 16; v[(int)'r'] = 35; cw[(int)'r'] = 6; ch[(int)'r'] = 12; 
-	u[(int)'s'] = 26; v[(int)'s'] = 35; cw[(int)'s'] = 6; ch[(int)'s'] = 12; 
-	u[(int)'t'] = 36; v[(int)'t'] = 35; cw[(int)'t'] = 5; ch[(int)'t'] = 12; 
-	u[(int)'u'] = 45; v[(int)'u'] = 35; cw[(int)'u'] = 8; ch[(int)'u'] = 12; 
-	u[(int)'v'] = 57; v[(int)'v'] = 35; cw[(int)'v'] = 7; ch[(int)'v'] = 12; 
-	u[(int)'w'] = 68; v[(int)'w'] = 35; cw[(int)'w'] = 10; ch[(int)'w'] = 12; 
-	u[(int)'x'] = 82; v[(int)'x'] = 35; cw[(int)'x'] = 7; ch[(int)'x'] = 12; 
-	u[(int)'y'] = 94; v[(int)'y'] = 35; cw[(int)'y'] = 7; ch[(int)'y'] = 12; 
-	u[(int)'z'] = 105; v[(int)'z'] = 35; cw[(int)'z'] = 6; ch[(int)'z'] = 12; 
-	u[(int)'0'] = 116; v[(int)'0'] = 35; cw[(int)'0'] = 7; ch[(int)'0'] = 12; 
-	u[(int)'1'] = 127; v[(int)'1'] = 35; cw[(int)'1'] = 8; ch[(int)'1'] = 12; 
-	u[(int)'2'] = 139; v[(int)'2'] = 35; cw[(int)'2'] = 8; ch[(int)'2'] = 12; 
-	u[(int)'3'] = 151; v[(int)'3'] = 35; cw[(int)'3'] = 8; ch[(int)'3'] = 12; 
-	u[(int)'4'] = 163; v[(int)'4'] = 35; cw[(int)'4'] = 8; ch[(int)'4'] = 12; 
-	u[(int)'5'] = 175; v[(int)'5'] = 35; cw[(int)'5'] = 7; ch[(int)'5'] = 12; 
-	u[(int)'6'] = 187; v[(int)'6'] = 35; cw[(int)'6'] = 7; ch[(int)'6'] = 12; 
-	u[(int)'7'] = 198; v[(int)'7'] = 35; cw[(int)'7'] = 8; ch[(int)'7'] = 12; 
-	u[(int)'8'] = 210; v[(int)'8'] = 35; cw[(int)'8'] = 8; ch[(int)'8'] = 12; 
-	u[(int)'9'] = 222; v[(int)'9'] = 35; cw[(int)'9'] = 8; ch[(int)'9'] = 12; 
-	u[(int)'~'] = 234; v[(int)'~'] = 35; cw[(int)'~'] = 10; ch[(int)'~'] = 12; 
-	u[(int)'!'] = 248; v[(int)'!'] = 35; cw[(int)'!'] = 5; ch[(int)'!'] = 12; 
-	u[(int)'@'] = 4; v[(int)'@'] = 51; cw[(int)'@'] = 13; ch[(int)'@'] = 12; 
-	u[(int)'#'] = 21; v[(int)'#'] = 51; cw[(int)'#'] = 10; ch[(int)'#'] = 12; 
-	u[(int)'$'] = 35; v[(int)'$'] = 51; cw[(int)'$'] = 8; ch[(int)'$'] = 12; 
-	u[(int)'%'] = 47; v[(int)'%'] = 51; cw[(int)'%'] = 13; ch[(int)'%'] = 12; 
-	u[(int)'^'] = 64; v[(int)'^'] = 51; cw[(int)'^'] = 10; ch[(int)'^'] = 12; 
-	u[(int)'&'] = 78; v[(int)'&'] = 51; cw[(int)'&'] = 9; ch[(int)'&'] = 12; 
-	u[(int)'*'] = 91; v[(int)'*'] = 51; cw[(int)'*'] = 8; ch[(int)'*'] = 12; 
-	u[(int)'('] = 103; v[(int)'('] = 51; cw[(int)'('] = 5; ch[(int)'('] = 12; 
-	u[(int)')'] = 112; v[(int)')'] = 51; cw[(int)')'] = 6; ch[(int)')'] = 12; 
-	u[(int)'_'] = 122; v[(int)'_'] = 51; cw[(int)'_'] = 8; ch[(int)'_'] = 12; 
-	u[(int)'+'] = 134; v[(int)'+'] = 51; cw[(int)'+'] = 10; ch[(int)'+'] = 12; 
-	u[(int)'{'] = 148; v[(int)'{'] = 51; cw[(int)'{'] = 8; ch[(int)'{'] = 12; 
-	u[(int)'}'] = 160; v[(int)'}'] = 51; cw[(int)'}'] = 7; ch[(int)'}'] = 12; 
-	u[(int)'|'] = 172; v[(int)'|'] = 51; cw[(int)'|'] = 5; ch[(int)'|'] = 12; 
-	u[(int)':'] = 181; v[(int)':'] = 51; cw[(int)':'] = 6; ch[(int)':'] = 12; 
-	u[(int)'"'] = 191; v[(int)'"'] = 51; cw[(int)'"'] = 6; ch[(int)'"'] = 12; 
-	u[(int)'<'] = 201; v[(int)'<'] = 51; cw[(int)'<'] = 10; ch[(int)'<'] = 12; 
-	u[(int)'>'] = 215; v[(int)'>'] = 51; cw[(int)'>'] = 10; ch[(int)'>'] = 12; 
-	u[(int)'?'] = 229; v[(int)'?'] = 51; cw[(int)'?'] = 6; ch[(int)'?'] = 12; 
-	u[(int)'`'] = 240; v[(int)'`'] = 51; cw[(int)'`'] = 7; ch[(int)'`'] = 12; 
-	u[(int)'-'] = 4; v[(int)'-'] = 67; cw[(int)'-'] = 6; ch[(int)'-'] = 12; 
-	u[(int)'='] = 14; v[(int)'='] = 67; cw[(int)'='] = 10; ch[(int)'='] = 12; 
-	u[(int)'['] = 28; v[(int)'['] = 67; cw[(int)'['] = 6; ch[(int)'['] = 12; 
-	u[(int)']'] = 38; v[(int)']'] = 67; cw[(int)']'] = 6; ch[(int)']'] = 12; 
-	u[(int)'\\'] = 48; v[(int)'\\'] = 67; cw[(int)'\\'] = 5; ch[(int)'\\'] = 12; 
-	u[(int)';'] = 57; v[(int)';'] = 67; cw[(int)';'] = 6; ch[(int)';'] = 12; 
-	u[(int)'\''] = 67; v[(int)'\''] = 67; cw[(int)'\''] = 3; ch[(int)'\''] = 12; 
-	u[(int)','] = 75; v[(int)','] = 67; cw[(int)','] = 4; ch[(int)','] = 12; 
-	u[(int)'.'] = 83; v[(int)'.'] = 67; cw[(int)'.'] = 4; ch[(int)'.'] = 12; 
-	u[(int)'/'] = 92; v[(int)'/'] = 67; cw[(int)'/'] = 5; ch[(int)'/'] = 12;
-}
-
-void SUIFont::DeleteInstance()
-{
-	if(_ref)
+	void SUIFont::DrawFromRight(string text, float xPos, float yPos, float fontSize)
 	{
-		delete _ref;
-		_ref = NULL;
+		float length = (float)GetLength(text, fontSize);
+		Draw(text, xPos - length, yPos - fontSize / 2, fontSize);
 	}
-}
 
-SUIFont::~SUIFont()
-{
-	if(_textureID != 0)
-		glDeleteTextures( 1, &_textureID);
-
-	for( int i=0; i<(int)_normalFontVec.size(); i++ )
+	void SUIFont::DrawFromCenter(string text, float xPos, float yPos, float fontSize)
 	{
-		if( _normalFontVec[i] )
+		float length = (float)GetLength(text, fontSize);
+		Draw(text, xPos - length / 2, yPos - fontSize / 2, fontSize);
+	}
+
+	void SUIFont::Draw(string text, float xPos, float yPos, float fontSize)
+	{
+		glColor4ub(_r, _g, _b, _a);
+
+		float x = xPos;
+		float y = yPos;
+
+		for (unsigned int i = 0; i < text.length(); i++)
 		{
-			delete _normalFontVec[i];
-			_normalFontVec[i] = NULL;
+			int index = (int)text[i];
+
+			if (index >= 33 && index <= 126)
+			{
+				float xx = x;
+				float yy = y;
+				float hh = fontSize;
+				float ww = hh * _normalFontVec[index]->w / _normalFontVec[index]->h;
+
+				//if(xx >= _borderX1 && xx+ww <= _borderX2)
+				{
+					LetterInfo* lf = _normalFontVec[index];
+
+					if (_enableBatch)
+					{
+						_data->glTexCoord2f(lf->u, (lf->v));				_data->glVertex3f((xx), (yy), 0);
+						_data->glTexCoord2f(lf->u + lf->cw, (lf->v));				_data->glVertex3f((xx + ww), (yy), 0);
+						_data->glTexCoord2f(lf->u, (lf->v + lf->ch));		_data->glVertex3f((xx), (yy + hh), 0);
+						_data->glTexCoord2f(lf->u + lf->cw, (lf->v));				_data->glVertex3f((xx + ww), (yy), 0);
+						_data->glTexCoord2f(lf->u, (lf->v + lf->ch));		_data->glVertex3f((xx), (yy + hh), 0);
+						_data->glTexCoord2f(lf->u + lf->cw, (lf->v + lf->ch));		_data->glVertex3f((xx + ww), (yy + hh), 0);
+					}
+					else
+					{
+						glTexCoord2f(lf->u, (lf->v));			glVertex3f((xx), (yy), 0);
+						glTexCoord2f(lf->u + lf->cw, (lf->v));			glVertex3f((xx + ww), (yy), 0);
+						glTexCoord2f(lf->u, (lf->v + lf->ch));	glVertex3f((xx), (yy + hh), 0);
+						glTexCoord2f(lf->u + lf->cw, (lf->v));			glVertex3f((xx + ww), (yy), 0);
+						glTexCoord2f(lf->u, (lf->v + lf->ch));	glVertex3f((xx), (yy + hh), 0);
+						glTexCoord2f(lf->u + lf->cw, (lf->v + lf->ch));	glVertex3f((xx + ww), (yy + hh), 0);
+					}
+				}
+
+				x += ww + _horGap;
+			}
+			else if (index == (int)'\n')
+			{
+				x = 0;
+				//y += verGap + height;
+			}
+			else if (index == (int)' ')
+			{
+				x += fontSize / 2;
+				x += _horGap;
+			}
+			else if (index == (int)'\t')
+			{
+				x += 2 * fontSize;
+				x += _horGap;
+			}
 		}
 	}
-	_normalFontVec.clear();
 
-	if(_data)
+	void SUIFont::End()
 	{
-		delete _data;
-		_data = NULL;
+		if (_enableBatch == false)
+		{
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+		}
+	}
+
+	float SUIFont::GetFontSize()
+	{
+		return (float)ch[(int)'A'];
+	}
+
+	void SUIFont::FillUVInfo_Verdana_plain_12()
+	{
+		_imgW = 256;
+		_imgH = 128;//83;
+
+		unsigned char* image_data = (unsigned char*)malloc(_imgW * _imgH * 4);
+
+		memset(image_data, 0, _imgW*_imgH * 4);
+
+		for (int y = 0; y < _imgH; y++)
+		{
+			for (int x = 0; x < _imgW; x++)
+			{
+				int destinPos = (_imgW*y + x) * 4;
+				int sourcePos = (_imgW*y + x) * 1;
+
+				image_data[destinPos + 0] = 255;
+				image_data[destinPos + 1] = 255;
+				image_data[destinPos + 2] = 255;
+				image_data[destinPos + 3] = asldlkas12323kj[sourcePos];
+			}
+		}
+
+		glGenTextures(1, &_textureID);
+		glBindTexture(GL_TEXTURE_2D, _textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _imgW, _imgH, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)image_data);
+
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+		if (image_data)
+			free(image_data);
+
+		for (int i = 0; i < 127; i++)
+		{
+			u[i] = 0;
+			v[i] = 0;
+			cw[i] = 0;
+			ch[i] = 0;
+		}
+
+		_horGap = 0;
+
+		u[(int)'A'] = 4; v[(int)'A'] = 3; cw[(int)'A'] = 9; ch[(int)'A'] = 12;
+		u[(int)'B'] = 17; v[(int)'B'] = 3; cw[(int)'B'] = 8; ch[(int)'B'] = 12;
+		u[(int)'C'] = 30; v[(int)'C'] = 3; cw[(int)'C'] = 8; ch[(int)'C'] = 12;
+		u[(int)'D'] = 42; v[(int)'D'] = 3; cw[(int)'D'] = 9; ch[(int)'D'] = 12;
+		u[(int)'E'] = 56; v[(int)'E'] = 3; cw[(int)'E'] = 7; ch[(int)'E'] = 12;
+		u[(int)'F'] = 67; v[(int)'F'] = 3; cw[(int)'F'] = 7; ch[(int)'F'] = 12;
+		u[(int)'G'] = 79; v[(int)'G'] = 3; cw[(int)'G'] = 9; ch[(int)'G'] = 12;
+		u[(int)'H'] = 92; v[(int)'H'] = 3; cw[(int)'H'] = 9; ch[(int)'H'] = 12;
+		u[(int)'I'] = 105; v[(int)'I'] = 3; cw[(int)'I'] = 5; ch[(int)'I'] = 12;
+		u[(int)'J'] = 115; v[(int)'J'] = 3; cw[(int)'J'] = 5; ch[(int)'J'] = 12;
+		u[(int)'K'] = 124; v[(int)'K'] = 3; cw[(int)'K'] = 9; ch[(int)'K'] = 12;
+		u[(int)'L'] = 137; v[(int)'L'] = 3; cw[(int)'L'] = 6; ch[(int)'L'] = 12;
+		u[(int)'M'] = 148; v[(int)'M'] = 3; cw[(int)'M'] = 10; ch[(int)'M'] = 12;
+		u[(int)'N'] = 162; v[(int)'N'] = 3; cw[(int)'N'] = 9; ch[(int)'N'] = 12;
+		u[(int)'O'] = 175; v[(int)'O'] = 3; cw[(int)'O'] = 10; ch[(int)'O'] = 12;
+		u[(int)'P'] = 189; v[(int)'P'] = 3; cw[(int)'P'] = 7; ch[(int)'P'] = 12;
+		u[(int)'Q'] = 200; v[(int)'Q'] = 3; cw[(int)'Q'] = 10; ch[(int)'Q'] = 12;
+		u[(int)'R'] = 214; v[(int)'R'] = 3; cw[(int)'R'] = 8; ch[(int)'R'] = 12;
+		u[(int)'S'] = 227; v[(int)'S'] = 3; cw[(int)'S'] = 8; ch[(int)'S'] = 12;
+		u[(int)'T'] = 239; v[(int)'T'] = 3; cw[(int)'T'] = 7; ch[(int)'T'] = 12;
+		u[(int)'U'] = 4; v[(int)'U'] = 19; cw[(int)'U'] = 10; ch[(int)'U'] = 12;
+		u[(int)'V'] = 18; v[(int)'V'] = 19; cw[(int)'V'] = 8; ch[(int)'V'] = 12;
+		u[(int)'W'] = 30; v[(int)'W'] = 19; cw[(int)'W'] = 12; ch[(int)'W'] = 12;
+		u[(int)'X'] = 46; v[(int)'X'] = 19; cw[(int)'X'] = 8; ch[(int)'X'] = 12;
+		u[(int)'Y'] = 59; v[(int)'Y'] = 19; cw[(int)'Y'] = 7; ch[(int)'Y'] = 12;
+		u[(int)'Z'] = 70; v[(int)'Z'] = 19; cw[(int)'Z'] = 8; ch[(int)'Z'] = 12;
+		u[(int)'a'] = 83; v[(int)'a'] = 19; cw[(int)'a'] = 7; ch[(int)'a'] = 12;
+		u[(int)'b'] = 94; v[(int)'b'] = 19; cw[(int)'b'] = 8; ch[(int)'b'] = 12;
+		u[(int)'c'] = 106; v[(int)'c'] = 19; cw[(int)'c'] = 6; ch[(int)'c'] = 12;
+		u[(int)'d'] = 116; v[(int)'d'] = 19; cw[(int)'d'] = 8; ch[(int)'d'] = 12;
+		u[(int)'e'] = 128; v[(int)'e'] = 19; cw[(int)'e'] = 7; ch[(int)'e'] = 12;
+		u[(int)'f'] = 139; v[(int)'f'] = 19; cw[(int)'f'] = 5; ch[(int)'f'] = 12;
+		u[(int)'g'] = 148; v[(int)'g'] = 19; cw[(int)'g'] = 7; ch[(int)'g'] = 12;
+		u[(int)'h'] = 159; v[(int)'h'] = 19; cw[(int)'h'] = 8; ch[(int)'h'] = 12;
+		u[(int)'i'] = 171; v[(int)'i'] = 19; cw[(int)'i'] = 4; ch[(int)'i'] = 12;
+		u[(int)'j'] = 179; v[(int)'j'] = 19; cw[(int)'j'] = 4; ch[(int)'j'] = 12;
+		u[(int)'k'] = 187; v[(int)'k'] = 19; cw[(int)'k'] = 7; ch[(int)'k'] = 12;
+		u[(int)'l'] = 198; v[(int)'l'] = 19; cw[(int)'l'] = 4; ch[(int)'l'] = 12;
+		u[(int)'m'] = 206; v[(int)'m'] = 19; cw[(int)'m'] = 12; ch[(int)'m'] = 12;
+		u[(int)'n'] = 222; v[(int)'n'] = 19; cw[(int)'n'] = 7; ch[(int)'n'] = 12;
+		u[(int)'o'] = 234; v[(int)'o'] = 19; cw[(int)'o'] = 7; ch[(int)'o'] = 12;
+		u[(int)'p'] = 245; v[(int)'p'] = 19; cw[(int)'p'] = 8; ch[(int)'p'] = 12;
+		u[(int)'q'] = 4; v[(int)'q'] = 35; cw[(int)'q'] = 8; ch[(int)'q'] = 12;
+		u[(int)'r'] = 16; v[(int)'r'] = 35; cw[(int)'r'] = 6; ch[(int)'r'] = 12;
+		u[(int)'s'] = 26; v[(int)'s'] = 35; cw[(int)'s'] = 6; ch[(int)'s'] = 12;
+		u[(int)'t'] = 36; v[(int)'t'] = 35; cw[(int)'t'] = 5; ch[(int)'t'] = 12;
+		u[(int)'u'] = 45; v[(int)'u'] = 35; cw[(int)'u'] = 8; ch[(int)'u'] = 12;
+		u[(int)'v'] = 57; v[(int)'v'] = 35; cw[(int)'v'] = 7; ch[(int)'v'] = 12;
+		u[(int)'w'] = 68; v[(int)'w'] = 35; cw[(int)'w'] = 10; ch[(int)'w'] = 12;
+		u[(int)'x'] = 82; v[(int)'x'] = 35; cw[(int)'x'] = 7; ch[(int)'x'] = 12;
+		u[(int)'y'] = 94; v[(int)'y'] = 35; cw[(int)'y'] = 7; ch[(int)'y'] = 12;
+		u[(int)'z'] = 105; v[(int)'z'] = 35; cw[(int)'z'] = 6; ch[(int)'z'] = 12;
+		u[(int)'0'] = 116; v[(int)'0'] = 35; cw[(int)'0'] = 7; ch[(int)'0'] = 12;
+		u[(int)'1'] = 127; v[(int)'1'] = 35; cw[(int)'1'] = 8; ch[(int)'1'] = 12;
+		u[(int)'2'] = 139; v[(int)'2'] = 35; cw[(int)'2'] = 8; ch[(int)'2'] = 12;
+		u[(int)'3'] = 151; v[(int)'3'] = 35; cw[(int)'3'] = 8; ch[(int)'3'] = 12;
+		u[(int)'4'] = 163; v[(int)'4'] = 35; cw[(int)'4'] = 8; ch[(int)'4'] = 12;
+		u[(int)'5'] = 175; v[(int)'5'] = 35; cw[(int)'5'] = 7; ch[(int)'5'] = 12;
+		u[(int)'6'] = 187; v[(int)'6'] = 35; cw[(int)'6'] = 7; ch[(int)'6'] = 12;
+		u[(int)'7'] = 198; v[(int)'7'] = 35; cw[(int)'7'] = 8; ch[(int)'7'] = 12;
+		u[(int)'8'] = 210; v[(int)'8'] = 35; cw[(int)'8'] = 8; ch[(int)'8'] = 12;
+		u[(int)'9'] = 222; v[(int)'9'] = 35; cw[(int)'9'] = 8; ch[(int)'9'] = 12;
+		u[(int)'~'] = 234; v[(int)'~'] = 35; cw[(int)'~'] = 10; ch[(int)'~'] = 12;
+		u[(int)'!'] = 248; v[(int)'!'] = 35; cw[(int)'!'] = 5; ch[(int)'!'] = 12;
+		u[(int)'@'] = 4; v[(int)'@'] = 51; cw[(int)'@'] = 13; ch[(int)'@'] = 12;
+		u[(int)'#'] = 21; v[(int)'#'] = 51; cw[(int)'#'] = 10; ch[(int)'#'] = 12;
+		u[(int)'$'] = 35; v[(int)'$'] = 51; cw[(int)'$'] = 8; ch[(int)'$'] = 12;
+		u[(int)'%'] = 47; v[(int)'%'] = 51; cw[(int)'%'] = 13; ch[(int)'%'] = 12;
+		u[(int)'^'] = 64; v[(int)'^'] = 51; cw[(int)'^'] = 10; ch[(int)'^'] = 12;
+		u[(int)'&'] = 78; v[(int)'&'] = 51; cw[(int)'&'] = 9; ch[(int)'&'] = 12;
+		u[(int)'*'] = 91; v[(int)'*'] = 51; cw[(int)'*'] = 8; ch[(int)'*'] = 12;
+		u[(int)'('] = 103; v[(int)'('] = 51; cw[(int)'('] = 5; ch[(int)'('] = 12;
+		u[(int)')'] = 112; v[(int)')'] = 51; cw[(int)')'] = 6; ch[(int)')'] = 12;
+		u[(int)'_'] = 122; v[(int)'_'] = 51; cw[(int)'_'] = 8; ch[(int)'_'] = 12;
+		u[(int)'+'] = 134; v[(int)'+'] = 51; cw[(int)'+'] = 10; ch[(int)'+'] = 12;
+		u[(int)'{'] = 148; v[(int)'{'] = 51; cw[(int)'{'] = 8; ch[(int)'{'] = 12;
+		u[(int)'}'] = 160; v[(int)'}'] = 51; cw[(int)'}'] = 7; ch[(int)'}'] = 12;
+		u[(int)'|'] = 172; v[(int)'|'] = 51; cw[(int)'|'] = 5; ch[(int)'|'] = 12;
+		u[(int)':'] = 181; v[(int)':'] = 51; cw[(int)':'] = 6; ch[(int)':'] = 12;
+		u[(int)'"'] = 191; v[(int)'"'] = 51; cw[(int)'"'] = 6; ch[(int)'"'] = 12;
+		u[(int)'<'] = 201; v[(int)'<'] = 51; cw[(int)'<'] = 10; ch[(int)'<'] = 12;
+		u[(int)'>'] = 215; v[(int)'>'] = 51; cw[(int)'>'] = 10; ch[(int)'>'] = 12;
+		u[(int)'?'] = 229; v[(int)'?'] = 51; cw[(int)'?'] = 6; ch[(int)'?'] = 12;
+		u[(int)'`'] = 240; v[(int)'`'] = 51; cw[(int)'`'] = 7; ch[(int)'`'] = 12;
+		u[(int)'-'] = 4; v[(int)'-'] = 67; cw[(int)'-'] = 6; ch[(int)'-'] = 12;
+		u[(int)'='] = 14; v[(int)'='] = 67; cw[(int)'='] = 10; ch[(int)'='] = 12;
+		u[(int)'['] = 28; v[(int)'['] = 67; cw[(int)'['] = 6; ch[(int)'['] = 12;
+		u[(int)']'] = 38; v[(int)']'] = 67; cw[(int)']'] = 6; ch[(int)']'] = 12;
+		u[(int)'\\'] = 48; v[(int)'\\'] = 67; cw[(int)'\\'] = 5; ch[(int)'\\'] = 12;
+		u[(int)';'] = 57; v[(int)';'] = 67; cw[(int)';'] = 6; ch[(int)';'] = 12;
+		u[(int)'\''] = 67; v[(int)'\''] = 67; cw[(int)'\''] = 3; ch[(int)'\''] = 12;
+		u[(int)','] = 75; v[(int)','] = 67; cw[(int)','] = 4; ch[(int)','] = 12;
+		u[(int)'.'] = 83; v[(int)'.'] = 67; cw[(int)'.'] = 4; ch[(int)'.'] = 12;
+		u[(int)'/'] = 92; v[(int)'/'] = 67; cw[(int)'/'] = 5; ch[(int)'/'] = 12;
+	}
+
+	void SUIFont::DeleteInstance()
+	{
+		if (_ref)
+		{
+			delete _ref;
+			_ref = NULL;
+		}
+	}
+
+	SUIFont::~SUIFont()
+	{
+		if (_textureID != 0)
+			glDeleteTextures(1, &_textureID);
+
+		for (int i = 0; i < (int)_normalFontVec.size(); i++)
+		{
+			if (_normalFontVec[i])
+			{
+				delete _normalFontVec[i];
+				_normalFontVec[i] = NULL;
+			}
+		}
+		_normalFontVec.clear();
+
+		if (_data)
+		{
+			delete _data;
+			_data = NULL;
+		}
 	}
 }

@@ -4,28 +4,31 @@
 #include "SUIComponent.h"
 #include "SUIMouseListener.h"
 
-class SUILabel : public SUIComponent
+namespace SUI
 {
-private:
-	SUIMouseListener* _mouseListener;
-	unsigned int _fontColor;
+	class SUILabel : public SUIComponent
+	{
+	private:
+		SUIMouseListener* _mouseListener;
+		unsigned int _fontColor;
 
-public:
-	SUILabel(string name, int nameAlignment);
-	~SUILabel();
+	public:
+		SUILabel(string name, int nameAlignment);
+		~SUILabel();
 
-	SUIEvents UpdateByInput();
-	void Move(float dx, float dy);
-	void ResetBounds(){}
-	void Draw(); 
-	void SetFontColor(unsigned int fontColor);
+		SUIEvents UpdateByInput();
+		void Move(float dx, float dy);
+		void ResetBounds() {}
+		void Draw();
+		void SetFontColor(unsigned int fontColor);
 
-	//Listeners...
+		//Listeners...
 
-	void AddMouseListener(SUIMouseListener* mouseListener)			{ _mouseListener = mouseListener;	}
-	void RemoveMouseListener()									{ _mouseListener = NULL;			}
-	SUIMouseListener* GetMouseListener()							{ return _mouseListener;			}
+		void AddMouseListener(SUIMouseListener* mouseListener) { _mouseListener = mouseListener; }
+		void RemoveMouseListener() { _mouseListener = NULL; }
+		SUIMouseListener* GetMouseListener() { return _mouseListener; }
 
-};
+	};
+}
 
 #endif
