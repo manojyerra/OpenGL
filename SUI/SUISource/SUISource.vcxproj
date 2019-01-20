@@ -68,7 +68,7 @@
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeaderOutputFile>.\Debug/SUILib.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderOutputFile>.\Debug/SUISource.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
       <ObjectFileName>.\Debug/</ObjectFileName>
       <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
@@ -82,11 +82,11 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;winmm.lib;vld.lib;lib/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\Debug/SUILib.exe</OutputFile>
+      <OutputFile>.\Debug/SUISource.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\Debug/SUILib.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>.\Debug/SUISource.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
@@ -94,7 +94,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug/SUILib.bsc</OutputFile>
+      <OutputFile>.\Debug/SUISource.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
