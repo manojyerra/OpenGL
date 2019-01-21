@@ -14,15 +14,6 @@
     <Filter Include="source\PNG\zlib">
       <UniqueIdentifier>{b30793ad-78f3-4fdd-b820-1e7be63d1fcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\SUI">
-      <UniqueIdentifier>{7a62b9fd-0aa7-4b59-8abf-a251007fa976}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\SUI\include">
-      <UniqueIdentifier>{938a649d-1234-4673-9251-ca37dcdd2686}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="source\SUI\source">
-      <UniqueIdentifier>{a23fcc4a-820d-43c0-b9a5-5378b0b5ffa2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Input.cpp">
@@ -133,57 +124,6 @@
     <ClCompile Include="source\PNG\zlib\zutil.c">
       <Filter>source\PNG\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIBatch.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIBox.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIButton.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUICheckBox.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIChoice.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIComponent.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIFont.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIFrame.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIInput.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUILabel.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUILifyCycle.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIList.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIManager.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIRadioButton.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIRect.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUIScroller.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SUI\source\SUISlider.cpp">
-      <Filter>source\SUI\source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Input.h">
@@ -242,75 +182,6 @@
     </ClInclude>
     <ClInclude Include="source\PNG\zlib\zutil.h">
       <Filter>source\PNG\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIActionEvent.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIActionListener.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIBatch.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIBox.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIButton.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUICheckBox.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIChoice.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIComponent.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIEvents.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIFont.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIFrame.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIIncludes.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIInput.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUILabel.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUILifyCycle.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIList.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIManager.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIMouseEvent.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIMouseListener.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIRadioButton.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIRect.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUIScroller.h">
-      <Filter>source\SUI\include</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SUI\include\SUISlider.h">
-      <Filter>source\SUI\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

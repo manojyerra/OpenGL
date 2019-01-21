@@ -3,9 +3,8 @@
 
 #include "SUIFrame.h"
 #include "SUIButton.h"
-#include "SUILifyCycle.h"
+#include "SUILifeCycle.h"
 using namespace SUI;
-
 
 class Looper
 {

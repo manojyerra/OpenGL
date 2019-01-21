@@ -3,9 +3,7 @@
 #include "math.h"
 #include "SUIInput.h"
 #include "SUIFrame.h"
-
-#include <windows.h>
-#include <gl/gl.h>
+#include "SUIIncludes.h"
 
 Looper::Looper(int windowWidth, int windowHeight)
 {

@@ -9,235 +9,192 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\SUIBatch.cpp" />
+    <ClCompile Include="source\SUIBox.cpp" />
+    <ClCompile Include="source\SUIButton.cpp" />
+    <ClCompile Include="source\SUICheckBox.cpp" />
+    <ClCompile Include="source\SUIChoice.cpp" />
+    <ClCompile Include="source\SUIComponent.cpp" />
+    <ClCompile Include="source\SUIFont.cpp" />
+    <ClCompile Include="source\SUIFrame.cpp" />
+    <ClCompile Include="source\SUIInput.cpp" />
+    <ClCompile Include="source\SUILabel.cpp" />
+    <ClCompile Include="source\SUILifeCycle.cpp" />
+    <ClCompile Include="source\SUIList.cpp" />
+    <ClCompile Include="source\SUIManager.cpp" />
+    <ClCompile Include="source\SUIRadioButton.cpp" />
+    <ClCompile Include="source\SUIRect.cpp" />
+    <ClCompile Include="source\SUIScroller.cpp" />
+    <ClCompile Include="source\SUISlider.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SUIActionEvent.h" />
+    <ClInclude Include="include\SUIActionListener.h" />
+    <ClInclude Include="include\SUIBatch.h" />
+    <ClInclude Include="include\SUIBox.h" />
+    <ClInclude Include="include\SUIButton.h" />
+    <ClInclude Include="include\SUICheckBox.h" />
+    <ClInclude Include="include\SUIChoice.h" />
+    <ClInclude Include="include\SUIComponent.h" />
+    <ClInclude Include="include\SUIEvents.h" />
+    <ClInclude Include="include\SUIFont.h" />
+    <ClInclude Include="include\SUIFrame.h" />
+    <ClInclude Include="include\SUIIncludes.h" />
+    <ClInclude Include="include\SUIInput.h" />
+    <ClInclude Include="include\SUILabel.h" />
+    <ClInclude Include="include\SUILifeCycle.h" />
+    <ClInclude Include="include\SUIList.h" />
+    <ClInclude Include="include\SUIManager.h" />
+    <ClInclude Include="include\SUIMouseEvent.h" />
+    <ClInclude Include="include\SUIMouseListener.h" />
+    <ClInclude Include="include\SUIRadioButton.h" />
+    <ClInclude Include="include\SUIRect.h" />
+    <ClInclude Include="include\SUIScroller.h" />
+    <ClInclude Include="include\SUISlider.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A434B225-8064-4C2C-9A44-90DF1218D8A6}</ProjectGuid>
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{6CCDB4BF-BA29-427F-9B25-B2AE50FB6813}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SUILibGenerate</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <UseOfMfc>false</UseOfMfc>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>15.0.28127.55</_ProjectFileVersion>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Debug\</OutDir>
-    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Release\</OutDir>
-    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Midl>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Debug/usingWin.tlb</TypeLibraryName>
-      <HeaderFileName />
-    </Midl>
     <ClCompile>
-      <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>source;source/SUI/include;source/SUI/source;source/PNG;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeaderOutputFile>.\Debug/SUILibGenerate.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
-      <ObjectFileName>.\Debug/</ObjectFileName>
-      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;winmm.lib;vld.lib;lib/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\Debug/SUILibGenerate.exe</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>.\Debug/SUILibGenerate.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Bscmake>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug/SUILibGenerate.bsc</OutputFile>
-    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Midl>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MkTypLibCompatible>true</MkTypLibCompatible>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <TargetEnvironment>Win32</TargetEnvironment>
-      <TypeLibraryName>.\Release/usingWin.tlb</TypeLibraryName>
-      <HeaderFileName />
-    </Midl>
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeaderOutputFile>.\Release/usingWin.pch</PrecompiledHeaderOutputFile>
-      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
-      <ObjectFileName>.\Release/</ObjectFileName>
-      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ResourceCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <Culture>0x0409</Culture>
-    </ResourceCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\Release/usingWin.exe</OutputFile>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <ProgramDatabaseFile>.\Release/usingWin.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <DataExecutionPrevention />
-      <TargetMachine>MachineX86</TargetMachine>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Bscmake>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Release/usingWin.bsc</OutputFile>
-    </Bscmake>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="source\Input.cpp" />
-    <ClCompile Include="source\Looper.cpp" />
-    <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\PNG\libpng\png.c" />
-    <ClCompile Include="source\PNG\libpng\pngerror.c" />
-    <ClCompile Include="source\PNG\libpng\pngget.c" />
-    <ClCompile Include="source\PNG\libpng\pngmem.c" />
-    <ClCompile Include="source\PNG\libpng\pngpread.c" />
-    <ClCompile Include="source\PNG\libpng\pngread.c" />
-    <ClCompile Include="source\PNG\libpng\pngrio.c" />
-    <ClCompile Include="source\PNG\libpng\pngrtran.c" />
-    <ClCompile Include="source\PNG\libpng\pngrutil.c" />
-    <ClCompile Include="source\PNG\libpng\pngset.c" />
-    <ClCompile Include="source\PNG\libpng\pngtest.c" />
-    <ClCompile Include="source\PNG\libpng\pngtrans.c" />
-    <ClCompile Include="source\PNG\libpng\pngwio.c" />
-    <ClCompile Include="source\PNG\libpng\pngwrite.c" />
-    <ClCompile Include="source\PNG\libpng\pngwtran.c" />
-    <ClCompile Include="source\PNG\libpng\pngwutil.c" />
-    <ClCompile Include="source\PNG\PNGReadWrite.cpp" />
-    <ClCompile Include="source\PNG\zlib\adler32.c" />
-    <ClCompile Include="source\PNG\zlib\compress.c" />
-    <ClCompile Include="source\PNG\zlib\crc32.c" />
-    <ClCompile Include="source\PNG\zlib\deflate.c" />
-    <ClCompile Include="source\PNG\zlib\gzclose.c" />
-    <ClCompile Include="source\PNG\zlib\gzlib.c" />
-    <ClCompile Include="source\PNG\zlib\gzread.c" />
-    <ClCompile Include="source\PNG\zlib\gzwrite.c" />
-    <ClCompile Include="source\PNG\zlib\infback.c" />
-    <ClCompile Include="source\PNG\zlib\inffast.c" />
-    <ClCompile Include="source\PNG\zlib\inflate.c" />
-    <ClCompile Include="source\PNG\zlib\inftrees.c" />
-    <ClCompile Include="source\PNG\zlib\minigzip.c" />
-    <ClCompile Include="source\PNG\zlib\trees.c" />
-    <ClCompile Include="source\PNG\zlib\uncompr.c" />
-    <ClCompile Include="source\PNG\zlib\zutil.c" />
-    <ClCompile Include="source\SUI\source\SUIBatch.cpp" />
-    <ClCompile Include="source\SUI\source\SUIBox.cpp" />
-    <ClCompile Include="source\SUI\source\SUIButton.cpp" />
-    <ClCompile Include="source\SUI\source\SUICheckBox.cpp" />
-    <ClCompile Include="source\SUI\source\SUIChoice.cpp" />
-    <ClCompile Include="source\SUI\source\SUIComponent.cpp" />
-    <ClCompile Include="source\SUI\source\SUIFont.cpp" />
-    <ClCompile Include="source\SUI\source\SUIFrame.cpp" />
-    <ClCompile Include="source\SUI\source\SUIInput.cpp" />
-    <ClCompile Include="source\SUI\source\SUILabel.cpp" />
-    <ClCompile Include="source\SUI\source\SUILifyCycle.cpp" />
-    <ClCompile Include="source\SUI\source\SUIList.cpp" />
-    <ClCompile Include="source\SUI\source\SUIManager.cpp" />
-    <ClCompile Include="source\SUI\source\SUIRadioButton.cpp" />
-    <ClCompile Include="source\SUI\source\SUIRect.cpp" />
-    <ClCompile Include="source\SUI\source\SUIScroller.cpp" />
-    <ClCompile Include="source\SUI\source\SUISlider.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\Input.h" />
-    <ClInclude Include="source\Looper.h" />
-    <ClInclude Include="source\PNG\libpng\png.h" />
-    <ClInclude Include="source\PNG\libpng\pngconf.h" />
-    <ClInclude Include="source\PNG\libpng\pngpriv.h" />
-    <ClInclude Include="source\PNG\PNGReadWrite.h" />
-    <ClInclude Include="source\PNG\zlib\crc32.h" />
-    <ClInclude Include="source\PNG\zlib\deflate.h" />
-    <ClInclude Include="source\PNG\zlib\gzguts.h" />
-    <ClInclude Include="source\PNG\zlib\inffast.h" />
-    <ClInclude Include="source\PNG\zlib\inffixed.h" />
-    <ClInclude Include="source\PNG\zlib\inflate.h" />
-    <ClInclude Include="source\PNG\zlib\inftrees.h" />
-    <ClInclude Include="source\PNG\zlib\trees.h" />
-    <ClInclude Include="source\PNG\zlib\zconf.h" />
-    <ClInclude Include="source\PNG\zlib\zlib.h" />
-    <ClInclude Include="source\PNG\zlib\zutil.h" />
-    <ClInclude Include="source\SUI\include\SUIActionEvent.h" />
-    <ClInclude Include="source\SUI\include\SUIActionListener.h" />
-    <ClInclude Include="source\SUI\include\SUIBatch.h" />
-    <ClInclude Include="source\SUI\include\SUIBox.h" />
-    <ClInclude Include="source\SUI\include\SUIButton.h" />
-    <ClInclude Include="source\SUI\include\SUICheckBox.h" />
-    <ClInclude Include="source\SUI\include\SUIChoice.h" />
-    <ClInclude Include="source\SUI\include\SUIComponent.h" />
-    <ClInclude Include="source\SUI\include\SUIEvents.h" />
-    <ClInclude Include="source\SUI\include\SUIFont.h" />
-    <ClInclude Include="source\SUI\include\SUIFrame.h" />
-    <ClInclude Include="source\SUI\include\SUIIncludes.h" />
-    <ClInclude Include="source\SUI\include\SUIInput.h" />
-    <ClInclude Include="source\SUI\include\SUILabel.h" />
-    <ClInclude Include="source\SUI\include\SUILifyCycle.h" />
-    <ClInclude Include="source\SUI\include\SUIList.h" />
-    <ClInclude Include="source\SUI\include\SUIManager.h" />
-    <ClInclude Include="source\SUI\include\SUIMouseEvent.h" />
-    <ClInclude Include="source\SUI\include\SUIMouseListener.h" />
-    <ClInclude Include="source\SUI\include\SUIRadioButton.h" />
-    <ClInclude Include="source\SUI\include\SUIRect.h" />
-    <ClInclude Include="source\SUI\include\SUIScroller.h" />
-    <ClInclude Include="source\SUI\include\SUISlider.h" />
-    <ClInclude Include="source\vld.h" />
-    <ClInclude Include="source\vld_def.h" />
-  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
