@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{8ca34f28-cab2-454b-ade5-f14ed29d1763}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="source\PNG">
+      <UniqueIdentifier>{f487c066-d255-4db1-a24b-f980f7792c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG\libpng">
+      <UniqueIdentifier>{58e070d7-55c9-47ea-8031-e178a292ea03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG\zlib">
+      <UniqueIdentifier>{b30793ad-78f3-4fdd-b820-1e7be63d1fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\SUI">
+      <UniqueIdentifier>{0e151589-6580-43f0-a17d-1dbb1a5feca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\SUI\include">
+      <UniqueIdentifier>{cf597800-c5ec-4e56-bd51-a59ee87b32cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\SUI\source">
+      <UniqueIdentifier>{60c2e4ea-bcb0-4bef-bd30-97af8205e2dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Input.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Looper.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\PNGReadWrite.cpp">
+      <Filter>source\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\png.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngerror.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngget.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngmem.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngpread.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngread.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrio.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrtran.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrutil.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngset.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngtest.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngtrans.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwio.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwrite.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwtran.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwutil.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\adler32.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\compress.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\crc32.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\deflate.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzclose.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzlib.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzread.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzwrite.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\infback.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inffast.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inflate.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inftrees.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\minigzip.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\trees.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\uncompr.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\zutil.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIBatch.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIBox.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIButton.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUICheckBox.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIChoice.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIComponent.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIFont.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIFrame.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIInput.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUILabel.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUILifeCycle.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIList.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIManager.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIRadioButton.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIRect.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUIScroller.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SUILibGenerate\source\SUISlider.cpp">
+      <Filter>source\SUI\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Input.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Looper.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vld.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vld_def.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\PNGReadWrite.h">
+      <Filter>source\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\png.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\pngconf.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\pngpriv.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\crc32.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\deflate.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\gzguts.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inffast.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inffixed.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inflate.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inftrees.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\trees.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zconf.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zlib.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zutil.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIActionEvent.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIActionListener.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIBatch.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIBox.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIButton.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUICheckBox.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIChoice.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIComponent.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIEvents.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIFont.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIFrame.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIIncludes.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIInput.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUILabel.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUILifeCycle.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIList.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIManager.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIMouseEvent.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIMouseListener.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIRadioButton.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIRect.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUIScroller.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SUILibGenerate\include\SUISlider.h">
+      <Filter>source\SUI\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
