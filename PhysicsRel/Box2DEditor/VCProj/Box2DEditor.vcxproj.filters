@@ -2,79 +2,79 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="source">
-      <UniqueIdentifier>{52aeaed7-39f7-41b5-9354-b097217d5218}</UniqueIdentifier>
+      <UniqueIdentifier>{99ea095c-7542-49c0-be53-bd2670b6fe46}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game">
-      <UniqueIdentifier>{daeb89df-6e14-43a6-822a-430d1b07d58f}</UniqueIdentifier>
+      <UniqueIdentifier>{fe357742-bc56-4872-ae3b-40efa6906182}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\GamePlay">
-      <UniqueIdentifier>{7f94efb8-0d87-4f2f-a3eb-4022be03252b}</UniqueIdentifier>
+      <UniqueIdentifier>{1bee597c-8dab-40e5-b904-b435149e5c24}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\GamePlay\Editor">
-      <UniqueIdentifier>{ff4646e7-77a4-4848-8c20-9e2235b446db}</UniqueIdentifier>
+      <UniqueIdentifier>{6aaf45a4-4a16-4e01-97bf-894ee871f19a}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\LeaderBoard">
-      <UniqueIdentifier>{91381a88-9403-4913-9c6b-5ddb7e2536fd}</UniqueIdentifier>
+      <UniqueIdentifier>{eb766c1b-1678-4a2a-8ad9-4efd6004bd8b}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib">
-      <UniqueIdentifier>{8f9e0415-38d8-4f21-b13e-476df98383e5}</UniqueIdentifier>
+      <UniqueIdentifier>{b76f5caa-5043-46ea-ba26-8661d78693f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\Box2D">
-      <UniqueIdentifier>{9f21a1c4-be19-4f4e-82e3-7c609191d1d1}</UniqueIdentifier>
+      <UniqueIdentifier>{75a2f08b-c22c-426e-ac70-345297f8b8d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\CommonLib">
-      <UniqueIdentifier>{75f04339-9bb7-4421-a332-58dd004b56ea}</UniqueIdentifier>
+      <UniqueIdentifier>{97ff0755-219c-46b3-9112-1bb784e0481c}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\Effects">
-      <UniqueIdentifier>{fac4fce3-909b-4ed3-8ac5-cdf76c82e867}</UniqueIdentifier>
+      <UniqueIdentifier>{90423f34-5bc8-4d24-a9d9-55c77246a526}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\IO">
-      <UniqueIdentifier>{5120c875-3064-4ded-a503-cbcfe34d849c}</UniqueIdentifier>
+      <UniqueIdentifier>{c53a953a-548c-4f19-adea-6d15df5bae00}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\IO\JPGE">
-      <UniqueIdentifier>{e49a8861-1218-4f1b-bb5b-4e87993955be}</UniqueIdentifier>
+      <UniqueIdentifier>{37dd32c2-d5ed-4ebb-ab1e-301e1b3c6455}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\IO\JPGE\libjpeg">
-      <UniqueIdentifier>{ed80b5bf-aa84-41c9-b9fd-422e86d8179b}</UniqueIdentifier>
+      <UniqueIdentifier>{d70f1942-b0a1-479e-ba80-10637a8c980d}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\IO\PNG">
-      <UniqueIdentifier>{8353472a-aa2e-45fb-a27a-7d678bb1ede3}</UniqueIdentifier>
+      <UniqueIdentifier>{f986321c-cef8-44d3-bee3-f83dbf1f6b27}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\IO\PNG\libpng">
-      <UniqueIdentifier>{23d24d8d-ba82-401a-85ea-d359f682ca75}</UniqueIdentifier>
+      <UniqueIdentifier>{55b95026-2aae-46d5-b011-6d954f937ad6}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\IO\PNG\zlib">
-      <UniqueIdentifier>{0dd2b6f9-d378-4240-9a9e-e43e099e04e4}</UniqueIdentifier>
+      <UniqueIdentifier>{96907608-edc0-494c-aa85-a64393dbda73}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\MathLib">
-      <UniqueIdentifier>{b884691f-3c9e-4856-8505-10dd3ff27ae0}</UniqueIdentifier>
+      <UniqueIdentifier>{161dd82b-aecf-449e-972f-26c1581e31bc}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\PhysicsLib">
-      <UniqueIdentifier>{d98f0111-8b2c-4984-b883-ddf6862ee1c6}</UniqueIdentifier>
+      <UniqueIdentifier>{74a96aee-65dd-4ae5-8e8f-1e1b344890bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\Primitives">
-      <UniqueIdentifier>{7c22574f-06f4-44c6-b345-f93dbbe60baf}</UniqueIdentifier>
+      <UniqueIdentifier>{1b9081cf-257d-4d69-bb41-6de09addbfd8}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\MyLib\UI">
-      <UniqueIdentifier>{ec12d238-2a4d-4fcb-8121-3fb01d9d149a}</UniqueIdentifier>
+      <UniqueIdentifier>{b27a5c02-0458-451f-99b6-9ae0e9184560}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\Pages">
-      <UniqueIdentifier>{67990d8d-b130-40fe-86c5-7c858cf80f9c}</UniqueIdentifier>
+      <UniqueIdentifier>{c5e1f81f-c3ed-4310-b2ab-db03af7c5e6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\SaveManager">
-      <UniqueIdentifier>{444b348c-f980-49f5-ac00-84a61e6c4f7a}</UniqueIdentifier>
+      <UniqueIdentifier>{6d6a0184-05a4-40d1-960a-c0d2e68dbbd7}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Game\SoundManager">
-      <UniqueIdentifier>{443bbd89-aaa6-4b13-8bdb-517dba7c42fc}</UniqueIdentifier>
+      <UniqueIdentifier>{fd505b1d-baf4-42b2-a289-0771ce801551}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Platform">
-      <UniqueIdentifier>{1cc47d8e-1099-44d0-bcd6-c88031a06735}</UniqueIdentifier>
+      <UniqueIdentifier>{52920507-9dd3-4188-8f43-649fcbc717f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Platform\Platform_Android">
-      <UniqueIdentifier>{134d4dbd-661c-4639-831c-42ae06067d1a}</UniqueIdentifier>
+      <UniqueIdentifier>{f212ccf3-faba-452b-9019-1c8c700bce93}</UniqueIdentifier>
     </Filter>
     <Filter Include="source\Platform\Platform_Win32">
-      <UniqueIdentifier>{839f0859-817f-457b-b011-f43cd848d34d}</UniqueIdentifier>
+      <UniqueIdentifier>{f529e0bb-cbf5-4b8d-b1ff-088a4ffbbc70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
