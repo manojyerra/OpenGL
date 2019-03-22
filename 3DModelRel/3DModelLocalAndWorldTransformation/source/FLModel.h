@@ -148,6 +148,8 @@ private:
 	void DrawBoundingBox();
 	void DrawBounding2DRect();
 
+	GLMat RotThroughArbitary(float X, float Y, float Z, float angle);
+
 public:
 	FLModel(string folderPath);
 	FLModel(string folderPath, float xPos, float yPos, float zPos);

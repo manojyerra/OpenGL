@@ -222,14 +222,49 @@ void FLModel::AddTransInLocal(char axis, float move)
 
 void FLModel::AddRotateInLocal(char axis, float angle)
 {
-	GLMat rotMat;
-	
-	if(axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1,0,0);
-	if(axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0,1,0);
-	if(axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0,0,1);
+	//GLMat rotMat;
+	//
+	//if(axis == 'x' || axis == 'X')	rotMat.glRotatef(angle, 1,0,0);
+	//if(axis == 'y' || axis == 'Y')	rotMat.glRotatef(angle, 0,1,0);
+	//if(axis == 'z' || axis == 'Z')	rotMat.glRotatef(angle, 0,0,1);
 
-	_mat.glMultMatrixf(rotMat.Get());
+	//_mat.glMultMatrixf(rotMat.Get());
+
+	float x = 0.0f;
+	float y = 0.0f;
+	float z = 0.0f;
+
+	if (axis == 'x' || axis == 'X') { x = _mat.m[0];  y = _mat.m[1]; z = _mat.m[2];  }
+	if (axis == 'y' || axis == 'Y') { x = _mat.m[4];  y = _mat.m[5]; z = _mat.m[6];  }
+	if (axis == 'z' || axis == 'Z') { x = _mat.m[8];  y = _mat.m[9]; z = _mat.m[10]; }
+
+	CVector3 vec(x, y, z);
+	vec.Normalize();
+
+	GLMat rotMat = RotThroughArbitary(vec.x, vec.y, vec.z, angle);
+
+	rotMat.glMultMatrixf(_mat.Get());
+	_mat = rotMat;
 }
+
+GLMat FLModel::RotThroughArbitary(float X, float Y, float Z, float angle)
+{
+	float theta = (angle* 3.141592f) / 180.0f;
+	float c = cosf(theta);
+	float s = sinf(theta);
+	float t = 1 - c;
+
+	float mat[16];
+
+	mat[0] = t * X*X + c;		mat[1] = t * X*Y - Z * s;	mat[2] = t * X*Z + Y * s;   mat[3] = 0.0f;
+	mat[4] = t * X*Y + Z * s;	mat[5] = t * Y*Y + c;		mat[6] = t * Y*Z - X * s;   mat[7] = 0.0f;
+	mat[8] = t * X*Z - Y * s;	mat[9] = t * Z*Y + X * s;	mat[10]= t * Z*Z + c;		mat[11] = 0.0f;
+	mat[12] = 0.0f;				mat[13]= 0.0f;				mat[14]= 0.0f;				mat[15] = 1.0f;
+
+	GLMat glMat(mat);
+	return glMat;
+}
+
 
 void FLModel::Draw()
 {

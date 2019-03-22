@@ -7,6 +7,11 @@ GLMat::GLMat()
 	SetIdentityMatrix(m);
 }
 
+GLMat::GLMat(float* mat)
+{
+	memcpy(m, mat, 16 * sizeof(float));
+}
+
 GLMat::~GLMat()
 {
 }

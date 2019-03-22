@@ -18,6 +18,8 @@ public:
 	float m[16];
 
 	GLMat();
+	GLMat(float* mat);
+
 	~GLMat();
 	void glLoadIdentity();
 	void glTranslatef(float x, float y, float z, bool reverseOrder = false);
