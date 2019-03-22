@@ -1,0 +1,14 @@
+*.sdf
+3DPrimitivesDrawing/3DPrimitivesDrawing.v11.suo
+*.exe
+*.ilk
+*.lastbuildstate
+*.log
+*.tlog
+*.obj
+*.idb
+*.pdb
+*.opensdf
+*.user
+.vs
+Debug

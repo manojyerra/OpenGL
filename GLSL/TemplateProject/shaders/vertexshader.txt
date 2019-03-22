@@ -1,0 +1,11 @@
+uniform float shaderVarLoc;
+
+void main(void)
+{
+   vec4 a = gl_Vertex;
+
+	a.x = a.x * shaderVarLoc;
+	a.y = a.y * shaderVarLoc;
+
+   gl_Position = gl_ModelViewProjectionMatrix * a;
+}

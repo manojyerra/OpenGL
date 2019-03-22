@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="glew">
+      <UniqueIdentifier>{5e620d7b-5ec7-4255-a61d-e8880d00f06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glew\include">
+      <UniqueIdentifier>{63ae9cdd-d641-4ed4-a3c5-cc96d0693f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glew\source">
+      <UniqueIdentifier>{740d3680-c682-43d5-b323-7324f99255db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freeglut">
+      <UniqueIdentifier>{eacfdb50-0908-4d28-9ae5-bf660421e90b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freeglut\include">
+      <UniqueIdentifier>{3012ee40-08fb-4879-a32c-91493d394b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freeglut\source">
+      <UniqueIdentifier>{27f4794b-402c-4f09-8690-2537b3d22283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{af0cc0d1-901c-49b8-82b7-327c880b66c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{bc7708d0-f150-4bf3-8db7-3a86a790806f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\GLUtil">
+      <UniqueIdentifier>{bb2bd6c1-fe73-4d5a-9694-ccd9649abdc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Math">
+      <UniqueIdentifier>{09a91444-62be-4bcb-9c3f-fddfbd5e23e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Util">
+      <UniqueIdentifier>{405632e7-e83b-461b-923a-7f360b5677ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ColorArray">
+      <UniqueIdentifier>{77a44c34-7383-4d1f-9608-f04ea2a8b3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\NormalsAndMaterial">
+      <UniqueIdentifier>{65feae3e-487f-40c2-a36d-1554ea80f42a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Shapes2D">
+      <UniqueIdentifier>{495c535c-345d-4b76-bb32-2df1da963a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Shapes3D">
+      <UniqueIdentifier>{8361e4ad-b6e7-42be-9d19-31d29e2ca4e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\UVArray">
+      <UniqueIdentifier>{faded70d-5aa1-40f3-bff7-8f5118df4afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ImageFilters">
+      <UniqueIdentifier>{02b611c0-0e25-4e70-b295-891f073cc7f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\ShaderProgram">
+      <UniqueIdentifier>{02b786d8-8df9-4d6c-af99-c3e2c4181792}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glew\include\Gl\glew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\Gl\glxew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\Gl\wglew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\freeglut.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\freeglut_ext.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\freeglut_std.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\glut.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\source\freeglut_internal.h">
+      <Filter>freeglut\source</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\source\freeglut_teapot_data.h">
+      <Filter>freeglut\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLBatch.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Line2D.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\TransformVertexBuf.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Triangle2D.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Vector3.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Cam.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Floor.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLUtil.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLMat.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLBuffer.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\RandomColor.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\StringUtils.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Box.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Cone.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Cylinder.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Shape.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Sphere.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GL2DState.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes2D\Triangle.h">
+      <Filter>source\Shapes2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameLoop.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Macros.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShaderProgram\ShaderProgram.h">
+      <Filter>source\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShaderProgram\ShadersManager.h">
+      <Filter>source\ShaderProgram</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glew\source\glew.c">
+      <Filter>glew\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_callbacks.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_cursor.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_display.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_ext.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_font.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_font_data.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_gamemode.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_geometry.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_glutfont_definitions.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_init.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_joystick.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_main.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_menu.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_misc.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_overlay.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_state.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_stroke_mono_roman.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_stroke_roman.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_structure.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_teapot.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_videoresize.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_window.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLBatch.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Line2D.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\TransformVertexBuf.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Triangle2D.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vector3.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Cam.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Floor.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLUtil.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLMat.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLBuffer.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\RandomColor.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\StringUtils.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Box.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Cone.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Cylinder.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Shape.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Sphere.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GL2DState.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes2D\Triangle.cpp">
+      <Filter>source\Shapes2D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameLoop.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Macros.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram\ShaderProgram.cpp">
+      <Filter>source\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram\ShadersManager.cpp">
+      <Filter>source\ShaderProgram</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="freeglut\source\freeglutdll.def">
+      <Filter>freeglut\source</Filter>
+    </None>
+    <None Include="shaders\ColorArray\ColorArray.fs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\ColorArray\ColorArray.vs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\UVArray\UVArray.fs">
+      <Filter>shaders\UVArray</Filter>
+    </None>
+    <None Include="shaders\UVArray\UVArray.vs">
+      <Filter>shaders\UVArray</Filter>
+    </None>
+    <None Include="shaders\ImageFilters\ImageFilters.fs">
+      <Filter>shaders\ImageFilters</Filter>
+    </None>
+    <None Include="shaders\ImageFilters\ImageFilters.vs">
+      <Filter>shaders\ImageFilters</Filter>
+    </None>
+  </ItemGroup>
+</Project>

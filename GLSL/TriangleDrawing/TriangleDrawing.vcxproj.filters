@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="glew">
+      <UniqueIdentifier>{5e620d7b-5ec7-4255-a61d-e8880d00f06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glew\include">
+      <UniqueIdentifier>{63ae9cdd-d641-4ed4-a3c5-cc96d0693f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glew\source">
+      <UniqueIdentifier>{740d3680-c682-43d5-b323-7324f99255db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freeglut">
+      <UniqueIdentifier>{eacfdb50-0908-4d28-9ae5-bf660421e90b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freeglut\include">
+      <UniqueIdentifier>{3012ee40-08fb-4879-a32c-91493d394b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="freeglut\source">
+      <UniqueIdentifier>{27f4794b-402c-4f09-8690-2537b3d22283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{af0cc0d1-901c-49b8-82b7-327c880b66c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{bc7708d0-f150-4bf3-8db7-3a86a790806f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG">
+      <UniqueIdentifier>{ad5b42eb-2463-401f-9133-63ba4e0ba9fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG\libpng">
+      <UniqueIdentifier>{16b3c51e-95df-4768-ab63-b9422d283ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\PNG\zlib">
+      <UniqueIdentifier>{ec3e4be5-be45-451e-86ad-3809a0ebd808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\GLUtil">
+      <UniqueIdentifier>{0aee9540-051d-4bd6-817e-c231b52a39c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Math">
+      <UniqueIdentifier>{4fe285de-c253-4d2e-b5aa-974939df6e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Shapes3D">
+      <UniqueIdentifier>{ed838e0e-567b-4819-af83-f061614d1486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\Util">
+      <UniqueIdentifier>{0d44d26a-f024-46d2-957c-7cec6c742f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\ColorArray">
+      <UniqueIdentifier>{e27a80ed-1117-4500-8bd0-6b5bd753ea47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\UVArray">
+      <UniqueIdentifier>{3758f043-b3f9-4847-a773-c18ebd7bd9e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\NormalsAndMaterial">
+      <UniqueIdentifier>{d1f85b12-0dda-4dc8-b0f9-ed84b7f1ed08}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glew\include\Gl\glew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\Gl\glxew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\Gl\wglew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\freeglut.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\freeglut_ext.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\freeglut_std.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\include\Gl\glut.h">
+      <Filter>freeglut\include</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\source\freeglut_internal.h">
+      <Filter>freeglut\source</Filter>
+    </ClInclude>
+    <ClInclude Include="freeglut\source\freeglut_teapot_data.h">
+      <Filter>freeglut\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ShaderProgram.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\png.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\pngconf.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\libpng\pngpriv.h">
+      <Filter>source\PNG\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\crc32.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\deflate.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\gzguts.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inffast.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inffixed.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inflate.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\inftrees.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\trees.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zconf.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zlib.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\zlib\zutil.h">
+      <Filter>source\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PNG\PNGReadWrite.h">
+      <Filter>source\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ImageBuffer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Projection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Input.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Floor.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GL2DState.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLBatch.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLBuffer.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLMat.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GLUtil\GLUtil.h">
+      <Filter>source\GLUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\GLMat.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DefinesAndIncludes.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Box.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Shape.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\TransformVertexBuf.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\RandomColor.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Util\StringUtils.h">
+      <Filter>source\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Cam.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Vector3.h">
+      <Filter>source\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Shapes3D\Sphere.h">
+      <Filter>source\Shapes3D</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="glew\source\glew.c">
+      <Filter>glew\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_callbacks.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_cursor.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_display.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_ext.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_font.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_font_data.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_gamemode.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_geometry.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_glutfont_definitions.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_init.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_joystick.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_main.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_menu.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_misc.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_overlay.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_state.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_stroke_mono_roman.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_stroke_roman.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_structure.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_teapot.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_videoresize.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="freeglut\source\freeglut_window.c">
+      <Filter>freeglut\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\png.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngerror.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngget.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngmem.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngpread.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngread.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrio.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrtran.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngrutil.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngset.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngtest.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngtrans.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwio.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwrite.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwtran.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\libpng\pngwutil.c">
+      <Filter>source\PNG\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\adler32.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\compress.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\crc32.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\deflate.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzclose.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzlib.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzread.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\gzwrite.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\infback.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inffast.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inflate.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\inftrees.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\minigzip.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\trees.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\uncompr.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\zlib\zutil.c">
+      <Filter>source\PNG\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG\PNGReadWrite.cpp">
+      <Filter>source\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ImageBuffer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Projection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Input.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Floor.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GL2DState.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLBatch.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLBuffer.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLMat.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GLUtil\GLUtil.cpp">
+      <Filter>source\GLUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\GLMat.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DefinesAndIncludes.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Box.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Shape.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\TransformVertexBuf.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\RandomColor.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Util\StringUtils.cpp">
+      <Filter>source\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Cam.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vector3.cpp">
+      <Filter>source\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Shapes3D\Sphere.cpp">
+      <Filter>source\Shapes3D</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="freeglut\source\freeglutdll.def">
+      <Filter>freeglut\source</Filter>
+    </None>
+    <None Include="shaders\ColorArray\ColorArray.fs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\ColorArray\ColorArray.vs">
+      <Filter>shaders\ColorArray</Filter>
+    </None>
+    <None Include="shaders\UVArray\UVArray.fs">
+      <Filter>shaders\UVArray</Filter>
+    </None>
+    <None Include="shaders\UVArray\UVArray.vs">
+      <Filter>shaders\UVArray</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.fs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+    <None Include="shaders\NormalsAndMaterial\NormalsAndMaterial.vs">
+      <Filter>shaders\NormalsAndMaterial</Filter>
+    </None>
+  </ItemGroup>
+</Project>
