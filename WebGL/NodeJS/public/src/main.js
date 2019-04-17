@@ -1,6 +1,9 @@
 
 var shaderProgram = null;
 var gl = null;
+var floor = null;
+var sw = 0;
+var sh = 0;
 
 function createGLBuffer(gl, arr)
 {
@@ -12,8 +15,8 @@ function createGLBuffer(gl, arr)
 
 async function InitDemo() 
 {
-	console.log('From InitDemo method...');
-		
+	console.log('From InitDemo method...');	
+	
 	var canvas = document.getElementById('game-surface');
 	gl = canvas.getContext('webgl');
 
@@ -28,8 +31,104 @@ async function InitDemo()
 		alert('Your browser does not support WebGL');
 	}
 	
-	var sw = canvas.width;
-	var sh = canvas.height;
+	floor = new Floor();
+	await floor.init(gl);
+	
+	sw = canvas.width;
+	sh = canvas.height;
+	
+	cam.init(sw, sh, 1.0, 10000.0, 0.2);
+	
+	//shaderProgram = new ShaderProgram();
+	//await shaderProgram.init(gl, './shaders/simple.vs', './shaders/simple.fs');
+	
+	drawScene();
+}
+
+function drawScene()
+{
+	gl.clearColor(0.2, 0.2, 0.2, 1.0);
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	gl.viewport(0, 0, sw, sh);
+	
+	cam.setModelViewMatrix();
+		
+	//drawTriangle();
+	
+	floor.Draw(gl);
+		
+	requestAnimationFrame(drawScene);
+}
+
+function drawTriangle()
+{
+	var triangleVertices = 
+	[
+		0.0, 0.5, 0.0,    
+		-0.5, -0.5, 0.0,  
+		0.5, -0.5, 0.0
+	];
+
+	var vertexBufID = createGLBuffer(gl, triangleVertices);
+	
+	shaderProgram.begin();
+		
+	var projMatLoc = gl.getUniformLocation(shaderProgram.programID, "projMat");
+	var modelMatLoc = gl.getUniformLocation(shaderProgram.programID, "modelMat");
+	
+	gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
+	gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
+	
+	var vertexLoc = gl.getAttribLocation(shaderProgram.programID, "vertex");
+	gl.enableVertexAttribArray(vertexLoc);
+	gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufID);
+	gl.vertexAttribPointer(vertexLoc,3,gl.FLOAT,gl.FALSE,0,0);
+
+	gl.drawArrays(gl.TRIANGLES, 0, 3);	
+	
+	shaderProgram.end();	
+}
+
+
+
+// canvas.addEventListener("mouseup", function (e) {
+  // drawing = false;
+// }, false);
+
+// canvas.addEventListener("mousemove", function (e) {
+  // mousePos = getMousePos(canvas, e);
+// }, false);
+
+
+// function getMousePos(canvasDom, mouseEvent) {
+  // var rect = canvasDom.getBoundingClientRect();
+  // return {
+    // x: mouseEvent.clientX - rect.left,
+    // y: mouseEvent.clientY - rect.top
+  // };
+// }
+
+
+
+/*
+	var tempText = await loadTextFile('./temp.obj');
+
+	var lines = tempText.split('\n');
+	
+    for(var i = 0; i < lines.length; i++)
+	{
+		var line = lines[i];
+		
+		if(line.startsWith("v "))
+		{
+			console.log('vertex : ', line);
+		}
+		else
+		{
+			console.log(line);
+		}
+    }
+	
 	
 	
 	var _zNear = 1.0;
@@ -57,80 +156,39 @@ async function InitDemo()
 	console.log('frustum : ',glMat.m);
 
 	
-	cam.init(sw, sh, 1.0, 10000.0, 0.2);
 	
-	shaderProgram = new ShaderProgram();
-	await shaderProgram.init(gl, './shaders/simple.vs', './shaders/simple.fs');
 
-	//requestAnimationFrame(drawScene);
+	var arr = new Uint8Array(3);
+	arr[0] = 1;
+	arr[1] = 2;
+	arr[2] = 3;
 	
-	drawScene(sw, sh);
-}
-
-function drawScene(sw, sh)
-{
-	gl.clearColor(0.2, 0.2, 0.2, 1.0);
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	gl.viewport(0, 0, sw, sh);
+	var newArr = new Uint8Array(5);
+	newArr[0] = 11;
+	newArr[1] = 12;
+	newArr[2] = 13;
+	newArr[3] = 14;
 	
-	cam.setModelViewMatrix();
+	newArr.set(arr);
 	
-	console.log('cam.modelMat.m : ',cam.modelMat.m);
-	
-	var triangleVertices = 
-	[
-		0.0, 0.5, 0.0,    
-		-0.5, -0.5, 0.0,  
-		0.5, -0.5, 0.0
-	];
-
-	var vertexBufID = createGLBuffer(gl, triangleVertices);
-	
-	shaderProgram.begin();
+	//var dstU8 = new Uint8Array(10);
+	//var srcU8 = new Uint8Array(3);
+	//dstU8.set(srcU8);
 		
-	var projMatLoc = gl.getUniformLocation(shaderProgram.programID, 'projMat');
-	var modelMatLoc = gl.getUniformLocation(shaderProgram.programID, 'modelMat');
+	console.log('arr : ',arr);
+	console.log('newArr : ',newArr);
 	
-	gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
-	gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
+	arr = null;
+
+	console.log('after...');
+	console.log('arr : ',arr);
+	console.log('newArr : ',newArr);
+
 	
-	var vertexLoc = gl.getAttribLocation(shaderProgram.programID, 'vertex');
-	gl.enableVertexAttribArray(vertexLoc);
-	gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufID);
-	gl.vertexAttribPointer(vertexLoc,3,gl.FLOAT,gl.FALSE,0,0);
-
-	gl.drawArrays(gl.TRIANGLES, 0, 3);	
+	//requestAnimationFrame(function() {
+    //   drawScene(sw, sh);
+    //});
 	
-	shaderProgram.end();
-	
-	console.log('from drawScene');
-	
-	//requestAnimationFrame(drawScene);
-}
- 
-
-
-
-/*
-
-	var tempText = await loadTextFile('./temp.obj');
-
-	var lines = tempText.split('\n');
-	
-    for(var i = 0; i < lines.length; i++)
-	{
-		var line = lines[i];
-		
-		if(line.startsWith("v "))
-		{
-			console.log('vertex : ', line);
-		}
-		else
-		{
-			console.log(line);
-		}
-    }
-
 */
 
 

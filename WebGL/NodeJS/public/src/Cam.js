@@ -44,6 +44,7 @@ class Cam {
 	
 	setModelViewMatrix()
 	{
+		this.modelMat.glLoadIdentity();
 		this.modelMat.glTranslatef(this._trans.x, this._trans.y, this._trans.z);
 		this.modelMat.glRotatef(this._angle.x,1,0,0);
 		this.modelMat.glRotatef(this._angle.y,0,1,0);
