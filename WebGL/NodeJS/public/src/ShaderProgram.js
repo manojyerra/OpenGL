@@ -1,40 +1,39 @@
 
 class ShaderProgram
 {
-	constructor(gl, vertexShaderPath, fragmentShaderPath)
+	constructor()
 	{
-		var vsText = loadTextFile(vertexShaderPath);
-		var fsText = loadTextFile(fragmentShaderPath);
-		
-	}
-		
-	function loadTextFile(url) {
-		
-		var request = new XMLHttpRequest();
-		request.open('GET', url + '?please-dont-cache=' + Math.random(), true);
-		
-		request.onload = function (text){
-		};
-		
-		request.send();
-
-		while(request.status == 0) {
-			//await sleep(2);
-			new Promise(resolve => setTimeout(resolve, 5))
-		}
-		var text = null;
-		
-		if (request.status < 200 || request.status > 299) {
-			text = 'Error: HTTP Status ' + request.status + ' on resource ' + url;
-		}
-		else {
-			text = request.responseText;
-		}
-
-		return text;
 	}
 	
-	function CompileShader(gl, shaderFileData, shaderType)
+	async init(gl, vertexShaderPath, fragmentShaderPath)
+	{
+		this.gl = gl;
+		
+		var vsText = await loadTextFile(vertexShaderPath);
+		var fsText = await loadTextFile(fragmentShaderPath);	
+		
+		var vertexShaderObj = this.compileShader(gl, vsText, gl.VERTEX_SHADER);
+		var fragmentShaderObj = this.compileShader(gl, fsText, gl.FRAGMENT_SHADER);
+		
+		this.programID = gl.createProgram();
+		
+		this.linkShader(gl, this.programID, vertexShaderObj, fragmentShaderObj);
+		
+		gl.deleteShader(vertexShaderObj);
+		gl.deleteShader(fragmentShaderObj);
+	}
+	
+	begin()
+	{
+		this.gl.useProgram(this.programID);
+	}
+	
+	end()
+	{
+		this.gl.useProgram(null);
+	}
+	
+	compileShader(gl, shaderFileData, shaderType)
 	{
 		var shaderObject =  gl.createShader(shaderType);
 		gl.shaderSource(shaderObject, shaderFileData);
@@ -53,7 +52,7 @@ class ShaderProgram
 		return shaderObject;
 	}
 
-	function LinkShader(gl, programID, vertexShaderObj, fragmentShaderObj)
+	linkShader(gl, programID, vertexShaderObj, fragmentShaderObj)
 	{
 		gl.attachShader(programID, vertexShaderObj);
 		gl.attachShader(programID, fragmentShaderObj);
