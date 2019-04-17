@@ -30,6 +30,9 @@ async function InitDemo()
 	{
 		alert('Your browser does not support WebGL');
 	}
+		
+	addMouseEvents(canvas);
+	addKeyEvents(document);
 	
 	floor = new Floor();
 	await floor.init(gl);
@@ -45,6 +48,63 @@ async function InitDemo()
 	drawScene();
 }
 
+function addKeyEvents(document)
+{
+	document.addEventListener('keyup',keyUpListener,false);	
+	document.addEventListener('keydown',keyDownListener,false);	
+	
+	function keyUpListener(e)
+	{
+		console.log('keyUP : ',e.keyCode);
+	}
+
+	function keyDownListener(e)
+	{
+		console.log('keyDown : ',e.keyCode);
+	}	
+}
+
+function addMouseEvents(canvas)
+{	
+	canvas.addEventListener("mousedown", function (e) {
+		var pos = getMousePos(e);  
+		console.log('mousedown : ', pos);
+	}, false);
+
+	canvas.addEventListener("mouseup", function (e) {
+		var pos = getMousePos(e);  
+		console.log('mouseup : ', pos);
+	}, false);
+
+	canvas.addEventListener("mousemove", function (e) {
+		var pos = getMousePos(e);
+		console.log('mousemove : ', pos);
+	}, false);
+	
+	canvas.addEventListener('wheel',function(e){
+		
+		if(e.wheelDelta < 0)
+		{
+			console.log('mousewheel : up', e);
+		}
+		else
+		{
+			console.log('mousewheel : down', e);			
+		}
+
+		return false;
+		
+	}, false);
+	
+	function getMousePos(mouseEvent) {
+		var rect = canvas.getBoundingClientRect();
+		return {
+			x: mouseEvent.clientX - rect.left,
+			y: mouseEvent.clientY - rect.top
+		};
+	}	
+}
+
 function drawScene()
 {
 	gl.clearColor(0.2, 0.2, 0.2, 1.0);
@@ -58,6 +118,7 @@ function drawScene()
 	floor.Draw(gl);
 		
 	requestAnimationFrame(drawScene);
+	//cancelAnimationFrame(requestId);
 }
 
 function drawTriangle()
