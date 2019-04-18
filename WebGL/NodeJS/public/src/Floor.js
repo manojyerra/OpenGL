@@ -15,7 +15,7 @@ class Floor
 		this._shaderProgram = new ShaderProgram();
 		await this._shaderProgram.init(gl, "./shaders/ColorArray/ColorArray.vs", "./shaders/ColorArray/ColorArray.fs");
 
-		var start = -15;
+		var start = -16;
 		var end = 16;
 		var gap = 1;
 

@@ -18,6 +18,8 @@ async function InitDemo()
 	console.log('From InitDemo method...');	
 	
 	var canvas = document.getElementById('game-surface');
+	canvas.oncontextmenu = () => false;
+
 	gl = canvas.getContext('webgl');
 
 	if (!gl) 
@@ -55,12 +57,14 @@ function addKeyEvents(document)
 	
 	function keyUpListener(e)
 	{
-		console.log('keyUP : ',e.keyCode);
+		//console.log('keyUP : ',e.keyCode);
+		input.storeKeys[e.keyCode] = false;
 	}
 
 	function keyDownListener(e)
 	{
-		console.log('keyDown : ',e.keyCode);
+		//console.log('keyDown : ',e.keyCode);
+		input.storeKeys[e.keyCode] = true;
 	}	
 }
 
@@ -68,28 +72,68 @@ function addMouseEvents(canvas)
 {	
 	canvas.addEventListener("mousedown", function (e) {
 		var pos = getMousePos(e);  
-		console.log('mousedown : ', pos);
+
+		input.mouseX.store = pos.x;
+		input.mouseY.store = pos.y;
+		
+		if(e.button == 0)
+		{
+			input.leftMouseDown.store = true;
+		}
+		else if(e.button == 1)
+		{
+			input.middleMouseDown.store = true;
+		}
+		else if(e.button == 2)
+		{
+			input.rightMouseDown.store = true;
+		}
+
+		return false;
+		
 	}, false);
 
 	canvas.addEventListener("mouseup", function (e) {
-		var pos = getMousePos(e);  
-		console.log('mouseup : ', pos);
+		
+		var pos = getMousePos(e); 
+		
+		input.mouseX.store = pos.x;
+		input.mouseY.store = pos.y;
+		
+		if(e.button == 0)
+		{
+			input.leftMouseDown.store = false;
+		}
+		else if(e.button == 1)
+		{
+			input.middleMouseDown.store = false;
+		}
+		else if(e.button == 2)
+		{
+			input.rightMouseDown.store = false;
+		}
+
+		return false;
+		
 	}, false);
 
 	canvas.addEventListener("mousemove", function (e) {
+		
 		var pos = getMousePos(e);
-		console.log('mousemove : ', pos);
+		input.mouseX.store = pos.x;
+		input.mouseY.store = pos.y;		
+		
 	}, false);
-	
+		
 	canvas.addEventListener('wheel',function(e){
 		
 		if(e.wheelDelta < 0)
 		{
-			console.log('mousewheel : up', e);
+			input.scrollVal.store = -1;
 		}
 		else
 		{
-			console.log('mousewheel : down', e);			
+			input.scrollVal.store = 1;
 		}
 
 		return false;
@@ -112,8 +156,41 @@ function drawScene()
 	gl.viewport(0, 0, sw, sh);
 	
 	cam.setModelViewMatrix();
+	input.update();
+	cam.updateCamera();
 		
 	//drawTriangle();
+	
+	if(input.IsMouseClicked())
+	{
+		//console.log('mosue clicked');
+	}
+	if(input.IsMiddleMouseClicked())
+	{
+		//console.log('middle mouse clicked');
+	}
+	if(input.IsRightMouseClicked())
+	{
+		//console.log('right mouse clicked');
+	}
+	if(input.IsRightMouseDragged())
+	{
+		//console.log('IsRightMouseDragged : true');
+	}
+	
+	
+	if(input.IsMouseReleased())
+	{
+		//console.log('mosue Released');
+	}
+	if(input.IsMiddleMouseReleased())
+	{
+		//console.log('middle mouse Released');
+	}
+	if(input.IsRightMouseReleased())
+	{
+		//console.log('right mouse Released');
+	}
 	
 	floor.Draw(gl);
 		
