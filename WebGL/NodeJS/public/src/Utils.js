@@ -7,13 +7,15 @@ async function loadTextFile(url)
 {	
 	var request = new XMLHttpRequest();
 	request.open('GET', url + '?please-dont-cache=' + Math.random(), true);
-	
+	request.responseType = 'blob';
+		
 	request.onload = function() {
+		request.onload = null;
 	};
 	
 	request.send();
 
-	while(request.status == 0) {
+	while(request.onload) {
 		await this.sleep(2);
 	}
 	
@@ -23,7 +25,9 @@ async function loadTextFile(url)
 		text = 'Error: HTTP Status ' + request.status + ' on resource ' + url;
 	}
 	else {
-		text = request.responseText;
+		var blob = new Blob([request.response], {type: 'text/html'});
+		var text = await (new Response(blob)).text();
+		//console.log('text : ',text);
 	}
 
 	return text;
@@ -49,3 +53,16 @@ async function loadTexture(texturePath)
 	return img;
 }
 
+function generateGLTexureID(img)
+{
+	var textureID = gl.createTexture();
+	gl.bindTexture(gl.TEXTURE_2D, textureID);
+	
+	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+	
+	return textureID;
+}
+	

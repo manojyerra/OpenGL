@@ -16,6 +16,8 @@ class Cam {
 		
 		this.projMat = new GLMat();
 		this.modelMat = new GLMat();
+		this.normalMat = Array(9).fill(0.0);
+		this.normalMat[0] = this.normalMat[4] = this.normalMat[8] = 1.0;
 		
 		this.sw = screenW;
 		this.sh = screenW;
@@ -49,6 +51,19 @@ class Cam {
 		this.modelMat.glRotatef(this._angle.x,1,0,0);
 		this.modelMat.glRotatef(this._angle.y,0,1,0);
 		this.modelMat.glTranslatef(-this._pivot.x, -this._pivot.y, -this._pivot.z);
+		
+
+		this.normalMat[0] = this.modelMat.m[0];
+		this.normalMat[1] = this.modelMat.m[1];
+		this.normalMat[2] = this.modelMat.m[2];
+		
+		this.normalMat[3] = this.modelMat.m[4];
+		this.normalMat[4] = this.modelMat.m[5];
+		this.normalMat[5] = this.modelMat.m[6];
+
+		this.normalMat[6] = this.modelMat.m[8];
+		this.normalMat[7] = this.modelMat.m[9];
+		this.normalMat[8] = this.modelMat.m[10];
 	}
 		
 	updateCamera()

@@ -2,9 +2,11 @@
 //var shaderProgram = null;
 var gl = null;
 var floor = null;
+var objModel = null;
 var sw = 0;
 var sh = 0;
 var texture = null;
+
 
 function createGLBuffer(gl, arr)
 {
@@ -33,9 +35,15 @@ async function InitDemo()
 	{
 		alert('Your browser does not support WebGL');
 	}
+
+	gl.enable(gl.BLEND);
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+	gl.enable(gl.DEPTH_TEST);
+		
+	objModel = new ObjLoader();
+	await objModel.init("./data/cottage");
 	
-	await loadTexture('./data/Sample.png');
-	
+		
 	texture = new Texture();
 	await texture.init('./data/Sample.png');
 	texture.setBounds(2,1,10,5);
@@ -72,6 +80,7 @@ function drawScene()
 	//drawTriangle();
 	
 	floor.draw();
+	objModel.draw();
 		
 	requestAnimationFrame(drawScene);
 	//cancelAnimationFrame(requestId);

@@ -142,10 +142,6 @@ class Floor
 	{
 		if(this._visible == false)
 			return;
-		
-		gl.enable(gl.BLEND);
-		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-		gl.enable(gl.DEPTH_TEST);
 
 		this._shaderProgram.begin();
 

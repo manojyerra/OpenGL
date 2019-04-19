@@ -37,14 +37,23 @@ class ShaderProgram
 		gl.shaderSource(shaderObject, shaderFileData);
 		gl.compileShader(shaderObject);
 
+		var shaderTypeName = "";
+
+		if(shaderType == gl.VERTEX_SHADER) {
+			shaderTypeName = "Vertex Shader";
+		}
+		else if(shaderType == gl.FRAGMENT_SHADER) {
+			shaderTypeName = "Fragment Shader";
+		}
+
 		if (!gl.getShaderParameter(shaderObject, gl.COMPILE_STATUS))
 		{
-			console.error('ERROR compiling shader : ', gl.getShaderInfoLog(shaderObject));
+			console.error("ERROR compiling shader ("+shaderTypeName+") : "+gl.getShaderInfoLog(shaderObject));
 			return;
 		}
 		else if(gl.getShaderInfoLog(shaderObject))
 		{
-			console.error('Shader Compilation Log : ', gl.getShaderInfoLog(shaderObject));
+			console.error("Shader ("+shaderTypeName+") Compilation Log : "+gl.getShaderInfoLog(shaderObject));
 		}
 		
 		return shaderObject;

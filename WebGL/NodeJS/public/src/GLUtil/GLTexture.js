@@ -18,7 +18,7 @@ class Texture
 		
 		var img = await loadTexture(texturePath);
 		
-		this._textureID = this.generateGLTexureID(img);
+		this._textureID = generateGLTexureID(img);
 		
 		this._oriMat = new GLMat();
 		this.setBounds(0,0,img.width, img.height);
@@ -33,18 +33,18 @@ class Texture
 		this._oriMat.m[5] = h;		
 	}
 	
-	generateGLTexureID(img)
-	{
-		var textureID = gl.createTexture();
-		gl.bindTexture(gl.TEXTURE_2D, textureID);
+	// generateGLTexureID(img)
+	// {
+		// var textureID = gl.createTexture();
+		// gl.bindTexture(gl.TEXTURE_2D, textureID);
 		
-		gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+		// gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+		// gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+		// gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+		// gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 		
-		return textureID;
-	}
+		// return textureID;
+	// }
 	
 	generateBufferID()
 	{
@@ -80,6 +80,7 @@ class Texture
 	{
 		this._shaderProgram.begin();
 		
+		gl.enable( gl.TEXTURE_2D );
 		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
 
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
@@ -102,7 +103,11 @@ class Texture
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, this._vertexCount);
 
+		gl.bindTexture(gl.TEXTURE_2D, null);		
+		gl.disable( gl.TEXTURE_2D );
+
 		this._shaderProgram.end();
+		
 	}
 
 }

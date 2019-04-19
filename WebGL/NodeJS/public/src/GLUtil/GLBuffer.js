@@ -131,7 +131,7 @@ class GLBuffer
 
 			if(this._normalArr)
 			{
-				this._normalBufferID = gl.cCreateBuffer();
+				this._normalBufferID = gl.createBuffer();
 				gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this._normalArr), gl.GL_STATIC_DRAW);
 			}
