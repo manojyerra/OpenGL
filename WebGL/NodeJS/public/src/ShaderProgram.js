@@ -5,19 +5,17 @@ class ShaderProgram
 	{
 	}
 	
-	async init(gl, vertexShaderPath, fragmentShaderPath)
+	async init(vertexShaderPath, fragmentShaderPath)
 	{
-		this.gl = gl;
-		
 		var vsText = await loadTextFile(vertexShaderPath);
 		var fsText = await loadTextFile(fragmentShaderPath);	
 		
-		var vertexShaderObj = this.compileShader(gl, vsText, gl.VERTEX_SHADER);
-		var fragmentShaderObj = this.compileShader(gl, fsText, gl.FRAGMENT_SHADER);
+		var vertexShaderObj = this.compileShader(vsText, gl.VERTEX_SHADER);
+		var fragmentShaderObj = this.compileShader(fsText, gl.FRAGMENT_SHADER);
 		
 		this.programID = gl.createProgram();
 		
-		this.linkShader(gl, this.programID, vertexShaderObj, fragmentShaderObj);
+		this.linkShader(this.programID, vertexShaderObj, fragmentShaderObj);
 		
 		gl.deleteShader(vertexShaderObj);
 		gl.deleteShader(fragmentShaderObj);
@@ -25,15 +23,15 @@ class ShaderProgram
 	
 	begin()
 	{
-		this.gl.useProgram(this.programID);
+		gl.useProgram(this.programID);
 	}
 	
 	end()
 	{
-		this.gl.useProgram(null);
+		gl.useProgram(null);
 	}
 	
-	compileShader(gl, shaderFileData, shaderType)
+	compileShader(shaderFileData, shaderType)
 	{
 		var shaderObject =  gl.createShader(shaderType);
 		gl.shaderSource(shaderObject, shaderFileData);
@@ -52,7 +50,7 @@ class ShaderProgram
 		return shaderObject;
 	}
 
-	linkShader(gl, programID, vertexShaderObj, fragmentShaderObj)
+	linkShader(programID, vertexShaderObj, fragmentShaderObj)
 	{
 		gl.attachShader(programID, vertexShaderObj);
 		gl.attachShader(programID, fragmentShaderObj);

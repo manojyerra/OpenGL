@@ -5,7 +5,7 @@ class Floor
 	{
 	}
 	
-	async init(gl)
+	async init()
 	{
 		this._visible = true;
 		this._axisVisible = true;
@@ -13,7 +13,7 @@ class Floor
 		this._gridLinesVisible = true;
 
 		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init(gl, "./shaders/ColorArray/ColorArray.vs", "./shaders/ColorArray/ColorArray.fs");
+		await this._shaderProgram.init("./shaders/ColorArray/ColorArray.vs", "./shaders/ColorArray/ColorArray.fs");
 
 		var start = -16;
 		var end = 16;
@@ -98,47 +98,47 @@ class Floor
 	}
 		
 
-	IsVisible()
+	isVisible()
 	{
 		return this._visible;
 	}
 
-	IsAxisVisible()
+	isAxisVisible()
 	{
 		return this._axisVisible;
 	}
 
-	IsGridVisible()
+	isGridVisible()
 	{
 		return this._gridVisible;
 	}
 
-	IsGridLinesVisible()
+	isGridLinesVisible()
 	{
 		return this._gridLinesVisible;
 	}
 
-	SetVisible(visible)
+	setVisible(visible)
 	{
 		this._visible = visible;
 	}
 
-	SetAxisVisible(axisVisible)
+	setAxisVisible(axisVisible)
 	{
 		this._axisVisible = axisVisible;
 	}
 
-	SetGridVisible(gridVisible)
+	setGridVisible(gridVisible)
 	{
 		this._gridVisible = gridVisible;
 	}
 
-	SetGridLinesVisible(gridLinesVisible)
+	setGridLinesVisible(gridLinesVisible)
 	{
 		this._gridLinesVisible = gridLinesVisible;
 	}
 
-	Draw(gl)
+	draw()
 	{
 		if(this._visible == false)
 			return;

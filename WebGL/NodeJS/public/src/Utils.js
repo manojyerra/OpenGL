@@ -8,7 +8,7 @@ async function loadTextFile(url)
 	var request = new XMLHttpRequest();
 	request.open('GET', url + '?please-dont-cache=' + Math.random(), true);
 	
-	request.onload = function (text){
+	request.onload = function() {
 	};
 	
 	request.send();
@@ -27,5 +27,25 @@ async function loadTextFile(url)
 	}
 
 	return text;
+}
+
+async function loadTexture(texturePath)
+{	
+	var img = new Image();
+	img.src = texturePath;
+	
+	img.onload = function()
+	{
+		//console.log('img loaded');
+		img.onload = null;
+	};
+
+	while(img.onload) {	
+		await this.sleep(2);
+	}
+	
+	//console.log('image width', img.width);
+	
+	return img;
 }
 

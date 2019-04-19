@@ -1,9 +1,10 @@
 
-var shaderProgram = null;
+//var shaderProgram = null;
 var gl = null;
 var floor = null;
 var sw = 0;
 var sh = 0;
+var texture = null;
 
 function createGLBuffer(gl, arr)
 {
@@ -32,12 +33,18 @@ async function InitDemo()
 	{
 		alert('Your browser does not support WebGL');
 	}
-		
+	
+	await loadTexture('./data/Sample.png');
+	
+	texture = new Texture();
+	await texture.init('./data/Sample.png');
+	texture.setBounds(2,1,10,5);
+	
 	addMouseEvents(canvas);
 	addKeyEvents(document);
 	
 	floor = new Floor();
-	await floor.init(gl);
+	await floor.init();
 	
 	sw = canvas.width;
 	sh = canvas.height;
@@ -50,105 +57,6 @@ async function InitDemo()
 	drawScene();
 }
 
-function addKeyEvents(document)
-{
-	document.addEventListener('keyup',keyUpListener,false);	
-	document.addEventListener('keydown',keyDownListener,false);	
-	
-	function keyUpListener(e)
-	{
-		//console.log('keyUP : ',e.keyCode);
-		input.storeKeys[e.keyCode] = false;
-	}
-
-	function keyDownListener(e)
-	{
-		//console.log('keyDown : ',e.keyCode);
-		input.storeKeys[e.keyCode] = true;
-	}	
-}
-
-function addMouseEvents(canvas)
-{	
-	canvas.addEventListener("mousedown", function (e) {
-		var pos = getMousePos(e);  
-
-		input.mouseX.store = pos.x;
-		input.mouseY.store = pos.y;
-		
-		if(e.button == 0)
-		{
-			input.leftMouseDown.store = true;
-		}
-		else if(e.button == 1)
-		{
-			input.middleMouseDown.store = true;
-		}
-		else if(e.button == 2)
-		{
-			input.rightMouseDown.store = true;
-		}
-
-		return false;
-		
-	}, false);
-
-	canvas.addEventListener("mouseup", function (e) {
-		
-		var pos = getMousePos(e); 
-		
-		input.mouseX.store = pos.x;
-		input.mouseY.store = pos.y;
-		
-		if(e.button == 0)
-		{
-			input.leftMouseDown.store = false;
-		}
-		else if(e.button == 1)
-		{
-			input.middleMouseDown.store = false;
-		}
-		else if(e.button == 2)
-		{
-			input.rightMouseDown.store = false;
-		}
-
-		return false;
-		
-	}, false);
-
-	canvas.addEventListener("mousemove", function (e) {
-		
-		var pos = getMousePos(e);
-		input.mouseX.store = pos.x;
-		input.mouseY.store = pos.y;		
-		
-	}, false);
-		
-	canvas.addEventListener('wheel',function(e){
-		
-		if(e.wheelDelta < 0)
-		{
-			input.scrollVal.store = -1;
-		}
-		else
-		{
-			input.scrollVal.store = 1;
-		}
-
-		return false;
-		
-	}, false);
-	
-	function getMousePos(mouseEvent) {
-		var rect = canvas.getBoundingClientRect();
-		return {
-			x: mouseEvent.clientX - rect.left,
-			y: mouseEvent.clientY - rect.top
-		};
-	}	
-}
-
 function drawScene()
 {
 	gl.clearColor(0.2, 0.2, 0.2, 1.0);
@@ -158,41 +66,12 @@ function drawScene()
 	cam.setModelViewMatrix();
 	input.update();
 	cam.updateCamera();
-		
+	
+	texture.draw();
+	
 	//drawTriangle();
 	
-	if(input.IsMouseClicked())
-	{
-		//console.log('mosue clicked');
-	}
-	if(input.IsMiddleMouseClicked())
-	{
-		//console.log('middle mouse clicked');
-	}
-	if(input.IsRightMouseClicked())
-	{
-		//console.log('right mouse clicked');
-	}
-	if(input.IsRightMouseDragged())
-	{
-		//console.log('IsRightMouseDragged : true');
-	}
-	
-	
-	if(input.IsMouseReleased())
-	{
-		//console.log('mosue Released');
-	}
-	if(input.IsMiddleMouseReleased())
-	{
-		//console.log('middle mouse Released');
-	}
-	if(input.IsRightMouseReleased())
-	{
-		//console.log('right mouse Released');
-	}
-	
-	floor.Draw(gl);
+	floor.draw();
 		
 	requestAnimationFrame(drawScene);
 	//cancelAnimationFrame(requestId);
@@ -227,6 +106,93 @@ function drawTriangle()
 	shaderProgram.end();	
 }
 
+function addKeyEvents(document)
+{
+	document.addEventListener('keyup',keyUpListener,false);	
+	document.addEventListener('keydown',keyDownListener,false);	
+	
+	function keyUpListener(e) {
+		input.storeKeys[e.keyCode] = false;
+	}
+
+	function keyDownListener(e) {
+		input.storeKeys[e.keyCode] = true;
+	}	
+}
+
+function addMouseEvents(canvas)
+{	
+	canvas.addEventListener("mousedown", function (e) {
+		
+		var pos = getMousePos(e);  
+
+		input.mouseX.store = pos.x;
+		input.mouseY.store = pos.y;
+		
+		if(e.button == 0) {
+			input.leftMouseDown.store = true;
+		}
+		else if(e.button == 1) {
+			input.middleMouseDown.store = true;
+		}
+		else if(e.button == 2) {
+			input.rightMouseDown.store = true;
+		}
+
+		return false;
+		
+	}, false);
+
+	canvas.addEventListener("mouseup", function (e) {
+		
+		var pos = getMousePos(e); 
+		
+		input.mouseX.store = pos.x;
+		input.mouseY.store = pos.y;
+		
+		if(e.button == 0) {
+			input.leftMouseDown.store = false;
+		}
+		else if(e.button == 1) {
+			input.middleMouseDown.store = false;
+		}
+		else if(e.button == 2) {
+			input.rightMouseDown.store = false;
+		}
+
+		return false;
+		
+	}, false);
+
+	canvas.addEventListener("mousemove", function (e) {
+		
+		var pos = getMousePos(e);
+		input.mouseX.store = pos.x;
+		input.mouseY.store = pos.y;		
+		
+	}, false);
+		
+	canvas.addEventListener('wheel',function(e){
+		
+		if(e.wheelDelta < 0) {
+			input.scrollVal.store = -1;
+		}
+		else {
+			input.scrollVal.store = 1;
+		}
+
+		return false;
+		
+	}, false);
+	
+	function getMousePos(mouseEvent) {
+		var rect = canvas.getBoundingClientRect();
+		return {
+			x: mouseEvent.clientX - rect.left,
+			y: mouseEvent.clientY - rect.top
+		};
+	}	
+}
 
 
 // canvas.addEventListener("mouseup", function (e) {
@@ -326,6 +292,38 @@ function drawTriangle()
 	//requestAnimationFrame(function() {
     //   drawScene(sw, sh);
     //});
+
+
+	if(input.IsMouseClicked())
+	{
+		//console.log('mosue clicked');
+	}
+	if(input.IsMiddleMouseClicked())
+	{
+		//console.log('middle mouse clicked');
+	}
+	if(input.IsRightMouseClicked())
+	{
+		//console.log('right mouse clicked');
+	}
+	if(input.IsRightMouseDragged())
+	{
+		//console.log('IsRightMouseDragged : true');
+	}
+	
+	if(input.IsMouseReleased())
+	{
+		//console.log('mosue Released');
+	}
+	if(input.IsMiddleMouseReleased())
+	{
+		//console.log('middle mouse Released');
+	}
+	if(input.IsRightMouseReleased())
+	{
+		//console.log('right mouse Released');
+	}
+
 	
 */
 
