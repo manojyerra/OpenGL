@@ -78,11 +78,11 @@ class Texture
 	
 	draw()
 	{
+		//gl.enable( gl.BLEND );
+		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
+		
 		this._shaderProgram.begin();
 		
-		gl.enable( gl.TEXTURE_2D );
-		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
-
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");		
 		gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
@@ -103,11 +103,10 @@ class Texture
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, this._vertexCount);
 
-		gl.bindTexture(gl.TEXTURE_2D, null);		
-		gl.disable( gl.TEXTURE_2D );
-
 		this._shaderProgram.end();
-		
+
+		gl.bindTexture(gl.TEXTURE_2D, null);		
+		//gl.disable( gl.TEXTURE_2D );		
 	}
 
 }

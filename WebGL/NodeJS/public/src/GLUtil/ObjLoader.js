@@ -195,10 +195,10 @@ class ObjLoader
 	
 	draw()
 	{
-		this._shaderProgram.begin();
-
-		gl.enable( gl.TEXTURE_2D );
+		//gl.enable( gl.TEXTURE_2D );
 		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
+		
+		this._shaderProgram.begin();
 
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
@@ -230,11 +230,11 @@ class ObjLoader
 		gl.vertexAttribPointer( uvID, 2, gl.FLOAT, gl.FALSE, 0, 0);
 		
 		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
-
-		gl.bindTexture(gl.TEXTURE_2D, null);		
-		gl.disable( gl.TEXTURE_2D );
 		
-		this._shaderProgram.end();		
+		this._shaderProgram.end();
+		
+		gl.bindTexture(gl.TEXTURE_2D, null);		
+		//gl.disable( gl.TEXTURE_2D );
 	}
 }
 

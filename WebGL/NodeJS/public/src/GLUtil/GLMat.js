@@ -60,7 +60,7 @@ class GLMat
 		0.0, 0.0, 0.0, 1.0
 		];
 		
-		var result = this.multMat(scaleMat, m);
+		var result = this.multMat(scaleMat, this.m);
 
 		for(var i=0; i<16; i++) {
 			this.m[i] = result[i];
@@ -69,7 +69,7 @@ class GLMat
 
 	glMultMatrixf(mat)
 	{
-		var result = this.multMat(m, mat);
+		var result = this.multMat(this.m, mat);
 
 		for(var i=0; i<16; i++) {
 			this.m[i] = result[i];

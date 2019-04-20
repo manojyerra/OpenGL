@@ -36,6 +36,9 @@ async function InitDemo()
 		alert('Your browser does not support WebGL');
 	}
 
+	var shape = new Shape();
+	shape.AddRotateInWorld('X', 30);
+
 	gl.enable(gl.BLEND);
 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 	gl.enable(gl.DEPTH_TEST);
@@ -110,7 +113,7 @@ function drawTriangle()
 	gl.bindBuffer(gl.ARRAY_BUFFER, vertexBufID);
 	gl.vertexAttribPointer(vertexLoc,3,gl.FLOAT,gl.FALSE,0,0);
 
-	gl.drawArrays(gl.TRIANGLES, 0, 3);	
+	gl.drawArrays(gl.TRIANGLES, 0, 3);
 	
 	shaderProgram.end();	
 }
