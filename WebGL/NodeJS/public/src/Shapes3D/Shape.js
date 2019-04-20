@@ -3,13 +3,6 @@ class Shape
 {
 	constructor(id)
 	{
-		this.NONE = 0;
-		this.BOX = 1;
-		this.CONE = 2;
-		this.CYLINDER = 3;
-		this.SPHERE = 4;
-		this.MESH = 5;
-
 		this._id = id;
 		this.m = Array(16).fill(0);
 		this.m[0] = this.m[5] = this.m[10] = this.m[15] = 1.0;
@@ -19,6 +12,17 @@ class Shape
 		this._useRandomColors = true;
 	}
 
+	static get XYZ() {
+        return 1;
+    }
+	
+	static get NONE(){ return 0;}
+	static get BOX(){ return  1;}
+	static get CONE(){ return  2;}
+	static get CYLINDER(){ return 3;}
+	static get SPHERE(){ return 4;}
+	static get MESH(){ return 5;}
+	
 	GetID()
 	{
 		return this._id;

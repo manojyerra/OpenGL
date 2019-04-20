@@ -36,8 +36,11 @@ async function InitDemo()
 		alert('Your browser does not support WebGL');
 	}
 
-	var shape = new Shape();
-	shape.AddRotateInWorld('X', 30);
+	//var shape = new Shape();
+	//shape.AddRotateInWorld('X', 30);
+	
+	var box = new Box();
+	box.initWithPosAndSize(1,1,1, 2,2,2);
 
 	gl.enable(gl.BLEND);
 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
