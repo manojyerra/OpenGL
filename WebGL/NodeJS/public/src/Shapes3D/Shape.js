@@ -6,6 +6,8 @@ class Shape
 		this._id = id;
 		this.m = Array(16).fill(0);
 		this.m[0] = this.m[5] = this.m[10] = this.m[15] = 1.0;
+		this._scaleMat = Array(16).fill(0);
+		this._scaleMat[0] = this._scaleMat[5] = this._scaleMat[10] = this._scaleMat[15] = 1.0;
 		this._color = Array(4).fill(255);
 		this._randomColorAlpha = 255;
 		this._visible = true;
@@ -19,27 +21,27 @@ class Shape
 	static get SPHERE(){ return 4;}
 	static get MESH(){ return 5;}
 	
-	GetID()
+	getID()
 	{
 		return this._id;
 	}
 
-	SetRandomColorAlpha(alpha)
+	setRandomColorAlpha(alpha)
 	{
 		this._randomColorAlpha = alpha;
 	}
 
-	SetUseRandomColors(useRandomColors)
+	setUseRandomColors(useRandomColors)
 	{
 		this._useRandomColors = useRandomColors;
 	}
 
-	IsUsingRandomColors()
+	isUsingRandomColors()
 	{
 		return this._useRandomColors;
 	}
 
-	SetGLMatrix(mat)
+	setGLMatrix(mat)
 	{
 		for(var i=0; i<16; i++)
 		{
@@ -47,39 +49,38 @@ class Shape
 		}
 	}
 
-	GetGLMatrix()
+	getGLMatrix()
 	{
 		return this.m;
 	}
 
-	SetPos(x, y, z)
+	setPos(x, y, z)
 	{
 		this.m[12] = x;
 		this.m[13] = y;
 		this.m[14] = z;
 	}
 
-	SetPos(pos)
-	{
-		this.m[12] = pos.x;
-		this.m[13] = pos.y;
-		this.m[14] = pos.z;
-	}
+	// setPos(pos)
+	// {
+		// this.m[12] = pos.x;
+		// this.m[13] = pos.y;
+		// this.m[14] = pos.z;
+	// }
 
-	GetPos()
+	getPos()
 	{
 		return new CVector3(this.m[12], this.m[13], this.m[14]);
 	}
 
-	AddTransInWorld(x, y, z)
+	addTransInWorld(x, y, z)
 	{
 		this.m[12] += x;
 		this.m[13] += y;
 		this.m[14] += z;
 	}
 
-	//AddRotateInWorld(char axis, float angle)
-	AddRotateInWorld(axis, angle)
+	addRotateInWorld(axis, angle)
 	{
 		var newRot = new GLMat();
 		
@@ -94,8 +95,7 @@ class Shape
 		}
 	}
 
-	//AddTransInLocal(char axis, float move)
-	AddTransInLocal(axis, move)
+	addTransInLocal(axis, move)
 	{
 		var vec;
 
@@ -111,8 +111,7 @@ class Shape
 		this.m[14] += vec.z;
 	}
 
-	//AddRotateInLocal(char axis, float angle)
-	AddRotateInLocal(axis, angle)
+	addRotateInLocal(axis, angle)
 	{
 		var rotMat = new GLMat();
 		
@@ -188,7 +187,7 @@ class Shape
 	}
 	*/
 
-	SetColor(r, g, b, a)
+	setColor(r, g, b, a)
 	{
 		this._color[0] = r;
 		this._color[1] = g;
@@ -204,12 +203,12 @@ class Shape
 		// _color[3] = (c) & 255;
 	// }
 
-	SetVisible(visible)
+	setVisible(visible)
 	{
 		this._visible = visible;
 	}
 
-	IsVisible()
+	isVisible()
 	{
 		return this._visible;
 	}

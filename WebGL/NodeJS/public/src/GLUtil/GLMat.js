@@ -1,5 +1,3 @@
-var DEG_RAD = 0.0174532925194;
-
 class GLMat
 {
 	constructor() {

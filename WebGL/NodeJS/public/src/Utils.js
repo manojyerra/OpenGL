@@ -1,3 +1,8 @@
+var DEG_RAD = 0.0174532925194;
+var RAD_DEG = 57.295780490443;
+var PI_VAL = 3.1415926;
+
+
 function sleep(ms)
 {
 	return new Promise(resolve => setTimeout(resolve, ms));

@@ -20,7 +20,7 @@ class Cam {
 		this.normalMat[0] = this.normalMat[4] = this.normalMat[8] = 1.0;
 		
 		this.sw = screenW;
-		this.sh = screenW;
+		this.sh = screenH;
 				
 		this._zNear  = zNear;
 		this._zFar = zFar;

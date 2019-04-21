@@ -60,11 +60,10 @@ class Box extends Shape
 		this._vertexBufferID = 0;
 		this._colorBufferID = 0;
 		this._vertexCount = 0;
+		this._randomColor = new RandomColor();
 
 		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("shaders/ColorArray/ColorArray.vs", "shaders/ColorArray/ColorArray.fs");
-
-		this._randomColor = new RandomColor();
+		await this._shaderProgram.init("shaders/Primitive3D/Primitive3D.vs", "shaders/Primitive3D/Primitive3D.fs");
 
 		this.generateBufferID();		
 	}
@@ -154,6 +153,37 @@ class Box extends Shape
 		this._colorBufferID = buffer.getColorBufferID();
 		this._vertexCount = buffer.getVertexCount();
 	}
+	
+	set(box)
+	{
+		for(var i=0; i<16; i++)
+		{
+			this.m[i] = box.m[i];
+		}		
+
+		var size = box.getSize();
+		
+		this._w = size.x;
+		this._h = size.y;
+		this._d = size.z;
+	}
+
+	getSize()
+	{
+		return new CVector3(this._w, this._h, this._d);
+	}
+
+	setSize(w, h, d)
+	{
+		if(w > 0) this._w = w;
+		if(h > 0) this._h = h;
+		if(d > 0) this._d = d;
+	}
+
+	volume()
+	{
+		return this._w*this._h*this._d;
+	}
 
 	draw()
 	{
@@ -164,17 +194,21 @@ class Box extends Shape
 		//GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
 		//GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
 
-		//glPushMatrix();
-		//glMultMatrixf(m);
-
-		//glScalef(_w, _h, _d);
-
 		this._shaderProgram.begin();
+
+		this._scaleMat[0] = this._w;
+		this._scaleMat[5] = this._h;
+		this._scaleMat[10] = this._d;
 
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
+		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
+		var scaleMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "scaleMat");
+				
 		gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
 		gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
+		gl.uniformMatrix4fv(oriMatLoc, false, this.m);
+		gl.uniformMatrix4fv(scaleMatLoc, false, this._scaleMat);
 
 		var colorID = gl.getAttribLocation(this._shaderProgram.programID, "color");
 		gl.enableVertexAttribArray(colorID);
@@ -188,13 +222,11 @@ class Box extends Shape
 
 		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
 		
-		//gl.bindBuffer(gl.ARRAY_BUFFER, null);
-		//gl.disableVertexAttribArray(vertexID);
-		//gl.disableVertexAttribArray(colorID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, null);
+		gl.disableVertexAttribArray(vertexID);
+		gl.disableVertexAttribArray(colorID);
 
 		this._shaderProgram.end();
-
-		//glPopMatrix();
 
 		//GLUtil::GLEnable(GL_LIGHTING, glLighting);
 		//GLUtil::GLEnable(GL_BLEND, blend);

@@ -6,9 +6,12 @@ var sh = 0;
 
 var floor = null;
 var objModel = null;
-var box = null;
 var texture = null;
 
+var box = null;
+var cone = null;
+var cylinder = null;
+var sphere = null;
 
 function createGLBuffer(gl, arr)
 {
@@ -25,7 +28,12 @@ async function InitDemo()
 	var canvas = document.getElementById('game-surface');
 	canvas.oncontextmenu = () => false;
 
+	addMouseEvents(canvas);
+	addKeyEvents(document);
+
 	gl = canvas.getContext('webgl');
+	//gl = canvas.getContext('webgl', {antialias: false} );
+	
 
 	if (!gl) 
 	{
@@ -38,45 +46,64 @@ async function InitDemo()
 		alert('Your browser does not support WebGL');
 	}
 
-	//var shape = new Shape();
-	//shape.AddRotateInWorld('X', 30);
-	
+	//gl.disable(gl.SAMPLE_COVERAGE);
+	//gl.disable(gl.SAMPLE_ALPHA_TO_COVERAGE);
+	//gl.sampleCoverage(0.0, false);
+
+	//console.log('sampleCoverageValue : ',gl.getParameter(gl.SAMPLE_COVERAGE_VALUE));  // 0.5
+	//console.log('SAMPLE_COVERAGE_INVERT : ', gl.getParameter(gl.SAMPLE_COVERAGE_INVERT)); // false
+
 	box = new Box();
-	await box.initWithPosAndSize(1,1,1, 2,2,2);
+	await box.initWithPosAndSize(0,0,0, 2,3,4);
+	box.setSize(3, 1, 6);
+	box.setPos(-10, 0, -10);
 	
-	//var randomColor = new RandomColor();
+	cone = new Cone();
+	await cone.initWithPosAndSize(0, 0, 0, 2, 3);
+	cone.setRadius(1.5);
+	cone.setHeight(2);
+	cone.setPos(-5, 0, -10);
+	
+	cylinder = new Cylinder(0, 0, 0, 3, 2);
+	await cylinder.initWithPosAndSize();
+	cylinder.setRadius(1.5);
+	cylinder.setHeight(2);
+	cylinder.setPos(0, 0, -10);
+	
+	sphere = new Sphere();
+	await sphere.initWithPosAndSize(0, 0, 0, 2);
+	sphere.setPos(5, 0, 0);
+	sphere.setRadius(5);
 	
 	gl.enable(gl.BLEND);
 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 	gl.enable(gl.DEPTH_TEST);
 		
-	objModel = new ObjLoader();
-	await objModel.init("./data/cottage");
+	//objModel = new ObjLoader();
+	//await objModel.init("./data/cottage");
 	
-		
-	texture = new Texture();
-	await texture.init('./data/Sample.png');
-	texture.setBounds(2,1,10,5);
-	
-	addMouseEvents(canvas);
-	addKeyEvents(document);
+	//texture = new Texture();
+	//await texture.init('./data/Sample.png');
+	//texture.setBounds(2,1,10,5);
 	
 	floor = new Floor();
 	await floor.init();
-	
+			
 	sw = canvas.width;
 	sh = canvas.height;
 	
 	cam.init(sw, sh, 1.0, 10000.0, 0.2);
-	
-	//shaderProgram = new ShaderProgram();
-	//await shaderProgram.init(gl, './shaders/simple.vs', './shaders/simple.fs');
 	
 	drawScene();
 }
 
 function drawScene()
 {
+	// gl.disable(gl.MULTISAMPLE);
+	// gl.disable(gl.SAMPLE_COVERAGE);
+	// gl.disable(gl.SAMPLE_ALPHA_TO_COVERAGE);
+	// gl.sampleCoverage(0.0, true);
+	
 	gl.clearColor(0.2, 0.2, 0.2, 1.0);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	gl.viewport(0, 0, sw, sh);
@@ -86,15 +113,16 @@ function drawScene()
 	cam.updateCamera();
 	
 	//texture.draw();
-	
 	//drawTriangle();
 	
 	floor.draw();
 	//objModel.draw();
 	box.draw();
+	cone.draw();
+	cylinder.draw();
+	sphere.draw();
 		
 	requestAnimationFrame(drawScene);
-	//cancelAnimationFrame(requestId);
 }
 
 function drawTriangle()
@@ -235,6 +263,10 @@ function addMouseEvents(canvas)
 
 
 /*
+	//cancelAnimationFrame(requestId);
+
+
+
 	var tempText = await loadTextFile('./temp.obj');
 
 	var lines = tempText.split('\n');

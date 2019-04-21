@@ -141,7 +141,7 @@ class GLBuffer
 			{
 				this._normalBufferID = gl.createBuffer();
 				gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
-				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this._normalArr), gl.GL_STATIC_DRAW);
+				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this._normalArr), gl.STATIC_DRAW);
 			}
 
 			this._vertexArr = null;
