@@ -51,6 +51,14 @@ class GLBuffer
 		this._b = b;
 		this._a = a;
 	}
+	
+	glColoruia(color, alpha)
+	{
+		this._r	= (color >> 24) & 255;
+		this._g	= (color >> 16) & 255;
+		this._b	= (color >> 8) & 255;
+		this._a = alpha;		
+	}
 
 	glTexCoord2f(u, v)
 	{

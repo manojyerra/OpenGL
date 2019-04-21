@@ -11,10 +11,6 @@ class Shape
 		this._visible = true;
 		this._useRandomColors = true;
 	}
-
-	static get XYZ() {
-        return 1;
-    }
 	
 	static get NONE(){ return 0;}
 	static get BOX(){ return  1;}

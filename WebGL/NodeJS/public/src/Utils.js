@@ -65,4 +65,8 @@ function generateGLTexureID(img)
 	
 	return textureID;
 }
-	
+
+function randomInt(range)
+{	
+	return Math.floor(Math.random() * range);
+}

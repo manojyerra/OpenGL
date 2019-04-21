@@ -1,10 +1,12 @@
 
 //var shaderProgram = null;
 var gl = null;
-var floor = null;
-var objModel = null;
 var sw = 0;
 var sh = 0;
+
+var floor = null;
+var objModel = null;
+var box = null;
 var texture = null;
 
 
@@ -39,9 +41,11 @@ async function InitDemo()
 	//var shape = new Shape();
 	//shape.AddRotateInWorld('X', 30);
 	
-	var box = new Box();
-	box.initWithPosAndSize(1,1,1, 2,2,2);
-
+	box = new Box();
+	await box.initWithPosAndSize(1,1,1, 2,2,2);
+	
+	//var randomColor = new RandomColor();
+	
 	gl.enable(gl.BLEND);
 	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 	gl.enable(gl.DEPTH_TEST);
@@ -81,12 +85,13 @@ function drawScene()
 	input.update();
 	cam.updateCamera();
 	
-	texture.draw();
+	//texture.draw();
 	
 	//drawTriangle();
 	
 	floor.draw();
-	objModel.draw();
+	//objModel.draw();
+	box.draw();
 		
 	requestAnimationFrame(drawScene);
 	//cancelAnimationFrame(requestId);
