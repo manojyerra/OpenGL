@@ -5,7 +5,7 @@ class Texture
 	{
 	}
 	
-	async init(texturePath)
+	async init(texturePath, flipY)
 	{
 		this._vertexBufferID = 0;
 		this._uvBufferID = 0;
@@ -14,7 +14,7 @@ class Texture
 		this._shaderProgram = new ShaderProgram();		
 		await this._shaderProgram.init("./shaders/UVArray/UVArray.vs", "./shaders/UVArray/UVArray.fs");
 		
-		this.generateBufferID();
+		this.generateBufferID(flipY);
 		
 		var img = await loadTexture(texturePath);
 		
@@ -46,8 +46,10 @@ class Texture
 		// return textureID;
 	// }
 	
-	generateBufferID()
+	generateBufferID(flipY)
 	{
+		var flipVal = flipY ? 1 : 0;
+		
 		var buffer = new GLBuffer(false, true, false);
 
 		buffer.glBegin(gl.TRIANGLE_STRIP);
@@ -55,16 +57,16 @@ class Texture
 		var w = this._drawW;
 		var h = this._drawH;
 
-		buffer.glTexCoord2f(0, 0);
+		buffer.glTexCoord2f(0, flipVal-0);
 		buffer.glVertex3f(0, 0, 0);
 
-		buffer.glTexCoord2f(1, 0);
+		buffer.glTexCoord2f(1, flipVal-0);
 		buffer.glVertex3f(1, 0, 0);
 
-		buffer.glTexCoord2f(0, 1);
+		buffer.glTexCoord2f(0, 1-flipVal);
 		buffer.glVertex3f(0, 1, 0);
 
-		buffer.glTexCoord2f(1, 1);
+		buffer.glTexCoord2f(1, 1-flipVal);
 		buffer.glVertex3f(1, 1, 0);
 
 		buffer.glEnd();
@@ -76,17 +78,22 @@ class Texture
 		buffer = null;	
 	}
 	
-	draw()
+	draw(projMat, modelMat)
+	{
+		this.drawWithTextureID(this._textureID, projMat, modelMat);
+	}
+
+	drawWithTextureID(textureID, projMat, modelMat)
 	{
 		//gl.enable( gl.BLEND );
-		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
+		gl.bindTexture(gl.TEXTURE_2D, textureID);
 		
 		this._shaderProgram.begin();
 		
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");		
-		gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
+		gl.uniformMatrix4fv(projMatLoc, false, projMat);
+		gl.uniformMatrix4fv(modelMatLoc, false, modelMat);
 
 		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
 		gl.uniformMatrix4fv(oriMatLoc, false, this._oriMat.m);

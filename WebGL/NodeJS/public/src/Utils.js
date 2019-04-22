@@ -7,6 +7,11 @@ function sleep(ms)
 {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function randomInt(range)
+{	
+	return Math.floor(Math.random() * range);
+}
 		
 async function loadTextFile(url)
 {	
@@ -71,7 +76,3 @@ function generateGLTexureID(img)
 	return textureID;
 }
 
-function randomInt(range)
-{	
-	return Math.floor(Math.random() * range);
-}

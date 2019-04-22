@@ -56,11 +56,10 @@ class ObjLoader
 		var uvsExist = uvVec.length > 0;
 		var normalsExist = normalVec.length > 0;
 		
-		console.log('uvsExist : ', uvsExist);
-		console.log('normalsExist : ', normalsExist);
-		console.log('vertexVec size : ', vertexVec.length);
-		console.log('normalVec size : ', normalVec.length);
-		
+		//console.log('uvsExist : ', uvsExist);
+		//console.log('normalsExist : ', normalsExist);
+		//console.log('vertexVec size : ', vertexVec.length);
+		//console.log('normalVec size : ', normalVec.length);
 			
 		var vertexArr = Array(0).fill(0);
 		var uvArr = Array(0).fill(0);
@@ -204,9 +203,9 @@ class ObjLoader
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
 		var normalMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "normalMat");
 		
-		gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
-		gl.uniformMatrix3fv(normalMatLoc, false, cam.normalMat);
+		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
+		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
+		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
 		
 		gl.uniform3f(gl.getUniformLocation(this._shaderProgram.programID, "lightPos"), 0.0, 0.0, 0.0);
 		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 0.2, 0.2, 0.2, 1.0);

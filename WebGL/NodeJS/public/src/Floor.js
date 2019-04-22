@@ -147,8 +147,8 @@ class Floor
 
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
-		gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
+		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
+		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
 
 		if(this._axisVisible)
 		{

@@ -1,19 +1,18 @@
-var camInstanceCount = 0;
+var cam3DInstanceCount = 0;
 
-class Cam {
+class Cam3D {
 	
 	constructor()
 	{
+		cam3DInstanceCount++;
+		
+		if(cam3DInstanceCount > 1) {
+			throw "More than one object creation is not allowed for Cam Class";
+		}		
 	}
 	
 	init(screenW, screenH, zNear, zFar, zNearPlaneW) {
-		
-		camInstanceCount++;
-		
-		if(camInstanceCount > 1) {
-			throw "More than one object creation is not allowed for Cam Class";
-		}
-		
+			
 		this.projMat = new GLMat();
 		this.modelMat = new GLMat();
 		this.normalMat = Array(9).fill(0.0);
@@ -27,10 +26,11 @@ class Cam {
 		this._zNearPlaneHalfW = zNearPlaneW/2.0;
 
 		this._pivot = new CVector3(0, 0, 0);
-		this._trans = new CVector3(0, 0, -70.0);
+		this._trans = new CVector3(0, 0, -270.0);
 		this._angle = new CVector3(30, 0, 0);
 
-		this.setPerspectiveView();		
+		this.setPerspectiveView();
+		this.setModelViewMatrix();
 	}
 	
 	setPerspectiveView()
@@ -81,12 +81,15 @@ class Cam {
 
 			this._trans.x += dx*z;
 			this._trans.y += -dy*z;
-
+			
+			this.setModelViewMatrix();
 			return true;
 		}
 		else if(input.IsKeyPressed(input.ctrl) && input.IsMiddleMousePressed())
 		{
 			this._trans.z += (input.mouseY.prev - input.mouseY.curr) * 2.0;
+			
+			this.setModelViewMatrix();
 			return true;
 		}
 		else if(input.IsMiddleMousePressed())
@@ -97,17 +100,22 @@ class Cam {
 			this._angle.y += dx * 180.0 / (this.sw*0.5);
 			this._angle.x += dy * 180.0 / (this.sw*0.5);
 
+			this.setModelViewMatrix();
 			return true;
 		}
 
 		if(input.IsScrollDown())
 		{
 			this._trans.z -= 45.0;
+			
+			this.setModelViewMatrix();
 			return true;
 		}
 		else if(input.IsScrollUp())
 		{
 			this._trans.z += 45.0;
+			
+			this.setModelViewMatrix();
 			return true;
 		}
 
@@ -116,7 +124,7 @@ class Cam {
 	
 }
 
-var cam = new Cam();
+var cam3D = new Cam3D();
 
 
 

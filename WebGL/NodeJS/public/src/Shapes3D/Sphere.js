@@ -175,9 +175,9 @@ class Sphere extends Shape
 		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
 		var scaleMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "scaleMat");		
 		
-		gl.uniformMatrix4fv(projMatLoc, false, cam.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam.modelMat.m);
-		gl.uniformMatrix3fv(normalMatLoc, false, cam.normalMat);
+		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
+		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
+		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
 		gl.uniformMatrix4fv(oriMatLoc, false, this.m);
 		gl.uniformMatrix4fv(scaleMatLoc, false, this._scaleMat);		
 		
