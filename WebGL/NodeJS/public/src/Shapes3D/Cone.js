@@ -1,9 +1,9 @@
 
-class Cone extends Shape
+class Cone extends Primitive
 {
 	constructor()
 	{
-		super(Shape.CONE);
+		super(Primitive.CONE);
 		
 		this._r = 0;
 		this._h = 0;

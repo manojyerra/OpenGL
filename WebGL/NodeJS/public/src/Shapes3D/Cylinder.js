@@ -1,9 +1,9 @@
 
-class Cylinder extends Shape
+class Cylinder extends Primitive
 {
 	constructor()
 	{
-		super(Shape.CYLINDER);
+		super(Primitive.CYLINDER);
 	}
 	
 	async initWithPosAndSize(x, y, z, r, h)

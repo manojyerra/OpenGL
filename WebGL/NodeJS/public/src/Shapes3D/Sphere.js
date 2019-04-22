@@ -1,9 +1,9 @@
 
-class Sphere extends Shape
+class Sphere extends Primitive
 {
 	constructor()
 	{
-		super(Shape.SPHERE);
+		super(Primitive.SPHERE);
 	}
 	
 	async initWithPosAndSize(x, y, z, r)

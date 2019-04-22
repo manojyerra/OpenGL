@@ -1,5 +1,5 @@
 
-class Shape
+class Primitive
 {
 	constructor(id)
 	{
