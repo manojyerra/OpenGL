@@ -144,7 +144,7 @@ class ObjLoader
 	async readTexture(texturePath)
 	{
 		var img = await loadTexture(texturePath);
-		this._textureID = generateGLTexureID(img);
+		this._textureID = GLUtils.generateGLTexureID(img);
 	}
 	
 	readFace(line, readUV, readNormal)
