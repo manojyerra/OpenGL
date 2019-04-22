@@ -1,9 +1,9 @@
 
-class Cylinder extends Primitive
+class Cylinder extends Primitive3D
 {
 	constructor()
 	{
-		super(Primitive.CYLINDER);
+		super(Primitive3D.CYLINDER);
 	}
 	
 	async initWithPosAndSize(x, y, z, r, h)

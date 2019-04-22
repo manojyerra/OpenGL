@@ -1,5 +1,5 @@
 
-class Primitive
+class Primitive3D
 {
 	constructor(id)
 	{

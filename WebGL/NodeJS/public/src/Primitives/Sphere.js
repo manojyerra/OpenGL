@@ -1,9 +1,9 @@
 
-class Sphere extends Primitive
+class Sphere extends Primitive3D
 {
 	constructor()
 	{
-		super(Primitive.SPHERE);
+		super(Primitive3D.SPHERE);
 	}
 	
 	async initWithPosAndSize(x, y, z, r)

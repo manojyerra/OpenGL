@@ -35,6 +35,11 @@ class Looper
 		await this.box.initWithPosAndSize(0,0,0, 2,3,4);
 		this.box.setSize(3, 1, 6);
 		this.box.setPos(-10, 0, -10);
+
+		//this.rect = new Rect();
+		//await this.rect.initWithPosAndSize(0,0,0, 2,3);
+		//this.rect.setSize(3, 1);
+		//this.rect.setPos(10, 0, -10);
 		
 		this.cone = new Cone();
 		await this.cone.initWithPosAndSize(0, 0, 0, 2, 3);
@@ -52,6 +57,8 @@ class Looper
 		await this.sphere.initWithPosAndSize(0, 0, 0, 2);
 		this.sphere.setPos(5, 0, 0);
 		this.sphere.setRadius(5);
+		
+		
 	}
 		
 	draw()
@@ -73,11 +80,13 @@ class Looper
 		this.texture.draw(cam3D.projMat.m, cam3D.modelMat.m);
 		
 		this.floor.draw();
-		this.objModel.draw();
+		//this.objModel.draw();
+		
 		this.box.draw();
 		this.cone.draw();
 		this.cylinder.draw();
 		this.sphere.draw();
+		//this.rect.draw();
 
 		this.fbo.unBind();
 

@@ -1,9 +1,9 @@
 
-class Box extends Primitive
+class Box extends Primitive3D
 {
 	constructor()
 	{
-		super(Primitive.BOX);
+		super(Primitive3D.BOX);
 		
 		this._w = 0;
 		this._h = 0;
