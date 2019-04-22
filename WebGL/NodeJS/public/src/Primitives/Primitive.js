@@ -15,7 +15,7 @@ class Primitive
 	}
 	
 	static get NONE(){ return 0;}
-	static get BOX(){ return  1;}
+	static get BOX(){ return  1;}	
 	static get CONE(){ return  2;}
 	static get CYLINDER(){ return 3;}
 	static get SPHERE(){ return 4;}
