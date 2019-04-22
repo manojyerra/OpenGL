@@ -21,7 +21,7 @@ class Looper
 		this.objModel = new ObjLoader();
 		await this.objModel.init("./data/cottage");
 		
-		this.texture = new Texture();
+		this.texture = new GLTexture();
 		await this.texture.init('./data/Sample.png', true);
 		//this.texture.setBounds(100,200,sw,sh);
 		//this.texture.setBounds(1,2,5,2);
@@ -35,11 +35,6 @@ class Looper
 		await this.box.initWithPosAndSize(0,0,0, 2,3,4);
 		this.box.setSize(3, 1, 6);
 		this.box.setPos(-10, 0, -10);
-
-		//this.rect = new Rect();
-		//await this.rect.initWithPosAndSize(0,0,0, 2,3);
-		//this.rect.setSize(3, 1);
-		//this.rect.setPos(10, 0, -10);
 		
 		this.cone = new Cone();
 		await this.cone.initWithPosAndSize(0, 0, 0, 2, 3);
@@ -58,7 +53,12 @@ class Looper
 		this.sphere.setPos(5, 0, 0);
 		this.sphere.setRadius(5);
 		
-		
+		this.rect = new Rect();
+		await this.rect.init(100, 100, 200, 300);
+
+		this.triangle = new Triangle();
+		await this.triangle.init(new CVector3(100,100,0), new CVector3(200,200,0), new CVector3(50,200,0));
+		this.triangle.setColor4ub(0, 128, 0, 255);		
 	}
 		
 	draw()
@@ -68,7 +68,6 @@ class Looper
 		gl.enable(gl.DEPTH_TEST);
 		
 		gl.viewport(0, 0, this._sw, this._sh);
-
 		this.fbo.bind();
 		
 		gl.clearColor(0.2, 0.2, 0.2, 1.0);
@@ -86,16 +85,18 @@ class Looper
 		this.cone.draw();
 		this.cylinder.draw();
 		this.sphere.draw();
-		//this.rect.draw();
 
 		this.fbo.unBind();
 
-		gl.clearColor(1.0, 0.2, 0.2, 1.0);
+		gl.clearColor(0.2, 0.2, 0.2, 1.0);
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		gl.disable(gl.DEPTH_TEST);
 		
 		this.texture.setBounds(10,10, this._sw*0.9, this._sh*0.9);
 		this.texture.drawWithTextureID(this.fbo.getTextureID(), cam2D.projMat.m, cam2D.modelMat.m);
+		
+		this.rect.draw();
+		this.triangle.draw();
 	}
 }
 

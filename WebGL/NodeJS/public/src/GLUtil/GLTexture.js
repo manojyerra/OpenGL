@@ -1,5 +1,5 @@
 
-class Texture
+class GLTexture
 {
 	constructor()
 	{

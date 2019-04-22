@@ -18,6 +18,8 @@ class Floor
 		var start = -16;
 		var end = 16;
 		var gap = 1;
+		
+		this._oriMat = new GLMat();
 
 		this._axisBuffer = new GLBuffer(true, false, false);
 		this._gridBuffer = new GLBuffer(true, false, false);;
@@ -147,8 +149,11 @@ class Floor
 
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
+		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
+		
 		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
 		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
+		gl.uniformMatrix4fv(oriMatLoc, false, this._oriMat.m);
 
 		if(this._axisVisible)
 		{
