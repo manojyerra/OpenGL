@@ -15,8 +15,8 @@ async function InitDemo()
 	console.log('From InitDemo method...');	
 	
 	var canvas = document.getElementById('game-surface');
-	canvas.width = 1024;
-	canvas.height = 1024;
+	canvas.width = 900;
+	canvas.height = 700;
 	canvas.oncontextmenu = () => false;
 
 	addMouseEvents(canvas);

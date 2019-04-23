@@ -21,18 +21,25 @@ class Looper
 		//var projValues = GLUtils.getProjectionValues(cam3D.projMat.m);
 		//console.log('projValues : ', projValues);
 		
-		//var pos2D = GLUtils.get2DPosOnScreenFrom3DPos(new CVector3(0.0, 0.0, 0.0), cam3D.modelMat.m, cam3D.projMat.m, sw, sh)
-		
+		//var pos2D = GLUtils.get2DPosOnScreenFrom3DPos(new CVector3(0.0, 0.0, 0.0), cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
 		//console.log('2DPos : ', pos2D);
 		
 		var pos3DVec = Array(0);
-		pos3DVec.push(new CVector3(0.0, 0.0, 0.0));
-		pos3DVec.push(new CVector3(1.0, 0.0, 0.0));
-		pos3DVec.push(new CVector3(0.0, 1.0, 0.0));
+		pos3DVec.push(0.0);
+		pos3DVec.push(0.0);
+		pos3DVec.push(0.0);
+		pos3DVec.push(1.0);
+		pos3DVec.push(0.0);
+		pos3DVec.push(0.0);
+		pos3DVec.push(0.0);
+		pos3DVec.push(1.0);
+		pos3DVec.push(0.0);
 		
-		//var pos2DVec = GLUtils.get2DPosVecOnScreenFrom3DPosVec(pos3DVec, cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
+		var pos2DVec = GLUtils.get2DPosArrOnScreenFrom3DPosArr(pos3DVec, 3, cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
+		console.log('pos2DVec : ',pos2DVec);
 		
-		//console.log('pos2DVec : ',pos2DVec);
+		var pos2DOnRect = GLUtils.getVerticesOnRect(pos3DVec, 3, cam3D.modelMat.m, cam3D.projMat.m, null, 0,0,450,450, sw, sh);
+		console.log('pos2DOnRect : ',pos2DOnRect);
 		
 		var minMax = GLUtils.getMinMaxPoints(pos3DVec);
 		console.log('minMax : ',minMax);
@@ -46,7 +53,7 @@ class Looper
 		await this.objModel.init("./data/cottage");
 		
 		this.texture = new GLTexture();
-		await this.texture.init('./data/Sample24Bit.png', true);
+		await this.texture.init('./data/Sample32Bit.png', true);
 		//this.texture.setBounds(100,200,sw,sh);
 		//this.texture.setBounds(1,2,5,2);
 		
@@ -110,18 +117,25 @@ class Looper
 		this.cylinder.draw();
 		this.sphere.draw();
 
+		//gl.disable(gl.DEPTH_TEST);
+		//this.texture.setBounds(10,10,500,500);
+		//this.texture.draw(cam2D.projMat.m, cam2D.modelMat.m);
+		//gl.enable(gl.DEPTH_TEST);
+
 		//this.fbo.unBind();
 
-
-		// gl.clearColor(0.2, 0.2, 0.2, 1.0);
-		// gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		// gl.disable(gl.DEPTH_TEST);
+/*
+		gl.clearColor(0.2, 0.2, 0.2, 1.0);
+		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		gl.disable(gl.DEPTH_TEST);
 		
-		// this.texture.setBounds(10,10, this._sw*0.9, this._sh*0.9);
-		// this.texture.drawWithTextureID(this.fbo.getTextureID(), cam2D.projMat.m, cam2D.modelMat.m);
+		this.texture.setBounds(10,10, this._sw*0.9, this._sh*0.9);
+		this.texture.drawWithTextureID(this.fbo.getTextureID(), cam2D.projMat.m, cam2D.modelMat.m);
 		
-		//this.rect.draw();
-		//this.triangle.draw();
+		this.rect.draw();
+		this.triangle.draw();
+*/
+		
 	}
 }
 

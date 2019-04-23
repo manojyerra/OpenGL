@@ -19,7 +19,8 @@ class MinMax
 		this.max = new CVector3(max.x, max.y, max.z);
 	}
 }
-		
+
+
 class GLUtils
 {
 	constructor()
@@ -72,6 +73,21 @@ class GLUtils
 		return textureID;
 	}
 
+	static generateEmptyTexture(w, h)
+	{
+		var textureID = gl.createTexture();
+		gl.bindTexture(gl.TEXTURE_2D, textureID);
+		
+		gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+		
+		return textureID;
+	}
+	
 	static getProjectionValues( projMat )
 	{
 		var m = projMat;
@@ -128,7 +144,7 @@ class GLUtils
 		return new CVector3(pos2DX, pos2DY, 0.0);
 	}
 		
-	static get2DPosVecOnScreenFrom3DPosVec(pos3DVec, modelMat, projMat, sw, sh)
+	static get2DPosArrOnScreenFrom3DPosArr(vertexArr, numVertex, modelMat, projMat, sw, sh)
 	{
 		var vec2d = Array(0);
 
@@ -141,11 +157,11 @@ class GLUtils
 		var n = projValues.n;
 		var f = projValues.f;
 
-		for(var i=0; i<pos3DVec.length; i++)
+		for(var i=0; i<numVertex*3; i+=3)
 		{
-			var x = pos3DVec[i].x;
-			var y = pos3DVec[i].y;
-			var z = pos3DVec[i].z;
+			var x = vertexArr[i+0];
+			var y = vertexArr[i+1];
+			var z = vertexArr[i+2];
 
 			var a = modelMat;
 
@@ -168,7 +184,8 @@ class GLUtils
 			var x2D = (( xOnZNear - l ) / zNearW) * sw;
 			var y2D = sh - ((( yOnZNear - b ) / zNearH) * sh);
 
-			vec2d.push( new CVector3(x2D, y2D, 0) );
+			vec2d.push(x2D);
+			vec2d.push(y2D);
 		}
 
 		return vec2d;
@@ -200,6 +217,32 @@ class GLUtils
 		return new MinMax( new CVector3(minX, minY, minZ), new CVector3(maxX, maxY, maxZ) );
 	}
 	
+	static getVerticesOnRect(vertexArr, numVertex, modelMat, projMat, objMat, x, y, w, h, sw, sh)
+	{
+		var modelAndOriMat = new GLMat();
+		modelAndOriMat.copy(modelMat);
+		
+		if(objMat != null)
+			modelAndOriMat.glMultMatrixf(objMat);
+		
+		var vertex2DArr = this.get2DPosArrOnScreenFrom3DPosArr(vertexArr, numVertex, modelAndOriMat.m, projMat, sw, sh)
+		
+		var verArrOnRect = Array(0);
+		
+		for(var i=0; i<vertex2DArr.length; i+=2)
+		{
+			var xx = vertex2DArr[i+0];
+			var yy = vertex2DArr[i+1];
+			
+			if(xx >= x && xx <= x+w && yy >= y && yy <= y+h)
+			{
+				verArrOnRect.push(xx);
+				verArrOnRect.push(yy);
+			}
+		}
+
+		return verArrOnRect;
+	}	
 }
 
 
