@@ -41,14 +41,14 @@ class ArrayList
 	
 	push(val)
 	{
-		this._arr[this._size] = val;
-		this._size++;
-		
 		if(this._size >= this._capacity)
 			this.reCreateMem();
+		
+		this._arr[this._size] = val;
+		this._size++;		
 	}
 	
-	getArray()
+	array()
 	{
 		return this._arr;
 	}
@@ -56,6 +56,17 @@ class ArrayList
 	size()
 	{
 		return this._size;
+	}
+	
+	capacity()
+	{
+		return this._capacity;
+	}
+	
+	sliceToSize()
+	{
+		this._arr = this._arr.slice(0,this._size);
+		this._capacity = this._size;
 	}
 	
 	//private methods...
@@ -73,8 +84,3 @@ class ArrayList
 		this._capacity = newCapacity;
 	}		
 }
-
-
-//var endIndex = this._colorArr._size;
-//var arr = this._colorArr.arr.slice(0,endIndex);
-//console.log(this._colorArr);

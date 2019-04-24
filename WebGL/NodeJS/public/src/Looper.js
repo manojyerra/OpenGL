@@ -10,6 +10,19 @@ class Looper
 		this._sw = sw;
 		this._sh = sh;
 	
+		//var float32 = new Float32Array(3);
+		//float32[0] = 42;
+		//float32[1] = 84;
+		//float32[2] = 184;
+		
+		//console.log(float32[0]); // 42
+		//console.log(float32.length); // 2
+		//float32.pop();
+		//console.log(float32.BYTES_PER_ELEMENT); // 4
+		
+		//console.log('float32.length after : ', float32.length); // 2
+
+
 		cam3D.init(sw, sh, 1.0, 10000.0, 0.2);
 		cam2D.init(sw, sh);
 		
