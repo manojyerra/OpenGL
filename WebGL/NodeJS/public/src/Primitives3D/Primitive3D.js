@@ -61,12 +61,12 @@ class Primitive3D
 		this.m[14] = z;
 	}
 
-	// setPos(pos)
-	// {
-		// this.m[12] = pos.x;
-		// this.m[13] = pos.y;
-		// this.m[14] = pos.z;
-	// }
+	setPosByVector(pos)
+	{
+		this.m[12] = pos.x;
+		this.m[13] = pos.y;
+		this.m[14] = pos.z;
+	}
 
 	getPos()
 	{

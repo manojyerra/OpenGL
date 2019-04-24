@@ -33,6 +33,8 @@ class GLBuffer
 		this._normalBufferID = 0;
 	}
 	
+	//public methods...
+	
 	glBegin(mode)
 	{
 		this._mode = mode;
@@ -115,8 +117,6 @@ class GLBuffer
 
 	glEnd()
 	{		
-		//console.log(this._colorArr.arr);
-		
 		if(this._vertexBufferID == 0)
 		{
 			this._vertexBufferID = gl.createBuffer();

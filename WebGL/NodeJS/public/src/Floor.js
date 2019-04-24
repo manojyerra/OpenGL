@@ -5,6 +5,8 @@ class Floor
 	{
 	}
 	
+	//public methods...
+	
 	async init()
 	{
 		this._visible = true;

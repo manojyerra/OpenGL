@@ -5,6 +5,8 @@ class ShaderProgram
 	{
 	}
 	
+	//public methods...
+	
 	async init(vertexShaderPath, fragmentShaderPath)
 	{
 		var vsText = await loadTextFile(vertexShaderPath);
@@ -30,6 +32,8 @@ class ShaderProgram
 	{
 		gl.useProgram(null);
 	}
+	
+	//private methods...
 	
 	compileShader(shaderFileData, shaderType)
 	{

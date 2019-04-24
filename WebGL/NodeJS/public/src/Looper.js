@@ -29,6 +29,8 @@ class Looper
 		this.fbo = new GLFBO(sw, sh);		
 	}
 	
+	//private methods...
+	
 	async load3DPrimitives()
 	{
 		this.box = new Box();
@@ -60,7 +62,9 @@ class Looper
 		await this.triangle.init(new CVector3(100,100,0), new CVector3(200,200,0), new CVector3(50,200,0));
 		this.triangle.setColor4ub(0, 128, 0, 255);		
 	}
-		
+	
+	//public methods...
+	
 	draw()
 	{
 		gl.enable(gl.BLEND);
@@ -93,18 +97,15 @@ class Looper
 
 		//this.fbo.unBind();
 
-/*
-		gl.clearColor(0.2, 0.2, 0.2, 1.0);
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.disable(gl.DEPTH_TEST);
+		// gl.clearColor(0.2, 0.2, 0.2, 1.0);
+		// gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		// gl.disable(gl.DEPTH_TEST);
 		
-		this.texture.setBounds(10,10, this._sw*0.9, this._sh*0.9);
-		this.texture.drawWithTextureID(this.fbo.getTextureID(), cam2D.projMat.m, cam2D.modelMat.m);
+		// this.texture.setBounds(10,10, this._sw*0.9, this._sh*0.9);
+		// this.texture.drawWithTextureID(this.fbo.getTextureID(), cam2D.projMat.m, cam2D.modelMat.m);
 		
-		this.rect.draw();
-		this.triangle.draw();
-*/
-		
+		// this.rect.draw();
+		// this.triangle.draw();		
 	}
 }
 

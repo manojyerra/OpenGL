@@ -1,9 +1,10 @@
-
 class GLTexture
 {
 	constructor()
 	{
 	}
+	
+	//public methods...
 	
 	async init(texturePath, flipY)
 	{
@@ -31,38 +32,6 @@ class GLTexture
 		
 		this._oriMat.m[0] = w;
 		this._oriMat.m[5] = h;		
-	}
-		
-	generateBufferID(flipY)
-	{
-		var flipVal = flipY ? 1 : 0;
-		
-		var buffer = new GLBuffer(false, true, false);
-
-		buffer.glBegin(gl.TRIANGLE_STRIP);
-
-		var w = this._drawW;
-		var h = this._drawH;
-
-		buffer.glTexCoord2f(0, flipVal-0);
-		buffer.glVertex3f(0, 0, 0);
-
-		buffer.glTexCoord2f(1, flipVal-0);
-		buffer.glVertex3f(1, 0, 0);
-
-		buffer.glTexCoord2f(0, 1-flipVal);
-		buffer.glVertex3f(0, 1, 0);
-
-		buffer.glTexCoord2f(1, 1-flipVal);
-		buffer.glVertex3f(1, 1, 0);
-
-		buffer.glEnd();
-
-		this._vertexBufferID = buffer.getVertexBufferID();
-		this._uvBufferID = buffer.getUVBufferID();
-		this._vertexCount = buffer.getVertexCount();
-
-		buffer = null;	
 	}
 	
 	draw(projMat, modelMat)
@@ -103,6 +72,39 @@ class GLTexture
 		//gl.disable( gl.TEXTURE_2D );		
 	}
 
+	//private methods...
+
+	generateBufferID(flipY)
+	{
+		var flipVal = flipY ? 1 : 0;
+		
+		var buffer = new GLBuffer(false, true, false);
+
+		buffer.glBegin(gl.TRIANGLE_STRIP);
+
+		var w = this._drawW;
+		var h = this._drawH;
+
+		buffer.glTexCoord2f(0, flipVal-0);
+		buffer.glVertex3f(0, 0, 0);
+
+		buffer.glTexCoord2f(1, flipVal-0);
+		buffer.glVertex3f(1, 0, 0);
+
+		buffer.glTexCoord2f(0, 1-flipVal);
+		buffer.glVertex3f(0, 1, 0);
+
+		buffer.glTexCoord2f(1, 1-flipVal);
+		buffer.glVertex3f(1, 1, 0);
+
+		buffer.glEnd();
+
+		this._vertexBufferID = buffer.getVertexBufferID();
+		this._uvBufferID = buffer.getUVBufferID();
+		this._vertexCount = buffer.getVertexCount();
+
+		buffer = null;	
+	}
 }
 
 

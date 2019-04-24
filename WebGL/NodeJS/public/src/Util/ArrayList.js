@@ -12,7 +12,7 @@ class ArrayList
 	static get Float32Array() 	{ return 8; }
 	static get Float64Array() 	{ return 9; }
 	
-
+	
 	constructor(capacity, type)
 	{
 		this._capacity = capacity;	
@@ -39,19 +39,6 @@ class ArrayList
 		return null;
 	}
 	
-	reCreateMem()
-	{
-		var newCapacity = 2*this._capacity;
-
-		var newArr = this.createArray(newCapacity, this._type);
-		newArr.set(this._arr);
-
-		this._arr = null;
-		this._arr = newArr;
-		
-		this._capacity = newCapacity;
-	}	
-
 	push(val)
 	{
 		this._arr[this._size] = val;
@@ -70,6 +57,21 @@ class ArrayList
 	{
 		return this._size;
 	}
+	
+	//private methods...
+	
+	reCreateMem()
+	{
+		var newCapacity = 2*this._capacity;
+
+		var newArr = this.createArray(newCapacity, this._type);
+		newArr.set(this._arr);
+
+		this._arr = null;
+		this._arr = newArr;
+		
+		this._capacity = newCapacity;
+	}		
 }
 
 

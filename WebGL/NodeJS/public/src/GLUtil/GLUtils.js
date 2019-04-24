@@ -26,6 +26,8 @@ class GLUtils
 	constructor()
 	{
 	}
+	
+	//public methods...
 
 	static clearColor(r, g, b, a)
 	{

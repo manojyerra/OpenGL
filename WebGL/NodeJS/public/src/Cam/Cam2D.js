@@ -11,6 +11,8 @@ class Cam2D {
 		}
 	}
 	
+	//public methods...
+	
 	init(screenW, screenH) {
 		
 		this.sw = screenW;

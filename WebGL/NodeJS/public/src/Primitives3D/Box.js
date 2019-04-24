@@ -67,7 +67,88 @@ class Box extends Primitive3D
 
 		this.generateBufferID();		
 	}
+	
+	set(box)
+	{
+		for(var i=0; i<16; i++)
+		{
+			this.m[i] = box.m[i];
+		}		
 
+		var size = box.getSize();
+		
+		this._w = size.x;
+		this._h = size.y;
+		this._d = size.z;
+	}
+
+	getSize()
+	{
+		return new CVector3(this._w, this._h, this._d);
+	}
+
+	setSize(w, h, d)
+	{
+		if(w > 0) this._w = w;
+		if(h > 0) this._h = h;
+		if(d > 0) this._d = d;
+	}
+
+	volume()
+	{
+		return this._w*this._h*this._d;
+	}
+
+	draw()
+	{
+		if(!this._visible)
+			return;
+
+		//GLboolean glLighting = GLUtil::GLEnable(GL_LIGHTING, false);
+		//GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
+		//GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
+
+		this._shaderProgram.begin();
+
+		this._scaleMat[0] = this._w;
+		this._scaleMat[5] = this._h;
+		this._scaleMat[10] = this._d;
+
+		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
+		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
+		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
+		var scaleMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "scaleMat");
+				
+		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
+		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
+		gl.uniformMatrix4fv(oriMatLoc, false, this.m);
+		gl.uniformMatrix4fv(scaleMatLoc, false, this._scaleMat);
+
+		var colorID = gl.getAttribLocation(this._shaderProgram.programID, "color");
+		gl.enableVertexAttribArray(colorID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._colorBufferID);
+		gl.vertexAttribPointer( colorID, 4, gl.UNSIGNED_BYTE, gl.FALSE, 0, 0);
+
+		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
+		gl.enableVertexAttribArray(vertexID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
+		gl.vertexAttribPointer(vertexID, 3, gl.FLOAT, gl.FALSE, 0, 0);
+
+		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
+		
+		gl.bindBuffer(gl.ARRAY_BUFFER, null);
+		gl.disableVertexAttribArray(vertexID);
+		gl.disableVertexAttribArray(colorID);
+
+		this._shaderProgram.end();
+
+		//GLUtil::GLEnable(GL_LIGHTING, glLighting);
+		//GLUtil::GLEnable(GL_BLEND, blend);
+		//GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
+	}
+	
+	//private methods...
+	
 	generateBufferID()
 	{
 		var buffer = new GLBuffer(true, false, false);
@@ -152,85 +233,5 @@ class Box extends Primitive3D
 		this._vertexBufferID = buffer.getVertexBufferID();
 		this._colorBufferID = buffer.getColorBufferID();
 		this._vertexCount = buffer.getVertexCount();
-	}
-	
-	set(box)
-	{
-		for(var i=0; i<16; i++)
-		{
-			this.m[i] = box.m[i];
-		}		
-
-		var size = box.getSize();
-		
-		this._w = size.x;
-		this._h = size.y;
-		this._d = size.z;
-	}
-
-	getSize()
-	{
-		return new CVector3(this._w, this._h, this._d);
-	}
-
-	setSize(w, h, d)
-	{
-		if(w > 0) this._w = w;
-		if(h > 0) this._h = h;
-		if(d > 0) this._d = d;
-	}
-
-	volume()
-	{
-		return this._w*this._h*this._d;
-	}
-
-	draw()
-	{
-		if(!this._visible)
-			return;
-
-		//GLboolean glLighting = GLUtil::GLEnable(GL_LIGHTING, false);
-		//GLboolean blend = GLUtil::GLEnable(GL_BLEND, true);
-		//GLboolean depthTest = GLUtil::GLEnable(GL_DEPTH_TEST, true);
-
-		this._shaderProgram.begin();
-
-		this._scaleMat[0] = this._w;
-		this._scaleMat[5] = this._h;
-		this._scaleMat[10] = this._d;
-
-		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
-		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
-		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
-		var scaleMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "scaleMat");
-				
-		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
-		gl.uniformMatrix4fv(oriMatLoc, false, this.m);
-		gl.uniformMatrix4fv(scaleMatLoc, false, this._scaleMat);
-
-		var colorID = gl.getAttribLocation(this._shaderProgram.programID, "color");
-		gl.enableVertexAttribArray(colorID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._colorBufferID);
-		gl.vertexAttribPointer( colorID, 4, gl.UNSIGNED_BYTE, gl.FALSE, 0, 0);
-
-		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
-		gl.enableVertexAttribArray(vertexID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
-		gl.vertexAttribPointer(vertexID, 3, gl.FLOAT, gl.FALSE, 0, 0);
-
-		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
-		
-		gl.bindBuffer(gl.ARRAY_BUFFER, null);
-		gl.disableVertexAttribArray(vertexID);
-		gl.disableVertexAttribArray(colorID);
-
-		this._shaderProgram.end();
-
-		//GLUtil::GLEnable(GL_LIGHTING, glLighting);
-		//GLUtil::GLEnable(GL_BLEND, blend);
-		//GLUtil::GLEnable(GL_DEPTH_TEST, depthTest);
-	}
-	
+	}	
 }

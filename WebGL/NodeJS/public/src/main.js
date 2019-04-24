@@ -10,7 +10,7 @@ function createGLBuffer(gl, arr)
 	return bufferID;
 }
 
-async function InitDemo() 
+async function initDemo() 
 {
 	console.log('From InitDemo method...');	
 	

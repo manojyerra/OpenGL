@@ -6,6 +6,8 @@ class GLMat
 		this.m[0] = this.m[5] = this.m[10] = this.m[15] = 1.0;
 	}
 	
+	//public methods...
+	
 	copy(m)
 	{
 		for(var i=0; i<16; i++)
@@ -179,5 +181,4 @@ class GLMat
 			x, y, z, 1
 		];
 	}
-	
 }

@@ -15,11 +15,59 @@ class ObjLoader
 	{
 	}
 	
+	//public methods...
+	
 	async init(folderPath)
 	{
 		await this.readObjFile(folderPath+"/objFile.obj");
 		await this.readTexture(folderPath+"/texture.png");
 	}
+	
+	draw()
+	{
+		//gl.enable( gl.TEXTURE_2D );
+		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
+		
+		this._shaderProgram.begin();
+
+		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
+		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
+		var normalMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "normalMat");
+		
+		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
+		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
+		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
+		
+		gl.uniform3f(gl.getUniformLocation(this._shaderProgram.programID, "lightPos"), 0.0, 0.0, 0.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 0.2, 0.2, 0.2, 1.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "diffuse"), 0.8, 0.8, 0.8, 1.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "specular"), 0.0, 0.0, 0.0, 1.0);
+		gl.uniform1f(gl.getUniformLocation(this._shaderProgram.programID, "shininess"), 0.52);
+
+		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
+		gl.enableVertexAttribArray(vertexID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
+		gl.vertexAttribPointer( vertexID, 3, gl.FLOAT, gl.FALSE, 0, 0);
+
+		var normalID = gl.getAttribLocation(this._shaderProgram.programID, "normal");
+		gl.enableVertexAttribArray(normalID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
+		gl.vertexAttribPointer( normalID, 3, gl.FLOAT, gl.TRUE, 0, 0);
+		
+		var uvID = gl.getAttribLocation(this._shaderProgram.programID, "uv");
+		gl.enableVertexAttribArray(uvID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._uvBufferID);
+		gl.vertexAttribPointer( uvID, 2, gl.FLOAT, gl.FALSE, 0, 0);
+		
+		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
+		
+		this._shaderProgram.end();
+		
+		gl.bindTexture(gl.TEXTURE_2D, null);		
+		//gl.disable( gl.TEXTURE_2D );
+	}	
+	
+	//private methods...
 	
 	async readObjFile(filePath)
 	{
@@ -190,50 +238,6 @@ class ObjLoader
 	{
 		var tokens = line.split(" ");
 		return new Point(parseFloat(tokens[1]), parseFloat(tokens[2]), parseFloat(tokens[3]));
-	}
-	
-	draw()
-	{
-		//gl.enable( gl.TEXTURE_2D );
-		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
-		
-		this._shaderProgram.begin();
-
-		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
-		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
-		var normalMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "normalMat");
-		
-		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
-		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
-		
-		gl.uniform3f(gl.getUniformLocation(this._shaderProgram.programID, "lightPos"), 0.0, 0.0, 0.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 0.2, 0.2, 0.2, 1.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "diffuse"), 0.8, 0.8, 0.8, 1.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "specular"), 0.0, 0.0, 0.0, 1.0);
-		gl.uniform1f(gl.getUniformLocation(this._shaderProgram.programID, "shininess"), 0.52);
-
-		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
-		gl.enableVertexAttribArray(vertexID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
-		gl.vertexAttribPointer( vertexID, 3, gl.FLOAT, gl.FALSE, 0, 0);
-
-		var normalID = gl.getAttribLocation(this._shaderProgram.programID, "normal");
-		gl.enableVertexAttribArray(normalID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
-		gl.vertexAttribPointer( normalID, 3, gl.FLOAT, gl.TRUE, 0, 0);
-		
-		var uvID = gl.getAttribLocation(this._shaderProgram.programID, "uv");
-		gl.enableVertexAttribArray(uvID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._uvBufferID);
-		gl.vertexAttribPointer( uvID, 2, gl.FLOAT, gl.FALSE, 0, 0);
-		
-		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
-		
-		this._shaderProgram.end();
-		
-		gl.bindTexture(gl.TEXTURE_2D, null);		
-		//gl.disable( gl.TEXTURE_2D );
 	}
 }
 

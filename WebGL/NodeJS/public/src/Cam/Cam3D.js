@@ -11,6 +11,8 @@ class Cam3D {
 		}		
 	}
 	
+	//public methods...
+	
 	init(screenW, screenH, zNear, zFar, zNearPlaneW) {
 			
 		this.projMat = new GLMat();
@@ -68,7 +70,7 @@ class Cam3D {
 		
 	updateCamera()
 	{
-		if(input.IsKeyPressed(input.shift) && input.IsMiddleMousePressed())
+		if(input.isKeyPressed(input.shift) && input.isMiddleMousePressed())
 		{
 			var dx = input.mouseX.curr - input.mouseX.prev;
 			var dy = input.mouseY.curr - input.mouseY.prev;
@@ -85,14 +87,14 @@ class Cam3D {
 			this.setModelViewMatrix();
 			return true;
 		}
-		else if(input.IsKeyPressed(input.ctrl) && input.IsMiddleMousePressed())
+		else if(input.isKeyPressed(input.ctrl) && input.isMiddleMousePressed())
 		{
 			this._trans.z += (input.mouseY.prev - input.mouseY.curr) * 2.0;
 			
 			this.setModelViewMatrix();
 			return true;
 		}
-		else if(input.IsMiddleMousePressed())
+		else if(input.isMiddleMousePressed())
 		{
 			var dx = (input.mouseX.curr - input.mouseX.prev);
 			var dy = (input.mouseY.curr - input.mouseY.prev);
@@ -104,14 +106,14 @@ class Cam3D {
 			return true;
 		}
 
-		if(input.IsScrollDown())
+		if(input.isScrollDown())
 		{
 			this._trans.z -= 45.0;
 			
 			this.setModelViewMatrix();
 			return true;
 		}
-		else if(input.IsScrollUp())
+		else if(input.isScrollUp())
 		{
 			this._trans.z += 45.0;
 			

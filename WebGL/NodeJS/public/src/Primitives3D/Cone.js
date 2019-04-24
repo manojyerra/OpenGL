@@ -86,51 +86,6 @@ class Cone extends Primitive3D
 		return (1.0/3.0) * PI_VAL * this._r * this._r * this._h;
 	}
 	
-
-	generateBufferID()
-	{
-		var buffer = new GLBuffer(true, false, false);
-
-		var radius = 0.5;
-		var halfLength = 0.5;
-		var piVal = 3.14159265;
-
-		buffer.glBegin(gl.TRIANGLES);
-
-		//if(_useRandomColors)
-		//	_randomColor.Reset();
-
-		for(var i=20; i<=360; i+=20)
-		{
-			var theta = i*piVal/180.0;
-			var nextTheta = (i+20)*piVal/180.0;
-
-			if(this._useRandomColors)
-				buffer.glColoruia(this._randomColor.nextColor(), this._randomColorAlpha);
-
-			buffer.glVertex3f(0, halfLength, 0);
-
-			buffer.glColor4ub(80, 80, 80, 255);
-			buffer.glVertex3f(radius*Math.cos(nextTheta),	-halfLength,	radius*Math.sin(nextTheta));
-			buffer.glVertex3f(radius*Math.cos(theta),		-halfLength,	radius*Math.sin(theta));
-
-			buffer.glVertex3f(0, -halfLength, 0);
-
-			if(this._useRandomColors)
-				buffer.glColoruia(this._randomColor.nextColor(), this._randomColorAlpha);
-
-			buffer.glVertex3f(radius*Math.cos(theta),		-halfLength,	radius*Math.sin(theta));
-			buffer.glVertex3f(radius*Math.cos(nextTheta),	-halfLength,	radius*Math.sin(nextTheta));
-		}
-
-		buffer.glEnd();
-
-		this._vertexBufferID = buffer.getVertexBufferID();
-		this._colorBufferID = buffer.getColorBufferID();
-		this._vertexCount = buffer.getVertexCount();
-	}
-	
-
 	draw()
 	{
 		if(!this._visible)
@@ -172,6 +127,50 @@ class Cone extends Primitive3D
 		this._shaderProgram.end();
 	}
 	
+	//private methods...
+	
+	generateBufferID()
+	{
+		var buffer = new GLBuffer(true, false, false);
+
+		var radius = 0.5;
+		var halfLength = 0.5;
+		var piVal = 3.14159265;
+
+		buffer.glBegin(gl.TRIANGLES);
+
+		//if(_useRandomColors)
+		//	_randomColor.Reset();
+
+		for(var i=20; i<=360; i+=20)
+		{
+			var theta = i*piVal/180.0;
+			var nextTheta = (i+20)*piVal/180.0;
+
+			if(this._useRandomColors)
+				buffer.glColoruia(this._randomColor.nextColor(), this._randomColorAlpha);
+
+			buffer.glVertex3f(0, halfLength, 0);
+
+			buffer.glColor4ub(80, 80, 80, 255);
+			buffer.glVertex3f(radius*Math.cos(nextTheta),	-halfLength,	radius*Math.sin(nextTheta));
+			buffer.glVertex3f(radius*Math.cos(theta),		-halfLength,	radius*Math.sin(theta));
+
+			buffer.glVertex3f(0, -halfLength, 0);
+
+			if(this._useRandomColors)
+				buffer.glColoruia(this._randomColor.nextColor(), this._randomColorAlpha);
+
+			buffer.glVertex3f(radius*Math.cos(theta),		-halfLength,	radius*Math.sin(theta));
+			buffer.glVertex3f(radius*Math.cos(nextTheta),	-halfLength,	radius*Math.sin(nextTheta));
+		}
+
+		buffer.glEnd();
+
+		this._vertexBufferID = buffer.getVertexBufferID();
+		this._colorBufferID = buffer.getColorBufferID();
+		this._vertexCount = buffer.getVertexCount();
+	}	
 }
 
 

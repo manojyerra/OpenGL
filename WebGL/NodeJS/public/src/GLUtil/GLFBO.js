@@ -17,6 +17,8 @@ class GLFBO
 		this.unBind();
 	}
 	
+	//public methods...
+	
 	bind()
 	{
 		gl.bindFramebuffer(gl.FRAMEBUFFER, this._fboID);
@@ -32,26 +34,6 @@ class GLFBO
 		return this._texID;
 	}
 
-	attachTextureToFBO(texID)
-	{
-		gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texID, 0);
-	}
-	
-	createDepthBuffer(w, h)
-	{
-		var rbo = gl.createRenderbuffer();
-		gl.bindRenderbuffer(gl.RENDERBUFFER, rbo);
-		gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, w, h);
-		gl.bindRenderbuffer(gl.RENDERBUFFER, null);
-
-		return rbo;
-	}
-
-	attachDepthBufferToFBO(depthBufferID)
-	{
-		gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, depthBufferID);
-	}
-	
 	isFBOCreated()
 	{
 		var status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
@@ -98,5 +80,27 @@ class GLFBO
 		gl.deleteRenderbuffer(this._depthBufID);
   		gl.deleteTexture(this._texID);
 		gl.deleteFramebuffers(this._fboID);
+	}
+	
+	//private methods...
+	
+	attachTextureToFBO(texID)
+	{
+		gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texID, 0);
+	}
+	
+	createDepthBuffer(w, h)
+	{
+		var rbo = gl.createRenderbuffer();
+		gl.bindRenderbuffer(gl.RENDERBUFFER, rbo);
+		gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, w, h);
+		gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+
+		return rbo;
+	}
+
+	attachDepthBufferToFBO(depthBufferID)
+	{
+		gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, depthBufferID);
 	}
 }

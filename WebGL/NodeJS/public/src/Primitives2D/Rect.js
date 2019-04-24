@@ -19,22 +19,6 @@ class Rect
 		this.setBounds(x, y, w, h);
 		this.setColor4ub(255, 255, 255, 255);
 	}	
-	
-	generateBufferID()
-	{
-		var arr = [
-			0.0, 0.0, 0.0,
-			1.0, 0.0, 0.0,
-			0.0, 1.0, 0.0,
-			1.0, 1.0, 0.0		
-		];
-		
-		this._vertexBufferID = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW);
-				
-		this._vertexCount = 4;
-	}
 
 	setBounds(x, y, w, h)
 	{
@@ -76,6 +60,24 @@ class Rect
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, this._vertexCount);
 
 		this._shaderProgram.end();
+	}	
+	
+	//private methods...
+	
+	generateBufferID()
+	{
+		var arr = [
+			0.0, 0.0, 0.0,
+			1.0, 0.0, 0.0,
+			0.0, 1.0, 0.0,
+			1.0, 1.0, 0.0		
+		];
+		
+		this._vertexBufferID = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW);
+				
+		this._vertexCount = 4;
 	}	
 }
 

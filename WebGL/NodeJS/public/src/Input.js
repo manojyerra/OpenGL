@@ -37,6 +37,8 @@ class Input
 		this.scrollVal = new InputState(0,0,0);
 	}
 	
+	//public methods...
+	
 	update()
 	{
 		this.mouseX.prev = this.mouseX.curr;
@@ -64,30 +66,32 @@ class Input
 		}
 	}
 	
-	IsMouseMoved()			{ return (this.mouseX.curr != this.mouseX.prev || this.mouseY.curr != this.mouseY.prev); }
+	isMouseMoved()			{ return (this.mouseX.curr != this.mouseX.prev || this.mouseY.curr != this.mouseY.prev); }
 	
-	IsMousePressed()		{ return (this.leftMouseDown.curr && this.leftMouseDown.prev);  	}
-	IsMouseReleased()		{ return (!this.leftMouseDown.curr && this.leftMouseDown.prev); 	}
-	IsMouseClicked()		{ return (this.leftMouseDown.curr && !this.leftMouseDown.prev); 	}
-	IsMouseDragged()		{ return (this.IsMouseMoved() && this.IsMousePressed());			}
+	isMousePressed()		{ return (this.leftMouseDown.curr && this.leftMouseDown.prev);  	}
+	isMouseReleased()		{ return (!this.leftMouseDown.curr && this.leftMouseDown.prev); 	}
+	isMouseClicked()		{ return (this.leftMouseDown.curr && !this.leftMouseDown.prev); 	}
+	isMouseDragged()		{ return (this.isMouseMoved() && this.isMousePressed());			}
 
-	IsRightMousePressed()	{ return (this.rightMouseDown.curr && this.rightMouseDown.prev);	}
-	IsRightMouseReleased()	{ return (!this.rightMouseDown.curr && this.rightMouseDown.prev);	}
-	IsRightMouseClicked()	{ return (this.rightMouseDown.curr && !this.rightMouseDown.prev);	}
-	IsRightMouseDragged()	{ return (this.IsMouseMoved() && this.IsRightMousePressed());		}
+	isRightMousePressed()	{ return (this.rightMouseDown.curr && this.rightMouseDown.prev);	}
+	isRightMouseReleased()	{ return (!this.rightMouseDown.curr && this.rightMouseDown.prev);	}
+	isRightMouseClicked()	{ return (this.rightMouseDown.curr && !this.rightMouseDown.prev);	}
+	isRightMouseDragged()	{ return (this.isMouseMoved() && this.isRightMousePressed());		}
 	
-	IsMiddleMousePressed()	{ return (this.middleMouseDown.curr && this.middleMouseDown.prev);	}
-	IsMiddleMouseReleased()	{ return (!this.middleMouseDown.curr && this.middleMouseDown.prev);	}
-	IsMiddleMouseClicked()	{ return (this.middleMouseDown.curr && !this.middleMouseDown.prev);	}
-	IsMiddleMouseDragged()	{ return (this.IsMouseMoved() && this.IsMiddleMousePressed());		}
+	isMiddleMousePressed()	{ return (this.middleMouseDown.curr && this.middleMouseDown.prev);	}
+	isMiddleMouseReleased()	{ return (!this.middleMouseDown.curr && this.middleMouseDown.prev);	}
+	isMiddleMouseClicked()	{ return (this.middleMouseDown.curr && !this.middleMouseDown.prev);	}
+	isMiddleMouseDragged()	{ return (this.isMouseMoved() && this.isMiddleMousePressed());		}
 	
-	IsScrollDown()			{ return (this.scrollVal.curr < 0); }
-	IsScrollUp()			{ return (this.scrollVal.curr > 0); }
+	isScrollDown()			{ return (this.scrollVal.curr < 0); }
+	isScrollUp()			{ return (this.scrollVal.curr > 0); }
 	
-	IsKeyTyped(key)			{ return !this.prevKeys[key] && this.currKeys[key];	}
-	IsKeyReleased(key)		{ return this.prevKeys[key] && !this.currKeys[key];	}
-	IsKeyPressed(key)		{ return this.prevKeys[key] && this.currKeys[key];	}
+	isKeyTyped(key)			{ return !this.prevKeys[key] && this.currKeys[key];	}
+	isKeyReleased(key)		{ return this.prevKeys[key] && !this.currKeys[key];	}
+	isKeyPressed(key)		{ return this.prevKeys[key] && this.currKeys[key];	}
 	
+	
+	//private methods...
 	
 	setKeyCodes()
 	{

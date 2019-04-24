@@ -19,21 +19,6 @@ class Triangle
 		this.setColor4ub(255, 255, 255, 255);
 	}	
 	
-	generateBufferID(p1, p2, p3)
-	{
-		var arr = [
-			p1.x, p1.y, p1.z,
-			p2.x, p2.y, p2.z,
-			p3.x, p3.y, p3.z
-		];
-		
-		this._vertexBufferID = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW);
-				
-		this._vertexCount = 3;
-	}
-	
 	setColor4ub(r, g, b, a)
 	{
 		this._r = r*1.0 / 255.0;
@@ -65,6 +50,23 @@ class Triangle
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, this._vertexCount);
 
 		this._shaderProgram.end();
+	}
+	
+	//private methods...
+	
+	generateBufferID(p1, p2, p3)
+	{
+		var arr = [
+			p1.x, p1.y, p1.z,
+			p2.x, p2.y, p2.z,
+			p3.x, p3.y, p3.z
+		];
+		
+		this._vertexBufferID = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(arr), gl.STATIC_DRAW);
+				
+		this._vertexCount = 3;
 	}	
 }
 

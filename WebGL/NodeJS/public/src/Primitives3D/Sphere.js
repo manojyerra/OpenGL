@@ -70,6 +70,52 @@ class Sphere extends Primitive3D
 		return (4.0/3.0) * PI_VAL * this._r * this._r * this._r;
 	}
 	
+	draw()
+	{
+		if(!this._visible)
+			return;
+		
+		this._scaleMat[0] = this._r;
+		this._scaleMat[5] = this._r;
+		this._scaleMat[10] = this._r;
+		
+		this._shaderProgram.begin();		
+
+		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
+		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
+		var normalMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "normalMat");
+		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
+		var scaleMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "scaleMat");		
+		
+		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
+		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
+		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
+		gl.uniformMatrix4fv(oriMatLoc, false, this.m);
+		gl.uniformMatrix4fv(scaleMatLoc, false, this._scaleMat);		
+		
+		gl.uniform3f(gl.getUniformLocation(this._shaderProgram.programID, "lightPos"), 0.0, 0.0, 0.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 0.2, 0.2, 0.2, 1.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "diffuse"), 0.8, 0.8, 0.8, 1.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "specular"), 0.0, 0.0, 0.0, 1.0);
+		gl.uniform1f(gl.getUniformLocation(this._shaderProgram.programID, "shininess"), 0.52);
+
+		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
+		gl.enableVertexAttribArray(vertexID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
+		gl.vertexAttribPointer( vertexID, 3, gl.FLOAT, gl.FALSE, 0, 0);
+
+		var normalID = gl.getAttribLocation(this._shaderProgram.programID, "normal");
+		gl.enableVertexAttribArray(normalID);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
+		gl.vertexAttribPointer( normalID, 3, gl.FLOAT, gl.TRUE, 0, 0);
+
+		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
+		
+		this._shaderProgram.end();
+	}
+	
+	//private methods...
+
 	generateBufferID()
 	{
 		var buffer = new GLBuffer(false, false, true);
@@ -156,51 +202,7 @@ class Sphere extends Primitive3D
 		}
 		
 		return newP;
-	}
-	
-	draw()
-	{
-		if(!this._visible)
-			return;
-		
-		this._scaleMat[0] = this._r;
-		this._scaleMat[5] = this._r;
-		this._scaleMat[10] = this._r;
-		
-		this._shaderProgram.begin();		
-
-		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
-		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
-		var normalMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "normalMat");
-		var oriMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "oriMat");
-		var scaleMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "scaleMat");		
-		
-		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
-		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
-		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
-		gl.uniformMatrix4fv(oriMatLoc, false, this.m);
-		gl.uniformMatrix4fv(scaleMatLoc, false, this._scaleMat);		
-		
-		gl.uniform3f(gl.getUniformLocation(this._shaderProgram.programID, "lightPos"), 0.0, 0.0, 0.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 0.2, 0.2, 0.2, 1.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "diffuse"), 0.8, 0.8, 0.8, 1.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "specular"), 0.0, 0.0, 0.0, 1.0);
-		gl.uniform1f(gl.getUniformLocation(this._shaderProgram.programID, "shininess"), 0.52);
-
-		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
-		gl.enableVertexAttribArray(vertexID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
-		gl.vertexAttribPointer( vertexID, 3, gl.FLOAT, gl.FALSE, 0, 0);
-
-		var normalID = gl.getAttribLocation(this._shaderProgram.programID, "normal");
-		gl.enableVertexAttribArray(normalID);
-		gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
-		gl.vertexAttribPointer( normalID, 3, gl.FLOAT, gl.TRUE, 0, 0);
-
-		gl.drawArrays(gl.TRIANGLES, 0, this._vertexCount);
-		
-		this._shaderProgram.end();
-	}
+	}	
 }
 
 
