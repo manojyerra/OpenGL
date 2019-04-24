@@ -12,6 +12,30 @@ function randomInt(range)
 {	
 	return Math.floor(Math.random() * range);
 }
+
+async function loadArrayBuffer(url)
+{	
+	var request = new XMLHttpRequest();
+	request.open('GET', url + '?please-dont-cache=' + Math.random(), true);
+	request.responseType = 'arraybuffer';
+		
+	request.onload = function() {
+		request.onload = null;
+	};
+	
+	request.send();
+
+	while(request.onload) {
+		await this.sleep(2);
+	}
+	
+	if (request.status < 200 || request.status > 299) {
+		cosole.error('Error: HTTP Status ' + request.status + ' on resource ' + url);
+		return null;
+	}
+	
+	return request.response;
+}
 		
 async function loadTextFile(url)
 {	
@@ -29,16 +53,13 @@ async function loadTextFile(url)
 		await this.sleep(2);
 	}
 	
-	var text = null;
-	
 	if (request.status < 200 || request.status > 299) {
-		text = 'Error: HTTP Status ' + request.status + ' on resource ' + url;
+		console.error('Error: HTTP Status ' + request.status + ' on resource ' + url);
+		return null;
 	}
-	else {
-		var blob = new Blob([request.response], {type: 'text/html'});
-		var text = await (new Response(blob)).text();
-		//console.log('text : ',text);
-	}
+	
+	var blob = new Blob([request.response], {type: 'text/html'});
+	var text = await (new Response(blob)).text();
 
 	return text;
 }
@@ -48,17 +69,13 @@ async function loadTexture(texturePath)
 	var img = new Image();
 	img.src = texturePath;
 	
-	img.onload = function()
-	{
-		//console.log('img loaded');
+	img.onload = function() {
 		img.onload = null;
 	};
 
 	while(img.onload) {	
 		await this.sleep(2);
 	}
-	
-	//console.log('image width', img.width);
 	
 	return img;
 }

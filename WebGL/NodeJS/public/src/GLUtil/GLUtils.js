@@ -13,10 +13,10 @@ class ProjValues
 
 class MinMax
 {
-	constructor(min, max)
+	constructor(minX, minY, minZ, maxX, maxY, maxZ)
 	{
-		this.min = new CVector3(min.x, min.y, min.z);
-		this.max = new CVector3(max.x, max.y, max.z);
+		this.min = new CVector3(minX, minY, minZ);
+		this.max = new CVector3(maxX, maxY, maxZ);
 	}
 }
 
@@ -214,7 +214,7 @@ class GLUtils
 			if(points3D[i].z > maxZ) maxZ = points3D[i].z;
 		}
 
-		return new MinMax( new CVector3(minX, minY, minZ), new CVector3(maxX, maxY, maxZ) );
+		return new MinMax(minX, minY, minZ, maxX, maxY, maxZ);
 	}
 	
 	static getVerticesOnRect(vertexArr, numVertex, modelMat, projMat, objMat, x, y, w, h, sw, sh)

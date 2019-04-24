@@ -6,43 +6,12 @@ class Looper
 	}
 	
 	async init(sw, sh)
-	{
+	{	
 		this._sw = sw;
 		this._sh = sh;
-				
+	
 		cam3D.init(sw, sh, 1.0, 10000.0, 0.2);
 		cam2D.init(sw, sh);
-		
-		var prevClearColor = GLUtils.clearColor(1.0, 0.0, 1.0, 1.0);
-		var prevEnableVal = GLUtils.enable(gl.BLEND, true);
-		var prevLineWidth = GLUtils.lineWidth(2.0);
-		//var prevDepthFunc = GLUtils.depthFunc(1.0);
-		
-		//var projValues = GLUtils.getProjectionValues(cam3D.projMat.m);
-		//console.log('projValues : ', projValues);
-		
-		//var pos2D = GLUtils.get2DPosOnScreenFrom3DPos(new CVector3(0.0, 0.0, 0.0), cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
-		//console.log('2DPos : ', pos2D);
-		
-		var pos3DVec = Array(0);
-		pos3DVec.push(0.0);
-		pos3DVec.push(0.0);
-		pos3DVec.push(0.0);
-		pos3DVec.push(1.0);
-		pos3DVec.push(0.0);
-		pos3DVec.push(0.0);
-		pos3DVec.push(0.0);
-		pos3DVec.push(1.0);
-		pos3DVec.push(0.0);
-		
-		var pos2DVec = GLUtils.get2DPosArrOnScreenFrom3DPosArr(pos3DVec, 3, cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
-		console.log('pos2DVec : ',pos2DVec);
-		
-		var pos2DOnRect = GLUtils.getVerticesOnRect(pos3DVec, 3, cam3D.modelMat.m, cam3D.projMat.m, null, 0,0,450,450, sw, sh);
-		console.log('pos2DOnRect : ',pos2DOnRect);
-		
-		var minMax = GLUtils.getMinMaxPoints(pos3DVec);
-		console.log('minMax : ',minMax);
 		
 		this.floor = new Floor();
 		await this.floor.init();
@@ -141,18 +110,46 @@ class Looper
 
 
 
+/*
+	var prevClearColor = GLUtils.clearColor(1.0, 0.0, 1.0, 1.0);
+	var prevEnableVal = GLUtils.enable(gl.BLEND, true);
+	var prevLineWidth = GLUtils.lineWidth(2.0);
+	//var prevDepthFunc = GLUtils.depthFunc(1.0);
+	
+	//var projValues = GLUtils.getProjectionValues(cam3D.projMat.m);
+	//console.log('projValues : ', projValues);
+	
+	//var pos2D = GLUtils.get2DPosOnScreenFrom3DPos(new CVector3(0.0, 0.0, 0.0), cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
+	//console.log('2DPos : ', pos2D);
+	
+	var pos3DVec = Array(0);
+	pos3DVec.push(0.0);
+	pos3DVec.push(0.0);
+	pos3DVec.push(0.0);
+	pos3DVec.push(1.0);
+	pos3DVec.push(0.0);
+	pos3DVec.push(0.0);
+	pos3DVec.push(0.0);
+	pos3DVec.push(1.0);
+	pos3DVec.push(0.0);
+	
+	var pos2DVec = GLUtils.get2DPosArrOnScreenFrom3DPosArr(pos3DVec, 3, cam3D.modelMat.m, cam3D.projMat.m, sw, sh);
+	console.log('pos2DVec : ',pos2DVec);
+	
+	var pos2DOnRect = GLUtils.getVerticesOnRect(pos3DVec, 3, cam3D.modelMat.m, cam3D.projMat.m, null, 0,0,450,450, sw, sh);
+	console.log('pos2DOnRect : ',pos2DOnRect);
+	
+	var minMax = GLUtils.getMinMaxPoints(pos3DVec);
+	console.log('minMax : ',minMax);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+	var binaryData = await loadArrayBuffer('data/floatArr.buf');
+	var floatArr = new Float32Array(binaryData);
+	console.log(floatArr[0]);
+	console.log(floatArr[1]);
+	console.log(floatArr[2]);
+	console.log(floatArr[3]);
+	console.log(floatArr[4]);
+	console.log(floatArr[5]);
+*/
