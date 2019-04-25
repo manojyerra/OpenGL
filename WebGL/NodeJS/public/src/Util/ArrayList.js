@@ -24,6 +24,9 @@ class ArrayList
 	
 	createArray(capacity, type)
 	{
+		if(capacity < 1)
+			throw "ArrayList capactity should be >= 1";
+		
 		if(type == ArrayList.Uint8Array)				return new Uint8Array(capacity);
 		else if(type == ArrayList.Uint8ClampedArray)	return new Uint8ClampedArray(capacity);
 		else if(type == ArrayList.Uint16Array)			return new Uint16Array(capacity);
@@ -35,6 +38,8 @@ class ArrayList
 		
 		else if(type == ArrayList.Float16Array)			return new Float16Array(capacity);
 		else if(type == ArrayList.Float32Array)			return new Float32Array(capacity);
+		
+		throw "Invalid ArrayList type";
 		
 		return null;
 	}

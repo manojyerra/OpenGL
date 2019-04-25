@@ -40,11 +40,15 @@ class GLBuffer
 		this._mode = mode;
 		this._count = 0;
 
-		//this._vertexArr = new ArrayList(16, ArrayList.Float32Array);
 		this._vertexArr = Array(0);
 		if(this.colorDataPresent)	this._colorArr = Array(0);
 		if(this.uvDataPresent)		this._uvArr = Array(0);
 		if(this.normalsDataPresent)	this._normalArr = Array(0);
+
+		// this._vertexArr = new ArrayList(16, ArrayList.Float32Array);
+		// if(this.colorDataPresent)	this._colorArr = new ArrayList(16, ArrayList.Uint8Array);
+		// if(this.uvDataPresent)		this._uvArr = new ArrayList(16, ArrayList.Float32Array);
+		// if(this.normalsDataPresent)	this._normalArr = new ArrayList(16, ArrayList.Float32Array);
 	}
 
 	glColor4ub(r, g, b, a)
@@ -124,21 +128,20 @@ class GLBuffer
 			gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBufferID);
 			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this._vertexArr), gl.STATIC_DRAW);
 			
-			//var floatArr = new Float32Array(this._vertexArr);
-			//console.log('floatArr.length*4 : ',floatArr.length*4);
-			//gl.bufferData(gl.ARRAY_BUFFER, floatArr.length*4, gl.STATIC_DRAW);
-			//gl.bufferSubData(gl.ARRAY_BUFFER, 0, floatArr);
-			
 			//this._vertexArr.sliceToSize();
-			//console.log('this._vertexArr.size()*4 : ',this._vertexArr.capacity()*4);
-			//gl.bufferData(gl.ARRAY_BUFFER, this._vertexArr.capacity()*4, gl.STATIC_DRAW);
+			//gl.bufferData(gl.ARRAY_BUFFER, this._vertexArr.size()*4, gl.STATIC_DRAW);
 			//gl.bufferSubData(gl.ARRAY_BUFFER, 0, this._vertexArr.array());
+									
 
 			if(this._colorArr)
 			{
 				this._colorBufferID = gl.createBuffer();
-				gl.bindBuffer(gl.ARRAY_BUFFER, this._colorBufferID);				
+				gl.bindBuffer(gl.ARRAY_BUFFER, this._colorBufferID);	
 				gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(this._colorArr), gl.STATIC_DRAW);
+				
+				//this._colorArr.sliceToSize();
+				//gl.bufferData(gl.ARRAY_BUFFER, this._colorArr.size(), gl.STATIC_DRAW);
+				//gl.bufferSubData(gl.ARRAY_BUFFER, 0, this._colorArr.array());
 			}
 
 			if(this._uvArr)
@@ -146,6 +149,10 @@ class GLBuffer
 				this._uvBufferID = gl.createBuffer();
 				gl.bindBuffer(gl.ARRAY_BUFFER, this._uvBufferID);
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this._uvArr), gl.STATIC_DRAW);
+				
+				//this._uvArr.sliceToSize();
+				//gl.bufferData(gl.ARRAY_BUFFER, this._uvArr.size()*4, gl.STATIC_DRAW);
+				//gl.bufferSubData(gl.ARRAY_BUFFER, 0, this._uvArr.array());				
 			}
 
 			if(this._normalArr)
@@ -153,6 +160,10 @@ class GLBuffer
 				this._normalBufferID = gl.createBuffer();
 				gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
 				gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this._normalArr), gl.STATIC_DRAW);
+				
+				//this._normalArr.sliceToSize();
+				//gl.bufferData(gl.ARRAY_BUFFER, this._normalArr.size()*4, gl.STATIC_DRAW);
+				//gl.bufferSubData(gl.ARRAY_BUFFER, 0, this._normalArr.array());								
 			}
 
 			this._vertexArr = null;
@@ -161,18 +172,5 @@ class GLBuffer
 			this._normalArr = null;
 		}
 	}
-
 }
 
-
-/*
-floatArr.length*4 :  72
-GLBuffer.js:129 floatArr.length*4 :  1536
-GLBuffer.js:129 floatArr.length*4 :  73728
-GLBuffer.js:129 floatArr.length*4 :  432
-GLBuffer.js:129 floatArr.length*4 :  1296
-GLBuffer.js:129 floatArr.length*4 :  2592
-GLBuffer.js:129 floatArr.length*4 :  94608
-GLBuffer.js:129 floatArr.length*4 :  48
-GLFBO.js:42 FRAMEBUFFER_COMPLETE
-*/
