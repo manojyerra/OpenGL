@@ -27,6 +27,9 @@ class Looper
 		//this.texture.setBounds(1,2,5,2);
 		
 		this.fbo = new GLFBO(sw, sh);
+		
+		this.flmModel = new FLMModel();
+		await this.flmModel.init("./data/FLMModel");		
 	}
 	
 	draw()
@@ -43,16 +46,17 @@ class Looper
 		
 		cam3D.updateCamera();
 		
-		this.texture.setBounds(1,2,5,2);
-		this.texture.draw(cam3D.projMat.m, cam3D.modelMat.m);
+		//this.texture.setBounds(1,2,5,2);
+		//this.texture.draw(cam3D.projMat.m, cam3D.modelMat.m);
 		
 		this.floor.draw();
+		this.flmModel.draw();
 		//this.objModel.draw();
 		
-		this.box.draw();
-		this.cone.draw();
-		this.cylinder.draw();
-		this.sphere.draw();
+		//this.box.draw();
+		//this.cone.draw();
+		//this.cylinder.draw();
+		//this.sphere.draw();
 
 		//gl.disable(gl.DEPTH_TEST);
 		//this.texture.setBounds(10,10,500,500);
@@ -61,15 +65,12 @@ class Looper
 
 		//this.fbo.unBind();
 
-		// gl.clearColor(0.2, 0.2, 0.2, 1.0);
-		// gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		// gl.disable(gl.DEPTH_TEST);
+		//gl.clearColor(0.2, 0.2, 0.2, 1.0);
+		//gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		//gl.enable(gl.DEPTH_TEST);
 		
-		// this.texture.setBounds(10,10, this._sw*0.9, this._sh*0.9);
-		// this.texture.drawWithTextureID(this.fbo.getTextureID(), cam2D.projMat.m, cam2D.modelMat.m);
-		
-		// this.rect.draw();
-		// this.triangle.draw();		
+		//this.rect.draw();
+		//this.triangle.draw();
 	}
 	
 	

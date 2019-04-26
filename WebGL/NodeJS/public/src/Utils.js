@@ -30,7 +30,7 @@ async function loadArrayBuffer(url)
 	}
 	
 	if (request.status < 200 || request.status > 299) {
-		cosole.error('Error: HTTP Status ' + request.status + ' on resource ' + url);
+		console.error('Error: HTTP Status ' + request.status + ' on resource ' + url);
 		return null;
 	}
 	
