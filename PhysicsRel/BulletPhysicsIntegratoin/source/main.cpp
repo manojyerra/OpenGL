@@ -14,9 +14,9 @@ HGLRC hRC = NULL;
 
 int colorBPP = 32;
 int depthBPP = 24;
-int hasAlphaBuffer = 0;
-int windowW = 1300;
-int windowH = 600;
+int hasAlphaBuffer = 1;
+int windowW = 1600;
+int windowH = 1200;
 
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -192,7 +192,7 @@ bool CreateWindowWithoutRC(HINSTANCE hInstance)
 
 	hWnd = CreateWindowEx (windowExtendedStyle,									// Extended Style
 								   (const char*)"WindowClass1",					// Class Name
-								   (const char*)"Title here...",				// Window Title
+								   (const char*)"",				// Window Title
 								   windowStyle,									// Window Style
 								   0, 0,										// Window X,Y Position
 								   windowRect.right - windowRect.left,			// Window Width
@@ -275,14 +275,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if(GetTickCount() - startTime >= 500)
 		{
-			ShowFPSOnWindowTitleBar(framesCount * 2);
+			//ShowFPSOnWindowTitleBar(framesCount * 2);
 			framesCount = 0;
 			startTime = GetTickCount();
 		}
 
 		framesCount++;
 
-		Sleep(30);
+		Sleep(1);
     }
 
 	if(looper)

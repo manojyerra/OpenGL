@@ -43,7 +43,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	FLModel* model1 = _modelsMgr->Add("data/barrel");
 	FLModel* model2 = _modelsMgr->Add("data/barrel", CVector3(5,0,0) );
-	FLModel* model3 = _modelsMgr->Add("data/barrel", CVector3(10,5,-100) );
+	//FLModel* model3 = _modelsMgr->Add("data/barrel", CVector3(10,5,-100) );
 
 	PhyManager::GetInstance();
 
@@ -53,9 +53,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 	//_shape = Shape::GetBoundingShape( model->GetVerticesPointer(), model->GetNumVertices() * 3, Shape::CYLINDER);
 	//model->AddBoundingShape(_shape);
 
-	_modelPropsFrame = new ModelPropsFrame((int)_windowW-250, 0, 250, 550, _modelsMgr);
+	_modelPropsFrame = new ModelPropsFrame((int)_windowW-250, 0, 250, 750, _modelsMgr);
 
-	_mainFrame = new MainFrame(0,0,215,500, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
+	_mainFrame = new MainFrame(0,0,215,750, Cam::GetInstance(), _floor, _modelsMgr, _modelPropsFrame);
 }
 
 void Looper::Draw(float deltaTime)
@@ -320,8 +320,11 @@ void Looper::DrawOnPhysicsEnable(float deltaTime)
 	UpdatePhysics(deltaTime);
 
 	_modelsMgr->Draw();
+
+	bool lightState = GLUtil::GLEnable(GL_LIGHTING, false);
 	_floor->Draw();
 	_floorBox->Draw();
+	GLUtil::GLEnable(GL_LIGHTING, lightState);
 
 	SUIDraw();
 }
