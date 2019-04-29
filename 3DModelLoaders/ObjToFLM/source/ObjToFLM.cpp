@@ -5,7 +5,7 @@
 
 ObjToFLM::ObjToFLM(string folderPath)
 {
-	normalArrType = SHORT_ARR;
+	normalArrType = FLOAT_ARR;
 
 	CFileReader fileReader(folderPath+"/objFile.obj", "rb");
 	
@@ -25,7 +25,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 		else if(line[0] == 'v' && line[1] == 't')
 		{
 			sscanf(line, "vt %f %f", &tx, &ty);
-			uvVec.push_back(Point(tx, 1-ty, 0));
+			uvVec.push_back(Point(tx, ty, 0));
 		}
 		else if(line[0] == 'v' && line[1] == 'n')
 		{
