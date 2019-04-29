@@ -14,7 +14,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	GLAndUtil::Init(_windowW, _windowH);
 
-	_objLoader = new ObjLoader("data/cat");
+	_objLoader = new ObjLoader("data/cottage");
 }
 
 void Looper::Update(float deltaTime)
