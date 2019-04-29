@@ -15,8 +15,8 @@ HGLRC hRC = NULL;
 int colorBPP = 32;
 int depthBPP = 24;
 int hasAlphaBuffer = 1;
-int windowW = 1600;
-int windowH = 1200;
+int windowW = 1800;
+int windowH = 1000;
 
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
