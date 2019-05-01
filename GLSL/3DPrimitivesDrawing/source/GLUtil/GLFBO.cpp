@@ -94,5 +94,9 @@ unsigned int GLFBO::GetH()
 
 GLFBO::~GLFBO()
 {
+	//TODO : delete depth buffer and texture
+	//gl.deleteRenderbuffer(this._depthBufID);
+	//gl.deleteTexture(this._texID);
+
 	glDeleteFramebuffersEXT(1, &_fboID);
 }
