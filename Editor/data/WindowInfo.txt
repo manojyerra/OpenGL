@@ -11,11 +11,11 @@
 </hasAlphaBuffer>
 
 <baseWindowW>
-800
+1600
 </baseWindowW>
 
 <baseWindowH>
-600
+1200
 </baseWindowH>
 
 <isFullScreen>
