@@ -91,7 +91,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 				if(v[i] >= faceVec.size())
 					writeConsole("error");
 
-				int containIndex = ContainsFace(&face);
+				int containIndex = ContainsFace(face);
 
 				if(containIndex != -1)
 				{
@@ -103,6 +103,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 					{
 						faceVec.push_back(face);
 						indVec.push_back(faceVec.size()-1);
+						faceMap.insert({ face.toString(), faceVec.size()-1 });
 					}
 					else
 					{
@@ -113,6 +114,7 @@ ObjToFLM::ObjToFLM(string folderPath)
 				{
 					faceVec[v[i]] = face;
 					indVec.push_back(v[i]);
+					faceMap.insert({ face.toString(), v[i] });
 				}
 			}
 		}
@@ -258,23 +260,31 @@ int ObjToFLM::GetIndicesType()
 }
 
 
-int ObjToFLM::ContainsFace(Face* face)
+int ObjToFLM::ContainsFace(Face& face)
 {
-	int size = faceVec.size();
-
-	for(int i=0; i<size; i++)
-	{
-		if(faceVec[i].v.x == face->v.x)
-		{
-			if(faceVec[i].filled)
-			{
-				if(faceVec[i].IsSame(face))
-				{
-					return i;
-				}
-			}
-		}
-	}
-
-	return -1;
+	std::map<string, int>::iterator iter = faceMap.find(face.toString());
+	return (iter == faceMap.end()) ? -1 : iter->second;
 }
+
+
+//int ObjToFLM::ContainsFace(Face* face)
+//{
+//	int size = faceVec.size();
+//
+//	for (int i = 0; i < size; i++)
+//	{
+//		if (faceVec[i].v.x == face->v.x)
+//		{
+//			if (faceVec[i].filled)
+//			{
+//				if (faceVec[i].IsSame(face))
+//				{
+//					return i;
+//				}
+//			}
+//		}
+//	}
+//
+//	return -1;
+//}
+

@@ -2,6 +2,9 @@
 #include <gl/gl.h>
 #include <vector>
 #include <string>
+#include <map>
+#include <iterator>
+
 using namespace std;
 
 class Point
@@ -88,6 +91,8 @@ private:
 	vector<float> normalFloatArr;
 
 	vector<Face> faceVec;
+	map<string, int> faceMap;
+
 	vector<int> indVec;
 	vector<float> vertexIndArr;
 	vector<float> uvIndArr;
@@ -96,7 +101,7 @@ private:
 
 	int normalArrType;
 
-	int ContainsFace(Face* face);
+	int ContainsFace(Face& face);
 	int GetIndicesType();
 
 public:
