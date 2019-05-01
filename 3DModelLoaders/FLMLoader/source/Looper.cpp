@@ -14,7 +14,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	GLAndUtil::Init(_windowW, _windowH);
 
-	_flModel = new FLModel("data/cat");
+	_flModel = new FLModel("data/alien");
 }
 
 
