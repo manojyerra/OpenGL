@@ -9,6 +9,9 @@ class ShaderProgram
 	
 	async init(vertexShaderPath, fragmentShaderPath)
 	{
+		this._vertexShaderPath = vertexShaderPath;
+		this._fragmentShaderPath = fragmentShaderPath;
+		
 		var vsText = await loadTextFile(vertexShaderPath);
 		var fsText = await loadTextFile(fragmentShaderPath);	
 		
@@ -52,12 +55,12 @@ class ShaderProgram
 
 		if (!gl.getShaderParameter(shaderObject, gl.COMPILE_STATUS))
 		{
-			console.error("ERROR compiling shader ("+shaderTypeName+") : "+gl.getShaderInfoLog(shaderObject));
+			console.error(this._vertexShaderPath+" : ERROR compiling shader ("+shaderTypeName+") : "+gl.getShaderInfoLog(shaderObject));
 			return;
 		}
 		else if(gl.getShaderInfoLog(shaderObject))
 		{
-			console.error("Shader ("+shaderTypeName+") Compilation Log : "+gl.getShaderInfoLog(shaderObject));
+			console.error(this._vertexShaderPath+" : Shader ("+shaderTypeName+") Compilation Log : "+gl.getShaderInfoLog(shaderObject));
 		}
 		
 		return shaderObject;
@@ -71,7 +74,7 @@ class ShaderProgram
 		
 		if(!gl.getProgramParameter(programID, gl.LINK_STATUS))
 		{
-			console.error('ERROR linking shader : ', gl.getProgramInfoLog(programID));
+			console.error(this._vertexShaderPath + ' : ERROR linking shader : ', gl.getProgramInfoLog(programID));
 			return;
 		}
 		else if(gl.getProgramInfoLog(programID))

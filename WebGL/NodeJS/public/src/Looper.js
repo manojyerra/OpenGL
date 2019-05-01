@@ -16,20 +16,20 @@ class Looper
 		this.floor = new Floor();
 		await this.floor.init();
 		
-		await this.load3DPrimitives();
+		//await this.load3DPrimitives();
 		
-		this.objModel = new ObjLoader();
-		await this.objModel.init("./data/cottage");
-		
-		this.texture = new GLTexture();
-		await this.texture.init('./data/Sample32Bit.png', true);
-		//this.texture.setBounds(100,200,sw,sh);
-		//this.texture.setBounds(1,2,5,2);
-		
-		this.fbo = new GLFBO(sw, sh);
+		//this.objModel = new ObjLoader();
+		//await this.objModel.init("./data/objModels/alien");
 		
 		this.flmModel = new FLMModel();
-		await this.flmModel.init("./data/FLMModel");		
+		await this.flmModel.init("./data/flmModels/alien");
+		
+		//this.texture = new GLTexture();
+		//await this.texture.init('./data/Sample32Bit.png', true);
+		//this.texture.setBounds(100,200,sw,sh);
+		//this.texture.setBounds(1,2,5,2);		
+		
+		//this.fbo = new GLFBO(sw, sh);		
 	}
 	
 	draw()

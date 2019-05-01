@@ -19,16 +19,27 @@ class ObjLoader
 	
 	async init(folderPath)
 	{
+		this._baseTexID = null;
+		this._normalMapTexID = null;
+		
 		await this.readObjFile(folderPath+"/objFile.obj");
-		await this.readTexture(folderPath+"/texture.png");
+		await this.readTextures(folderPath);
+		
+		this._shaderProgram = new ShaderProgram();
+		await this._shaderProgram.init("./shaders/Model/normalMap/Model.vs", "./shaders/Model/normalMap/Model.fs");		
 	}
 	
 	draw()
-	{
-		//gl.enable( gl.TEXTURE_2D );
-		gl.bindTexture(gl.TEXTURE_2D, this._textureID);
-		
+	{				
 		this._shaderProgram.begin();
+
+		gl.activeTexture(gl.TEXTURE0);
+		gl.bindTexture(gl.TEXTURE_2D, this._baseTexID);
+		gl.uniform1i(gl.getUniformLocation(this._shaderProgram.programID, "baseTexture"), 0);
+		
+		gl.activeTexture(gl.TEXTURE0+1);
+		gl.bindTexture(gl.TEXTURE_2D, this._normalMapTexID);
+		gl.uniform1i(gl.getUniformLocation(this._shaderProgram.programID, "normalMap"), 1);
 
 		var projMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "projMat");
 		var modelMatLoc = gl.getUniformLocation(this._shaderProgram.programID, "modelMat");
@@ -64,7 +75,6 @@ class ObjLoader
 		this._shaderProgram.end();
 		
 		gl.bindTexture(gl.TEXTURE_2D, null);		
-		//gl.disable( gl.TEXTURE_2D );
 	}	
 	
 	//private methods...
@@ -183,16 +193,16 @@ class ObjLoader
 			this._normalBufferID = gl.createBuffer();
 			gl.bindBuffer(gl.ARRAY_BUFFER, this._normalBufferID);
 			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normalArr), gl.STATIC_DRAW);
-		}
-		
-		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("./shaders/Model/Model.vs", "./shaders/Model/Model.fs");
+		}		
 	}
 
-	async readTexture(texturePath)
+	async readTextures(folderPath)
 	{
-		var img = await loadTexture(texturePath);
-		this._textureID = GLUtils.generateGLTexureID(img);
+		var img = await loadTexture(folderPath+"/baseTexture.jpg");
+		this._baseTexID = GLUtils.generateGLTexureID(img);
+		
+		img = await loadTexture(folderPath+"/normalMap.jpg");
+		this._normalMapTexID = GLUtils.generateGLTexureID(img);
 	}
 	
 	readFace(line, readUV, readNormal)
