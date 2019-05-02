@@ -94,9 +94,10 @@ unsigned int GLFBO::GetH()
 
 GLFBO::~GLFBO()
 {
-	//TODO : delete depth buffer and texture
-	//gl.deleteRenderbuffer(this._depthBufID);
-	//gl.deleteTexture(this._texID);
-
+	//Delete resources
+	glDeleteTextures(1, &_texID);
+	glDeleteRenderbuffersEXT(1, &_depthBufID);
+	//Bind 0, which means render to back buffer, as a result, fb is unbound
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	glDeleteFramebuffersEXT(1, &_fboID);
 }
