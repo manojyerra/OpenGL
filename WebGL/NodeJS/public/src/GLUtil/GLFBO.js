@@ -77,8 +77,9 @@ class GLFBO
 	
 	deleteFBO()
 	{
+ 		gl.deleteTexture(this._texID);
 		gl.deleteRenderbuffer(this._depthBufID);
-  		gl.deleteTexture(this._texID);
+ 		gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 		gl.deleteFramebuffers(this._fboID);
 	}
 	

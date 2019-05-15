@@ -57,12 +57,31 @@ class FLMModel
 		gl.uniformMatrix4fv(projMatLoc, false, cam3D.projMat.m);
 		gl.uniformMatrix4fv(modelMatLoc, false, cam3D.modelMat.m);
 		gl.uniformMatrix3fv(normalMatLoc, false, cam3D.normalMat);
-		
+
+// Ns 96.078431
+// Ka 1.000000 1.000000 1.000000
+// Kd 0.175206 0.175206 0.175206
+// Ks 0.743243 0.743243 0.743243
+// Ke 0.000000 0.000000 0.000000
+
+// Ns 86.274510
+// Ka 1.000000 1.000000 1.000000
+// Kd 0.308108 0.308108 0.308108
+// Ks 0.290541 0.290541 0.290541
+
+// sliver meterial
+// ambient 0.000000, 0.000000, 0.000000, 1.0
+// diffuse 0.800000, 0.800000, 0.800000, 1.0
+// specular 0.200000, 0.200000, 0.200000, 1.0
+// shininess 0.3
+
+
+
 		gl.uniform3f(gl.getUniformLocation(this._shaderProgram.programID, "lightPos"), 0.0, 0.0, 0.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 1.000000, 1.000000, 1.000000, 1.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "diffuse"), 0.000000, 0.0, 0.000000, 1.0);
-		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "specular"), 0.400000, 0.400000, 0.400000, 1.0);
-		gl.uniform1f(gl.getUniformLocation(this._shaderProgram.programID, "shininess"), 96.078431);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "ambient"), 0.000000, 0.000000, 0.000000, 1.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "diffuse"), 0.800000, 0.800000, 0.800000, 1.0);
+		gl.uniform4f(gl.getUniformLocation(this._shaderProgram.programID, "specular"), 0.200000, 0.200000, 0.200000, 1.0);
+		gl.uniform1f(gl.getUniformLocation(this._shaderProgram.programID, "shininess"), 0.3);
 
 		var vertexID = gl.getAttribLocation(this._shaderProgram.programID, "vertex");
 		gl.enableVertexAttribArray(vertexID);
