@@ -5,8 +5,6 @@ class ShaderProgram
 	{
 	}
 	
-	//public methods...
-	
 	async init(vertexShaderPath, fragmentShaderPath)
 	{
 		this._vertexShaderPath = vertexShaderPath;
@@ -36,7 +34,27 @@ class ShaderProgram
 		gl.useProgram(null);
 	}
 	
+	getVertexShaderFilePath()
+	{
+		return this._vertexShaderPath;
+	}
+	
+	getFragmentShaderFilePath()
+	{
+		return this._fragmentShaderPath;
+	}
+	
+	delete()
+	{
+		if(this.programID != null)
+		{
+			gl.deleteProgram(this.programID);
+		}
+	}
+	
+	////////////////////
 	//private methods...
+	////////////////////
 	
 	compileShader(shaderFileData, shaderType)
 	{
