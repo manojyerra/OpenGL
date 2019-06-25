@@ -15,5 +15,4 @@
 *.opensdf
 *.log
 *.unsuccessfulbuild
-*.vs
 Debug
