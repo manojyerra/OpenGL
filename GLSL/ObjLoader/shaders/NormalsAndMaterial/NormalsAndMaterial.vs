@@ -34,6 +34,7 @@ void main(void)
 	gl_Position = gl_ModelViewProjectionMatrix * vertex;
 }
 
+// perpixel lighting
 
 // #version 120
 
