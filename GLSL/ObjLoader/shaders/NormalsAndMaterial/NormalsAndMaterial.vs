@@ -1,3 +1,6 @@
+
+//Per vertex lighting
+/*
 #version 120
 
 attribute vec4 vertex;
@@ -33,21 +36,24 @@ void main(void)
 
 	gl_Position = gl_ModelViewProjectionMatrix * vertex;
 }
+*/
 
-// perpixel lighting
 
-// #version 120
 
-// attribute vec4 vertex;
-// attribute vec3 normal;
+//Per pixel lighting
 
-// varying vec3 V;
-// varying vec3 N;
+#version 120
 
-// void main(void)
-// {
-	// V = vec3( gl_ModelViewMatrix * vertex );
-	// N = normalize( gl_NormalMatrix * normal );
+attribute vec4 vertex;
+attribute vec3 normal;
 
-	// gl_Position = gl_ModelViewProjectionMatrix * vertex;
-// }
+varying vec3 V;
+varying vec3 N;
+
+void main(void)
+{
+	V = vec3( gl_ModelViewMatrix * vertex );
+	N = normalize( gl_NormalMatrix * normal );
+
+	gl_Position = gl_ModelViewProjectionMatrix * vertex;
+}

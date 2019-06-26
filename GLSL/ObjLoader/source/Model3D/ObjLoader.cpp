@@ -93,8 +93,6 @@ void ObjLoader::ReadObjFile(string filePath)
 
 			for(int i=0; i<3; i++)
 			{
-				buffer->glVertex3f(vertexVec[v[i]]);
-
 				if(uvsExist)
 				{
 					buffer->glTexCoord2f(uvVec[t[i]]);
@@ -104,6 +102,8 @@ void ObjLoader::ReadObjFile(string filePath)
 				{
 					buffer->glNormal3f(normalVec[n[i]]);	
 				}
+
+				buffer->glVertex3f(vertexVec[v[i]]);
 			}
 		}
 
@@ -151,6 +151,7 @@ void ObjLoader::Draw()
 	//glBindBuffer(GL_ARRAY_BUFFER, _colorBufferID);
 	//glVertexAttribPointer(colorID, 4, GL_UNSIGNED_BYTE, GL_TRUE, 0, (void*)0);
 
+
 	GLuint normalID = glGetAttribLocation(_shaderProgram->ProgramID(), "normal");
 	glEnableVertexAttribArray(normalID);
 	glBindBuffer(GL_ARRAY_BUFFER, _normalBufferID);
@@ -159,7 +160,7 @@ void ObjLoader::Draw()
 	GLuint vertexID = glGetAttribLocation(_shaderProgram->ProgramID(), "vertex");
 	glEnableVertexAttribArray(vertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferID);
-	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
+	glVertexAttribPointer(vertexID, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, _vertexCount);
 
