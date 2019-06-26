@@ -58,14 +58,14 @@ class ShadersManager
 
 		if (this._shadersMap.has(key))
 		{
-			console.log("Shader Manager already contains this shader");
+			console.log("ShaderManager: "+key+" Already Present");
 			var shaderInfo = this._shadersMap.get(key);
 			shaderInfo.increaseRefCount();
 			shaderProgram = shaderInfo.getShaderProgram();			
 		}
 		else
 		{
-			console.log("Shader Manager doesn't contains this shader");
+			console.log("ShaderManager: "+key+" Loading...");
 			var shaderProgram = new ShaderProgram();
 			await shaderProgram.init(vertexShader, fragmentShader);
 			var shaderInfo = new ShaderInfo(shaderProgram);

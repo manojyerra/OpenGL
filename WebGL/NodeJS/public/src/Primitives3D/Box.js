@@ -20,7 +20,7 @@ class Box extends Primitive3D
 		this._h = h;
 		this._d = d;
 
-		this.initCommon();
+		await this.initCommon();
 	}
 
 	async initWithMatAndSize(mat, size)
@@ -34,7 +34,7 @@ class Box extends Primitive3D
 		this._h = size.y;
 		this._d = size.z;
 
-		this.initCommon();
+		await this.initCommon();
 	}
 
 	async initWithBox(box)
@@ -52,7 +52,7 @@ class Box extends Primitive3D
 
 		this._id = box.getID();
 
-		this.initCommon();
+		await this.initCommon();
 	}
 
 	async initCommon()
@@ -62,8 +62,7 @@ class Box extends Primitive3D
 		this._vertexCount = 0;
 		this._randomColor = new RandomColor();
 
-		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("shaders/Primitive3D/Primitive3D.vs", "shaders/Primitive3D/Primitive3D.fs");
+		this._shaderProgram = await shadersManager.createShaderProgram("shaders/Primitive3D/Primitive3D.vs", "shaders/Primitive3D/Primitive3D.fs");
 
 		this.generateBufferID();		
 	}

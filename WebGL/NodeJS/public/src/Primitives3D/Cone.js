@@ -18,7 +18,7 @@ class Cone extends Primitive3D
 		this._r = r;
 		this._h = h;
 		
-		this.initCommon();
+		await this.initCommon();
 	}
 	
 	async initWithMatAndSize(mat, r, h)
@@ -31,7 +31,7 @@ class Cone extends Primitive3D
 		this._r = r;
 		this._h = h;
 
-		this.initCommon();
+		await this.initCommon();
 	}
 
 	async initWithCone(cone)
@@ -45,7 +45,7 @@ class Cone extends Primitive3D
 		this._h = cone.getHeight();
 		this._id = cone.getID();
 
-		this.initCommon();
+		await this.initCommon();
 	}
 	
 	async initCommon()
@@ -55,9 +55,8 @@ class Cone extends Primitive3D
 		this._vertexCount = 0;
 		this._randomColor = new RandomColor();
 
-		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("shaders/Primitive3D/Primitive3D.vs", "shaders/Primitive3D/Primitive3D.fs");
-
+		this._shaderProgram = await shadersManager.createShaderProgram("shaders/Primitive3D/Primitive3D.vs", "shaders/Primitive3D/Primitive3D.fs");
+		
 		this.generateBufferID();
 	}
 	

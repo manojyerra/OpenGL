@@ -10,8 +10,7 @@ class Rect
 		this._vertexBufferID = 0;
 		this._vertexCount = 0;
 		
-		this._shaderProgram = new ShaderProgram();		
-		await this._shaderProgram.init("./shaders/SingleColorPrim.vs", "./shaders/SingleColorPrim.fs");
+		this._shaderProgram = await shadersManager.createShaderProgram("./shaders/SingleColorPrim.vs", "./shaders/SingleColorPrim.fs");
 		
 		this.generateBufferID();
 		

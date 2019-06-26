@@ -48,8 +48,7 @@ class Sphere extends Primitive3D
 		this._vertexCount = 0;
 		this._randomColor = new RandomColor();
 
-		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("shaders/Primitive3D/Sphere.vs", "shaders/Primitive3D/Sphere.fs");
+		this._shaderProgram = await shadersManager.createShaderProgram("shaders/Primitive3D/Sphere.vs", "shaders/Primitive3D/Sphere.fs");
 
 		this.generateBufferID();
 	}

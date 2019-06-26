@@ -14,8 +14,7 @@ class Floor
 		this._gridVisible = false;
 		this._gridLinesVisible = true;
 
-		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("./shaders/ColorArray/ColorArray.vs", "./shaders/ColorArray/ColorArray.fs");
+		this._shaderProgram = await shadersManager.createShaderProgram("./shaders/ColorArray/ColorArray.vs", "./shaders/ColorArray/ColorArray.fs");
 
 		var start = -16;
 		var end = 16;

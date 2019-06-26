@@ -25,8 +25,7 @@ class ObjLoader
 		await this.readObjFile(folderPath+"/objFile.obj");
 		await this.readTextures(folderPath);
 		
-		this._shaderProgram = new ShaderProgram();
-		await this._shaderProgram.init("./shaders/Model/normalMap/Model.vs", "./shaders/Model/normalMap/Model.fs");		
+		this._shaderProgram = await shadersManager.createShaderProgram("./shaders/Model/normalMap/Model.vs", "./shaders/Model/normalMap/Model.fs");		
 	}
 	
 	draw()

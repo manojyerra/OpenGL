@@ -12,8 +12,7 @@ class GLTexture
 		this._uvBufferID = 0;
 		this._vertexCount = 0;
 
-		this._shaderProgram = new ShaderProgram();		
-		await this._shaderProgram.init("./shaders/UVArray/UVArray.vs", "./shaders/UVArray/UVArray.fs");
+		this._shaderProgram = await shadersManager.createShaderProgram("./shaders/UVArray/UVArray.vs", "./shaders/UVArray/UVArray.fs");
 		
 		this.generateBufferID(flipY);
 		

@@ -138,7 +138,7 @@ class FLMModel
 			this._indicesPointer = new Uint32Array(indexArrBuffer, 0, this._numIndices);
 		}
 		
-		//creating tangent and bitangent buffers.
+		//Begin: creating tangent and bitangent buffers.
 		
 		this._tangentPointer = new Float32Array(this._verticesPointer.length);
 		this._biTangentPointer = new Float32Array(this._verticesPointer.length);
@@ -223,6 +223,8 @@ class FLMModel
 			btp[1] = biTan.y;
 			btp[2] = biTan.z;
 		}
+		
+		//End: creating tangent and bitangent buffers.
 		
 		this.generateBufferID();
 	}

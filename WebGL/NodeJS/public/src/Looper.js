@@ -16,7 +16,7 @@ class Looper
 		this.floor = new Floor();
 		await this.floor.init();
 		
-		//await this.load3DPrimitives();
+		await this.load3DPrimitives();
 		
 		//this.objModel = new ObjLoader();
 		//await this.objModel.init("./data/objModels/alien");
@@ -24,10 +24,10 @@ class Looper
 		this.flmModel = new FLMModel();
 		await this.flmModel.init("./data/flmModels/alien");
 		
-		//this.texture = new GLTexture();
-		//await this.texture.init('./data/Sample32Bit.png', true);
-		//this.texture.setBounds(100,200,sw,sh);
-		//this.texture.setBounds(1,2,5,2);		
+		this.texture = new GLTexture();
+		await this.texture.init('./data/Sample32Bit.png', true);
+		this.texture.setBounds(100,200,sw,sh);
+		this.texture.setBounds(1,2,5,2);		
 		
 		//this.fbo = new GLFBO(sw, sh);		
 	}
@@ -46,18 +46,15 @@ class Looper
 		
 		cam3D.updateCamera();
 		
-		//this.texture.setBounds(1,2,5,2);
-		//this.texture.draw(cam3D.projMat.m, cam3D.modelMat.m);
+		this.texture.setBounds(1,2,5,2);
+		this.texture.draw(cam3D.projMat.m, cam3D.modelMat.m);
 		
 		this.floor.draw();
 		this.flmModel.draw();
 		//this.objModel.draw();
 		
-		//this.box.draw();
-		//this.cone.draw();
-		//this.cylinder.draw();
-		//this.sphere.draw();
-
+		this.draw3DPrimitives();
+		
 		//gl.disable(gl.DEPTH_TEST);
 		//this.texture.setBounds(10,10,500,500);
 		//this.texture.draw(cam2D.projMat.m, cam2D.modelMat.m);
@@ -107,6 +104,14 @@ class Looper
 		await this.triangle.init(new CVector3(100,100,0), new CVector3(200,200,0), new CVector3(50,200,0));
 		this.triangle.setColor4ub(0, 128, 0, 255);		
 	}	
+
+	draw3DPrimitives()
+	{
+		this.box.draw();
+		this.cone.draw();
+		this.cylinder.draw();
+		this.sphere.draw();
+	}
 }
 
 
