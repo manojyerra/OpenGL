@@ -43,7 +43,7 @@ GameLoop::GameLoop(int sw, int sh)
 	//_fbo = new GLFBO(_sw*0.7, _sh*0.7);
 	//_texture = new GLTexture(_sw*0.7, _sh*0.7);
 
-	_objLoader = new ObjLoader("data/teapot3");
+	_objLoader = new ObjLoader("data/teapot");
 }
 
 void GameLoop::GLSettings()
