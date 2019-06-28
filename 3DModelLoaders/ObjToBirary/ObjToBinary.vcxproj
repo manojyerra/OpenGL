@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="source\CFileReader.cpp" />
     <ClCompile Include="source\DefinesAndIncludes.cpp" />
+    <ClCompile Include="source\FloatArray.cpp" />
     <ClCompile Include="source\GLBuffer.cpp" />
     <ClCompile Include="source\UtilFuncs.cpp" />
     <ClCompile Include="source\Looper.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h" />
     <ClInclude Include="source\DefinesAndIncludes.h" />
+    <ClInclude Include="source\FloatArray.h" />
     <ClInclude Include="source\GLBuffer.h" />
     <ClInclude Include="source\UtilFuncs.h" />
     <ClInclude Include="source\Looper.h" />

@@ -45,7 +45,8 @@ void GLBuffer::SetIncrement(unsigned int increment)
 
 void GLBuffer::ReCreateMem()
 {
-	int newCapacity = 3*_capacity;
+	int newCapacity = 2*_capacity;
+	//int newCapacity = _capacity + _incrementInCapacity;
 
 	//prinf("\n\tNew Capacity : %d\n", newCapacity);
 
