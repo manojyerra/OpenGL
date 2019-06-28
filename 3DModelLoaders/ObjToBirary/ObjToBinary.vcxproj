@@ -140,8 +140,8 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\Arrays\CharPtrArray.cpp" />
     <ClCompile Include="source\Arrays\FloatArray.cpp" />
+    <ClCompile Include="source\Arrays\UIntArray.cpp" />
     <ClCompile Include="source\CFileReader.cpp" />
     <ClCompile Include="source\DefinesAndIncludes.cpp" />
     <ClCompile Include="source\GLBuffer.cpp" />
@@ -152,8 +152,8 @@
     <ClCompile Include="source\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Arrays\CharPtrArray.h" />
     <ClInclude Include="source\Arrays\FloatArray.h" />
+    <ClInclude Include="source\Arrays\UIntArray.h" />
     <ClInclude Include="source\CFileReader.h" />
     <ClInclude Include="source\DefinesAndIncludes.h" />
     <ClInclude Include="source\GLBuffer.h" />

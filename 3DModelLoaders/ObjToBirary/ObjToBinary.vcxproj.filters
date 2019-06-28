@@ -37,7 +37,7 @@
     <ClCompile Include="source\Arrays\FloatArray.cpp">
       <Filter>source\Arrays</Filter>
     </ClCompile>
-    <ClCompile Include="source\Arrays\CharPtrArray.cpp">
+    <ClCompile Include="source\Arrays\UIntArray.cpp">
       <Filter>source\Arrays</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,7 +66,7 @@
     <ClInclude Include="source\Arrays\FloatArray.h">
       <Filter>source\Arrays</Filter>
     </ClInclude>
-    <ClInclude Include="source\Arrays\CharPtrArray.h">
+    <ClInclude Include="source\Arrays\UIntArray.h">
       <Filter>source\Arrays</Filter>
     </ClInclude>
   </ItemGroup>

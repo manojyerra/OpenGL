@@ -1,6 +1,6 @@
-#include "CharPtrArray.h"
+#include "UIntArray.h"
 
-CharPtrArray::CharPtrArray(unsigned int capacity)
+UIntArray::UIntArray(unsigned int capacity)
 {
 	_capacity = capacity;
 	_size = 0;
@@ -8,24 +8,17 @@ CharPtrArray::CharPtrArray(unsigned int capacity)
 	_arr = new unsigned int[_capacity];
 }
 
-void CharPtrArray::ReCreateMem()
+void UIntArray::ReCreateMem()
 {
-	//int newCapacity = 3*_capacity;
-	//float* newArr = new float[newCapacity];
-	//memcpy(newArr,	_arr, _capacity);
-	//delete[] _arr;
-	//_arr = newArr;
-	//_capacity = newCapacity;
-
 	int newCapacity = 3 * _capacity;
 	unsigned int* newArr = new unsigned int[newCapacity];
-	memcpy(newArr, _arr, _capacity);
+	memcpy(newArr, _arr, _capacity*4);
 	delete[] _arr;
 	_arr = newArr;
 	_capacity = newCapacity;
 }
 
-void CharPtrArray::push_back(unsigned int val)
+void UIntArray::push_back(unsigned int val)
 {
 	if (_size + 1 >= _capacity)
 		ReCreateMem();
@@ -35,22 +28,22 @@ void CharPtrArray::push_back(unsigned int val)
 	_size++;
 }
 
-unsigned int CharPtrArray::size()
+unsigned int UIntArray::size()
 {
 	return _size;
 }
 
-unsigned int CharPtrArray::capacity()
+unsigned int UIntArray::capacity()
 {
 	return _capacity;
 }
 
-const unsigned int* CharPtrArray::getArray()
+const unsigned int* UIntArray::getArray()
 {
 	return (unsigned int*)_arr;
 }
 
-CharPtrArray::~CharPtrArray()
+UIntArray::~UIntArray()
 {
 	if(_arr)
 	{

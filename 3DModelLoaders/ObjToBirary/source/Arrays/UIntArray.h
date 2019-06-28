@@ -1,11 +1,11 @@
-#ifndef CharPtrArray_H
-#define CharPtrArray_H
+#ifndef UIntArray_H
+#define UIntArray_H
 #pragma once
 
 #include "DefinesAndIncludes.h"
 #include "Vector3.h"
 
-class CharPtrArray
+class UIntArray
 {
 private:
 	unsigned int _capacity;
@@ -15,8 +15,8 @@ private:
 	void ReCreateMem();
 
 public:
-	CharPtrArray(unsigned int capacity);
-	~CharPtrArray();
+	UIntArray(unsigned int capacity);
+	~UIntArray();
 
 	void push_back(unsigned int val);
 	

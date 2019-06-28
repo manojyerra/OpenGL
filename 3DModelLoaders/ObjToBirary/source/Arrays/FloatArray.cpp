@@ -10,9 +10,9 @@ FloatArray::FloatArray(unsigned int capacity)
 
 void FloatArray::ReCreateMem()
 {
-	int newCapacity = 3*_capacity;
+	int newCapacity = 2*_capacity;
 	float* newArr = new float[newCapacity];
-	memcpy(newArr,	_arr, _capacity);
+	memcpy(newArr,	_arr, _capacity*4);
 	delete[] _arr;
 	_arr = newArr;
 	_capacity = newCapacity;
