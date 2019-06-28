@@ -8,7 +8,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_windowW = windowWidth;
 	_windowH = windowHeight;
 
-	_objToBinary = new ObjToBinary("data/alien");
+	_objToBinary = new ObjToBinary("data/car");
 }
 
 

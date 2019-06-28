@@ -2,10 +2,11 @@
 #include "CFileReader.h"
 #include "UtilFuncs.h"
 #include "GLBuffer.h"
+#include "CharPtrArray.h"
 
 ObjToBinary::ObjToBinary(string folderPath)
 {
-	ReadFileWithGLBuffer(folderPath);
+	//ReadFileWithGLBuffer(folderPath);
 	ReadFileWithArrays(folderPath);
 	//ReadFileWithVectors(folderPath);
 }
@@ -202,25 +203,40 @@ void ObjToBinary::ReadFileWithArrays(string folderPath)
 	vector<CVector3> uvVec;
 	vector<CVector3> normalVec;
 
+	vx = vy = vz =0;
+	tx = ty = 0;
+	nx = ny = nz =0;
+
+	CharPtrArray facesArr(1024*1024);
+
 	while ((line = fileReader.ReadLine()) != NULL)
 	{
 		if (line[0] == 'v' && line[1] == ' ')
 		{
-			sscanf(line, "v %f %f %f", &vx, &vy, &vz);
-			vertexVec.push_back(CVector3(vx, vy, vz));
+			//sscanf(line, "v %f %f %f", &vx, &vy, &vz);
+			//UtilFuncs::scan_vertex(line, &vx, &vy, &vz);
+			//vertexVec.push_back(CVector3(vx, vy, vz));
+			free(line);
 		}
 		else if (line[0] == 'v' && line[1] == 't')
 		{
-			sscanf(line, "vt %f %f", &tx, &ty);
-			uvVec.push_back(CVector3(tx, 1 - ty, 0));
+			//sscanf(line, "vt %f %f", &tx, &ty);
+			//UtilFuncs::scan_uv(line, &tx, &ty);
+			//uvVec.push_back(CVector3(tx, 1 - ty, 0));
+			free(line);
 		}
 		else if (line[0] == 'v' && line[1] == 'n')
 		{
-			sscanf(line, "vn %f %f %f", &nx, &ny, &nz);
-			normalVec.push_back(CVector3(nx, ny, nz));
+			//sscanf(line, "vn %f %f %f", &nx, &ny, &nz);
+			//UtilFuncs::scan_normal(line, &nx, &ny, &nz);
+			//normalVec.push_back(CVector3(nx, ny, nz));
+			free(line);
 		}
-
-		free(line);
+		else
+			if (line[0] == 'f' && line[1] == ' ')
+		{
+			facesArr.push_back((unsigned int)line);
+		}
 	}
 
 	fileReader.Reset();
@@ -236,33 +252,43 @@ void ObjToBinary::ReadFileWithArrays(string folderPath)
 		n[i] = 0;
 	}
 
-	bool uvsExist = uvVec.size() > 1;
-	bool normalsExist = normalVec.size() > 1;
+	bool uvsExist = false;//uvVec.size() > 1;
+	bool normalsExist = true; //normalVec.size() > 1;
 
 	unsigned int vertexReadTime = GetTickCount() - startTime;
-	unsigned int fileParseStartTime = GetTickCount();
-
+	
 	unsigned int initSize = 1024 * 1024 * 10;
-
+	
 	FloatArray vertexFloatArr(initSize * 4);
 	FloatArray uvFloatArr(initSize * 3);
 	FloatArray normalFloatArr(initSize * 4);
 
+	unsigned int fileParseStartTime = GetTickCount();
+
 	if (uvsExist && normalsExist)
 	{
-		while ((line = fileReader.ReadLine()) != NULL)
-		{
-			if (line[0] == 'f' && line[1] == ' ')
-			{
-				sscanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d", &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+		unsigned int facesArrSize = facesArr.size();
+		char** facesArrPtr = (char**)facesArr.getArray();
 
-				UtilFuncs::scanFace_VTN(line, &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+		//while ((line = fileReader.ReadLine()) != NULL)
+		for(int i=0; i<facesArrSize; i++)
+		{
+			line = facesArrPtr[i];
+
+			//if (line[0] == 'f' && line[1] == ' ')
+			{
+				//sscanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d", &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+				//UtilFuncs::scanFace_VTN(line, &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
 
 				for (int i = 0; i < 3; i++)
 				{
-					vertexFloatArr.push_back_3( vertexVec[v[i]-1] );
-					uvFloatArr.push_back_2( uvVec[t[i]-1] );
-					normalFloatArr.push_back_3(normalVec[n[i] - 1]);
+					//vertexFloatArr.push_back_3( vertexVec[v[i]-1] );
+					//uvFloatArr.push_back_2( uvVec[t[i] - 1] );
+					//normalFloatArr.push_back_3(normalVec[n[i] - 1]);
+
+					//vertexFloatArr.push_back_3( vertexVec[0] );
+					//uvFloatArr.push_back_2( uvVec[0] );
+					//normalFloatArr.push_back_3(normalVec[0]);
 				}
 			}
 
@@ -289,20 +315,26 @@ void ObjToBinary::ReadFileWithArrays(string folderPath)
 	}
 	else if (!uvsExist && normalsExist)
 	{
-		while ((line = fileReader.ReadLine()) != NULL)
-		{
-			if (line[0] == 'f' && line[1] == ' ')
-			{
-				sscanf(line, "f %d//%d %d//%d %d//%d", &v[0], &n[0], &v[1], &n[1], &v[2], &n[2]);
+		unsigned int facesArrSize = facesArr.size();
+		unsigned int* facesArrPtr = (unsigned int*)facesArr.getArray();
 
-				for (int i = 0; i < 3; i++)
-				{
-					vertexFloatArr.push_back_3(vertexVec[v[i] - 1]);
-					normalFloatArr.push_back_3(normalVec[n[i] - 1]);
-				}
+		//while ((line = fileReader.ReadLine()) != NULL)
+		for (int i = 0; i < facesArrSize; i++)
+		{
+			line = (char*)facesArrPtr[i];
+
+			//if (line[0] == 'f' && line[1] == ' ')
+			{
+				//sscanf(line, "f %d//%d %d//%d %d//%d", &v[0], &n[0], &v[1], &n[1], &v[2], &n[2]);
+
+				//for (int i = 0; i < 3; i++)
+				//{
+				//	vertexFloatArr.push_back_3(vertexVec[v[i] - 1]);
+				//	normalFloatArr.push_back_3(normalVec[n[i] - 1]);
+				//}
 			}
 
-			free(line);
+			free((char*)line);
 		}
 	}
 	else if (!uvsExist && !normalsExist)
@@ -355,6 +387,7 @@ void ObjToBinary::ReadFileWithArrays(string folderPath)
 
 	unsigned int fileWritingTime = GetTickCount() - fileWriteStartTime;
 	unsigned int totalTime = GetTickCount() - startTime;
+	
 }
 
 
