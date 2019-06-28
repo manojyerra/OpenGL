@@ -63,7 +63,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;source/Arrays;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -140,9 +140,10 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Arrays\CharPtrArray.cpp" />
+    <ClCompile Include="source\Arrays\FloatArray.cpp" />
     <ClCompile Include="source\CFileReader.cpp" />
     <ClCompile Include="source\DefinesAndIncludes.cpp" />
-    <ClCompile Include="source\FloatArray.cpp" />
     <ClCompile Include="source\GLBuffer.cpp" />
     <ClCompile Include="source\UtilFuncs.cpp" />
     <ClCompile Include="source\Looper.cpp" />
@@ -151,9 +152,10 @@
     <ClCompile Include="source\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Arrays\CharPtrArray.h" />
+    <ClInclude Include="source\Arrays\FloatArray.h" />
     <ClInclude Include="source\CFileReader.h" />
     <ClInclude Include="source\DefinesAndIncludes.h" />
-    <ClInclude Include="source\FloatArray.h" />
     <ClInclude Include="source\GLBuffer.h" />
     <ClInclude Include="source\UtilFuncs.h" />
     <ClInclude Include="source\Looper.h" />

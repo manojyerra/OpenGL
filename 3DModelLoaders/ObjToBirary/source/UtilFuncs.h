@@ -14,4 +14,13 @@ public:
 	static void PrintFloatBits(float val);
 
 	static void Normalize(float* nx, float* ny, float* nz);
+
+	static void scanFace_VTN(char* str,
+		int* v1, int* t1, int* n1,
+		int* v2, int* t2, int* n2,
+		int* v3, int* t3, int* n3
+		);
+
+	//sscanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d", &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+
 };

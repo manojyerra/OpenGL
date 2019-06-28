@@ -64,3 +64,31 @@ void UtilFuncs::Normalize(float* nx, float* ny, float* nz)
 	ny[0] = y / len;
 	nz[0] = z / len;
 }
+
+void UtilFuncs::scanFace_VTN(char* str,
+	int* v1, int* t1, int* n1,
+	int* v2, int* t2, int* n2,
+	int* v3, int* t3, int* n3)
+{
+	//f %d/%d/%d %d/%d/%d %d/%d/%d
+	string line = "f 6579/7509/6663 16348/7620/6774 16347/7617/6771";
+	str = (char*)line.c_str();
+
+	int i = 2;
+	int s = 2;
+
+	while (str[++i] != '/');
+	str[i] = '\0';
+	v1[0] = atoi( &str[s] );
+
+	s = i + 1;
+	while (str[++i] != '/');
+	str[i] = '\0';
+	t1[0] = atoi(&str[s]);
+
+	s = i + 1;
+	while (str[++i] != ' ');
+	str[i] = '\0';
+	n1[0] = atoi(&str[s]);
+
+}

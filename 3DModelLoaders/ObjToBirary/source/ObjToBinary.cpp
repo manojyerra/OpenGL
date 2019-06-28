@@ -256,6 +256,8 @@ void ObjToBinary::ReadFileWithArrays(string folderPath)
 			{
 				sscanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d", &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
 
+				UtilFuncs::scanFace_VTN(line, &v[0], &t[0], &n[0], &v[1], &t[1], &n[1], &v[2], &t[2], &n[2]);
+
 				for (int i = 0; i < 3; i++)
 				{
 					vertexFloatArr.push_back_3( vertexVec[v[i]-1] );
