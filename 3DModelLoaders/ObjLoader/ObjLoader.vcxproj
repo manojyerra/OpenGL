@@ -63,7 +63,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;source/Arrays;source/Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -140,13 +140,17 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Arrays\FloatArray.cpp" />
+    <ClCompile Include="source\Arrays\UIntArray.cpp" />
     <ClCompile Include="source\CFileReader.cpp" />
+    <ClCompile Include="source\DefinesAndIncludes.cpp" />
     <ClCompile Include="source\Floor.cpp" />
     <ClCompile Include="source\GLAndUtil.cpp" />
     <ClCompile Include="source\ImageBuffer.cpp" />
     <ClCompile Include="source\Input.cpp" />
     <ClCompile Include="source\Looper.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Math\Vector3.cpp" />
     <ClCompile Include="source\ObjLoader.cpp" />
     <ClCompile Include="source\PNG\libpng\png.c" />
     <ClCompile Include="source\PNG\libpng\pngerror.c" />
@@ -184,12 +188,16 @@
     <ClCompile Include="source\UtilFuncs.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Arrays\FloatArray.h" />
+    <ClInclude Include="source\Arrays\UIntArray.h" />
     <ClInclude Include="source\CFileReader.h" />
+    <ClInclude Include="source\DefinesAndIncludes.h" />
     <ClInclude Include="source\Floor.h" />
     <ClInclude Include="source\GLAndUtil.h" />
     <ClInclude Include="source\ImageBuffer.h" />
     <ClInclude Include="source\Input.h" />
     <ClInclude Include="source\Looper.h" />
+    <ClInclude Include="source\Math\Vector3.h" />
     <ClInclude Include="source\ObjLoader.h" />
     <ClInclude Include="source\PNG\libpng\png.h" />
     <ClInclude Include="source\PNG\libpng\pngconf.h" />

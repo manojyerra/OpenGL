@@ -14,7 +14,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	GLAndUtil::Init(_windowW, _windowH);
 
-	_objLoader = new ObjLoader("data/cottage");
+	_objLoader = new ObjLoader("data/carScaled");
 }
 
 void Looper::Update(float deltaTime)
@@ -23,7 +23,7 @@ void Looper::Update(float deltaTime)
 
 void Looper::Draw()
 {
-	util::ClearColor(0.6, 0.6, 0.6, 1);
+	util::ClearColor(0.0, 0.0, 0.0, 1);
 	util::Clear();
 	util::Begin3DDraw();
 	
@@ -40,18 +40,18 @@ void Looper::Draw()
 
 	Floor::Draw();
 	
-	GLfloat qaGreen[] = {0.4, 0.8, 0.4, 1.0};
-	GLfloat qaWhite[] = {0.1, 0.1, 0.1, 0.0};
-	GLfloat qaBlack[] = {0.3, 0.3, 0.3, 1.0};
+	//GLfloat qaGreen[] = {0.4, 0.8, 0.4, 1.0};
+	//GLfloat qaWhite[] = {0.1, 0.1, 0.1, 0.0};
+	//GLfloat qaBlack[] = {0.3, 0.3, 0.3, 1.0};
 
 	GLfloat Ka[] = { 0.600000, 0.600000, 0.600000, 1.0};
-	GLfloat Kd[] = { 0.600000, 0.600000, 0.600000, 1.0};
+	GLfloat Kd[] = { 0.400000, 0.400000, 0.400000, 1.0};
 	GLfloat Ks[] = { 0.900000, 0.900000, 0.900000, 1.0};
 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, Ka);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, Kd);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, Ks);
-	glMaterialf(GL_FRONT, GL_SHININESS, 1.0);
+	glMaterialf(GL_FRONT, GL_SHININESS, 20.0);
 
 	_objLoader->Draw();
 }

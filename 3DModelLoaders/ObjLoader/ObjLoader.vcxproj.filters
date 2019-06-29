@@ -14,6 +14,12 @@
     <Filter Include="Source Files\PNG\zlib">
       <UniqueIdentifier>{55a4177e-fd34-4c41-8315-e1b3df4372c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Arrays">
+      <UniqueIdentifier>{6a177b7a-3715-4626-8bf2-1db2f65e0e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{781701e7-b64a-4b81-9a97-5af43bf01455}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CFileReader.cpp">
@@ -142,6 +148,18 @@
     <ClCompile Include="source\PNG\zlib\zutil.c">
       <Filter>Source Files\PNG\zlib</Filter>
     </ClCompile>
+    <ClCompile Include="source\Arrays\FloatArray.cpp">
+      <Filter>Source Files\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Arrays\UIntArray.cpp">
+      <Filter>Source Files\Arrays</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Math\Vector3.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DefinesAndIncludes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
@@ -212,6 +230,18 @@
     </ClInclude>
     <ClInclude Include="source\PNG\zlib\zutil.h">
       <Filter>Source Files\PNG\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Arrays\FloatArray.h">
+      <Filter>Source Files\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Arrays\UIntArray.h">
+      <Filter>Source Files\Arrays</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\Vector3.h">
+      <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DefinesAndIncludes.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

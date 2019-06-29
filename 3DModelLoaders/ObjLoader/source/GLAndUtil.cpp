@@ -77,7 +77,7 @@ void GLAndUtil::Begin3DDraw()
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	SetFrustum(-_zNearPlaneW, _zNearPlaneW, -_zNearPlaneW*SH/SW, _zNearPlaneW*SH/SW, 1, 10000);
+	SetFrustum(-_zNearPlaneW, _zNearPlaneW, -_zNearPlaneW*SH/SW, _zNearPlaneW*SH/SW, 1, 100000);
 }
 
 void GLAndUtil::SetModelViewMatrix()

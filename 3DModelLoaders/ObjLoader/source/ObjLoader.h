@@ -1,5 +1,10 @@
-#include <windows.h>
-#include <gl/gl.h>
+#ifndef ObjLoader_H
+#define ObjLoader_H
+
+#include "DefinesAndIncludes.h"
+#include "FloatArray.h"
+#include "UIntArray.h"
+
 #include <vector>
 #include <string>
 using namespace std;
@@ -23,13 +28,9 @@ public:
 class ObjLoader
 {
 private:
-	vector<Point> vertexVec;
-	vector<Point> uvVec;
-	vector<Point> normalVec;
-
-	vector<float> vertexFloatArr;
-	vector<float> uvFloatArr;
-	vector<float> normalFloatArr;
+	FloatArray vertexFloatArr;
+	FloatArray uvFloatArr;
+	FloatArray normalFloatArr;
 
 	unsigned int _textureID;
 
@@ -39,3 +40,5 @@ public:
     ObjLoader(string filePath);
     void Draw();
 };
+
+#endif
