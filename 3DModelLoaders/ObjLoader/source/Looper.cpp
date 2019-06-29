@@ -14,7 +14,14 @@ Looper::Looper(int windowWidth, int windowHeight)
 
 	GLAndUtil::Init(_windowW, _windowH);
 
-	_objLoader = new ObjLoader("data/carScaled");
+	_objLoader = new ObjLoader("data/alien");
+	_objLoader->WriteBinaryData("data/alien");
+
+	//_objLoader = new ObjLoader("data/cottage");
+	//_objLoader->WriteBinaryData("data/cottage");
+
+	//_objLoader = new ObjLoader("data/foot");
+	//_objLoader->WriteBinaryData("data/foot");
 }
 
 void Looper::Update(float deltaTime)

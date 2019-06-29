@@ -160,6 +160,38 @@ void ObjLoader::ReadObjFile(string filePath)
 	}
 }
 
+
+void ObjLoader::WriteBinaryData(string folderPath)
+{
+	if (vertexFloatArr.size() > 0)
+	{
+		string bufFilePath = folderPath + "/vertex.buf";
+		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+		fwrite(vertexFloatArr.getArray(), 4, vertexFloatArr.size(), bufFile);
+		fflush(bufFile);
+		fclose(bufFile);
+	}
+
+	if (uvFloatArr.size() > 0)
+	{
+		string bufFilePath = folderPath + "/uv.buf";
+		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+		fwrite(uvFloatArr.getArray(), 4, uvFloatArr.size(), bufFile);
+		fflush(bufFile);
+		fclose(bufFile);
+	}
+
+	if (normalFloatArr.size() > 0)
+	{
+		string bufFilePath = folderPath + "/normal.buf";
+		FILE* bufFile = fopen(bufFilePath.c_str(), "wb");
+		fwrite(normalFloatArr.getArray(), 4, normalFloatArr.size(), bufFile);
+		fflush(bufFile);
+		fclose(bufFile);
+	}
+
+}
+
 void ObjLoader::Draw()
 {
 	glEnableClientState(GL_VERTEX_ARRAY);

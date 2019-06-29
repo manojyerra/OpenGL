@@ -38,6 +38,8 @@ private:
 
 public:
     ObjLoader(string filePath);
+
+	void WriteBinaryData(string folderPath);
     void Draw();
 };
 
