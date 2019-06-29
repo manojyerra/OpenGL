@@ -15,6 +15,9 @@ Looper::Looper(int windowWidth, int windowHeight)
 	GLAndUtil::Init(_windowW, _windowH);
 
 	_binaryObjLoader = new BinaryObjLoader("data/alien");
+	//_binaryObjLoader = new BinaryObjLoader("data/cottage");
+	//_binaryObjLoader = new BinaryObjLoader("data/foot");
+	//_binaryObjLoader = new BinaryObjLoader("data/carScaled");
 }
 
 void Looper::Update(float deltaTime)
