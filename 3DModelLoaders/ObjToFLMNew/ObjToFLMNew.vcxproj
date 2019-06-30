@@ -145,10 +145,10 @@
     <ClCompile Include="source\CFileReader.cpp" />
     <ClCompile Include="source\DefinesAndIncludes.cpp" />
     <ClCompile Include="source\Math\Vector3.cpp" />
+    <ClCompile Include="source\ObjToFLMNew.cpp" />
     <ClCompile Include="source\UtilFuncs.cpp" />
     <ClCompile Include="source\Looper.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\ObjToFLMNew.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Arrays\FloatArray.h" />
@@ -156,9 +156,9 @@
     <ClInclude Include="source\CFileReader.h" />
     <ClInclude Include="source\DefinesAndIncludes.h" />
     <ClInclude Include="source\Math\Vector3.h" />
+    <ClInclude Include="source\ObjToFLMNew.h" />
     <ClInclude Include="source\UtilFuncs.h" />
     <ClInclude Include="source\Looper.h" />
-    <ClInclude Include="source\ObjToFLMNew.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

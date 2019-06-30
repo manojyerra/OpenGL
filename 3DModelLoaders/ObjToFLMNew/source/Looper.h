@@ -1,7 +1,7 @@
 #ifndef Looper_H
 #define Looper_H
 
-#include "ObjToFLM.h"
+#include "ObjToFLMNew.h"
 
 class Looper
 {
@@ -9,7 +9,7 @@ private:
 	float _windowW;
 	float _windowH;
 
-	ObjToFLM* _objToFLM;
+	ObjToFLMNew* _objToFLM;
 
 public:
 	Looper(int windowWidth, int windowHeight);

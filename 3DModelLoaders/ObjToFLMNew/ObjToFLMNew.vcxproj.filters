@@ -22,9 +22,6 @@
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\ObjToFLMNew.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\DefinesAndIncludes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,15 +37,15 @@
     <ClCompile Include="source\Math\Vector3.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
+    <ClCompile Include="source\ObjToFLMNew.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CFileReader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="source\Looper.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ObjToFLMNew.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="source\DefinesAndIncludes.h">
@@ -65,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="source\Math\Vector3.h">
       <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ObjToFLMNew.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

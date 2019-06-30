@@ -8,7 +8,7 @@ Looper::Looper(int windowWidth, int windowHeight)
 	_windowW = windowWidth;
 	_windowH = windowHeight;
 
-	_objToFLM = new ObjToFLM("data/alien");
+	_objToFLM = new ObjToFLMNew("data/Container");
 }
 
 
