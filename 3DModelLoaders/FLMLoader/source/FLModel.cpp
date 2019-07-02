@@ -5,6 +5,16 @@
 
 FLModel::FLModel(string folderPath)
 {
+	Init(folderPath, FLM_WITH_INDEX_SIZE);
+}
+
+FLModel::FLModel(string folderPath, int type)
+{
+	Init(folderPath, FLM_WITHOUT_INDEX_SIZE);
+}
+
+void FLModel::Init(string folderPath, int type)
+{
 	_verticesPointer = NULL;
 	_uvsPointer = NULL;
 	_normalsPointer = NULL;
@@ -69,13 +79,27 @@ FLModel::FLModel(string folderPath)
 		memcpy(_indicesPointer, fileReader->GetData(), fileLen);
 		delete fileReader;
 
-		int val = _indicesPointer[fileLen-4];
+		if (type == FLM_WITH_INDEX_SIZE)
+		{
+			int val = _indicesPointer[fileLen-4];
 
-		if(val == 1)		_indicesType = GL_UNSIGNED_BYTE;
-		else if(val == 2)	_indicesType = GL_UNSIGNED_SHORT;
-		else if(val == 4)	_indicesType = GL_UNSIGNED_INT;
+			if (val == 1)		_indicesType = GL_UNSIGNED_BYTE;
+			else if (val == 2)	_indicesType = GL_UNSIGNED_SHORT;
+			else if (val == 4)	_indicesType = GL_UNSIGNED_INT;
 
-		_numIndices = (fileLen-4)/val;
+			_numIndices = (fileLen-4) / val;
+		}
+		else if (type == FLM_WITHOUT_INDEX_SIZE)
+		{
+			int val = 4;
+
+			_indicesType = GL_UNSIGNED_INT;
+			_numIndices = fileLen / val;
+		}
+		else
+		{
+			throw "Invaid FLM type";
+		}
 	}
 
 	ImageBuffer* imgBuf = new ImageBuffer(folderPath+"/texture.png");

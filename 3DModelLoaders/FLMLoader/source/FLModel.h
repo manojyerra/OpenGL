@@ -17,7 +17,13 @@ private:
 	unsigned int _textureID;
 	unsigned int _numVertex;
 
+	void Init(string filePath, int type);
+
 public:
-    FLModel(string filePath);
+	static const int FLM_WITHOUT_INDEX_SIZE = 1;
+	static const int FLM_WITH_INDEX_SIZE = 2;
+
+    FLModel(string folderPath);
+	FLModel(string folderPath, int type);
     void Draw();
 };
